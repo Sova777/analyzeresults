@@ -70,7 +70,8 @@ void analize_results(struct RESULTS_STRUCT* y, string par) {
 //        }
 
         cout << y->id << ";" << y->date << ";" <<
-            clubInfo->getName(y->team_id_1, par) << ";" << clubInfo->getName(y->team_id_2, par) << ";" <<
+            clubInfo->getName(y->team_id_1, par) << ";" <<
+            clubInfo->getName(y->team_id_2, par) << ";" <<
             y->goals_1 << ";" << y->goals_2 << ";" <<
             y->round << " тур" << endl;
 
@@ -80,7 +81,8 @@ void analize_results(struct RESULTS_STRUCT* y, string par) {
 }
 //
 void analize_years(struct YEARS_STRUCT* y) {
-    /*if (y->year == "2009")*/ LoadResults(y->file_results, analize_results, y->file_results);
+    /*if (y->year == "2009")*/
+    LoadResults(y->file_results, analize_results, y->file_results);
     return;
 }
 
