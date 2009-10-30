@@ -38,8 +38,8 @@ using namespace std;
 #define DATE_DELIM ','
 
 /*
- * ������� ��������� ������ str
- * ���������� ���������� ������������� ������������ �������.
+ * функция принимает строку str
+ * возвращает количество встретившихся разделителей колонок.
  */
 int count_columns(const string str) {
     int i = 0, count = 0;
@@ -55,8 +55,8 @@ int count_columns(const string str) {
 }
 
 /*
- * ������� ��������� ������ str
- * ���������� ��������� ���������� str.
+ * Функция принимает строку str
+ * возвращает урезанную переменную str.
  */
 string next_column(const string str) {
     size_t p = str.find(FIELD_DELIM);
@@ -75,8 +75,8 @@ string next_column(const string str) {
 }
 
 /*
- * ������� ��������� ������ str, �� ������ ���������� column
- * �������� ��������� ���������� str.
+ * функция принимает строку str, на выходе переменная column
+ * содержит урезанную переменную str.
  */
 string get_column(const string str) {
     int i = 0;
