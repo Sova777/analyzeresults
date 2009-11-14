@@ -16,7 +16,7 @@ CC=cc
 CCC=CC
 CXX=CC
 FC=f95
-AS=
+AS=as
 
 # Macros
 CND_PLATFORM=SunStudio-Solaris-x86
