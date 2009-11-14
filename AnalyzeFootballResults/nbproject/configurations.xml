@@ -53,7 +53,7 @@
     <conf name="Release" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>MinGW|MinGW</compilerSet>
+        <compilerSet>SunStudio|SunStudio</compilerSet>
         <platform>1</platform>
       </toolsSet>
       <compileType>
