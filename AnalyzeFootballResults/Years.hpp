@@ -25,24 +25,25 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _RESULTS_H
-#define	_RESULTS_H
+#ifndef _YEARS_H
+#define	_YEARS_H
 
 #include <string>
 
-struct RESULTS_STRUCT {
+struct YEARS_STRUCT {
     std::string id;
-    std::string date;
-    std::string team_id_1;
-    std::string team_id_2;
-    std::string goals_1;
-    std::string goals_2;
-    std::string round;
+    std::string year;
+    std::string file_results;
+    std::string level;
+    std::string file_goals;
+    std::string title;
 };
 
-void print_results_struct(struct RESULTS_STRUCT* results_struct);
-void clear_results_struct(struct RESULTS_STRUCT* results_struct);
-int LoadResults(std::string file_name, void (*function)(struct RESULTS_STRUCT* results_struct, std::string parameter), std::string par);
+class Years {
+public:
+    static void print(struct YEARS_STRUCT* years_struct);
+    static void clear(struct YEARS_STRUCT* years_struct);
+    static bool load(void (*function)(struct YEARS_STRUCT* years_struct));
+};
 
-#endif	/* _RESULTS_H */
-
+#endif	/* _YEARS_H */

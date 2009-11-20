@@ -25,20 +25,29 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CLUBS_H
-#define	_CLUBS_H
+#ifndef _RESULTS_H
+#define	_RESULTS_H
 
 #include <string>
 
-struct CLUBS_STRUCT {
+#include "ParseLine.hpp"
+
+struct RESULTS_STRUCT {
     std::string id;
-    std::string club;
-    std::string city;
+    std::string date;
+    std::string team_id_1;
+    std::string team_id_2;
+    std::string goals_1;
+    std::string goals_2;
+    std::string round;
 };
 
-void print_clubs_struct(struct CLUBS_STRUCT* clubs_struct);
-void clear_clubs_struct(struct CLUBS_STRUCT* clubs_struct);
-int LoadClubs(void (*function)(struct CLUBS_STRUCT* clubs_struct));
+class Results : public ParseLine {
+public:
+    static void print(struct RESULTS_STRUCT* results_struct);
+    static void clear(struct RESULTS_STRUCT* results_struct);
+    static int load(std::string file_name, void (*function)(struct RESULTS_STRUCT* results_struct, std::string parameter), std::string par);
+};
 
-#endif	/* _CLUBS_H */
+#endif	/* _RESULTS_H */
 

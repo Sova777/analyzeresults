@@ -25,42 +25,17 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef _UTILS_H
+#define	_UTILS_H
+
 #include <string>
-#include <iostream>
-#include "club_info_name.h"
 
-using namespace std;
+class Utils {
+public:
+    enum EVENT { WIN, DRAW, LOSE, OTHER_TEAMS, EMPTY, UNKNOWN };
+    static int toInt(std::string& str);
+    static EVENT event(struct RESULTS_STRUCT* y, std::string club_id);
+};
 
-ClubInfoName* ClubInfoName::instance = NULL;
+#endif	/* _UTILS_H */
 
-ClubInfoName* ClubInfoName::getInstance() {
-    if (instance != NULL) return instance;
-    instance = new ClubInfoName();
-    return instance;
-}
-
-string ClubInfoName::getName(string id, string season_code) {
-    string uniqKey = id + "/" + season_code;
-    ClubNames::iterator it;
-    it = club_names.find(uniqKey);
-    if (it != club_names.end()) {
-        return it->second;
-    }
-    this->season = season_code;
-    isFound = false;
-    rows r = load(id);
-    club_names[uniqKey] = r[""];
-    isFound = false;
-    return r[""];
-}
-
-bool ClubInfoName::record(struct CLUB_INFO_STRUCT* y, std::string* key, std::string* value) {
-    if (isFound == true) return false;
-    if (y->fl == season) {
-        *key = "";
-        *value = y->n;
-        isFound = true;
-        return true;
-    }
-    return false;
-}

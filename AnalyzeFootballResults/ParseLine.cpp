@@ -25,18 +25,68 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _PARSE_FILE_H
-#define	_PARSE_FILE_H
-
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
 #include <string>
-#include <map>
 
-#define FileNotFound "файл не найден"
+#include "ParseLine.hpp"
 
-typedef std::map<std::string, std::string> rows;
+using namespace std;
 
-int count_columns(const std::string str);
-std::string next_column(const std::string str);
-std::string get_column(const std::string str);
+#define FIELD_DELIM ';'
+#define DATE_DELIM ','
 
-#endif	/* _PARSE_FILE_H */
+/*
+ * функция принимает строку str
+ * возвращает количество встретившихся разделителей колонок.
+ */
+int ParseLine::countColumns(const string str) {
+    int i = 0, count = 0;
+    if (str == "") return 0;
+    int len = str.length();
+
+    while (i < len) {
+        if (str[i] == FIELD_DELIM) count++;
+        i++;
+    }
+
+    return count + 1;
+}
+
+/*
+ * Функция принимает строку str
+ * возвращает урезанную переменную str.
+ */
+string ParseLine::nextColumn(const string str) {
+    size_t p = str.find(FIELD_DELIM);
+    if (p == string::npos) return "";
+    string line = str.substr(p + 1);
+    int len = line.length();
+    int i;
+    char c;
+    for (i = 0; i < len; i++) {
+        c = line[len - 1 - i];
+        if ((c != ' ') && (c != '\r') && (c != '\n') && (c != '\t')) {
+            break;
+        }
+    }
+    return line.substr(0, len - i);
+}
+
+/*
+ * функция принимает строку str, на выходе переменная column
+ * содержит урезанную переменную str.
+ */
+string ParseLine::getColumn(const string str) {
+    int i = 0;
+    string column;
+
+    if (str == "") {
+        column = "";
+        return column;
+    }
+
+    column = str.substr(0, str.find(FIELD_DELIM));
+    return column;
+}

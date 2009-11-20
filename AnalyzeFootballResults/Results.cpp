@@ -31,33 +31,41 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <vector>
 
-#include "parse_file.h"
-#include "clubs.h"
+#include "ParseLine.hpp"
+#include "Results.hpp"
 
 using namespace std;
 
-void print_clubs_struct(struct CLUBS_STRUCT* clubs_struct) {
-    cout << clubs_struct->id << ";" <<
-            clubs_struct->club << ";" <<
-            clubs_struct->city << endl;
+void Results::print(struct RESULTS_STRUCT* results_struct) {
+    cout << results_struct->id << ";" <<
+            results_struct->date << ";" <<
+            results_struct->team_id_1 << ";" <<
+            results_struct->team_id_2 << ";" <<
+            results_struct->goals_1 << ";" <<
+            results_struct->goals_2 << ";" <<
+            results_struct->round << endl;
     return;
 }
 
-void clear_clubs_struct(struct CLUBS_STRUCT* clubs_struct) {
-    clubs_struct->id = "";
-    clubs_struct->club = "";
-    clubs_struct->city = "";
+void Results::clear(struct RESULTS_STRUCT* results_struct) {
+    results_struct->id = "";
+    results_struct->date = "";
+    results_struct->team_id_1 = "";
+    results_struct->team_id_2 = "";
+    results_struct->goals_1 = "";
+    results_struct->goals_2 = "";
+    results_struct->round = "";
     return;
 }
 
-int LoadClubs(void (*function)(struct CLUBS_STRUCT* clubs_struct)) {
-    struct CLUBS_STRUCT y;
+int Results::load(string file_name, void (*function)(struct RESULTS_STRUCT* results_struct, string parameter), string par) {
+    struct RESULTS_STRUCT y;
     string line;
-    string p_line;
-    string file_name = "club";
-    string full_file_name = "data/" + file_name + ".txt";
+    string p_line = line;
+    string full_file_name;
     string s;
 
+    full_file_name = "data/" + file_name + ".txt";
     ifstream f;
     f.open(full_file_name.c_str());
     if (!f) {
@@ -74,28 +82,36 @@ int LoadClubs(void (*function)(struct CLUBS_STRUCT* clubs_struct)) {
 
     p_line = line;
     do {
-        s = get_column(p_line);
+        s = getColumn(p_line);
         headers.push_back(s);
-    } while ((p_line = next_column(p_line)) != "");
+    } while ((p_line = nextColumn(p_line)) != "");
 
     while (!f.eof()) {
         getline(f, line);
         if (line == "") continue;
         int i = 0;
         p_line = line;
-        clear_clubs_struct(&y);
+        clear(&y);
         do {
-            s = get_column(p_line);
+            s = getColumn(p_line);
             if (headers[i] == "id") {
                 y.id = s;
-            } else if (headers[i] == "cl") {
-                y.club = s;
-            } else if (headers[i] == "ct") {
-                y.city = s;
+            } else if (headers[i] == "d") {
+                y.date = s;
+            } else if (headers[i] == "t1") {
+                y.team_id_1 = s;
+            } else if (headers[i] == "t2") {
+                y.team_id_2 = s;
+            } else if (headers[i] == "g1") {
+                y.goals_1 = s;
+            } else if (headers[i] == "g2") {
+                y.goals_2 = s;
+            } else if (headers[i] == "r") {
+                y.round = s;
             }
             i++;
-        } while ((p_line = next_column(p_line)) != "");
-        (*function)(&y);
+        } while ((p_line = nextColumn(p_line)) != "");
+        (*function)(&y, par);
     }
     f.close();
     return EXIT_SUCCESS;

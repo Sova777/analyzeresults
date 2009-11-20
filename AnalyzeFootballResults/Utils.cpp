@@ -25,22 +25,49 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _YEARS_H
-#define	_YEARS_H
-
+#include <cstdlib>
+#include <iostream>
+#include <map>
+#include <sstream>
 #include <string>
+#include "Utils.hpp"
 
-struct YEARS_STRUCT {
-    std::string id;
-    std::string year;
-    std::string file_results;
-    std::string level;
-    std::string file_goals;
-    std::string title;
-};
+#include "Results.hpp"
 
-void print_years_struct(struct YEARS_STRUCT* years_struct);
-void clear_years_struct(struct YEARS_STRUCT* years_struct);
-bool LoadYear(void (*function)(struct YEARS_STRUCT* years_struct));
+using namespace std;
 
-#endif	/* _YEARS_H */
+int Utils::toInt(string& str) {
+    stringstream ss;
+    int n;
+    ss.str(str);
+    if (!(ss >> n)) {
+        return -1;
+    }
+    return n;
+}
+
+Utils::EVENT Utils::event(struct RESULTS_STRUCT* y, string club_id) {
+    string goals_1;
+    string goals_2;
+    if (y->team_id_1 == club_id) {
+        goals_1 = y->goals_1;
+        goals_2 = y->goals_2;
+    } else if (y->team_id_2 == club_id) {
+        goals_1 = y->goals_2;
+        goals_2 = y->goals_1;
+    } else {
+        return OTHER_TEAMS;
+    }
+
+    if (goals_1 == "+") return WIN;
+    if (goals_1 == "-") return LOSE;
+    if (goals_1 == "") return EMPTY;
+    int g1 = toInt(goals_1);
+    if (g1 < 0) return UNKNOWN;
+    int g2 = toInt(goals_2);
+    if (g2 < 0) return UNKNOWN;
+    if (g1 > g2) return WIN;
+    if (g1 == g2) return DRAW;
+    if (g1 < g2) return LOSE;
+    return UNKNOWN;
+}
