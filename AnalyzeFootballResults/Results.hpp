@@ -42,7 +42,7 @@ struct RESULTS_STRUCT {
     std::string round;
 };
 
-class Results : public ParseLine {
+class Results : protected ParseLine {
 public:
     static void print(struct RESULTS_STRUCT* results_struct);
     static void clear(struct RESULTS_STRUCT* results_struct);

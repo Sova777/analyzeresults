@@ -75,9 +75,9 @@ bool Years::load(void (*function)(struct YEARS_STRUCT* years_struct)) {
 
     p_line = line;
     do {
-        s = ParseLine::getColumn(p_line);
+        s = getColumn(p_line);
         headers.push_back(s);
-    } while ((p_line = ParseLine::nextColumn(p_line)) != "");
+    } while ((p_line = nextColumn(p_line)) != "");
 
     while (!f.eof()) {
         getline(f, line);
@@ -86,7 +86,7 @@ bool Years::load(void (*function)(struct YEARS_STRUCT* years_struct)) {
         p_line = line;
         clear(&y);
         do {
-            s = ParseLine::getColumn(p_line);
+            s = getColumn(p_line);
             if (headers[i] == "y") {
                 y.year = s;
             } else if (headers[i] == "t") {
@@ -101,7 +101,7 @@ bool Years::load(void (*function)(struct YEARS_STRUCT* years_struct)) {
                 y.file_goals = s;
             }
             i++;
-        } while ((p_line = ParseLine::nextColumn(p_line)) != "");
+        } while ((p_line = nextColumn(p_line)) != "");
         (*function)(&y);
     }
     f.close();

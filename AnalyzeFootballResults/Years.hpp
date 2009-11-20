@@ -30,6 +30,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <string>
 
+#include "ParseLine.hpp"
+
 struct YEARS_STRUCT {
     std::string id;
     std::string year;
@@ -39,7 +41,7 @@ struct YEARS_STRUCT {
     std::string title;
 };
 
-class Years {
+class Years : protected ParseLine {
 public:
     static void print(struct YEARS_STRUCT* years_struct);
     static void clear(struct YEARS_STRUCT* years_struct);

@@ -31,17 +31,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include "ParseLine.hpp"
 
-struct CLUBS_STRUCT {
-    std::string id;
-    std::string club;
-    std::string city;
-};
-
-class Clubs : public ParseLine {
+class Clubs : protected ParseLine {
 public:
-    static void print(struct CLUBS_STRUCT* clubs_struct);
-    static void clear(struct CLUBS_STRUCT* clubs_struct);
-    static int load(void (*function)(struct CLUBS_STRUCT* clubs_struct));
+    struct Record {
+        std::string id;
+        std::string club;
+        std::string city;
+    };
+    void print(struct Record* clubs_struct);
+    void clear(struct Record* clubs_struct);
+    int load(void (*function)(struct Record* clubs_struct));
 };
 
 #endif	/* _CLUBS_H */
