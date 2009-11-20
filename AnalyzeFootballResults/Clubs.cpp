@@ -36,22 +36,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using namespace std;
 
-void Clubs::print(struct CLUBS_STRUCT* clubs_struct) {
+void Clubs::print(struct Record* clubs_struct) {
     cout << clubs_struct->id << ";" <<
             clubs_struct->club << ";" <<
             clubs_struct->city << endl;
     return;
 }
 
-void Clubs::clear(struct CLUBS_STRUCT* clubs_struct) {
+void Clubs::clear(struct Record* clubs_struct) {
     clubs_struct->id = "";
     clubs_struct->club = "";
     clubs_struct->city = "";
     return;
 }
 
-int Clubs::load(void (*function)(struct CLUBS_STRUCT* clubs_struct)) {
-    struct CLUBS_STRUCT y;
+int Clubs::load(void (*function)(struct Record* clubs_struct)) {
+    struct Record y;
     string line;
     string p_line;
     string file_name = "club";

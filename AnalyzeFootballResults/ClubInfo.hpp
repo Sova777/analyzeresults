@@ -58,7 +58,7 @@ struct CLUB_INFO_STRUCT {
     std::string pn;
 };
 
-class ClubInfo : public ParseLine {
+class ClubInfo : protected ParseLine {
 public:
 protected:
     void print(struct CLUB_INFO_STRUCT* club_info_struct);

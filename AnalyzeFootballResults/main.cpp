@@ -86,7 +86,7 @@ void analize_years(struct YEARS_STRUCT* y) {
     return;
 }
 
-void analize_clubs(struct CLUBS_STRUCT* y) {
+void analize_clubs(struct Clubs::Record* y) {
     clubs[y->id] = y->club + "(" + y->city + ")";
     cout << clubs[y->id] << endl;
     return;
@@ -94,7 +94,7 @@ void analize_clubs(struct CLUBS_STRUCT* y) {
 
 int main(int argc, char** argv) {
     cout << endl << "Список клубов" << endl << "------------------" << endl;
-    Clubs::load(analize_clubs);
+    new Clubs()->load(analize_clubs);
     w = 0; d = 0; l = 0;
     cout << endl << "Список матчей" << endl << "------------------" << endl;
     Years::load(analize_years);
