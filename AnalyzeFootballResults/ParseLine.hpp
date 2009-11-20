@@ -25,27 +25,21 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CLUB_INFO_NAME_H
-#define	_CLUB_INFO_NAME_H
+#ifndef _PARSE_FILE_H
+#define	_PARSE_FILE_H
 
+#include <string>
 #include <map>
-#include <cstdlib>
-#include "club_info.h"
-#include "parse_file.h"
 
-class ClubInfoName : public ClubInfoAbstract {
+#define FileNotFound "файл не найден"
+
+class ParseLine {
 public:
-    static ClubInfoName* getInstance();
-    std::string getName(std::string id, std::string season);
-protected:
-    bool record(struct CLUB_INFO_STRUCT* y, std::string* key, std::string* value);
-private:
-    static ClubInfoName* instance;
-    typedef std::map<std::string, std::string> ClubNames;
-    ClubNames club_names;
-    std::string season;
-    bool isFound;
+    typedef std::map<std::string, std::string> rows;
+
+    static int countColumns(const std::string str);
+    static std::string nextColumn(const std::string str);
+    static std::string getColumn(const std::string str);
 };
 
-#endif	/* _CLUB_INFO_NAME_H */
-
+#endif	/* _PARSE_FILE_H */

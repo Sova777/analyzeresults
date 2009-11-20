@@ -25,45 +25,24 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CLUB_INFO_H
-#define	_CLUB_INFO_H
+#ifndef _CLUBS_H
+#define	_CLUBS_H
 
 #include <string>
-#include "parse_file.h"
+#include "ParseLine.hpp"
 
-struct CLUB_INFO_STRUCT {
+struct CLUBS_STRUCT {
     std::string id;
-    std::string pl;
-    std::string fl;
-    std::string n;
-    std::string w1;
-    std::string d1;
-    std::string l1;
-    std::string f1;
-    std::string a1;
-    std::string p1;
-    std::string w2;
-    std::string d2;
-    std::string l2;
-    std::string f2;
-    std::string a2;
-    std::string p2;
-    std::string w0;
-    std::string d0;
-    std::string l0;
-    std::string f0;
-    std::string a0;
-    std::string p0;
-    std::string pn;
+    std::string club;
+    std::string city;
 };
 
-class ClubInfoAbstract {
+class Clubs : public ParseLine {
 public:
-protected:
-    void print(struct CLUB_INFO_STRUCT* club_info_struct);
-    void clear(struct CLUB_INFO_STRUCT* club_info_struct);
-    virtual bool record(struct CLUB_INFO_STRUCT* y, std::string* key, std::string* value) = 0;
-    rows load(std::string file_name);
+    static void print(struct CLUBS_STRUCT* clubs_struct);
+    static void clear(struct CLUBS_STRUCT* clubs_struct);
+    static int load(void (*function)(struct CLUBS_STRUCT* clubs_struct));
 };
 
-#endif	/* _CLUB_INFO_H */
+#endif	/* _CLUBS_H */
+

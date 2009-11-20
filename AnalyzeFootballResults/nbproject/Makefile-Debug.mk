@@ -31,14 +31,14 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/club_info_name.o \
-	${OBJECTDIR}/clubs.o \
-	${OBJECTDIR}/parse_file.o \
+	${OBJECTDIR}/ClubInfo.o \
+	${OBJECTDIR}/ClubInfoName.o \
+	${OBJECTDIR}/Utils.o \
+	${OBJECTDIR}/Clubs.o \
+	${OBJECTDIR}/ParseLine.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/club_info.o \
-	${OBJECTDIR}/utils.o \
-	${OBJECTDIR}/years.o \
-	${OBJECTDIR}/results.o
+	${OBJECTDIR}/Results.o \
+	${OBJECTDIR}/Years.o
 
 # C Compiler Flags
 CFLAGS=
@@ -64,37 +64,37 @@ dist/Debug/SunStudio-Solaris-x86/analyzefootballresults: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/SunStudio-Solaris-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzefootballresults ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/club_info_name.o: nbproject/Makefile-${CND_CONF}.mk club_info_name.cpp 
+${OBJECTDIR}/ClubInfo.o: nbproject/Makefile-${CND_CONF}.mk ClubInfo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/club_info_name.o club_info_name.cpp
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
 
-${OBJECTDIR}/clubs.o: nbproject/Makefile-${CND_CONF}.mk clubs.cpp 
+${OBJECTDIR}/ClubInfoName.o: nbproject/Makefile-${CND_CONF}.mk ClubInfoName.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/clubs.o clubs.cpp
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/ClubInfoName.o ClubInfoName.cpp
 
-${OBJECTDIR}/parse_file.o: nbproject/Makefile-${CND_CONF}.mk parse_file.cpp 
+${OBJECTDIR}/Utils.o: nbproject/Makefile-${CND_CONF}.mk Utils.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/parse_file.o parse_file.cpp
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/Utils.o Utils.cpp
+
+${OBJECTDIR}/Clubs.o: nbproject/Makefile-${CND_CONF}.mk Clubs.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/Clubs.o Clubs.cpp
+
+${OBJECTDIR}/ParseLine.o: nbproject/Makefile-${CND_CONF}.mk ParseLine.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -o ${OBJECTDIR}/main.o main.cpp
 
-${OBJECTDIR}/club_info.o: nbproject/Makefile-${CND_CONF}.mk club_info.cpp 
+${OBJECTDIR}/Results.o: nbproject/Makefile-${CND_CONF}.mk Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/club_info.o club_info.cpp
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/Results.o Results.cpp
 
-${OBJECTDIR}/utils.o: nbproject/Makefile-${CND_CONF}.mk utils.cpp 
+${OBJECTDIR}/Years.o: nbproject/Makefile-${CND_CONF}.mk Years.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/utils.o utils.cpp
-
-${OBJECTDIR}/years.o: nbproject/Makefile-${CND_CONF}.mk years.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/years.o years.cpp
-
-${OBJECTDIR}/results.o: nbproject/Makefile-${CND_CONF}.mk results.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/results.o results.cpp
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/Years.o Years.cpp
 
 # Subprojects
 .build-subprojects:

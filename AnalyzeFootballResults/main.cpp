@@ -30,19 +30,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <map>
 #include <string>
 
-#include "clubs.h"
-#include "parse_file.h"
-#include "results.h"
-#include "years.h"
-#include "club_info_name.h"
-#include "utils.h"
+#include "Clubs.hpp"
+#include "ClubInfoName.hpp"
+#include "ParseLine.hpp"
+#include "Results.hpp"
+#include "Utils.hpp"
+#include "Years.hpp"
 
 using namespace std;
 
 typedef map<string, string> ClubsMap;
 ClubsMap clubs;
-typedef map<string, CLUB_INFO_STRUCT> ClubsInfo;
-ClubsInfo clubs_info;
+typedef map<string, CLUB_INFO_STRUCT> ClubsInfo1;
+ClubsInfo1 clubs_info;
 
 
 int w = 0;
@@ -82,7 +82,7 @@ void analize_results(struct RESULTS_STRUCT* y, string par) {
 //
 void analize_years(struct YEARS_STRUCT* y) {
     /*if (y->year == "2009")*/
-    LoadResults(y->file_results, analize_results, y->file_results);
+    Results::load(y->file_results, analize_results, y->file_results);
     return;
 }
 
@@ -94,10 +94,10 @@ void analize_clubs(struct CLUBS_STRUCT* y) {
 
 int main(int argc, char** argv) {
     cout << endl << "Список клубов" << endl << "------------------" << endl;
-    LoadClubs(analize_clubs);
+    Clubs::load(analize_clubs);
     w = 0; d = 0; l = 0;
     cout << endl << "Список матчей" << endl << "------------------" << endl;
-    LoadYear(analize_years);
+    Years::load(analize_years);
 
     return (EXIT_SUCCESS);
 }

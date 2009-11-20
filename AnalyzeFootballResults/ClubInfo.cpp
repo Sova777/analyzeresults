@@ -31,12 +31,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <vector>
 
-#include "parse_file.h"
-#include "club_info.h"
+#include "ClubInfo.hpp"
+#include "ParseLine.hpp"
 
 using namespace std;
 
-void ClubInfoAbstract::print(struct CLUB_INFO_STRUCT* club_info_struct) {
+void ClubInfo::print(struct CLUB_INFO_STRUCT* club_info_struct) {
     cout << club_info_struct->id << ";" <<
             club_info_struct->pl << ";" <<
             club_info_struct->fl << ";" <<
@@ -64,7 +64,7 @@ void ClubInfoAbstract::print(struct CLUB_INFO_STRUCT* club_info_struct) {
     return;
 }
 
-void ClubInfoAbstract::clear(struct CLUB_INFO_STRUCT* club_info_struct) {
+void ClubInfo::clear(struct CLUB_INFO_STRUCT* club_info_struct) {
     club_info_struct->id = "";
     club_info_struct->pl = "";
     club_info_struct->fl = "";
@@ -91,7 +91,7 @@ void ClubInfoAbstract::clear(struct CLUB_INFO_STRUCT* club_info_struct) {
     return;
 }
 
-rows ClubInfoAbstract::load(string file_name) {
+ParseLine::rows ClubInfo::load(string file_name) {
     rows rows;
     struct CLUB_INFO_STRUCT club_info;
     string line;
@@ -114,9 +114,9 @@ rows ClubInfoAbstract::load(string file_name) {
 
     p_line = line;
     do {
-        s = get_column(p_line);
+        s = getColumn(p_line);
         headers.push_back(s);
-    } while ((p_line = next_column(p_line)) != "");
+    } while ((p_line = nextColumn(p_line)) != "");
 
     while (!f.eof()) {
         getline(f, line);
@@ -125,7 +125,7 @@ rows ClubInfoAbstract::load(string file_name) {
         p_line = line;
         clear(&club_info);
         do {
-            s = get_column(p_line);
+            s = getColumn(p_line);
             if (headers[i] == "id") {
                 club_info.id = s;
             } else if (headers[i] == "pl") {
@@ -174,7 +174,7 @@ rows ClubInfoAbstract::load(string file_name) {
                 club_info.pn = s;
             }
             i++;
-        } while ((p_line = next_column(p_line)) != "");
+        } while ((p_line = nextColumn(p_line)) != "");
         if (record(&club_info, &key, &value)) {
             rows[key] = value;
         }

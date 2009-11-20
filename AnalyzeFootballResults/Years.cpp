@@ -28,90 +28,81 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <vector>
+#include <string>
 
-#include "parse_file.h"
-#include "results.h"
+#include "ParseLine.hpp"
+#include "Years.hpp"
 
 using namespace std;
 
-void print_results_struct(struct RESULTS_STRUCT* results_struct) {
-    cout << results_struct->id << ";" <<
-            results_struct->date << ";" <<
-            results_struct->team_id_1 << ";" <<
-            results_struct->team_id_2 << ";" <<
-            results_struct->goals_1 << ";" <<
-            results_struct->goals_2 << ";" <<
-            results_struct->round << endl;
+void Years::print(struct YEARS_STRUCT* years_struct) {
+    cout << years_struct->id << ";" <<
+            years_struct->year << ";" <<
+            years_struct->file_results << ";" <<
+            years_struct->level << ";" <<
+            years_struct->file_goals << ";" <<
+            years_struct->title << endl;
     return;
 }
 
-void clear_results_struct(struct RESULTS_STRUCT* results_struct) {
-    results_struct->id = "";
-    results_struct->date = "";
-    results_struct->team_id_1 = "";
-    results_struct->team_id_2 = "";
-    results_struct->goals_1 = "";
-    results_struct->goals_2 = "";
-    results_struct->round = "";
+void Years::clear(struct YEARS_STRUCT* years_struct) {
+    years_struct->file_goals = "";
+    years_struct->file_results = "";
+    years_struct->id = "";
+    years_struct->level = "";
+    years_struct->title = "";
+    years_struct->year = "";
     return;
 }
 
-int LoadResults(string file_name, void (*function)(struct RESULTS_STRUCT* results_struct, string parameter), string par) {
-    struct RESULTS_STRUCT y;
+bool Years::load(void (*function)(struct YEARS_STRUCT* years_struct)) {
+    struct YEARS_STRUCT y;
     string line;
-    string p_line = line;
-    string full_file_name;
+    string p_line;
     string s;
 
-    full_file_name = "data/" + file_name + ".txt";
     ifstream f;
-    f.open(full_file_name.c_str());
-    if (!f) {
-        cerr << full_file_name << " " << FileNotFound << endl;
+    f.open("data/year.txt");
+    if(!f) {
+      cerr << FileNotFound << endl;
         return EXIT_FAILURE;
     }
 
-    // читаем 1-ю строку
-    getline(f, line);
-
-    // читаем заголовок (2-я строка)
+    // читаем заголовок (1-я строка)
     getline(f, line);
     vector<string> headers;
 
     p_line = line;
     do {
-        s = get_column(p_line);
+        s = ParseLine::getColumn(p_line);
         headers.push_back(s);
-    } while ((p_line = next_column(p_line)) != "");
+    } while ((p_line = ParseLine::nextColumn(p_line)) != "");
 
     while (!f.eof()) {
         getline(f, line);
         if (line == "") continue;
         int i = 0;
         p_line = line;
-        clear_results_struct(&y);
+        clear(&y);
         do {
-            s = get_column(p_line);
-            if (headers[i] == "id") {
+            s = ParseLine::getColumn(p_line);
+            if (headers[i] == "y") {
+                y.year = s;
+            } else if (headers[i] == "t") {
+                y.title = s;
+            } else if (headers[i] == "id") {
                 y.id = s;
-            } else if (headers[i] == "d") {
-                y.date = s;
-            } else if (headers[i] == "t1") {
-                y.team_id_1 = s;
-            } else if (headers[i] == "t2") {
-                y.team_id_2 = s;
-            } else if (headers[i] == "g1") {
-                y.goals_1 = s;
-            } else if (headers[i] == "g2") {
-                y.goals_2 = s;
-            } else if (headers[i] == "r") {
-                y.round = s;
+            } else if (headers[i] == "n") {
+                y.file_results = s;
+            } else if (headers[i] == "l") {
+                y.level = s;
+            } else if (headers[i] == "ag") {
+                y.file_goals = s;
             }
             i++;
-        } while ((p_line = next_column(p_line)) != "");
-        (*function)(&y, par);
+        } while ((p_line = ParseLine::nextColumn(p_line)) != "");
+        (*function)(&y);
     }
     f.close();
     return EXIT_SUCCESS;

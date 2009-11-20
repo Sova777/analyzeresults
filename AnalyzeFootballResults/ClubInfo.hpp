@@ -25,15 +25,46 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _UTILS_H
-#define	_UTILS_H
+#ifndef _CLUB_INFO_H
+#define	_CLUB_INFO_H
 
 #include <string>
 
-enum EVENT {WIN, DRAW, LOSE, OTHER_TEAMS, EMPTY, UNKNOWN};
+#include "ParseLine.hpp"
 
-int toInt(std::string& str);
-EVENT event(struct RESULTS_STRUCT* y, std::string club_id);
+struct CLUB_INFO_STRUCT {
+    std::string id;
+    std::string pl;
+    std::string fl;
+    std::string n;
+    std::string w1;
+    std::string d1;
+    std::string l1;
+    std::string f1;
+    std::string a1;
+    std::string p1;
+    std::string w2;
+    std::string d2;
+    std::string l2;
+    std::string f2;
+    std::string a2;
+    std::string p2;
+    std::string w0;
+    std::string d0;
+    std::string l0;
+    std::string f0;
+    std::string a0;
+    std::string p0;
+    std::string pn;
+};
 
-#endif	/* _UTILS_H */
+class ClubInfo : public ParseLine {
+public:
+protected:
+    void print(struct CLUB_INFO_STRUCT* club_info_struct);
+    void clear(struct CLUB_INFO_STRUCT* club_info_struct);
+    virtual bool record(struct CLUB_INFO_STRUCT* y, std::string* key, std::string* value) = 0;
+    rows load(std::string file_name);
+};
 
+#endif	/* _CLUB_INFO_H */

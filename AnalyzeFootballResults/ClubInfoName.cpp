@@ -25,68 +25,42 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <cstdio>
-#include <cstdlib>
-#include <iostream>
 #include <string>
-
-#include "parse_file.h"
+#include <iostream>
+#include "ClubInfoName.hpp"
 
 using namespace std;
 
-#define FIELD_DELIM ';'
-#define DATE_DELIM ','
+ClubInfoName* ClubInfoName::instance = NULL;
 
-/*
- * функция принимает строку str
- * возвращает количество встретившихся разделителей колонок.
- */
-int count_columns(const string str) {
-    int i = 0, count = 0;
-    if (str == "") return 0;
-    int len = str.length();
-
-    while (i < len) {
-        if (str[i] == FIELD_DELIM) count++;
-        i++;
-    }
-
-    return count + 1;
+ClubInfoName* ClubInfoName::getInstance() {
+    if (instance != NULL) return instance;
+    instance = new ClubInfoName();
+    return instance;
 }
 
-/*
- * Функция принимает строку str
- * возвращает урезанную переменную str.
- */
-string next_column(const string str) {
-    size_t p = str.find(FIELD_DELIM);
-    if (p == string::npos) return "";
-    string line = str.substr(p + 1);
-    int len = line.length();
-    int i;
-    char c;
-    for (i = 0; i < len; i++) {
-        c = line[len - 1 - i];
-        if ((c != ' ') && (c != '\r') && (c != '\n') && (c != '\t')) {
-            break;
-        }
+string ClubInfoName::getName(string id, string season_code) {
+    string uniqKey = id + "/" + season_code;
+    ClubNames::iterator it;
+    it = club_names.find(uniqKey);
+    if (it != club_names.end()) {
+        return it->second;
     }
-    return line.substr(0, len - i);
+    this->season = season_code;
+    isFound = false;
+    rows r = load(id);
+    club_names[uniqKey] = r[""];
+    isFound = false;
+    return r[""];
 }
 
-/*
- * функция принимает строку str, на выходе переменная column
- * содержит урезанную переменную str.
- */
-string get_column(const string str) {
-    int i = 0;
-    string column;
-
-    if (str == "") {
-        column = "";
-        return column;
+bool ClubInfoName::record(struct CLUB_INFO_STRUCT* y, std::string* key, std::string* value) {
+    if (isFound == true) return false;
+    if (y->fl == season) {
+        *key = "";
+        *value = y->n;
+        isFound = true;
+        return true;
     }
-
-    column = str.substr(0, str.find(FIELD_DELIM));
-    return column;
+    return false;
 }

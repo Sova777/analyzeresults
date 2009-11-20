@@ -4,13 +4,13 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>club_info.h</itemPath>
-      <itemPath>club_info_name.h</itemPath>
-      <itemPath>clubs.h</itemPath>
-      <itemPath>parse_file.h</itemPath>
-      <itemPath>results.h</itemPath>
-      <itemPath>utils.h</itemPath>
-      <itemPath>years.h</itemPath>
+      <itemPath>ClubInfo.hpp</itemPath>
+      <itemPath>ClubInfoName.hpp</itemPath>
+      <itemPath>Clubs.hpp</itemPath>
+      <itemPath>ParseLine.hpp</itemPath>
+      <itemPath>Results.hpp</itemPath>
+      <itemPath>Utils.hpp</itemPath>
+      <itemPath>Years.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -20,14 +20,14 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>club_info.cpp</itemPath>
-      <itemPath>club_info_name.cpp</itemPath>
-      <itemPath>clubs.cpp</itemPath>
+      <itemPath>ClubInfo.cpp</itemPath>
+      <itemPath>ClubInfoName.cpp</itemPath>
+      <itemPath>Clubs.cpp</itemPath>
+      <itemPath>ParseLine.cpp</itemPath>
+      <itemPath>Results.cpp</itemPath>
+      <itemPath>Utils.cpp</itemPath>
+      <itemPath>Years.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
-      <itemPath>parse_file.cpp</itemPath>
-      <itemPath>results.cpp</itemPath>
-      <itemPath>utils.cpp</itemPath>
-      <itemPath>years.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

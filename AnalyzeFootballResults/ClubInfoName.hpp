@@ -25,49 +25,27 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <cstdlib>
-#include <iostream>
+#ifndef _CLUB_INFO_NAME_H
+#define	_CLUB_INFO_NAME_H
+
 #include <map>
-#include <sstream>
-#include <string>
-#include "utils.h"
+#include <cstdlib>
+#include "ClubInfo.hpp"
+#include "ParseLine.hpp"
 
-#include "results.h"
+class ClubInfoName : public ClubInfo {
+public:
+    static ClubInfoName* getInstance();
+    std::string getName(std::string id, std::string season);
+protected:
+    bool record(struct CLUB_INFO_STRUCT* y, std::string* key, std::string* value);
+private:
+    static ClubInfoName* instance;
+    typedef std::map<std::string, std::string> ClubNames;
+    ClubNames club_names;
+    std::string season;
+    bool isFound;
+};
 
-using namespace std;
+#endif	/* _CLUB_INFO_NAME_H */
 
-int toInt(string& str) {
-    stringstream ss;
-    int n;
-    ss.str(str);
-    if (!(ss >> n)) {
-        return -1;
-    }
-    return n;
-}
-
-EVENT event(struct RESULTS_STRUCT* y, string club_id) {
-    string goals_1;
-    string goals_2;
-    if (y->team_id_1 == club_id) {
-        goals_1 = y->goals_1;
-        goals_2 = y->goals_2;
-    } else if (y->team_id_2 == club_id) {
-        goals_1 = y->goals_2;
-        goals_2 = y->goals_1;
-    } else {
-        return OTHER_TEAMS;
-    }
-
-    if (goals_1 == "+") return WIN;
-    if (goals_1 == "-") return LOSE;
-    if (goals_1 == "") return EMPTY;
-    int g1 = toInt(goals_1);
-    if (g1 < 0) return UNKNOWN;
-    int g2 = toInt(goals_2);
-    if (g2 < 0) return UNKNOWN;
-    if (g1 > g2) return WIN;
-    if (g1 == g2) return DRAW;
-    if (g1 < g2) return LOSE;
-    return UNKNOWN;
-}
