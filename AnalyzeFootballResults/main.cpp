@@ -96,8 +96,9 @@ int main(int argc, char** argv) {
     cout << endl << "Список клубов" << endl << "------------------" << endl;
     new Clubs()->load(analize_clubs);
     w = 0; d = 0; l = 0;
-    cout << endl << "Список матчей" << endl << "------------------" << endl;
-    Years::load(analize_years);
+//    cout << endl << "Список матчей" << endl << "------------------" << endl;
+//    Years::load(analize_years);
+    new AllMatches()->load();
 
     return (EXIT_SUCCESS);
 }

@@ -25,26 +25,17 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CLUB_INFO_NAME_H
-#define	_CLUB_INFO_NAME_H
+#ifndef _ALLMATCHES_H
+#define	_ALLMATCHES_H
 
-#include <map>
-#include <cstdlib>
-#include "ClubInfo.hpp"
-#include "ParseLine.hpp"
-
-class ClubInfoName : public ClubInfo {
+class AllMatches {
 public:
-    static ClubInfoName* getInstance();
-    std::string getName(std::string id, std::string season);
-protected:
-    bool record(struct CLUB_INFO_STRUCT* y, std::string* key, std::string* value);
+    AllMatches();
+    AllMatches(const AllMatches& orig);
+    virtual ~AllMatches();
 private:
-    static ClubInfoName* instance;
-    typedef std::map<std::string, std::string> ClubNames;
-    ClubNames club_names;
-    std::string season;
-    bool isFound;
+
 };
 
-#endif	/* _CLUB_INFO_NAME_H */
+#endif	/* _ALLMATCHES_H */
+

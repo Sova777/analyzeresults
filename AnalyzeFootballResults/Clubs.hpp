@@ -44,4 +44,3 @@ public:
 };
 
 #endif	/* _CLUBS_H */
-

@@ -33,10 +33,10 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/ClubInfo.o \
 	${OBJECTDIR}/ClubInfoName.o \
+	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/Utils.o \
 	${OBJECTDIR}/Clubs.o \
 	${OBJECTDIR}/ParseLine.o \
-	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/Results.o \
 	${OBJECTDIR}/Years.o
 
@@ -72,6 +72,10 @@ ${OBJECTDIR}/ClubInfoName.o: nbproject/Makefile-${CND_CONF}.mk ClubInfoName.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/ClubInfoName.o ClubInfoName.cpp
 
+${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/main.o main.cpp
+
 ${OBJECTDIR}/Utils.o: nbproject/Makefile-${CND_CONF}.mk Utils.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/Utils.o Utils.cpp
@@ -83,10 +87,6 @@ ${OBJECTDIR}/Clubs.o: nbproject/Makefile-${CND_CONF}.mk Clubs.cpp
 ${OBJECTDIR}/ParseLine.o: nbproject/Makefile-${CND_CONF}.mk ParseLine.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
-
-${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/Results.o: nbproject/Makefile-${CND_CONF}.mk Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
