@@ -38,4 +38,3 @@ public:
 };
 
 #endif	/* _UTILS_H */
-
