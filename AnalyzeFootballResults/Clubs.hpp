@@ -38,8 +38,8 @@ public:
         std::string club;
         std::string city;
     };
-    void print(struct Record* clubs_struct);
-    void clear(struct Record* clubs_struct);
+    static void print(struct Record* clubs_struct);
+    static void clear(struct Record* clubs_struct);
     int load(void (*function)(struct Record* clubs_struct));
 };
 
