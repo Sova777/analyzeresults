@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Clubs.o \
 	${OBJECTDIR}/ParseLine.o \
 	${OBJECTDIR}/Results.o \
+	${OBJECTDIR}/AllMatches.o \
 	${OBJECTDIR}/Years.o
 
 # C Compiler Flags
@@ -91,6 +92,10 @@ ${OBJECTDIR}/ParseLine.o: nbproject/Makefile-${CND_CONF}.mk ParseLine.cpp
 ${OBJECTDIR}/Results.o: nbproject/Makefile-${CND_CONF}.mk Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -o ${OBJECTDIR}/Results.o Results.cpp
+
+${OBJECTDIR}/AllMatches.o: nbproject/Makefile-${CND_CONF}.mk AllMatches.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/AllMatches.o AllMatches.cpp
 
 ${OBJECTDIR}/Years.o: nbproject/Makefile-${CND_CONF}.mk Years.cpp 
 	${MKDIR} -p ${OBJECTDIR}
