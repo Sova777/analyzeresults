@@ -10,6 +10,8 @@
 # Environment
 MKDIR=mkdir
 CP=cp
+GREP=grep
+NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=cc
@@ -31,15 +33,12 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/ClubInfo.o \
-	${OBJECTDIR}/ClubInfoName.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/Utils.o \
-	${OBJECTDIR}/Clubs.o \
 	${OBJECTDIR}/ParseLine.o \
 	${OBJECTDIR}/Results.o \
-	${OBJECTDIR}/AllMatches.o \
-	${OBJECTDIR}/Years.o
+	${OBJECTDIR}/Years.o \
+	${OBJECTDIR}/Clubs.o
+
 
 # C Compiler Flags
 CFLAGS=
@@ -59,47 +58,31 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/SunStudio-Solaris-x86/analyzefootballresults
+	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/SunStudio-Solaris-x86/analyzefootballresults
 
 dist/Debug/SunStudio-Solaris-x86/analyzefootballresults: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/SunStudio-Solaris-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzefootballresults ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/ClubInfo.o: nbproject/Makefile-${CND_CONF}.mk ClubInfo.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
-
-${OBJECTDIR}/ClubInfoName.o: nbproject/Makefile-${CND_CONF}.mk ClubInfoName.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/ClubInfoName.o ClubInfoName.cpp
-
-${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
+${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -o ${OBJECTDIR}/main.o main.cpp
 
-${OBJECTDIR}/Utils.o: nbproject/Makefile-${CND_CONF}.mk Utils.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/Utils.o Utils.cpp
-
-${OBJECTDIR}/Clubs.o: nbproject/Makefile-${CND_CONF}.mk Clubs.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/Clubs.o Clubs.cpp
-
-${OBJECTDIR}/ParseLine.o: nbproject/Makefile-${CND_CONF}.mk ParseLine.cpp 
+${OBJECTDIR}/ParseLine.o: ParseLine.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
 
-${OBJECTDIR}/Results.o: nbproject/Makefile-${CND_CONF}.mk Results.cpp 
+${OBJECTDIR}/Results.o: Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -o ${OBJECTDIR}/Results.o Results.cpp
 
-${OBJECTDIR}/AllMatches.o: nbproject/Makefile-${CND_CONF}.mk AllMatches.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/AllMatches.o AllMatches.cpp
-
-${OBJECTDIR}/Years.o: nbproject/Makefile-${CND_CONF}.mk Years.cpp 
+${OBJECTDIR}/Years.o: Years.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -o ${OBJECTDIR}/Years.o Years.cpp
+
+${OBJECTDIR}/Clubs.o: Clubs.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/Clubs.o Clubs.cpp
 
 # Subprojects
 .build-subprojects:

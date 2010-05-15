@@ -37,10 +37,6 @@ using namespace std;
 #define FIELD_DELIM ';'
 #define DATE_DELIM ','
 
-/*
- * функция принимает строку str
- * возвращает количество встретившихся разделителей колонок.
- */
 int ParseLine::countColumns(const string str) {
     int i = 0, count = 0;
     if (str == "") return 0;
@@ -54,10 +50,6 @@ int ParseLine::countColumns(const string str) {
     return count + 1;
 }
 
-/*
- * Функция принимает строку str
- * возвращает урезанную переменную str.
- */
 string ParseLine::nextColumn(const string str) {
     size_t p = str.find(FIELD_DELIM);
     if (p == string::npos) return "";
@@ -74,10 +66,6 @@ string ParseLine::nextColumn(const string str) {
     return line.substr(0, len - i);
 }
 
-/*
- * функция принимает строку str, на выходе переменная column
- * содержит урезанную переменную str.
- */
 string ParseLine::getColumn(const string str) {
     int i = 0;
     string column;

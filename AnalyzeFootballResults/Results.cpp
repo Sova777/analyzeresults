@@ -4,12 +4,12 @@ All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
+ * Redistributions of source code must retain the above copyright
       notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
+ * Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
-    * Neither the name of the football.mojgorod.ru nor the
+ * Neither the name of the football.mojgorod.ru nor the
       names of its contributors may be used to endorse or promote products
       derived from this software without specific prior written permission.
 
@@ -23,7 +23,7 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 
 #include <cstdlib>
 #include <iostream>
@@ -36,41 +36,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using namespace std;
 
-void Results::print(struct RESULTS_STRUCT* results_struct) {
-    cout << results_struct->id << ";" <<
-            results_struct->date << ";" <<
-            results_struct->team_id_1 << ";" <<
-            results_struct->team_id_2 << ";" <<
-            results_struct->goals_1 << ";" <<
-            results_struct->goals_2 << ";" <<
-            results_struct->round << endl;
+void Results::clear(struct Record* record) {
+    record->id = "";
+    record->date = "";
+    record->team_id_1 = "";
+    record->team_id_2 = "";
+    record->goals_1 = "";
+    record->goals_2 = "";
+    record->round = "";
     return;
 }
 
-void Results::clear(struct RESULTS_STRUCT* results_struct) {
-    results_struct->id = "";
-    results_struct->date = "";
-    results_struct->team_id_1 = "";
-    results_struct->team_id_2 = "";
-    results_struct->goals_1 = "";
-    results_struct->goals_2 = "";
-    results_struct->round = "";
-    return;
-}
-
-int Results::load(string file_name, void (*function)(struct RESULTS_STRUCT* results_struct, string parameter), string par) {
-    struct RESULTS_STRUCT y;
+bool Results::open(string file_name) {
     string line;
-    string p_line = line;
+    string p_line;
     string full_file_name;
     string s;
 
     full_file_name = "data/" + file_name + ".txt";
-    ifstream f;
     f.open(full_file_name.c_str());
     if (!f) {
         cerr << full_file_name << " " << FileNotFound << endl;
-        return EXIT_FAILURE;
+        return false;
     }
 
     // читаем 1-ю строку
@@ -78,7 +65,6 @@ int Results::load(string file_name, void (*function)(struct RESULTS_STRUCT* resu
 
     // читаем заголовок (2-я строка)
     getline(f, line);
-    vector<string> headers;
 
     p_line = line;
     do {
@@ -86,33 +72,55 @@ int Results::load(string file_name, void (*function)(struct RESULTS_STRUCT* resu
         headers.push_back(s);
     } while ((p_line = nextColumn(p_line)) != "");
 
-    while (!f.eof()) {
-        getline(f, line);
-        if (line == "") continue;
-        int i = 0;
-        p_line = line;
-        clear(&y);
-        do {
-            s = getColumn(p_line);
-            if (headers[i] == "id") {
-                y.id = s;
-            } else if (headers[i] == "d") {
-                y.date = s;
-            } else if (headers[i] == "t1") {
-                y.team_id_1 = s;
-            } else if (headers[i] == "t2") {
-                y.team_id_2 = s;
-            } else if (headers[i] == "g1") {
-                y.goals_1 = s;
-            } else if (headers[i] == "g2") {
-                y.goals_2 = s;
-            } else if (headers[i] == "r") {
-                y.round = s;
-            }
-            i++;
-        } while ((p_line = nextColumn(p_line)) != "");
-        (*function)(&y, par);
-    }
+    return true;
+}
+
+Results::Record* Results::next() {
+    string line;
+    string p_line;
+    string s;
+
+    if (f.eof()) return NULL;
+    getline(f, line);
+    if (line == "") return next();
+
+    int i = 0;
+    p_line = line;
+    clear(&record);
+    do {
+        s = getColumn(p_line);
+        if (headers[i] == "id") {
+            record.id = s;
+        } else if (headers[i] == "d") {
+            record.date = s;
+        } else if (headers[i] == "t1") {
+            record.team_id_1 = s;
+        } else if (headers[i] == "t2") {
+            record.team_id_2 = s;
+        } else if (headers[i] == "g1") {
+            record.goals_1 = s;
+        } else if (headers[i] == "g2") {
+            record.goals_2 = s;
+        } else if (headers[i] == "r") {
+            record.round = s;
+        }
+        i++;
+    } while ((p_line = nextColumn(p_line)) != "");
+    return &record;
+}
+
+void Results::close() {
     f.close();
-    return EXIT_SUCCESS;
+    headers.clear();
+}
+
+ostream & operator<<(ostream& output, const Results::Record* r) {
+    output << r->id << ";" <<
+            r->date << ";" <<
+            r->team_id_1 << ";" <<
+            r->team_id_2 << ";" <<
+            r->goals_1 << ";" <<
+            r->goals_2 << ";" <<
+            r->round;
+    return output;
 }
