@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009, Valeriy Soldatov
+Copyright (c) 2009 - 2010, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -27,40 +27,37 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <string>
 #include <iostream>
-#include "ClubInfoName.hpp"
+
+#include "ClubName.hpp"
+#include "ClubInfo.hpp"
 
 using namespace std;
 
-ClubInfoName* ClubInfoName::instance = NULL;
+ClubName* ClubName::instance = NULL;
 
-ClubInfoName* ClubInfoName::getInstance() {
+ClubName* ClubName::getInstance() {
     if (instance != NULL) return instance;
-    instance = new ClubInfoName();
+    instance = new ClubName();
     return instance;
 }
 
-string ClubInfoName::getName(string id, string season_code) {
-    string uniqKey = id + "/" + season_code;
+string ClubName::getName(string team_id, string season_code) {
+    string uniqKey = team_id + "/" + season_code;
     ClubNames::iterator it;
     it = club_names.find(uniqKey);
     if (it != club_names.end()) {
         return it->second;
     }
-    this->season = season_code;
-    isFound = false;
-    rows r = load(id);
-    club_names[uniqKey] = r[""];
-    isFound = false;
-    return r[""];
-}
-
-bool ClubInfoName::record(struct CLUB_INFO_STRUCT* y, std::string* key, std::string* value) {
-    if (isFound == true) return false;
-    if (y->fl == season) {
-        *key = "";
-        *value = y->n;
-        isFound = true;
-        return true;
+    ClubInfo club;
+    club.open(team_id);
+    ClubInfo::Record* record;
+    while ((record = club.next()) != NULL) {
+        club_names[team_id + "/" + record->fl] = record->n;
     }
-    return false;
+    club.close();
+    it = club_names.find(uniqKey);
+    if (it != club_names.end()) {
+        return it->second;
+    }
+    return "???????";
 }

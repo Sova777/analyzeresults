@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009, Valeriy Soldatov
+Copyright (c) 2009 - 2010, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class ParseLine {
 protected:
-    typedef std::map<std::string, std::string> rows;
 
     /**
      * функция принимает строку str

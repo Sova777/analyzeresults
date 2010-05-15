@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009, Valeriy Soldatov
+Copyright (c) 2009 - 2010, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -30,11 +30,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <string>
 
+#include "Results.hpp"
+
 class Utils {
 public:
     enum EVENT { WIN, DRAW, LOSE, OTHER_TEAMS, EMPTY, UNKNOWN };
     static int toInt(std::string& str);
-    static EVENT event(struct RESULTS_STRUCT* y, std::string club_id);
+    static EVENT event(struct Results::Record* y, std::string club_id);
+
 };
 
 #endif	/* _UTILS_H */

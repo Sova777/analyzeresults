@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009, Valeriy Soldatov
+Copyright (c) 2009 - 2010, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -25,26 +25,21 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CLUB_INFO_NAME_H
-#define	_CLUB_INFO_NAME_H
+#ifndef _CLUB_NAME_H
+#define	_CLUB_NAME_H
 
 #include <map>
+#include <string>
 #include <cstdlib>
-#include "ClubInfo.hpp"
-#include "ParseLine.hpp"
 
-class ClubInfoName : public ClubInfo {
+class ClubName {
 public:
-    static ClubInfoName* getInstance();
-    std::string getName(std::string id, std::string season);
-protected:
-    bool record(struct CLUB_INFO_STRUCT* y, std::string* key, std::string* value);
+    static ClubName* getInstance();
+    std::string getName(std::string team_id, std::string season);
 private:
-    static ClubInfoName* instance;
+    static ClubName* instance;
     typedef std::map<std::string, std::string> ClubNames;
     ClubNames club_names;
-    std::string season;
-    bool isFound;
 };
 
-#endif	/* _CLUB_INFO_NAME_H */
+#endif	/* _CLUB_NAME_H */

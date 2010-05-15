@@ -5,7 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>ClubInfo.hpp</itemPath>
-      <itemPath>ClubInfoName.hpp</itemPath>
+      <itemPath>ClubName.hpp</itemPath>
       <itemPath>Clubs.hpp</itemPath>
       <itemPath>ParseLine.hpp</itemPath>
       <itemPath>Results.hpp</itemPath>
@@ -21,7 +21,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>ClubInfo.cpp</itemPath>
-      <itemPath>ClubInfoName.cpp</itemPath>
+      <itemPath>ClubName.cpp</itemPath>
       <itemPath>Clubs.cpp</itemPath>
       <itemPath>ParseLine.cpp</itemPath>
       <itemPath>Results.cpp</itemPath>
@@ -45,12 +45,6 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <item path="ClubInfo.cpp" ex="true" tool="1">
-      </item>
-      <item path="ClubInfoName.cpp" ex="true" tool="1">
-      </item>
-      <item path="Utils.cpp" ex="true" tool="1">
-      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>

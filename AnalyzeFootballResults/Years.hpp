@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009, Valeriy Soldatov
+Copyright (c) 2009 - 2010, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	_YEARS_H
 
 #include <string>
+#include <fstream>
 
 #include "ParseLine.hpp"
 
