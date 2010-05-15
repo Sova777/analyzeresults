@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009, Valeriy Soldatov
+Copyright (c) 2009 - 2010, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -31,36 +31,33 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Clubs.hpp"
 #include "Years.hpp"
 #include "Results.hpp"
+#include "ClubInfo.hpp"
+#include "ClubName.hpp"
 
 using namespace std;
 
 int main(int argc, char** argv) {
-    cout << endl << "Список клубов" << endl << "------------------" << endl;
-    Clubs clubs;
-    Clubs::Record* record;
-    clubs.open();
-    while ((record = clubs.next()) != NULL) {
-        cout << record << endl;
-    }
-    clubs.close();
 
-    cout << endl << "Список сезонов" << endl << "------------------" << endl;
     Years years;
     Years::Record* record2;
+    ClubName* club_name = ClubName::getInstance();
     years.open();
     while ((record2 = years.next()) != NULL) {
-        cout << record2 << endl;
+        Results results;
+        Results::Record* record3;
+        results.open(record2->file_results);
+        while ((record3 = results.next()) != NULL) {
+            cout << record3->id << ";" <<
+                    record3->date << ";" <<
+                    club_name->getName(record3->team_id_1, record2->file_results) << ";" <<
+                    club_name->getName(record3->team_id_2, record2->file_results) << ";" <<
+                    record3->goals_1 << ";" <<
+                    record3->goals_2 << ";" <<
+                    record3->round << endl;
+        }
+        results.close();
     }
     years.close();
-
-    cout << endl << "Список матчей" << endl << "------------------" << endl;
-    Results results;
-    Results::Record* record3;
-    results.open("v2009");
-    while ((record3 = results.next()) != NULL) {
-        cout << record3 << endl;
-    }
-    results.close();
 
     return (EXIT_SUCCESS);
 }

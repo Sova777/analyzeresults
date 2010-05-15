@@ -35,9 +35,12 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/ParseLine.o \
+	${OBJECTDIR}/ClubName.o \
+	${OBJECTDIR}/Utils.o \
 	${OBJECTDIR}/Results.o \
 	${OBJECTDIR}/Years.o \
-	${OBJECTDIR}/Clubs.o
+	${OBJECTDIR}/Clubs.o \
+	${OBJECTDIR}/ClubInfo.o
 
 
 # C Compiler Flags
@@ -72,6 +75,14 @@ ${OBJECTDIR}/ParseLine.o: ParseLine.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
 
+${OBJECTDIR}/ClubName.o: ClubName.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/ClubName.o ClubName.cpp
+
+${OBJECTDIR}/Utils.o: Utils.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/Utils.o Utils.cpp
+
 ${OBJECTDIR}/Results.o: Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -o ${OBJECTDIR}/Results.o Results.cpp
@@ -83,6 +94,10 @@ ${OBJECTDIR}/Years.o: Years.cpp
 ${OBJECTDIR}/Clubs.o: Clubs.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -o ${OBJECTDIR}/Clubs.o Clubs.cpp
+
+${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
 
 # Subprojects
 .build-subprojects:

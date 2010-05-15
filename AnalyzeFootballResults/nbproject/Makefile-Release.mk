@@ -35,8 +35,8 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/ParseLine.o \
+	${OBJECTDIR}/ClubName.o \
 	${OBJECTDIR}/Utils.o \
-	${OBJECTDIR}/ClubInfoName.o \
 	${OBJECTDIR}/Results.o \
 	${OBJECTDIR}/Years.o \
 	${OBJECTDIR}/Clubs.o \
@@ -75,13 +75,13 @@ ${OBJECTDIR}/ParseLine.o: ParseLine.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
 
+${OBJECTDIR}/ClubName.o: ClubName.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/ClubName.o ClubName.cpp
+
 ${OBJECTDIR}/Utils.o: Utils.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/Utils.o Utils.cpp
-
-${OBJECTDIR}/ClubInfoName.o: ClubInfoName.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/ClubInfoName.o ClubInfoName.cpp
 
 ${OBJECTDIR}/Results.o: Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}

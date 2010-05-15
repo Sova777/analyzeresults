@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009, Valeriy Soldatov
+Copyright (c) 2009 - 2010, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,7 @@ int Utils::toInt(string& str) {
     return n;
 }
 
-Utils::EVENT Utils::event(struct RESULTS_STRUCT* y, string club_id) {
+Utils::EVENT Utils::event(struct Results::Record* y, string club_id) {
     string goals_1;
     string goals_2;
     if (y->team_id_1 == club_id) {

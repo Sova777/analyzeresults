@@ -1,15 +1,15 @@
 /*
-Copyright (c) 2009, Valeriy Soldatov
+Copyright (c) 2009 - 2010, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
+ * Redistributions of source code must retain the above copyright
       notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
+ * Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
-    * Neither the name of the football.mojgorod.ru nor the
+ * Neither the name of the football.mojgorod.ru nor the
       names of its contributors may be used to endorse or promote products
       derived from this software without specific prior written permission.
 
@@ -23,7 +23,7 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 
 #include <cstdlib>
 #include <iostream>
@@ -36,149 +36,150 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using namespace std;
 
-void ClubInfo::print(struct CLUB_INFO_STRUCT* club_info_struct) {
-    cout << club_info_struct->id << ";" <<
-            club_info_struct->pl << ";" <<
-            club_info_struct->fl << ";" <<
-            club_info_struct->n << ";" <<
-            club_info_struct->w1 << ";" <<
-            club_info_struct->d1 << ";" <<
-            club_info_struct->l1 << ";" <<
-            club_info_struct->fl << ";" <<
-            club_info_struct->a1 << ";" <<
-            club_info_struct->pl << ";" <<
-            club_info_struct->w2 << ";" <<
-            club_info_struct->d2 << ";" <<
-            club_info_struct->l2 << ";" <<
-            club_info_struct->f2 << ";" <<
-            club_info_struct->a2 << ";" <<
-            club_info_struct->p2 << ";" <<
-            club_info_struct->w0 << ";" <<
-            club_info_struct->d0 << ";" <<
-            club_info_struct->l0 << ";" <<
-            club_info_struct->f0 << ";" <<
-            club_info_struct->a0 << ";" <<
-            club_info_struct->p0 << ";" <<
-            club_info_struct->pn << ";" <<
-            endl;
+void ClubInfo::clear(struct Record* record) {
+    record->id = "";
+    record->pl = "";
+    record->fl = "";
+    record->n = "";
+    record->w1 = "";
+    record->d1 = "";
+    record->l1 = "";
+    record->fl = "";
+    record->a1 = "";
+    record->pl = "";
+    record->w2 = "";
+    record->d2 = "";
+    record->l2 = "";
+    record->f2 = "";
+    record->a2 = "";
+    record->p2 == "";
+    record->w0 = "";
+    record->d0 = "";
+    record->l0 = "";
+    record->f0 = "";
+    record->a0 = "";
+    record->p0 = "";
+    record->pn = "";
     return;
 }
 
-void ClubInfo::clear(struct CLUB_INFO_STRUCT* club_info_struct) {
-    club_info_struct->id = "";
-    club_info_struct->pl = "";
-    club_info_struct->fl = "";
-    club_info_struct->n = "";
-    club_info_struct->w1 = "";
-    club_info_struct->d1 = "";
-    club_info_struct->l1 = "";
-    club_info_struct->fl = "";
-    club_info_struct->a1 = "";
-    club_info_struct->pl = "";
-    club_info_struct->w2 = "";
-    club_info_struct->d2 = "";
-    club_info_struct->l2 = "";
-    club_info_struct->f2 = "";
-    club_info_struct->a2 = "";
-    club_info_struct->p2 == "";
-    club_info_struct->w0 = "";
-    club_info_struct->d0 = "";
-    club_info_struct->l0 = "";
-    club_info_struct->f0 = "";
-    club_info_struct->a0 = "";
-    club_info_struct->p0 = "";
-    club_info_struct->pn = "";
-    return;
-}
-
-ParseLine::rows ClubInfo::load(string file_name) {
-    rows rows;
-    struct CLUB_INFO_STRUCT club_info;
+bool ClubInfo::open(string file_name) {
     string line;
     string p_line;
     string full_file_name = "data/" + file_name + ".txt";
     string s;
-    string key;
-    string value;
 
-    ifstream f;
     f.open(full_file_name.c_str());
     if (!f) {
         cerr << full_file_name << " " << FileNotFound << endl;
-        throw new string(full_file_name + " " + FileNotFound);
+        return false;
     }
 
     // читаем заголовое (1-я строка)
     getline(f, line);
-    vector<string> headers;
 
     p_line = line;
     do {
         s = getColumn(p_line);
         headers.push_back(s);
     } while ((p_line = nextColumn(p_line)) != "");
+    return true;
+}
 
-    while (!f.eof()) {
-        getline(f, line);
-        if (line == "") continue;
-        int i = 0;
-        p_line = line;
-        clear(&club_info);
-        do {
-            s = getColumn(p_line);
-            if (headers[i] == "id") {
-                club_info.id = s;
-            } else if (headers[i] == "pl") {
-                club_info.pl = s;
-            } else if (headers[i] == "fl") {
-                club_info.fl = s;
-            } else if (headers[i] == "n") {
-                club_info.n = s;
-            } else if (headers[i] == "w1") {
-                club_info.w1 = s;
-            } else if (headers[i] == "d1") {
-                club_info.d1 = s;
-            } else if (headers[i] == "l1") {
-                club_info.l1 = s;
-            } else if (headers[i] == "f1") {
-                club_info.f1 = s;
-            } else if (headers[i] == "a1") {
-                club_info.a1 = s;
-            } else if (headers[i] == "p1") {
-                club_info.p1 = s;
-            } else if (headers[i] == "w2") {
-                club_info.w2 = s;
-            } else if (headers[i] == "d2") {
-                club_info.d2 = s;
-            } else if (headers[i] == "l2") {
-                club_info.l2 = s;
-            } else if (headers[i] == "f2") {
-                club_info.f2 = s;
-            } else if (headers[i] == "a2") {
-                club_info.a2 = s;
-            } else if (headers[i] == "p2") {
-                club_info.p2 = s;
-            } else if (headers[i] == "w0") {
-                club_info.w0 = s;
-            } else if (headers[i] == "d0") {
-                club_info.d0 = s;
-            } else if (headers[i] == "l0") {
-                club_info.l0 = s;
-            } else if (headers[i] == "f0") {
-                club_info.f0 = s;
-            } else if (headers[i] == "a0") {
-                club_info.a0 = s;
-            } else if (headers[i] == "p0") {
-                club_info.p0 = s;
-            } else if (headers[i] == "pn") {
-                club_info.pn = s;
-            }
-            i++;
-        } while ((p_line = nextColumn(p_line)) != "");
-        if (record(&club_info, &key, &value)) {
-            rows[key] = value;
+ClubInfo::Record* ClubInfo::next() {
+    string line;
+    string p_line;
+    string s;
+
+    if (f.eof()) return NULL;
+    getline(f, line);
+    if (line == "") return next();
+
+    int i = 0;
+    p_line = line;
+    clear(&record);
+    do {
+        s = getColumn(p_line);
+        if (headers[i] == "id") {
+            record.id = s;
+        } else if (headers[i] == "pl") {
+            record.pl = s;
+        } else if (headers[i] == "fl") {
+            record.fl = s;
+        } else if (headers[i] == "n") {
+            record.n = s;
+        } else if (headers[i] == "w1") {
+            record.w1 = s;
+        } else if (headers[i] == "d1") {
+            record.d1 = s;
+        } else if (headers[i] == "l1") {
+            record.l1 = s;
+        } else if (headers[i] == "f1") {
+            record.f1 = s;
+        } else if (headers[i] == "a1") {
+            record.a1 = s;
+        } else if (headers[i] == "p1") {
+            record.p1 = s;
+        } else if (headers[i] == "w2") {
+            record.w2 = s;
+        } else if (headers[i] == "d2") {
+            record.d2 = s;
+        } else if (headers[i] == "l2") {
+            record.l2 = s;
+        } else if (headers[i] == "f2") {
+            record.f2 = s;
+        } else if (headers[i] == "a2") {
+            record.a2 = s;
+        } else if (headers[i] == "p2") {
+            record.p2 = s;
+        } else if (headers[i] == "w0") {
+            record.w0 = s;
+        } else if (headers[i] == "d0") {
+            record.d0 = s;
+        } else if (headers[i] == "l0") {
+            record.l0 = s;
+        } else if (headers[i] == "f0") {
+            record.f0 = s;
+        } else if (headers[i] == "a0") {
+            record.a0 = s;
+        } else if (headers[i] == "p0") {
+            record.p0 = s;
+        } else if (headers[i] == "pn") {
+            record.pn = s;
         }
-    }
+        i++;
+    } while ((p_line = nextColumn(p_line)) != "");
+    return &record;
+}
+
+void ClubInfo::close() {
     f.close();
-    return rows;
+    headers.clear();
+}
+
+ostream & operator<<(ostream& output, const ClubInfo::Record* r) {
+    output << r->id << ";" <<
+            r->pl << ";" <<
+            r->fl << ";" <<
+            r->n << ";" <<
+            r->w1 << ";" <<
+            r->d1 << ";" <<
+            r->l1 << ";" <<
+            r->fl << ";" <<
+            r->a1 << ";" <<
+            r->pl << ";" <<
+            r->w2 << ";" <<
+            r->d2 << ";" <<
+            r->l2 << ";" <<
+            r->f2 << ";" <<
+            r->a2 << ";" <<
+            r->p2 << ";" <<
+            r->w0 << ";" <<
+            r->d0 << ";" <<
+            r->l0 << ";" <<
+            r->f0 << ";" <<
+            r->a0 << ";" <<
+            r->p0 << ";" <<
+            r->pn;
+    return output;
 }
