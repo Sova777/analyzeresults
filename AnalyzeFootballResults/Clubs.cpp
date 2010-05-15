@@ -4,12 +4,12 @@ All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
+ * Redistributions of source code must retain the above copyright
       notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
+ * Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
-    * Neither the name of the football.mojgorod.ru nor the
+ * Neither the name of the football.mojgorod.ru nor the
       names of its contributors may be used to endorse or promote products
       derived from this software without specific prior written permission.
 
@@ -23,46 +23,34 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 
-#include "ParseLine.hpp"
 #include "Clubs.hpp"
 
 using namespace std;
 
-void Clubs::print(struct Record* clubs_struct) {
-    cout << clubs_struct->id << ";" <<
-            clubs_struct->club << ";" <<
-            clubs_struct->city << endl;
+void Clubs::clear(struct Record* record) {
+    record->id = "";
+    record->club = "";
+    record->city = "";
     return;
 }
 
-void Clubs::clear(struct Record* clubs_struct) {
-    clubs_struct->id = "";
-    clubs_struct->club = "";
-    clubs_struct->city = "";
-    return;
-}
-
-int Clubs::load(void (*function)(struct Record* clubs_struct)) {
-    struct Record y;
+bool Clubs::open() {
     string line;
     string p_line;
+    string s;
     string file_name = "club";
     string full_file_name = "data/" + file_name + ".txt";
-    string s;
-
-    ifstream f;
     f.open(full_file_name.c_str());
     if (!f) {
         cerr << full_file_name << " " << FileNotFound << endl;
-        return EXIT_FAILURE;
+        return false;
     }
 
     // читаем 1-ю строку
@@ -70,7 +58,6 @@ int Clubs::load(void (*function)(struct Record* clubs_struct)) {
 
     // читаем заголовок (2-я строка)
     getline(f, line);
-    vector<string> headers;
 
     p_line = line;
     do {
@@ -78,25 +65,43 @@ int Clubs::load(void (*function)(struct Record* clubs_struct)) {
         headers.push_back(s);
     } while ((p_line = nextColumn(p_line)) != "");
 
-    while (!f.eof()) {
-        getline(f, line);
-        if (line == "") continue;
-        int i = 0;
-        p_line = line;
-        clear(&y);
-        do {
-            s = getColumn(p_line);
-            if (headers[i] == "id") {
-                y.id = s;
-            } else if (headers[i] == "cl") {
-                y.club = s;
-            } else if (headers[i] == "ct") {
-                y.city = s;
-            }
-            i++;
-        } while ((p_line = nextColumn(p_line)) != "");
-        (*function)(&y);
-    }
+    return true;
+}
+
+Clubs::Record* Clubs::next() {
+    string line;
+    string p_line;
+    string s;
+
+    if (f.eof()) return NULL;
+    getline(f, line);
+    if (line == "") return next();
+
+    int i = 0;
+    p_line = line;
+    clear(&record);
+    do {
+        s = getColumn(p_line);
+        if (headers[i] == "id") {
+            record.id = s;
+        } else if (headers[i] == "cl") {
+            record.club = s;
+        } else if (headers[i] == "ct") {
+            record.city = s;
+        }
+        i++;
+    } while ((p_line = nextColumn(p_line)) != "");
+    return &record;
+}
+
+void Clubs::close() {
     f.close();
-    return EXIT_SUCCESS;
+    headers.clear();
+}
+
+ostream & operator<<(ostream& output, const Clubs::Record* r) {
+    output << r->id << ";" <<
+            r->club << ";" <<
+            r->city;
+    return output;
 }

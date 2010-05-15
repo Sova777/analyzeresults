@@ -4,12 +4,12 @@ All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
+ * Redistributions of source code must retain the above copyright
       notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
+ * Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
-    * Neither the name of the football.mojgorod.ru nor the
+ * Neither the name of the football.mojgorod.ru nor the
       names of its contributors may be used to endorse or promote products
       derived from this software without specific prior written permission.
 
@@ -23,82 +23,44 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 
 #include <cstdlib>
 #include <iostream>
-#include <map>
-#include <string>
 
 #include "Clubs.hpp"
-#include "ClubInfoName.hpp"
-#include "ParseLine.hpp"
-#include "Results.hpp"
-#include "Utils.hpp"
 #include "Years.hpp"
+#include "Results.hpp"
 
 using namespace std;
 
-typedef map<string, string> ClubsMap;
-ClubsMap clubs;
-typedef map<string, CLUB_INFO_STRUCT> ClubsInfo1;
-ClubsInfo1 clubs_info;
-
-
-int w = 0;
-int d = 0;
-int l = 0;
-string clubID = "1";
-
-void analize_results(struct RESULTS_STRUCT* y, string par) {
-//    if ((y->team_id_1 == clubID) || (y->team_id_2 == clubID)) {
-    ClubInfoName* clubInfo = ClubInfoName::getInstance();
-//        EVENT e = event(y, clubID);
-//        switch (e) {
-//            case WIN:
-//                w++;
-//                break;
-//            case DRAW:
-//                d++;
-//                break;
-//            case LOSE:
-//                l++;
-//                break;
-//            default:
-//                cerr << "Wrong line: " << y->id << endl;
-//                break;
-//        }
-
-        cout << y->id << ";" << y->date << ";" <<
-            clubInfo->getName(y->team_id_1, par) << ";" <<
-            clubInfo->getName(y->team_id_2, par) << ";" <<
-            y->goals_1 << ";" << y->goals_2 << ";" <<
-            y->round << " тур" << endl;
-
-    //print_results_struct(y);
-//    }
-    return;
-}
-//
-void analize_years(struct YEARS_STRUCT* y) {
-    /*if (y->year == "2009")*/
-    Results::load(y->file_results, analize_results, y->file_results);
-    return;
-}
-
-void analize_clubs(struct Clubs::Record* y) {
-    clubs[y->id] = y->club + "(" + y->city + ")";
-    cout << clubs[y->id] << endl;
-    return;
-}
-
 int main(int argc, char** argv) {
     cout << endl << "Список клубов" << endl << "------------------" << endl;
-    new Clubs()->load(analize_clubs);
-    w = 0; d = 0; l = 0;
-//    cout << endl << "Список матчей" << endl << "------------------" << endl;
-//    Years::load(analize_years);
-    new AllMatches()->load();
+    Clubs clubs;
+    Clubs::Record* record;
+    clubs.open();
+    while ((record = clubs.next()) != NULL) {
+        cout << record << endl;
+    }
+    clubs.close();
+
+    cout << endl << "Список сезонов" << endl << "------------------" << endl;
+    Years years;
+    Years::Record* record2;
+    years.open();
+    while ((record2 = years.next()) != NULL) {
+        cout << record2 << endl;
+    }
+    years.close();
+
+    cout << endl << "Список матчей" << endl << "------------------" << endl;
+    Results results;
+    Results::Record* record3;
+    results.open("v2009");
+    while ((record3 = results.next()) != NULL) {
+        cout << record3 << endl;
+    }
+    results.close();
 
     return (EXIT_SUCCESS);
 }
