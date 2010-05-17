@@ -3,7 +3,7 @@
   <projectmakefile>Makefile</projectmakefile>
   <defaultConf>0</defaultConf>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="OpenSolaris" type="1">
       <gizmo_options version="3">
         <configurationname>GizmoSunStudioStandard</configurationname>
       </gizmo_options>
@@ -18,7 +18,7 @@
         </environment>
       </runprofile>
     </conf>
-    <conf name="Release" type="1">
+    <conf name="Linux" type="1">
       <gizmo_options version="3">
         <configurationname>GizmoSunStudioStandard</configurationname>
       </gizmo_options>
@@ -26,7 +26,7 @@
         <args></args>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
-        <console-type>2</console-type>
+        <console-type>0</console-type>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
         <environment>
