@@ -28,6 +28,7 @@
       <itemPath>Utils.cpp</itemPath>
       <itemPath>Years.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>newmain.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
