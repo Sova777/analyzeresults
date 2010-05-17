@@ -55,5 +55,14 @@
       <compileType>
       </compileType>
     </conf>
+    <conf name="Windows" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
+        <platform>3</platform>
+      </toolsSet>
+      <compileType>
+      </compileType>
+    </conf>
   </confs>
 </configurationDescriptor>

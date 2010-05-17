@@ -31,7 +31,7 @@ DEFAULTCONF=OpenSolaris
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=OpenSolaris Linux 
+ALLCONFS=OpenSolaris Linux Windows 
 
 
 # build
