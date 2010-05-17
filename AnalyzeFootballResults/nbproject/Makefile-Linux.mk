@@ -14,15 +14,15 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=cc
-CCC=CC
-CXX=CC
-FC=f95
+CC=gcc
+CCC=g++
+CXX=g++
+FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=SunStudio-Solaris-x86
-CND_CONF=Release
+CND_PLATFORM=GNU-Linux-x86
+CND_CONF=Linux
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -61,52 +61,59 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/SunStudio-Solaris-x86/analyzefootballresults
+	"${MAKE}"  -f nbproject/Makefile-Linux.mk dist/Linux/GNU-Linux-x86/analyzefootballresults
 
-dist/Release/SunStudio-Solaris-x86/analyzefootballresults: ${OBJECTFILES}
-	${MKDIR} -p dist/Release/SunStudio-Solaris-x86
+dist/Linux/GNU-Linux-x86/analyzefootballresults: ${OBJECTFILES}
+	${MKDIR} -p dist/Linux/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzefootballresults ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/main.o main.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/ParseLine.o: ParseLine.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
 
 ${OBJECTDIR}/ClubName.o: ClubName.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/ClubName.o ClubName.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubName.o ClubName.cpp
 
 ${OBJECTDIR}/Utils.o: Utils.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/Utils.o Utils.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Utils.o Utils.cpp
 
 ${OBJECTDIR}/Results.o: Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/Results.o Results.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Results.o Results.cpp
 
 ${OBJECTDIR}/Years.o: Years.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/Years.o Years.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Years.o Years.cpp
 
 ${OBJECTDIR}/Clubs.o: Clubs.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/Clubs.o Clubs.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Clubs.o Clubs.cpp
 
 ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
 
 # Subprojects
 .build-subprojects:
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Release
-	${RM} dist/Release/SunStudio-Solaris-x86/analyzefootballresults
-	${CCADMIN} -clean
+	${RM} -r build/Linux
+	${RM} dist/Linux/GNU-Linux-x86/analyzefootballresults
 
 # Subprojects
 .clean-subprojects:

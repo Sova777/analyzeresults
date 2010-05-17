@@ -12,8 +12,8 @@
             <make-dep-projects/>
             <sourceRootList/>
             <confList>
-                <confElem>Debug</confElem>
-                <confElem>Release</confElem>
+                <confElem>OpenSolaris</confElem>
+                <confElem>Linux</confElem>
             </confList>
         </data>
     </configuration>

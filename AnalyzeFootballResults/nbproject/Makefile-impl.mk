@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=AnalyzeFootballResults
 
 # Active Configuration
-DEFAULTCONF=Debug
+DEFAULTCONF=OpenSolaris
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release 
+ALLCONFS=OpenSolaris Linux 
 
 
 # build
