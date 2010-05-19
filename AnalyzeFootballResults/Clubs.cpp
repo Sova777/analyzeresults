@@ -46,7 +46,7 @@ bool Clubs::open() {
     string p_line;
     string s;
     string file_name = "club";
-    string full_file_name = "data/" + file_name + ".txt";
+    string full_file_name = db_path + "/" + file_name + ".txt";
     f.open(full_file_name.c_str());
     if (!f) {
         cerr << full_file_name << " " << FileNotFound << endl;

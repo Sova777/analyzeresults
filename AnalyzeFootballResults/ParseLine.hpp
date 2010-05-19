@@ -34,6 +34,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define FileNotFound "файл не найден"
 
 class ParseLine {
+public:
+
+    /**
+     * Установить путь к файлам с данными
+     * @param str
+     */
+    static void path_to_db(const std::string str);
+
 protected:
 
     /**
@@ -59,6 +67,9 @@ protected:
      * @return std::string
      */
     static std::string getColumn(const std::string str);
+
+    static std::string db_path;
+
 };
 
 #endif	/* _PARSE_FILE_H */

@@ -78,3 +78,9 @@ string ParseLine::getColumn(const string str) {
     column = str.substr(0, str.find(FIELD_DELIM));
     return column;
 }
+
+std::string ParseLine::db_path = "data";
+
+void ParseLine::path_to_db(const std::string str) {
+    db_path = str;
+}

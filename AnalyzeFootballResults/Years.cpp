@@ -50,8 +50,9 @@ bool Years::open() {
     string line;
     string p_line;
     string s;
+    const string file_name = db_path + "/year.txt";
 
-    f.open("data/year.txt");
+    f.open(file_name.c_str());
     if (!f) {
         cerr << FileNotFound << endl;
         return false;
