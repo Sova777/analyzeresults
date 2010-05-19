@@ -29,31 +29,39 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <iostream>
 
 #include "Clubs.hpp"
-#include "Years.hpp"
-#include "Results.hpp"
 #include "ClubInfo.hpp"
 #include "ClubName.hpp"
+#include "Utils.hpp"
+#include "Results.hpp"
+#include "Years.hpp"
 
 using namespace std;
 
 int main(int argc, char** argv) {
 
     Years years;
-    Years::Record* record2;
+    Years::Record* record_year;
+    Results results;
+    Results::Record* record_result;
     ClubName* club_name = ClubName::getInstance();
+
     years.open();
-    while ((record2 = years.next()) != NULL) {
-        Results results;
-        Results::Record* record3;
-        results.open(record2->file_results);
-        while ((record3 = results.next()) != NULL) {
-            cout << record3->id << ";" <<
-                    record3->date << ";" <<
-                    club_name->getName(record3->team_id_1, record2->file_results) << ";" <<
-                    club_name->getName(record3->team_id_2, record2->file_results) << ";" <<
-                    record3->goals_1 << ";" <<
-                    record3->goals_2 << ";" <<
-                    record3->round << endl;
+    while ((record_year = years.next()) != NULL) {
+        results.open(record_year->file_results);
+        while ((record_result = results.next()) != NULL) {
+            if (!record_result->is_correct_game()) {
+                cout << record_result << endl;
+            }
+//            if (record_result->played("22")) {
+//                if (record_result->get_goals_1("22") > 3) {
+//                    cout << record_result->date << " "
+//                            << club_name->getName(record_result->team_id_1, record_year->file_results) << " "
+//                            << club_name->getName(record_result->team_id_2, record_year->file_results) << " "
+//                            << record_result->get_goals_1() << " "
+//                            << record_result->get_goals_2()
+//                            << endl;
+//                }
+//            }
         }
         results.close();
     }
