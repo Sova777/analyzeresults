@@ -21,7 +21,7 @@ FC=f95
 AS=as
 
 # Macros
-CND_PLATFORM=SunStudio-Solaris-x86
+CND_PLATFORM=OracleSolarisStudio-Solaris-x86
 CND_CONF=OpenSolaris
 CND_DISTDIR=dist
 
@@ -33,7 +33,6 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/ParseLine.o \
 	${OBJECTDIR}/ClubName.o \
 	${OBJECTDIR}/Utils.o \
@@ -61,43 +60,39 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-OpenSolaris.mk dist/OpenSolaris/SunStudio-Solaris-x86/analyzefootballresults
+	"${MAKE}"  -f nbproject/Makefile-OpenSolaris.mk dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so
 
-dist/OpenSolaris/SunStudio-Solaris-x86/analyzefootballresults: ${OBJECTFILES}
-	${MKDIR} -p dist/OpenSolaris/SunStudio-Solaris-x86
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzefootballresults ${OBJECTFILES} ${LDLIBSOPTIONS} 
-
-${OBJECTDIR}/main.o: main.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/main.o main.cpp
+dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so: ${OBJECTFILES}
+	${MKDIR} -p dist/OpenSolaris/OracleSolarisStudio-Solaris-x86
+	${LINK.cc} -G -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so -KPIC -norunpath -h libAnalyzeFootballResults.so ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/ParseLine.o: ParseLine.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
 
 ${OBJECTDIR}/ClubName.o: ClubName.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/ClubName.o ClubName.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ClubName.o ClubName.cpp
 
 ${OBJECTDIR}/Utils.o: Utils.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/Utils.o Utils.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Utils.o Utils.cpp
 
 ${OBJECTDIR}/Results.o: Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/Results.o Results.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Results.o Results.cpp
 
 ${OBJECTDIR}/Years.o: Years.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/Years.o Years.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Years.o Years.cpp
 
 ${OBJECTDIR}/Clubs.o: Clubs.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/Clubs.o Clubs.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Clubs.o Clubs.cpp
 
 ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
 
 # Subprojects
 .build-subprojects:
@@ -105,7 +100,7 @@ ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/OpenSolaris
-	${RM} dist/OpenSolaris/SunStudio-Solaris-x86/analyzefootballresults
+	${RM} dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so
 	${CCADMIN} -clean
 
 # Subprojects

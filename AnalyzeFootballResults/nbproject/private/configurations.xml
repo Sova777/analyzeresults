@@ -3,7 +3,7 @@
   <projectmakefile>Makefile</projectmakefile>
   <defaultConf>0</defaultConf>
   <confs>
-    <conf name="OpenSolaris" type="1">
+    <conf name="OpenSolaris" type="2">
       <gizmo_options version="3">
         <configurationname>GizmoSimpleSolaris</configurationname>
       </gizmo_options>

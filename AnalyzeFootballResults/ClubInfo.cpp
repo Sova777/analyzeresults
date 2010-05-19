@@ -66,7 +66,7 @@ void ClubInfo::clear(struct Record* record) {
 bool ClubInfo::open(string file_name) {
     string line;
     string p_line;
-    string full_file_name = "data/" + file_name + ".txt";
+    string full_file_name = db_path + "/" + file_name + ".txt";
     string s;
 
     f.open(full_file_name.c_str());

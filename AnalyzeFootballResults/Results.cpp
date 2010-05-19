@@ -55,7 +55,7 @@ bool Results::open(string file_name) {
     string full_file_name;
     string s;
 
-    full_file_name = "data/" + file_name + ".txt";
+    full_file_name = db_path + "/" + file_name + ".txt";
     f.open(full_file_name.c_str());
     if (!f) {
         cerr << full_file_name << " " << FileNotFound << endl;
