@@ -54,10 +54,10 @@
       <compileType>
       </compileType>
     </conf>
-    <conf name="Windows" type="1">
+    <conf name="Windows" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>Cygwin|Cygwin</compilerSet>
+        <compilerSet>MinGW|MinGW</compilerSet>
         <platform>3</platform>
       </toolsSet>
       <compileType>
