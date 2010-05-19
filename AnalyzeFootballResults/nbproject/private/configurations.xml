@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="69">
   <projectmakefile>Makefile</projectmakefile>
-  <defaultConf>2</defaultConf>
+  <defaultConf>0</defaultConf>
   <confs>
     <conf name="OpenSolaris" type="1">
       <gizmo_options version="3">
@@ -11,7 +11,7 @@
         <args></args>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
-        <console-type>2</console-type>
+        <console-type>0</console-type>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
         <environment>

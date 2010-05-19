@@ -34,8 +34,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class Utils {
 public:
+    /**
+     * WIN - победа, DRAW - ничья, LOSE -поражение
+     * OTHER_TEAM - команда не участвовала в этом матче
+     * EMPTY - счет не указан (поле пусто)
+     * UNKNOWN - исход матча непонятен для программы
+     */
     enum EVENT { WIN, DRAW, LOSE, OTHER_TEAMS, EMPTY, UNKNOWN };
+
+    /**
+     * Преобразовать строку в число
+     * если строка не содержит число, то вернуть -1
+     * @param str
+     * @return int
+     */
     static int toInt(std::string& str);
+
+    /**
+     * Определить, команда выйграла, проиграла или сыграла в ничью
+     * @param y
+     * @param club_id
+     * @return enum EVENT
+     */
     static EVENT event(struct Results::Record* y, std::string club_id);
 
 };

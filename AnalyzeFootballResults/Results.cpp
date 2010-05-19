@@ -33,6 +33,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "ParseLine.hpp"
 #include "Results.hpp"
+#include "Utils.hpp"
 
 using namespace std;
 
@@ -44,6 +45,7 @@ void Results::clear(struct Record* record) {
     record->goals_1 = "";
     record->goals_2 = "";
     record->round = "";
+    record->clear_goals_int();
     return;
 }
 
@@ -112,6 +114,48 @@ Results::Record* Results::next() {
 void Results::close() {
     f.close();
     headers.clear();
+}
+
+bool Results::Record::played(std::string team) {
+    return ((team_id_1 == team) || (team_id_2 == team));
+}
+
+bool Results::Record::played(std::string team1, std::string team2) {
+    return ((team_id_1 == team1) && (team_id_2 == team2)) ||
+            ((team_id_1 == team2) && (team_id_2 == team1));
+}
+
+void Results::Record::clear_goals_int() {
+    goals_1_int = -2;
+    goals_2_int = -2;
+}
+
+int Results::Record::get_goals_1() {
+    if (goals_1_int != -2) return goals_1_int;
+    goals_1_int = Utils::toInt(goals_1);
+    return goals_1_int;
+}
+
+int Results::Record::get_goals_2() {
+    if (goals_2_int != -2) return goals_2_int;
+    goals_2_int = Utils::toInt(goals_2);
+    return goals_2_int;
+}
+
+int Results::Record::get_goals_1(std::string team) {
+    if (team == team_id_1) return get_goals_1();
+    if (team == team_id_2) return get_goals_2();
+    return -2;
+}
+
+int Results::Record::get_goals_2(std::string team) {
+    if (team == team_id_1) return get_goals_2();
+    if (team == team_id_2) return get_goals_1();
+    return -2;
+}
+
+bool Results::Record::is_correct_game() {
+    return ((get_goals_1() >= 0) || (get_goals_2() >= 0));
 }
 
 ostream & operator<<(ostream& output, const Results::Record* r) {

@@ -39,6 +39,7 @@ class Results : protected ParseLine {
 public:
 
     struct Record {
+    public:
         std::string id;
         std::string date;
         std::string team_id_1;
@@ -46,6 +47,65 @@ public:
         std::string goals_1;
         std::string goals_2;
         std::string round;
+
+    private:
+        int goals_1_int;
+        int goals_2_int;
+
+    public:
+
+        /**
+         * Играла ли команда в этом матче
+         * @param team
+         * @return bool
+         */
+        bool played(std::string team);
+
+        /**
+         * Встречвлись ли команды в этом матче
+         * @param std::string team1
+         * @param std::string team2
+         */
+        bool played(std::string team1, std::string team2);
+
+        /**
+         * Очистить поля goals_1_int и goals_int_2
+         * Присвоить -2
+         */
+        void clear_goals_int();
+
+        /**
+         * Получить количество голов (целое число)
+         * @return int
+         */
+        int get_goals_1();
+
+        /**
+         * Получить количество голов (целое число)
+         * @return int
+         */
+        int get_goals_2();
+
+        /**
+         * Забито мячей командой
+         * @param team1
+         * @return int
+         */
+        int get_goals_1(std::string team);
+
+        /**
+         * Пропущено мячей командой
+         * @param team1
+         * @return int
+         */
+        int get_goals_2(std::string team);
+
+        /**
+         * Обычная игра (счет не содержит "+", "-" или "")
+         * @return bool
+         */
+        bool is_correct_game();
+
     };
     /**
      * Получить следующую запись
@@ -64,6 +124,7 @@ public:
      * Закрыть файл с данными
      */
     void close();
+
 private:
     /**
      * Стереть данные в структуре
