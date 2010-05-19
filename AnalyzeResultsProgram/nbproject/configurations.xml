@@ -66,11 +66,11 @@
         </requiredProjects>
       </compileType>
     </conf>
-    <conf name="Release" type="1">
+    <conf name="Windows" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>OracleSolarisStudio|OracleSolarisStudio</compilerSet>
-        <platform>1</platform>
+        <compilerSet>MinGW|MinGW</compilerSet>
+        <platform>3</platform>
       </toolsSet>
       <compileType>
         <cTool>
@@ -78,6 +78,9 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../AnalyzeFootballResults</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -85,6 +88,26 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../AnalyzeFootballResults/dist/Windows/MinGW-Windows</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>AnalyzeFootballResults</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../AnalyzeFootballResults"
+                        CT="2"
+                        CN="Windows"
+                        AC="true"
+                        BL="true"
+                        WD="../AnalyzeFootballResults"
+                        BC="${MAKE}  -f Makefile CONF=Windows"
+                        CC="${MAKE}  -f Makefile CONF=Windows clean"
+                        OP="dist/Windows/MinGW-Windows/libAnalyzeFootballResults.dll">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
   </confs>

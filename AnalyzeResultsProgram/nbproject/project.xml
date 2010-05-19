@@ -15,7 +15,7 @@
             <sourceRootList/>
             <confList>
                 <confElem>OpenSolaris</confElem>
-                <confElem>Release</confElem>
+                <confElem>Windows</confElem>
             </confList>
         </data>
     </configuration>

@@ -14,15 +14,15 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=cc
-CCC=CC
-CXX=CC
-FC=f95
+CC=gcc
+CCC=g++
+CXX=g++
+FC=
 AS=as
 
 # Macros
-CND_PLATFORM=OracleSolarisStudio-Solaris-x86
-CND_CONF=Release
+CND_PLATFORM=MinGW-Windows
+CND_CONF=Windows
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -50,31 +50,33 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-L../AnalyzeFootballResults/dist/Windows/MinGW-Windows -lAnalyzeFootballResults
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/OracleSolarisStudio-Solaris-x86/analyzeresultsprogram
+	"${MAKE}"  -f nbproject/Makefile-Windows.mk dist/Windows/MinGW-Windows/analyzeresultsprogram.exe
 
-dist/Release/OracleSolarisStudio-Solaris-x86/analyzeresultsprogram: ${OBJECTFILES}
-	${MKDIR} -p dist/Release/OracleSolarisStudio-Solaris-x86
+dist/Windows/MinGW-Windows/analyzeresultsprogram.exe: ${OBJECTFILES}
+	${MKDIR} -p dist/Windows/MinGW-Windows
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -o ${OBJECTDIR}/main.o main.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../AnalyzeFootballResults -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Release
-	${RM} dist/Release/OracleSolarisStudio-Solaris-x86/analyzeresultsprogram
-	${CCADMIN} -clean
+	${RM} -r build/Windows
+	${RM} dist/Windows/MinGW-Windows/analyzeresultsprogram.exe
 
 # Subprojects
 .clean-subprojects:
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
