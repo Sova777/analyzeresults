@@ -110,5 +110,47 @@
         </requiredProjects>
       </compileType>
     </conf>
+    <conf name="Linux" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../AnalyzeFootballResults</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../AnalyzeFootballResults"
+                            CT="2"
+                            CN="Linux"
+                            AC="true"
+                            BL="true"
+                            WD="../AnalyzeFootballResults"
+                            BC="${MAKE}  -f Makefile CONF=Linux"
+                            CC="${MAKE}  -f Makefile CONF=Linux clean"
+                            OP="dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../AnalyzeFootballResults"
+                        CT="2"
+                        CN="OpenSolaris"
+                        AC="true"
+                        BL="false"
+                        WD="../AnalyzeFootballResults"
+                        BC="${MAKE}  -f Makefile CONF=OpenSolaris"
+                        CC="${MAKE}  -f Makefile CONF=OpenSolaris clean"
+                        OP="dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so">
+          </makeArtifact>
+        </requiredProjects>
+      </compileType>
+    </conf>
   </confs>
 </configurationDescriptor>
