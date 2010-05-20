@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="69">
   <projectmakefile>Makefile</projectmakefile>
-  <defaultConf>2</defaultConf>
+  <defaultConf>1</defaultConf>
   <confs>
     <conf name="OpenSolaris" type="2">
       <gizmo_options version="3">
@@ -18,7 +18,7 @@
         </environment>
       </runprofile>
     </conf>
-    <conf name="Linux" type="1">
+    <conf name="Linux" type="2">
       <gizmo_options version="3">
         <configurationname>GizmoSimple</configurationname>
       </gizmo_options>

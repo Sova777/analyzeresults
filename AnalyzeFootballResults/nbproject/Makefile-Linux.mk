@@ -33,9 +33,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/ParseLine.o \
-	${OBJECTDIR}/newmain.o \
 	${OBJECTDIR}/ClubName.o \
 	${OBJECTDIR}/Utils.o \
 	${OBJECTDIR}/Results.o \
@@ -62,56 +60,46 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Linux.mk dist/Linux/GNU-Linux-x86/analyzefootballresults
+	"${MAKE}"  -f nbproject/Makefile-Linux.mk dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so
 
-dist/Linux/GNU-Linux-x86/analyzefootballresults: ${OBJECTFILES}
+dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Linux/GNU-Linux-x86
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzefootballresults ${OBJECTFILES} ${LDLIBSOPTIONS} 
-
-${OBJECTDIR}/main.o: main.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/ParseLine.o: ParseLine.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
-
-${OBJECTDIR}/newmain.o: newmain.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/newmain.o newmain.c
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
 
 ${OBJECTDIR}/ClubName.o: ClubName.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubName.o ClubName.cpp
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubName.o ClubName.cpp
 
 ${OBJECTDIR}/Utils.o: Utils.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Utils.o Utils.cpp
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Utils.o Utils.cpp
 
 ${OBJECTDIR}/Results.o: Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Results.o Results.cpp
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Results.o Results.cpp
 
 ${OBJECTDIR}/Years.o: Years.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Years.o Years.cpp
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Years.o Years.cpp
 
 ${OBJECTDIR}/Clubs.o: Clubs.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Clubs.o Clubs.cpp
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Clubs.o Clubs.cpp
 
 ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
 
 # Subprojects
 .build-subprojects:
@@ -119,7 +107,7 @@ ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Linux
-	${RM} dist/Linux/GNU-Linux-x86/analyzefootballresults
+	${RM} dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so
 
 # Subprojects
 .clean-subprojects:
