@@ -16,6 +16,7 @@
             <confList>
                 <confElem>OpenSolaris</confElem>
                 <confElem>Windows</confElem>
+                <confElem>Linux</confElem>
             </confList>
         </data>
     </configuration>
