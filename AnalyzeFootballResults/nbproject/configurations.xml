@@ -45,7 +45,7 @@
       <compileType>
       </compileType>
     </conf>
-    <conf name="Linux" type="1">
+    <conf name="Linux" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <compilerSet>GNU|GNU</compilerSet>
