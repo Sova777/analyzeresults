@@ -33,12 +33,12 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/ParseLine.o \
 	${OBJECTDIR}/ClubName.o \
 	${OBJECTDIR}/Utils.o \
 	${OBJECTDIR}/Results.o \
 	${OBJECTDIR}/Years.o \
 	${OBJECTDIR}/Clubs.o \
+	${OBJECTDIR}/ResultsDB.o \
 	${OBJECTDIR}/ClubInfo.o
 
 
@@ -66,10 +66,6 @@ dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so: $
 	${MKDIR} -p dist/OpenSolaris/OracleSolarisStudio-Solaris-x86
 	${LINK.cc} -G -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so -KPIC -norunpath -h libAnalyzeFootballResults.so ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/ParseLine.o: ParseLine.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
-
 ${OBJECTDIR}/ClubName.o: ClubName.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ClubName.o ClubName.cpp
@@ -89,6 +85,10 @@ ${OBJECTDIR}/Years.o: Years.cpp
 ${OBJECTDIR}/Clubs.o: Clubs.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Clubs.o Clubs.cpp
+
+${OBJECTDIR}/ResultsDB.o: ResultsDB.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ResultsDB.o ResultsDB.cpp
 
 ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
 	${MKDIR} -p ${OBJECTDIR}

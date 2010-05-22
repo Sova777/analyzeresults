@@ -5,7 +5,6 @@
   <confs>
     <conf name="OpenSolaris" type="2">
       <gizmo_options version="3">
-        <configurationname>GizmoSimpleSolaris</configurationname>
       </gizmo_options>
       <runprofile version="6">
         <args></args>
@@ -20,7 +19,6 @@
     </conf>
     <conf name="Linux" type="2">
       <gizmo_options version="3">
-        <configurationname>GizmoSimple</configurationname>
       </gizmo_options>
       <runprofile version="6">
         <args></args>
@@ -35,7 +33,6 @@
     </conf>
     <conf name="Windows" type="2">
       <gizmo_options version="3">
-        <configurationname>GizmoSimple</configurationname>
       </gizmo_options>
       <runprofile version="6">
         <args></args>

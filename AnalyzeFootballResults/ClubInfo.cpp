@@ -32,7 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <vector>
 
 #include "ClubInfo.hpp"
-#include "ParseLine.hpp"
+#include "ResultsDB.hpp"
 
 using namespace std;
 

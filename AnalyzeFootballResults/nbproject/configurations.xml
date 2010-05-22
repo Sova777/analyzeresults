@@ -7,8 +7,8 @@
       <itemPath>ClubInfo.hpp</itemPath>
       <itemPath>ClubName.hpp</itemPath>
       <itemPath>Clubs.hpp</itemPath>
-      <itemPath>ParseLine.hpp</itemPath>
       <itemPath>Results.hpp</itemPath>
+      <itemPath>ResultsDB.hpp</itemPath>
       <itemPath>Utils.hpp</itemPath>
       <itemPath>Years.hpp</itemPath>
     </logicalFolder>
@@ -23,8 +23,8 @@
       <itemPath>ClubInfo.cpp</itemPath>
       <itemPath>ClubName.cpp</itemPath>
       <itemPath>Clubs.cpp</itemPath>
-      <itemPath>ParseLine.cpp</itemPath>
       <itemPath>Results.cpp</itemPath>
+      <itemPath>ResultsDB.cpp</itemPath>
       <itemPath>Utils.cpp</itemPath>
       <itemPath>Years.cpp</itemPath>
     </logicalFolder>
