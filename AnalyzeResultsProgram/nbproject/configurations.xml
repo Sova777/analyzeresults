@@ -45,11 +45,19 @@
           </incDir>
         </ccTool>
         <linkerTool>
-          <linkerAddLib>
-            <pElem>../AnalyzeFootballResults/dist/OpenSolaris/OracleSolarisStudio-Solaris-x86</pElem>
-          </linkerAddLib>
           <linkerLibItems>
-            <linkerLibLibItem>AnalyzeFootballResults</linkerLibLibItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../AnalyzeFootballResults"
+                            CT="2"
+                            CN="OpenSolaris"
+                            AC="true"
+                            BL="true"
+                            WD="../AnalyzeFootballResults"
+                            BC="${MAKE}  -f Makefile CONF=OpenSolaris"
+                            CC="${MAKE}  -f Makefile CONF=OpenSolaris clean"
+                            OP="dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
         <requiredProjects>

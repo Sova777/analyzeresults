@@ -50,11 +50,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../AnalyzeFootballResults/dist/OpenSolaris/OracleSolarisStudio-Solaris-x86 -lAnalyzeFootballResults
+LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/OpenSolaris/OracleSolarisStudio-Solaris-x86 -L../AnalyzeFootballResults/dist/OpenSolaris/OracleSolarisStudio-Solaris-x86 -lAnalyzeFootballResults
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-OpenSolaris.mk dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/analyzeresultsprogram
+
+dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/analyzeresultsprogram: ../AnalyzeFootballResults/dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so
 
 dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/analyzeresultsprogram: ${OBJECTFILES}
 	${MKDIR} -p dist/OpenSolaris/OracleSolarisStudio-Solaris-x86
@@ -66,6 +68,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=OpenSolaris
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -75,6 +78,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=OpenSolaris clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
