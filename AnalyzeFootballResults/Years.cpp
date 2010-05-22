@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <vector>
 #include <string>
 
-#include "ParseLine.hpp"
+#include "ResultsDB.hpp"
 #include "Years.hpp"
 
 using namespace std;

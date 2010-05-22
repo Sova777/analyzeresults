@@ -32,9 +32,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <fstream>
 #include <vector>
 
-#include "ParseLine.hpp"
+#include "ResultsDB.hpp"
 
-class ClubInfo : protected ParseLine {
+class ClubInfo : protected ResultsDB {
 public:
 
     struct Record {

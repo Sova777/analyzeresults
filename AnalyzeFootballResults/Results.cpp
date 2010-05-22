@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <vector>
 
-#include "ParseLine.hpp"
+#include "ResultsDB.hpp"
 #include "Results.hpp"
 #include "Utils.hpp"
 
@@ -154,8 +154,35 @@ int Results::Record::get_goals_2(std::string team) {
     return -2;
 }
 
+string Results::Record::get_team_name_1(std::string season) {
+    return club_name->getName(team_id_1, season);
+}
+
+string Results::Record::get_team_name_2(std::string season) {
+    return club_name->getName(team_id_2, season);
+}
+
+string Results::Record::get_team_name_1(Years::Record* year) {
+    return club_name->getName(team_id_1, year->file_results);
+}
+
+string Results::Record::get_team_name_2(Years::Record* year) {
+    return club_name->getName(team_id_2, year->file_results);
+}
+
 bool Results::Record::is_correct_game() {
     return ((get_goals_1() >= 0) || (get_goals_2() >= 0));
+}
+
+void Results::Record::print_result(Years::Record* year) {
+    cout << date << " "
+            << get_team_name_1(year) << " - " << get_team_name_2(year)
+            << " " << get_goals_1() << ":" << get_goals_2();
+}
+
+void Results::Record::println_result(Years::Record* year) {
+    print_result(year);
+    cout << endl;
 }
 
 ostream & operator<<(ostream& output, const Results::Record* r) {

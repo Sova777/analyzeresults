@@ -30,14 +30,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <iostream>
 #include <string>
 
-#include "ParseLine.hpp"
+#include "ResultsDB.hpp"
 
 using namespace std;
 
 #define FIELD_DELIM ';'
 #define DATE_DELIM ','
 
-int ParseLine::countColumns(const string str) {
+int ResultsDB::countColumns(const string str) {
     int i = 0, count = 0;
     if (str == "") return 0;
     int len = str.length();
@@ -50,7 +50,7 @@ int ParseLine::countColumns(const string str) {
     return count + 1;
 }
 
-string ParseLine::nextColumn(const string str) {
+string ResultsDB::nextColumn(const string str) {
     size_t p = str.find(FIELD_DELIM);
     if (p == string::npos) return "";
     string line = str.substr(p + 1);
@@ -66,7 +66,7 @@ string ParseLine::nextColumn(const string str) {
     return line.substr(0, len - i);
 }
 
-string ParseLine::getColumn(const string str) {
+string ResultsDB::getColumn(const string str) {
     int i = 0;
     string column;
 
@@ -79,8 +79,11 @@ string ParseLine::getColumn(const string str) {
     return column;
 }
 
-std::string ParseLine::db_path = "data";
+std::string ResultsDB::db_path = "data";
 
-void ParseLine::path_to_db(const std::string str) {
+ClubName* ResultsDB::club_name = NULL;
+
+void ResultsDB::init(const std::string str) {
     db_path = str;
+    club_name = ClubName::getInstance();
 }

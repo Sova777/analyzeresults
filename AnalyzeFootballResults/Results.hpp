@@ -33,9 +33,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <vector>
 
-#include "ParseLine.hpp"
+#include "ResultsDB.hpp"
+#include "Years.hpp"
 
-class Results : protected ParseLine {
+class Results : protected ResultsDB {
 public:
 
     struct Record {
@@ -75,6 +76,34 @@ public:
         void clear_goals_int();
 
         /**
+         * Получить имя команды
+         * @param std::string season
+         * @return std::string
+         */
+        std::string get_team_name_1(std::string season);
+
+        /**
+         * Получить имя команды
+         * @param std::string season
+         * @return std::string
+         */
+        std::string get_team_name_2(std::string season);
+
+        /**
+         * Получить имя команды
+         * @param Years::Record* year
+         * @return std::string
+         */
+        std::string get_team_name_1(Years::Record* year);
+
+        /**
+         * Получить имя команды
+         * @param Years::Record* year
+         * @return std::string
+         */
+        std::string get_team_name_2(Years::Record* year);
+
+        /**
          * Получить количество голов (целое число)
          * @return int
          */
@@ -105,6 +134,19 @@ public:
          * @return bool
          */
         bool is_correct_game();
+
+        /**
+         * Распечатать результат матча
+         * @param Years::Record* year
+         */
+        void print_result(Years::Record* year);
+
+
+        /**
+         * Распечатать результат матча
+         * @param Years::Record* year
+         */
+        void println_result(Years::Record* year);
 
     };
     /**

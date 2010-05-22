@@ -25,22 +25,23 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _PARSE_FILE_H
-#define	_PARSE_FILE_H
+#ifndef _RESULTSDB_H
+#define	_RESULTSDB_H
 
 #include <string>
 #include <map>
+#include "ClubName.hpp"
 
 #define FileNotFound "файл не найден"
 
-class ParseLine {
+class ResultsDB {
 public:
 
     /**
      * Установить путь к файлам с данными
      * @param str
      */
-    static void path_to_db(const std::string str);
+    static void init(const std::string str);
 
 protected:
 
@@ -70,6 +71,8 @@ protected:
 
     static std::string db_path;
 
+    static ClubName* club_name;
+
 };
 
-#endif	/* _PARSE_FILE_H */
+#endif	/* _RESULTSDB_H */

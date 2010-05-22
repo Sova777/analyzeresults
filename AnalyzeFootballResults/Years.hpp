@@ -31,9 +31,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <fstream>
 
-#include "ParseLine.hpp"
+#include "ResultsDB.hpp"
 
-class Years : protected ParseLine {
+class Years : protected ResultsDB {
 public:
 
     struct Record {
