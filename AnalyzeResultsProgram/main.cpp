@@ -37,31 +37,45 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using namespace std;
 
+//void sample1() {
+//    Years years;
+//    Years::Record* record_year;
+//    Results results;
+//    Results::Record* record_result;
+//
+//    ResultsDB::init("/export/home/sova/football/data/");
+//
+//    years.open();
+//    while ((record_year = years.next()) != NULL) {
+//        results.open(record_year->file_results);
+//        while ((record_result = results.next()) != NULL) {
+//            if (record_result->played("22")) {
+//                if (record_result->get_goals_1("22") > 4) {
+//                    record_result->println_result(record_year);
+//                }
+//            }
+//        }
+//        results.close();
+//    }
+//    years.close();
+//}
+
 int main(int argc, char** argv) {
 
     Years years;
     Years::Record* record_year;
     Results results;
     Results::Record* record_result;
-    ClubName* club_name = ClubName::getInstance();
 
-    ParseLine::path_to_db("/export/home/sova/football/data/");
+    ResultsDB::init("/export/home/sova/football/data");
 
     years.open();
     while ((record_year = years.next()) != NULL) {
         results.open(record_year->file_results);
         while ((record_result = results.next()) != NULL) {
-//            if (!record_result->is_correct_game()) {
-//                cout << record_result << endl;
-//            }
             if (record_result->played("22")) {
                 if (record_result->get_goals_1("22") > 4) {
-                    cout << record_result->date << " "
-                            << club_name->getName(record_result->team_id_1, record_year->file_results) << " "
-                            << club_name->getName(record_result->team_id_2, record_year->file_results) << " "
-                            << record_result->get_goals_1() << " "
-                            << record_result->get_goals_2()
-                            << endl;
+                    record_result->println_result(record_year);
                 }
             }
         }
