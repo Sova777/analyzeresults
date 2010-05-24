@@ -25,53 +25,43 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _RESULTSDB_H
-#define	_RESULTSDB_H
+#ifndef STAT_HPP
+#define	STAT_HPP
 
-#include <string>
-#include "ClubName.hpp"
+#include <vector>
 
-#define FileNotFound "файл не найден"
+#include "Results.hpp"
 
-class ResultsDB {
+class Stat {
 public:
 
-    /**
-     * Установить путь к файлам с данными
-     * @param str
-     */
-    static void init(const std::string str);
+    Stat();
+    
+    struct Record {
+        int w1;
+        int d1;
+        int l1;
+        int f1;
+        int a1;
+        int p1;
+        int w2;
+        int d2;
+        int l2;
+        int f2;
+        int a2;
+        int p2;
+        int unknown;
+    };
 
-protected:
+    typedef std::map<std::string, Record*> TableMap;
 
-    /**
-     * функция принимает строку str
-     * возвращает количество встретившихся разделителей колонок.
-     * @param const std::string str
-     * @return std::string
-     */
-    static int countColumns(const std::string str);
+    TableMap table;
 
-    /**
-     * Функция принимает строку str
-     * возвращает урезанную переменную str.
-     * @param const std::string str
-     * @return std::string
-     */
-    static std::string nextColumn(const std::string str);
-
-    /**
-     * функция принимает строку str, на выходе переменная column
-     * содержит урезанную переменную str.
-     * @param const string str
-     * @return std::string
-     */
-    static std::string getColumn(const std::string str);
-
-    static std::string db_path;
-
-    static ClubName* club_name;
+    void add(Results::Record* record);
+    
+    void clear(Stat::Record* record);
 
 };
 
-#endif	/* _RESULTSDB_H */
+#endif	/* STAT_HPP */
+
