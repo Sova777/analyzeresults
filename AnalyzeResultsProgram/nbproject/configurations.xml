@@ -97,11 +97,20 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <linkerTool>
-          <linkerAddLib>
-            <pElem>../AnalyzeFootballResults/dist/Windows/MinGW-Windows</pElem>
-          </linkerAddLib>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram</output>
           <linkerLibItems>
-            <linkerLibLibItem>AnalyzeFootballResults</linkerLibLibItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../AnalyzeFootballResults"
+                            CT="2"
+                            CN="Windows"
+                            AC="true"
+                            BL="true"
+                            WD="../AnalyzeFootballResults"
+                            BC="${MAKE}  -f Makefile CONF=Windows"
+                            CC="${MAKE}  -f Makefile CONF=Windows clean"
+                            OP="dist/Windows/MinGW-Windows/libAnalyzeFootballResults.dll">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
         <requiredProjects>

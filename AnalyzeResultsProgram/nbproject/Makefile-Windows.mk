@@ -14,11 +14,11 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
+CC=gcc.exe
+CCC=g++.exe
+CXX=g++.exe
 FC=
-AS=as
+AS=as.exe
 
 # Macros
 CND_PLATFORM=MinGW-Windows
@@ -56,6 +56,8 @@ LDLIBSOPTIONS=-L../AnalyzeFootballResults/dist/Windows/MinGW-Windows -lAnalyzeFo
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-Windows.mk dist/Windows/MinGW-Windows/analyzeresultsprogram.exe
 
+dist/Windows/MinGW-Windows/analyzeresultsprogram.exe: ../AnalyzeFootballResults/dist/Windows/MinGW-Windows/libAnalyzeFootballResults.dll
+
 dist/Windows/MinGW-Windows/analyzeresultsprogram.exe: ${OBJECTFILES}
 	${MKDIR} -p dist/Windows/MinGW-Windows
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram ${OBJECTFILES} ${LDLIBSOPTIONS} 
@@ -68,6 +70,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Subprojects
 .build-subprojects:
 	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -76,6 +79,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows clean
 	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows clean
 
 # Enable dependency checking
