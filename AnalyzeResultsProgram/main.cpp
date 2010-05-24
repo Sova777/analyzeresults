@@ -25,14 +25,16 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <algorithm>
 #include <cstdlib>
 #include <iostream>
 
 #include <Clubs.hpp>
 #include <ClubInfo.hpp>
 #include <ClubName.hpp>
-#include <Utils.hpp>
 #include <Results.hpp>
+#include <Stat.hpp>
+#include <Utils.hpp>
 #include <Years.hpp>
 
 using namespace std;
@@ -66,22 +68,57 @@ int main(int argc, char** argv) {
     Years::Record* record_year;
     Results results;
     Results::Record* record_result;
+    Stat stat_table;
 
-    ResultsDB::init("/export/home/sova/football/data");
+    string path;
+    if (argc > 1) {
+        path = argv[1];
+    } else {
+        path = "./data";
+    }
 
-    years.open();
+    ResultsDB::init(path);
+
+    if (!years.open()) return EXIT_FAILURE;
     while ((record_year = years.next()) != NULL) {
         results.open(record_year->file_results);
         while ((record_result = results.next()) != NULL) {
-            if (record_result->played("22")) {
-                if (record_result->get_goals_1("22") > 4) {
-                    record_result->println_result(record_year);
-                }
-            }
+            stat_table.add(record_result);
         }
         results.close();
     }
     years.close();
+
+    typedef std::map<string, string> ClubNamesNow;
+    ClubNamesNow club_names_now;
+    Clubs clubs;
+    Clubs::Record* record_clubs;
+    clubs.open();
+    while ((record_clubs = clubs.next()) != NULL) {
+        club_names_now[record_clubs->id] =
+                record_clubs->club + " (" +record_clubs->city + ")";
+    }
+    clubs.close();
+
+    Stat::TableMap::const_iterator iter;
+    for (iter = stat_table.table.begin(); iter != stat_table.table.end(); ++iter) {
+        int w = (iter->second->w1 + iter->second->w2);
+        int d = (iter->second->d1 + iter->second->d2);
+        int l = (iter->second->l1 + iter->second->l2);
+        int f = (iter->second->f1 + iter->second->f2);
+        int a = (iter->second->a1 + iter->second->a2);
+        cout <<
+                club_names_now[iter->first] << " " <<
+                (w + d + l) << " " <<
+                w << " " <<
+                d << " " <<
+                l << " " <<
+                f << ":" <<
+                a << " " <<
+                (2 * w + d) << "   " <<
+                iter->second->unknown << "?" <<
+                endl;
+    }
 
     return (EXIT_SUCCESS);
 }
