@@ -54,7 +54,7 @@ bool Years::open() {
 
     f.open(file_name.c_str());
     if (!f) {
-        cerr << FileNotFound << endl;
+        cerr << file_name << ": " << FileNotFound << endl;
         return false;
     }
 

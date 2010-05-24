@@ -27,7 +27,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <cstdlib>
 #include <iostream>
-#include <map>
 #include <sstream>
 #include <string>
 #include "Utils.hpp"

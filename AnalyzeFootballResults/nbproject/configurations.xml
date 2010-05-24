@@ -9,6 +9,7 @@
       <itemPath>Clubs.hpp</itemPath>
       <itemPath>Results.hpp</itemPath>
       <itemPath>ResultsDB.hpp</itemPath>
+      <itemPath>Stat.hpp</itemPath>
       <itemPath>Utils.hpp</itemPath>
       <itemPath>Years.hpp</itemPath>
     </logicalFolder>
@@ -25,6 +26,7 @@
       <itemPath>Clubs.cpp</itemPath>
       <itemPath>Results.cpp</itemPath>
       <itemPath>ResultsDB.cpp</itemPath>
+      <itemPath>Stat.cpp</itemPath>
       <itemPath>Utils.cpp</itemPath>
       <itemPath>Years.cpp</itemPath>
     </logicalFolder>

@@ -94,6 +94,7 @@ Results::Record* Results::next() {
         if (headers[i] == "id") {
             record.id = s;
         } else if (headers[i] == "d") {
+            replace(s.begin(), s.end(), ',', '.');
             record.date = s;
         } else if (headers[i] == "t1") {
             record.team_id_1 = s;
@@ -175,7 +176,7 @@ bool Results::Record::is_correct_game() {
 }
 
 void Results::Record::print_result(Years::Record* year) {
-    cout << date << " "
+    cout << ((date == "") ? year->year : date) << " "
             << get_team_name_1(year) << " - " << get_team_name_2(year)
             << " " << get_goals_1() << ":" << get_goals_2();
 }

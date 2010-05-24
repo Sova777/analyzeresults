@@ -33,6 +33,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Stat.o \
 	${OBJECTDIR}/ClubName.o \
 	${OBJECTDIR}/Utils.o \
 	${OBJECTDIR}/Results.o \
@@ -65,6 +66,10 @@ LDLIBSOPTIONS=
 dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so: ${OBJECTFILES}
 	${MKDIR} -p dist/OpenSolaris/OracleSolarisStudio-Solaris-x86
 	${LINK.cc} -G -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so -KPIC -norunpath -h libAnalyzeFootballResults.so ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/Stat.o: Stat.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Stat.o Stat.cpp
 
 ${OBJECTDIR}/ClubName.o: ClubName.cpp 
 	${MKDIR} -p ${OBJECTDIR}
