@@ -63,7 +63,13 @@ public:
     
     void clear(Stat::Record* record);
 
+    std::vector<Stat::Record*>* get_sorted_vector_by_default();
+
+    std::vector<Stat::Record*> sorted_vector;
+
 };
+
+bool compare_rows(const Stat::Record* s1, const Stat::Record* s2);
 
 #endif	/* STAT_HPP */
 
