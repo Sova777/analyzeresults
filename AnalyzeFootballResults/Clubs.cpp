@@ -99,6 +99,21 @@ void Clubs::close() {
     headers.clear();
 }
 
+string Clubs::get_latest_club_name(string team_id) {
+    if (club_names_now.empty()) {
+        Clubs::Record* record_clubs;
+        Clubs clubs;
+        clubs.open();
+        while ((record_clubs = clubs.next()) != NULL) {
+            club_names_now[record_clubs->id] =
+                    record_clubs->club + " (" + record_clubs->city + ")";
+        }
+        clubs.close();
+
+    }
+    return club_names_now[team_id];
+}
+
 ostream & operator<<(ostream& output, const Clubs::Record* r) {
     output << r->id << ";" <<
             r->club << ";" <<

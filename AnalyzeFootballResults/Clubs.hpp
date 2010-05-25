@@ -60,7 +60,15 @@ public:
      */
     void close();
 
+    /**
+     * Получить последнее имя клубаа
+     * @param team_id
+     * @return std::string
+     */
+    std::string get_latest_club_name(std::string team_id);
+
 private:
+
     /**
      * Стереть данные в структуре
      * @param struct Record* clubs_struct
@@ -69,6 +77,9 @@ private:
     std::ifstream f;
     std::vector<std::string> headers;
     struct Record record;
+    typedef std::map<std::string, std::string> ClubNamesNow;
+    ClubNamesNow club_names_now;
+
 };
 
 std::ostream & operator<<(std::ostream& output, const Clubs::Record* r);
