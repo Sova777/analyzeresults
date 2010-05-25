@@ -33,12 +33,13 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/ParseLine.o \
+	${OBJECTDIR}/Stat.o \
 	${OBJECTDIR}/ClubName.o \
 	${OBJECTDIR}/Utils.o \
 	${OBJECTDIR}/Results.o \
 	${OBJECTDIR}/Years.o \
 	${OBJECTDIR}/Clubs.o \
+	${OBJECTDIR}/ResultsDB.o \
 	${OBJECTDIR}/ClubInfo.o
 
 
@@ -66,10 +67,10 @@ dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so: ${OBJECTFILES}
 	${MKDIR} -p dist/Linux/GNU-Linux-x86
 	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/ParseLine.o: ParseLine.cpp 
+${OBJECTDIR}/Stat.o: Stat.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ParseLine.o ParseLine.cpp
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Stat.o Stat.cpp
 
 ${OBJECTDIR}/ClubName.o: ClubName.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -95,6 +96,11 @@ ${OBJECTDIR}/Clubs.o: Clubs.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Clubs.o Clubs.cpp
+
+${OBJECTDIR}/ResultsDB.o: ResultsDB.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResultsDB.o ResultsDB.cpp
 
 ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
