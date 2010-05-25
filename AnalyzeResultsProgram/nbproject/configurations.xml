@@ -10,6 +10,37 @@
                    displayName="Resource Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="data"
+                     projectFiles="true"
+                     kind="SOURCE_LOGICAL_FOLDER">
+        <itemPath>data/1.txt</itemPath>
+        <itemPath>data/22.txt</itemPath>
+        <itemPath>data/3.txt</itemPath>
+        <itemPath>data/31.txt</itemPath>
+        <itemPath>data/4.txt</itemPath>
+        <itemPath>data/5.txt</itemPath>
+        <itemPath>data/59.txt</itemPath>
+        <itemPath>data/68.txt</itemPath>
+        <itemPath>data/80.txt</itemPath>
+        <itemPath>data/83.txt</itemPath>
+        <itemPath>data/89.txt</itemPath>
+        <itemPath>data/90.txt</itemPath>
+        <itemPath>data/91.txt</itemPath>
+        <itemPath>data/92.txt</itemPath>
+        <itemPath>data/93.txt</itemPath>
+        <itemPath>data/94.txt</itemPath>
+        <itemPath>data/95.txt</itemPath>
+        <itemPath>data/96.txt</itemPath>
+        <itemPath>data/club.txt</itemPath>
+        <itemPath>data/gv2008.txt</itemPath>
+        <itemPath>data/gv2009.txt</itemPath>
+        <itemPath>data/v2008.txt</itemPath>
+        <itemPath>data/v2009.txt</itemPath>
+        <itemPath>data/year.txt</itemPath>
+        <itemPath>data/yv2008.txt</itemPath>
+        <itemPath>data/yv2009.txt</itemPath>
+      </logicalFolder>
       <itemPath>LICENSE</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
