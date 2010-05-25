@@ -62,6 +62,20 @@ using namespace std;
 //    years.close();
 //}
 
+ bool compare_rows(const Stat::Record* s1, const Stat::Record* s2) {
+    int w1 = (s1->w1 + s1->w2);
+    int w2 = (s2->w1 + s2->w2);
+    int diff1 = (s1->f1 + s1->f2) - (s1->a1 + s1->a2);
+    int diff2 = (s2->f1 + s2->f2) - (s2->a1 + s2->a2);
+    int points1 = 2 * w1 + (s1->d1 + s1->d2);
+    int points2 = 2 * w2 + (s2->d1 + s2->d2);
+    if (points1 > points2) return true;
+    if (points1 < points2) return false;
+    if (w1 > w2) return true;
+    if (w1 < w2) return false;
+    return (diff1 > diff2);
+}
+
 int main(int argc, char** argv) {
 
     Years years;
@@ -101,14 +115,24 @@ int main(int argc, char** argv) {
     clubs.close();
 
     Stat::TableMap::const_iterator iter;
+    vector<Stat::Record*> v;
     for (iter = stat_table.table.begin(); iter != stat_table.table.end(); ++iter) {
-        int w = (iter->second->w1 + iter->second->w2);
-        int d = (iter->second->d1 + iter->second->d2);
-        int l = (iter->second->l1 + iter->second->l2);
-        int f = (iter->second->f1 + iter->second->f2);
-        int a = (iter->second->a1 + iter->second->a2);
+        v.push_back(iter->second);
+    }
+
+    sort(v.begin(), v.end(), compare_rows);
+    vector<Stat::Record*>::const_iterator iter2;
+    int place = 0;
+    for (iter2 = v.begin(); iter2 != v.end(); ++iter2) {
+        place++;
+        int w = ((*iter2)->w1 + (*iter2)->w2);
+        int d = ((*iter2)->d1 + (*iter2)->d2);
+        int l = ((*iter2)->l1 + (*iter2)->l2);
+        int f = ((*iter2)->f1 + (*iter2)->f2);
+        int a = ((*iter2)->a1 + (*iter2)->a2);
         cout <<
-                club_names_now[iter->first] << " " <<
+                place << " " <<
+                club_names_now[(*iter2)->team_id] << " " <<
                 (w + d + l) << " " <<
                 w << " " <<
                 d << " " <<
@@ -116,7 +140,7 @@ int main(int argc, char** argv) {
                 f << ":" <<
                 a << " " <<
                 (2 * w + d) << "   " <<
-                iter->second->unknown << "?" <<
+                (*iter2)->unknown << "?" <<
                 endl;
     }
 
