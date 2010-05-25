@@ -62,20 +62,6 @@ using namespace std;
 //    years.close();
 //}
 
- bool compare_rows(const Stat::Record* s1, const Stat::Record* s2) {
-    int w1 = (s1->w1 + s1->w2);
-    int w2 = (s2->w1 + s2->w2);
-    int diff1 = (s1->f1 + s1->f2) - (s1->a1 + s1->a2);
-    int diff2 = (s2->f1 + s2->f2) - (s2->a1 + s2->a2);
-    int points1 = 2 * w1 + (s1->d1 + s1->d2);
-    int points2 = 2 * w2 + (s2->d1 + s2->d2);
-    if (points1 > points2) return true;
-    if (points1 < points2) return false;
-    if (w1 > w2) return true;
-    if (w1 < w2) return false;
-    return (diff1 > diff2);
-}
-
 int main(int argc, char** argv) {
 
     Years years;
@@ -83,6 +69,7 @@ int main(int argc, char** argv) {
     Results results;
     Results::Record* record_result;
     Stat stat_table;
+    Clubs clubs;
 
     string path;
     if (argc > 1) {
@@ -103,36 +90,19 @@ int main(int argc, char** argv) {
     }
     years.close();
 
-    typedef std::map<string, string> ClubNamesNow;
-    ClubNamesNow club_names_now;
-    Clubs clubs;
-    Clubs::Record* record_clubs;
-    clubs.open();
-    while ((record_clubs = clubs.next()) != NULL) {
-        club_names_now[record_clubs->id] =
-                record_clubs->club + " (" +record_clubs->city + ")";
-    }
-    clubs.close();
-
-    Stat::TableMap::const_iterator iter;
-    vector<Stat::Record*> v;
-    for (iter = stat_table.table.begin(); iter != stat_table.table.end(); ++iter) {
-        v.push_back(iter->second);
-    }
-
-    sort(v.begin(), v.end(), compare_rows);
-    vector<Stat::Record*>::const_iterator iter2;
+    vector<Stat::Record*>* v = stat_table.get_sorted_vector_by_default();
+    vector<Stat::Record*>::const_iterator iter;
     int place = 0;
-    for (iter2 = v.begin(); iter2 != v.end(); ++iter2) {
+    for (iter = v->begin(); iter != v->end(); ++iter) {
         place++;
-        int w = ((*iter2)->w1 + (*iter2)->w2);
-        int d = ((*iter2)->d1 + (*iter2)->d2);
-        int l = ((*iter2)->l1 + (*iter2)->l2);
-        int f = ((*iter2)->f1 + (*iter2)->f2);
-        int a = ((*iter2)->a1 + (*iter2)->a2);
+        int w = ((*iter)->w1 + (*iter)->w2);
+        int d = ((*iter)->d1 + (*iter)->d2);
+        int l = ((*iter)->l1 + (*iter)->l2);
+        int f = ((*iter)->f1 + (*iter)->f2);
+        int a = ((*iter)->a1 + (*iter)->a2);
         cout <<
                 place << " " <<
-                club_names_now[(*iter2)->team_id] << " " <<
+                clubs.get_latest_club_name((*iter)->team_id) << " " <<
                 (w + d + l) << " " <<
                 w << " " <<
                 d << " " <<
@@ -140,7 +110,7 @@ int main(int argc, char** argv) {
                 f << ":" <<
                 a << " " <<
                 (2 * w + d) << "   " <<
-                (*iter2)->unknown << "?" <<
+                (*iter)->unknown << "?" <<
                 endl;
     }
 
