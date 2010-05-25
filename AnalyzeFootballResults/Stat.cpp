@@ -11,6 +11,7 @@ Stat::Stat() {
 }
 
 void Stat::clear(Stat::Record* record) {
+    record->team_id = "";
     record->w1 = 0;
     record->d1 = 0;
     record->l1 = 0;
@@ -84,8 +85,10 @@ void Stat::add(Results::Record* record) {
             g2 = 0;
         }
     }
+    stat_record1->team_id = record->team_id_1;
     stat_record1->f1 += g1;
     stat_record1->a1 += g2;
+    stat_record2->team_id = record->team_id_2;
     stat_record2->f2 += g2;
     stat_record2->a2 += g1;
 }

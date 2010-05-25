@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	STAT_HPP
 
 #include <vector>
+#include <string>
 
 #include "Results.hpp"
 
@@ -38,6 +39,7 @@ public:
     Stat();
     
     struct Record {
+        std::string team_id;
         int w1;
         int d1;
         int l1;
