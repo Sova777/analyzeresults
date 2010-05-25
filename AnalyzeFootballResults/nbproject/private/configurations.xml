@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="69">
   <projectmakefile>Makefile</projectmakefile>
-  <defaultConf>2</defaultConf>
+  <defaultConf>1</defaultConf>
   <confs>
     <conf name="OpenSolaris" type="2">
       <gizmo_options version="3">
-        <configurationname>GizmoSimpleSolaris</configurationname>
+        <configurationname>GizmoSunStudioStandard</configurationname>
       </gizmo_options>
       <runprofile version="6">
         <args></args>
@@ -20,7 +20,7 @@
     </conf>
     <conf name="Linux" type="2">
       <gizmo_options version="3">
-        <configurationname>GizmoSimple</configurationname>
+        <configurationname>GizmoSunStudioStandard</configurationname>
       </gizmo_options>
       <runprofile version="6">
         <args></args>
