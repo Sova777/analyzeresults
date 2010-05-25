@@ -74,6 +74,48 @@
         </requiredProjects>
       </compileType>
     </conf>
+    <conf name="Linux" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../AnalyzeFootballResults</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../AnalyzeFootballResults"
+                            CT="2"
+                            CN="Linux"
+                            AC="true"
+                            BL="true"
+                            WD="../AnalyzeFootballResults"
+                            BC="${MAKE}  -f Makefile CONF=Linux"
+                            CC="${MAKE}  -f Makefile CONF=Linux clean"
+                            OP="dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../AnalyzeFootballResults"
+                        CT="2"
+                        CN="Linux"
+                        AC="true"
+                        BL="false"
+                        WD="../AnalyzeFootballResults"
+                        BC="${MAKE}  -f Makefile CONF=Linux"
+                        CC="${MAKE}  -f Makefile CONF=Linux clean"
+                        OP="dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so">
+          </makeArtifact>
+        </requiredProjects>
+      </compileType>
+    </conf>
     <conf name="Windows" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
@@ -123,48 +165,6 @@
                         BC="${MAKE}  -f Makefile CONF=Windows"
                         CC="${MAKE}  -f Makefile CONF=Windows clean"
                         OP="dist/Windows/MinGW-Windows/libAnalyzeFootballResults.dll">
-          </makeArtifact>
-        </requiredProjects>
-      </compileType>
-    </conf>
-    <conf name="Linux" type="1">
-      <toolsSet>
-        <developmentServer>localhost</developmentServer>
-        <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
-      </toolsSet>
-      <compileType>
-        <ccTool>
-          <incDir>
-            <pElem>../AnalyzeFootballResults</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../AnalyzeFootballResults"
-                            CT="2"
-                            CN="Linux"
-                            AC="true"
-                            BL="true"
-                            WD="../AnalyzeFootballResults"
-                            BC="${MAKE}  -f Makefile CONF=Linux"
-                            CC="${MAKE}  -f Makefile CONF=Linux clean"
-                            OP="dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so">
-              </makeArtifact>
-            </linkerLibProjectItem>
-          </linkerLibItems>
-        </linkerTool>
-        <requiredProjects>
-          <makeArtifact PL="../AnalyzeFootballResults"
-                        CT="2"
-                        CN="Linux"
-                        AC="true"
-                        BL="false"
-                        WD="../AnalyzeFootballResults"
-                        BC="${MAKE}  -f Makefile CONF=Linux"
-                        CC="${MAKE}  -f Makefile CONF=Linux clean"
-                        OP="dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so">
           </makeArtifact>
         </requiredProjects>
       </compileType>

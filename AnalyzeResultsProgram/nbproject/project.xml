@@ -15,8 +15,8 @@
             <sourceRootList/>
             <confList>
                 <confElem>OpenSolaris</confElem>
-                <confElem>Windows</confElem>
                 <confElem>Linux</confElem>
+                <confElem>Windows</confElem>
             </confList>
         </data>
     </configuration>
