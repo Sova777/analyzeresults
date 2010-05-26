@@ -52,7 +52,7 @@ void ClubInfo::clear(struct Record* record) {
     record->l2 = "";
     record->f2 = "";
     record->a2 = "";
-    record->p2 == "";
+    record->p2 = "";
     record->w0 = "";
     record->d0 = "";
     record->l0 = "";
