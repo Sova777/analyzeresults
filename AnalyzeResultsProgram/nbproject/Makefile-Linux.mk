@@ -33,7 +33,6 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/newfileqqq.o \
 	${OBJECTDIR}/main.o
 
 
@@ -62,11 +61,6 @@ dist/Linux/GNU-Linux-x86/analyzeresultsprogram: ../AnalyzeFootballResults/dist/L
 dist/Linux/GNU-Linux-x86/analyzeresultsprogram: ${OBJECTFILES}
 	${MKDIR} -p dist/Linux/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram ${OBJECTFILES} ${LDLIBSOPTIONS} 
-
-${OBJECTDIR}/newfileqqq.o: newfileqqq.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I../AnalyzeFootballResults -MMD -MP -MF $@.d -o ${OBJECTDIR}/newfileqqq.o newfileqqq.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
