@@ -29,18 +29,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	MAINWINDOW_HPP
 
 #include <QtGui/QtGui>
+#include <string>
+#include <cstdlib>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
 private:
+    QTextCodec *codec;
+    void setCellValue(int row, int column, std::string value);
+
 public:
-    QLabel* lblPlayer1;
+    QLabel* pathButton;
+    std::string pathToDB;
     QTableWidget* table;
     QGridLayout *grid;
 
     MainWindow();
 private slots:
+    void clicked();
+    void selectPath();
+
 };
 
 #endif	/* MAINWINDOW_HPP */
