@@ -35,9 +35,8 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     MainWindow* window = new MainWindow();
 
-    window->setWindowTitle("Analyze Football Results");
-    //window->resize(1000, 500);
+    window->setWindowTitle(QString::fromUtf8("Анализ футбольных результатов"));
     window->show();
-    window->statusBar()->showMessage("Program started.", 5000);
+    window->statusBar()->showMessage(QString::fromUtf8("Программа стартовала."), 5000);
     return app.exec();
 }

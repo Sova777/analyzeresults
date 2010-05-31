@@ -43,36 +43,58 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using namespace std;
 
 MainWindow::MainWindow() {
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("Windows-1251"));
+
+    codec = QTextCodec::codecForName("WINDOWS 1251");
+    pathToDB = "./data";
 
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
-    resize(1000, 600);
+    resize(800, 500);
 
     grid = new QGridLayout(widget);
 
-    QPushButton *button = new QPushButton(QString::fromUtf8("Обновить"));
-    button->setFixedWidth(200);
+    QLabel* label1 = new QLabel(QString::fromUtf8("Путь к результатам:"));
+    label1->setFixedWidth(160);
+    grid->addWidget(label1, 0, 0);
 
+    pathButton = new QLabel(QString::fromUtf8(pathToDB.c_str()));
+    pathButton->setStyleSheet("background-color: #33FF33");
+    pathButton->setFixedWidth(320);
+    grid->addWidget(pathButton, 0, 1);
+
+    QPushButton* selectPathButton = new QPushButton(QString::fromUtf8("..."));
+    selectPathButton->setFixedWidth(40);
+    connect(selectPathButton, SIGNAL(clicked()),
+            this, SLOT(selectPath()));
+    grid->addWidget(selectPathButton, 0, 2);
+
+    QLabel* label2 = new QLabel(QString::fromUtf8(""));
+    label2->setFixedWidth(160);
+    grid->addWidget(label2, 1, 0);
+
+    QPushButton *button = new QPushButton(QString::fromUtf8("Обновить"));
+    button->setFixedWidth(150);
     connect(button, SIGNAL(clicked()),
             this, SLOT(clicked()));
+    grid->addWidget(button, 2, 0);
 
-    grid->addWidget(button, 0, 0);
+    table = new QTableWidget(0, 8);
+    table->setColumnWidth(0, 240);
+    for (int i = 1; i < 8; i++) {
+        table->setColumnWidth(i, 70);
+    }
 
-    QLabel* label1 = new QLabel("ddd");
-    label1->setFixedWidth(20);
-    grid->addWidget(label1, 1, 0);
+    grid->addWidget(table, 3, 0, 1, 4);
+}
 
-    QFont font("Tahoma", 20);
-    lblPlayer1 = new QLabel("501");
-    lblPlayer1->setFixedWidth(80);
-    lblPlayer1->setFont(font);
-    grid->addWidget(lblPlayer1, 2, 0);
+void MainWindow::selectPath() {
+    QString qstr = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Укажите путь к результатам"),
+            NULL, QFileDialog::ShowDirsOnly);
+    pathToDB = qstr.toStdString();
+    pathButton->setText(qstr);
+}
 
-    table = new QTableWidget(1, 1);
-    table->setColumnWidth(0, 500);
-    grid->addWidget(table, 3, 0);
-
+void MainWindow::clicked() {
     Years years;
     Years::Record* record_year;
     Results results;
@@ -80,9 +102,7 @@ MainWindow::MainWindow() {
     Stat stat_table;
     Clubs clubs;
 
-    string path = "./data";
-
-    ResultsDB::init(path);
+    ResultsDB::init(pathToDB);
 
     if (!years.open()) return;
     while ((record_year = years.next()) != NULL) {
@@ -105,22 +125,45 @@ MainWindow::MainWindow() {
         int l = ((*iter)->l1 + (*iter)->l2);
         int f = ((*iter)->f1 + (*iter)->f2);
         int a = ((*iter)->a1 + (*iter)->a2);
-        string str2 = clubs.get_latest_club_name((*iter)->team_id);
+
         stringstream ss;
-        ss <<
-                place << " " <<
-                clubs.get_latest_club_name((*iter)->team_id) << " " <<
-                (w + d + l) << " " <<
-                w << " " <<
-                d << " " <<
-                l << " " <<
-                f << ":" <<
-                a << " " <<
-                (2 * w + d) << "   " <<
-                (*iter)->unknown << "?";
-        QString qstr = QString::fromStdString(ss.str());
+        ss << clubs.get_latest_club_name((*iter)->team_id);
+        setCellValue(place - 1, 0, ss.str());
+
+        stringstream ss2;
+        ss2 << (w + d + l);
+        setCellValue(place - 1, 1, ss2.str());
+
+        stringstream ss3;
+        ss3 << w;
+        setCellValue(place - 1, 2, ss3.str());
+
+        stringstream ss4;
+        ss4 << d;
+        setCellValue(place - 1, 3, ss4.str());
+
+        stringstream ss5;
+        ss5 << l;
+        setCellValue(place - 1, 4, ss5.str());
+
+        stringstream ss6;
+        ss6 << f << " : " << a;
+        setCellValue(place - 1, 5, ss6.str());
+
+        stringstream ss7;
+        ss7 << (2 * w + d);
+        setCellValue(place - 1, 6, ss7.str());
+
+        stringstream ss8;
+        ss8 << (*iter)->unknown << "?";
+        setCellValue(place - 1, 7, ss8.str());
+    }
+    statusBar()->showMessage(QString::fromUtf8("Таблица обновлена."), 5000);
+}
+
+void MainWindow::setCellValue(int row, int column, string value) {
+        QString qstr = codec->toUnicode(value.c_str());
         QTableWidgetItem* stlb = new QTableWidgetItem(qstr);
         stlb->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-        table->setItem(place - 1, 0, stlb);
-    }
+        table->setItem(row, column, stlb);
 }
