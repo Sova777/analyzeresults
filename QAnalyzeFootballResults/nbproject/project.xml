@@ -9,9 +9,12 @@
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>hpp</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
-            <make-dep-projects/>
+            <make-dep-projects>
+                <make-dep-project>../AnalyzeFootballResults</make-dep-project>
+            </make-dep-projects>
             <sourceRootList/>
             <confList>
+                <confElem>Linux</confElem>
                 <confElem>Windows</confElem>
             </confList>
         </data>

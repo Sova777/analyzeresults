@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=QAnalyzeFootballResults
 
 # Active Configuration
-DEFAULTCONF=Windows
+DEFAULTCONF=Linux
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Windows 
+ALLCONFS=Linux Windows 
 
 
 # build
