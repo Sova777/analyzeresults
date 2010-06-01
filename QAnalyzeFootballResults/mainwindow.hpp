@@ -47,7 +47,8 @@ public:
 
     MainWindow();
 private slots:
-    void clicked();
+    void calculateTable();
+    void calculateResults();
     void selectPath();
 
 };

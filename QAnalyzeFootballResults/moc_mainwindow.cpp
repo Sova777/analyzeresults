@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.hpp'
 **
-** Created: Tue Jun 1 11:01:39 2010
-**      by: The Qt Meta Object Compiler version 59 (Qt 4.4.3)
+** Created: Wed 2. Jun 00:07:15 2010
+**      by: The Qt Meta Object Compiler version 62 (Qt 4.6.2)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "mainwindow.hpp"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'mainwindow.hpp' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 59
-#error "This file was generated using the moc from 4.4.3. It"
+#elif Q_MOC_OUTPUT_REVISION != 62
+#error "This file was generated using the moc from 4.6.2. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,22 +20,27 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_MainWindow[] = {
 
  // content:
-       1,       // revision
+       4,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   10, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
       12,   11,   11,   11, 0x08,
-      22,   11,   11,   11, 0x08,
+      29,   11,   11,   11, 0x08,
+      48,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0\0clicked()\0selectPath()\0"
+    "MainWindow\0\0calculateTable()\0"
+    "calculateResults()\0selectPath()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -43,9 +48,13 @@ const QMetaObject MainWindow::staticMetaObject = {
       qt_meta_data_MainWindow, 0 }
 };
 
+#ifdef Q_NO_DATA_RELOCATION
+const QMetaObject &MainWindow::getStaticMetaObject() { return staticMetaObject; }
+#endif //Q_NO_DATA_RELOCATION
+
 const QMetaObject *MainWindow::metaObject() const
 {
-    return &staticMetaObject;
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
 void *MainWindow::qt_metacast(const char *_clname)
@@ -63,10 +72,12 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: clicked(); break;
-        case 1: selectPath(); break;
+        case 0: calculateTable(); break;
+        case 1: calculateResults(); break;
+        case 2: selectPath(); break;
+        default: ;
         }
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
