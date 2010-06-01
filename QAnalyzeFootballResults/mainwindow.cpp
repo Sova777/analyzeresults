@@ -72,18 +72,19 @@ MainWindow::MainWindow() {
     label2->setFixedWidth(160);
     grid->addWidget(label2, 1, 0);
 
-    QPushButton *button = new QPushButton(QString::fromUtf8("Обновить"));
+    QPushButton *button = new QPushButton(QString::fromUtf8("Пересчитать таблицу"));
     button->setFixedWidth(150);
     connect(button, SIGNAL(clicked()),
-            this, SLOT(clicked()));
+            this, SLOT(calculateTable()));
     grid->addWidget(button, 2, 0);
 
-    table = new QTableWidget(0, 8);
-    table->setColumnWidth(0, 240);
-    for (int i = 1; i < 8; i++) {
-        table->setColumnWidth(i, 70);
-    }
+    QPushButton *button2 = new QPushButton(QString::fromUtf8("Показать результаты"));
+    button2->setFixedWidth(150);
+    connect(button2, SIGNAL(clicked()),
+            this, SLOT(calculateResults()));
+    grid->addWidget(button2, 2, 1);
 
+    table = new QTableWidget(0, 1);
     grid->addWidget(table, 3, 0, 1, 4);
 }
 
@@ -94,7 +95,7 @@ void MainWindow::selectPath() {
     pathButton->setText(qstr);
 }
 
-void MainWindow::clicked() {
+void MainWindow::calculateTable() {
     Years years;
     Years::Record* record_year;
     Results results;
@@ -103,8 +104,14 @@ void MainWindow::clicked() {
     Clubs clubs;
 
     ResultsDB::init(pathToDB);
-
     if (!years.open()) return;
+
+    table->setColumnCount(8);
+    table->setColumnWidth(0, 240);
+    for (int i = 1; i < 8; i++) {
+        table->setColumnWidth(i, 70);
+    }
+
     while ((record_year = years.next()) != NULL) {
         results.open(record_year->file_results);
         while ((record_result = results.next()) != NULL) {
@@ -158,6 +165,55 @@ void MainWindow::clicked() {
         ss8 << (*iter)->unknown << "?";
         setCellValue(place - 1, 7, ss8.str());
     }
+    statusBar()->showMessage(QString::fromUtf8("Таблица обновлена."), 5000);
+}
+
+void MainWindow::calculateResults() {
+    Years years;
+    Years::Record* record_year;
+    Results results;
+    Results::Record* r_result;
+
+    ResultsDB::init(pathToDB);
+
+    if (!years.open()) return;
+    table->setColumnCount(4);
+    table->setRowCount(50);
+    table->setColumnWidth(0, 70);
+    table->setColumnWidth(1, 200);
+    table->setColumnWidth(2, 200);
+    table->setColumnWidth(3, 70);
+    int place = 0;
+    
+    while ((record_year = years.next()) != NULL) {
+        results.open(record_year->file_results);
+        while ((r_result = results.next()) != NULL) {
+            if (r_result->played("22")) {
+                if (r_result->get_goals_1("22") > 4) {
+                    if ((place % 50) == 0) table->setRowCount(place + 50);
+                    place++;
+                    stringstream ss;
+                    ss << ((r_result->date != "") ? r_result->date : record_year->year);
+                    setCellValue(place - 1, 0, ss.str());
+
+                    stringstream ss2;
+                    ss2 << r_result->get_team_name_1(record_year->file_results);
+                    setCellValue(place - 1, 1, ss2.str());
+
+                    stringstream ss3;
+                    ss3 << r_result->get_team_name_2(record_year->file_results);
+                    setCellValue(place - 1, 2, ss3.str());
+
+                    stringstream ss4;
+                    ss4 << r_result->goals_1 << ":" << r_result->goals_2;
+                    setCellValue(place - 1, 3, ss4.str());
+                }
+            }
+        }
+        results.close();
+    }
+    years.close();
+    table->setRowCount(place);
     statusBar()->showMessage(QString::fromUtf8("Таблица обновлена."), 5000);
 }
 
