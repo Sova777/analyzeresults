@@ -314,7 +314,18 @@ void MainWindow::redrawForm() {
 }
 
 void MainWindow::saveTable() {
-    return;
+    QString qstr = QFileDialog::getSaveFileName(this, QString::fromUtf8("Выберите имя файла"), NULL);
+    if (qstr == "") return;
+    QFile file(qstr);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return;
+    QTextStream out(&file);
+    for (int i = 0; i < table->rowCount(); i++) {
+        for (int j = 0; j < table->columnCount(); j++) {
+            out << table->item(i, j)->text() << " | ";
+        }
+        out << "\n";
+    }
+    file.close();
 }
 
 void MainWindow::setCellValue(int row, int column, string value) {
