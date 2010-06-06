@@ -49,50 +49,107 @@ MainWindow::MainWindow() {
 
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
-    resize(800, 500);
+    resize(900, 700);
 
     grid = new QGridLayout(widget);
 
     QLabel* label1 = new QLabel(QString::fromUtf8("Путь к результатам:"));
-    label1->setFixedWidth(160);
+    label1->setFixedWidth(240);
     grid->addWidget(label1, 0, 0);
 
-    pathButton = new QLabel(QString::fromUtf8(pathToDB.c_str()));
-    pathButton->setStyleSheet("background-color: #33FF33");
-    pathButton->setFixedWidth(320);
-    grid->addWidget(pathButton, 0, 1);
+    pathLabel = new QLabel(QString::fromUtf8(pathToDB.c_str()));
+    pathLabel->setStyleSheet("background-color: #33FF33");
+    pathLabel->setFixedWidth(320);
+    grid->addWidget(pathLabel, 0, 1, 1, 2);
 
     QPushButton* selectPathButton = new QPushButton(QString::fromUtf8("..."));
     selectPathButton->setFixedWidth(40);
     connect(selectPathButton, SIGNAL(clicked()),
             this, SLOT(selectPath()));
-    grid->addWidget(selectPathButton, 0, 2);
+    grid->addWidget(selectPathButton, 0, 3);
 
-    QLabel* label2 = new QLabel(QString::fromUtf8(""));
-    label2->setFixedWidth(160);
-    grid->addWidget(label2, 1, 0);
+    QLabel* team1Label = new QLabel(QString::fromUtf8("Комманда 1:"));
+    grid->addWidget(team1Label, 1, 0);
+
+    QLabel* team2Label = new QLabel(QString::fromUtf8("Комманда 2:"));
+    grid->addWidget(team2Label, 1, 1);
+
+    comboTeam1 = new QComboBox();
+    comboTeam1->setFixedWidth(240);
+    grid->addWidget(comboTeam1, 2, 0);
+
+    comboTeam2 = new QComboBox();
+    comboTeam2->setFixedWidth(240);
+    grid->addWidget(comboTeam2, 2, 1);
+
+    QLabel* timeLabel = new QLabel(QString::fromUtf8("Выбрать интервал"));
+    grid->addWidget(timeLabel, 3, 0, 1, 2);
+
+    QLabel* fromLabel = new QLabel(QString::fromUtf8("от:"));
+    grid->addWidget(fromLabel, 4, 0);
+
+    QLabel* tillLabel = new QLabel(QString::fromUtf8("до:"));
+    grid->addWidget(tillLabel, 4, 1);
+
+    QDate date1(1800, 1, 1);
+    QDateEdit* fromDataEdit = new QDateEdit(date1);
+    fromDataEdit->setFixedWidth(240);
+    grid->addWidget(fromDataEdit, 5, 0);
+    
+    QDate date2(2100, 1, 1);
+    QDateEdit* tillDataEdit = new QDateEdit(date2);
+    tillDataEdit->setFixedWidth(240);
+    grid->addWidget(tillDataEdit, 5, 1);
+
+    QLabel* fromGoals1Label = new QLabel(QString::fromUtf8("Забито мячей (от):"));
+    grid->addWidget(fromGoals1Label, 6, 0, 1, 2);
+
+    fromGoals1LineEdit = new QLineEdit();
+    fromGoals1LineEdit->setFixedWidth(240);
+    grid->addWidget(fromGoals1LineEdit, 7, 0);
+
+    fromGoals2LineEdit = new QLineEdit();
+    fromGoals2LineEdit->setFixedWidth(240);
+    grid->addWidget(fromGoals2LineEdit, 7, 1);
+
+    QLabel* fromGoals2Label = new QLabel(QString::fromUtf8("Забито мячей (до):"));
+    grid->addWidget(fromGoals2Label, 8, 0, 1, 2);
+
+    QLineEdit* tillGoals1LineEdit = new QLineEdit();
+    tillGoals1LineEdit->setFixedWidth(240);
+    grid->addWidget(tillGoals1LineEdit, 9, 0);
+
+    QLineEdit* tillGoals2LineEdit = new QLineEdit();
+    tillGoals2LineEdit->setFixedWidth(240);
+    grid->addWidget(tillGoals2LineEdit, 9, 1);
 
     QPushButton *button = new QPushButton(QString::fromUtf8("Пересчитать таблицу"));
-    button->setFixedWidth(150);
     connect(button, SIGNAL(clicked()),
             this, SLOT(calculateTable()));
-    grid->addWidget(button, 2, 0);
+    grid->addWidget(button, 10, 0);
 
     QPushButton *button2 = new QPushButton(QString::fromUtf8("Показать результаты"));
-    button2->setFixedWidth(150);
     connect(button2, SIGNAL(clicked()),
             this, SLOT(calculateResults()));
-    grid->addWidget(button2, 2, 1);
+    grid->addWidget(button2, 10, 1);
+
+    QPushButton *button3 = new QPushButton(QString::fromUtf8("Сохранить..."));
+    connect(button3, SIGNAL(clicked()),
+            this, SLOT(saveTable()));
+    grid->addWidget(button3, 10, 2, 1, 2);
 
     table = new QTableWidget(0, 1);
-    grid->addWidget(table, 3, 0, 1, 4);
+    grid->addWidget(table, 11, 0, 1, 5);
+    
+    redrawForm();
 }
 
 void MainWindow::selectPath() {
     QString qstr = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Укажите путь к результатам"),
             NULL, QFileDialog::ShowDirsOnly);
     pathToDB = qstr.toStdString();
-    pathButton->setText(qstr);
+    pathLabel->setText(qstr);
+    redrawForm();
 }
 
 void MainWindow::calculateTable() {
@@ -177,6 +234,7 @@ void MainWindow::calculateResults() {
     ResultsDB::init(pathToDB);
 
     if (!years.open()) return;
+    statusBar()->showMessage(QString::fromUtf8("Считаем..."), 5000);
     table->setColumnCount(4);
     table->setRowCount(50);
     table->setColumnWidth(0, 70);
@@ -184,29 +242,28 @@ void MainWindow::calculateResults() {
     table->setColumnWidth(2, 200);
     table->setColumnWidth(3, 70);
     int place = 0;
-    
+
+    QString qteam1 = comboTeam1->itemData(comboTeam1->currentIndex()).toString();
+    QString qteam2 = comboTeam2->itemData(comboTeam2->currentIndex()).toString();
+    QString qfromgoals1 = fromGoals1LineEdit->text();
+    string s1 = qfromgoals1.toStdString();
+    int fromgoals1 = Utils::toInt(s1);
+    QString qfromgoals2 = fromGoals2LineEdit->text();
+    string s2 = qfromgoals2.toStdString();
+    int fromgoals2 = Utils::toInt(s2);
+
+    string team1 = qteam1.toStdString();
+    string team2 = qteam2.toStdString();
+    bool any = ((team1 == "") && (team2 == ""));
     while ((record_year = years.next()) != NULL) {
         results.open(record_year->file_results);
         while ((r_result = results.next()) != NULL) {
-            if (r_result->played("22")) {
-                if (r_result->get_goals_1("22") > 4) {
+            if (any || ((team2 == "") && r_result->played(team1)) || r_result->played(team1, team2)) {
+                if ((any && ((r_result->get_goals_1() >= fromgoals1) || (r_result->get_goals_2() >= fromgoals1)))
+                        || (!any && r_result->get_goals_1(team1) >= fromgoals1)) {
                     if ((place % 50) == 0) table->setRowCount(place + 50);
                     place++;
-                    stringstream ss;
-                    ss << ((r_result->date != "") ? r_result->date : record_year->year);
-                    setCellValue(place - 1, 0, ss.str());
-
-                    stringstream ss2;
-                    ss2 << r_result->get_team_name_1(record_year->file_results);
-                    setCellValue(place - 1, 1, ss2.str());
-
-                    stringstream ss3;
-                    ss3 << r_result->get_team_name_2(record_year->file_results);
-                    setCellValue(place - 1, 2, ss3.str());
-
-                    stringstream ss4;
-                    ss4 << r_result->goals_1 << ":" << r_result->goals_2;
-                    setCellValue(place - 1, 3, ss4.str());
+                    addResultToTable(place, r_result, record_year);
                 }
             }
         }
@@ -215,6 +272,49 @@ void MainWindow::calculateResults() {
     years.close();
     table->setRowCount(place);
     statusBar()->showMessage(QString::fromUtf8("Таблица обновлена."), 5000);
+}
+
+void MainWindow::addResultToTable(int place, Results::Record* r_result, Years::Record* record_year) {
+    stringstream ss;
+    ss << ((r_result->date != "") ? r_result->date : record_year->year);
+    setCellValue(place - 1, 0, ss.str());
+
+    stringstream ss2;
+    ss2 << r_result->get_team_name_1(record_year->file_results);
+    setCellValue(place - 1, 1, ss2.str());
+
+    stringstream ss3;
+    ss3 << r_result->get_team_name_2(record_year->file_results);
+    setCellValue(place - 1, 2, ss3.str());
+
+    stringstream ss4;
+    ss4 << r_result->goals_1 << ":" << r_result->goals_2;
+    setCellValue(place - 1, 3, ss4.str());
+}
+
+void MainWindow::redrawForm() {
+    ResultsDB::init(pathToDB);
+    Clubs clubs;
+    Clubs::Record* r_clubs;
+    if (!clubs.open()) return;
+    comboTeam1->clear();
+    comboTeam2->clear();
+    comboTeam1->addItem(" ---------------", "");
+    comboTeam2->addItem(" ---------------", "");
+    while ((r_clubs = clubs.next()) != NULL) {
+        string value1 = r_clubs->club + " (" + r_clubs->city + ")";
+        string value2 = r_clubs->id;
+        QString qstr = codec->toUnicode(value1.c_str());
+        QString qvariant = codec->toUnicode(value2.c_str());
+        comboTeam1->addItem(qstr, qvariant);
+        comboTeam2->addItem(qstr, qvariant);
+    }
+    comboTeam1->model()->sort(0);
+    comboTeam2->model()->sort(0);
+}
+
+void MainWindow::saveTable() {
+    return;
 }
 
 void MainWindow::setCellValue(int row, int column, string value) {

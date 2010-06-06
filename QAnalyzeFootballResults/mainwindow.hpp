@@ -29,6 +29,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	MAINWINDOW_HPP
 
 #include <QtGui/QtGui>
+#include <Clubs.hpp>
+#include <Results.hpp>
 #include <string>
 #include <cstdlib>
 
@@ -38,17 +40,24 @@ class MainWindow : public QMainWindow {
 private:
     QTextCodec *codec;
     void setCellValue(int row, int column, std::string value);
+    void redrawForm();
+    void addResultToTable(int place, Results::Record* r_result, Years::Record* record_year);
 
 public:
-    QLabel* pathButton;
+    QLabel* pathLabel;
     std::string pathToDB;
     QTableWidget* table;
     QGridLayout *grid;
+    QComboBox* comboTeam1;
+    QComboBox* comboTeam2;
+    QLineEdit* fromGoals1LineEdit;
+    QLineEdit* fromGoals2LineEdit;
 
     MainWindow();
 private slots:
     void calculateTable();
     void calculateResults();
+    void saveTable();
     void selectPath();
 
 };
