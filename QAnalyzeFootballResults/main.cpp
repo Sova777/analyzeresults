@@ -26,16 +26,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include <QtGui/QApplication>
-//#include "mainform.h"
-#include "mainwindow.hpp"
+#include "mainform.h"
 
 int main(int argc, char *argv[]) {
-    //QTextCodec *utfcodec = QTextCodec::codecForName("UTF-8");
-    //QTextCodec::setCodecForTr(utfcodec);
 
     QApplication app(argc, argv);
-    //mainform* window = new mainform();
-    MainWindow* window = new MainWindow();
+    mainform* window = new mainform();
 
     window->setWindowTitle(QString::fromUtf8("Анализ футбольных результатов"));
     window->show();

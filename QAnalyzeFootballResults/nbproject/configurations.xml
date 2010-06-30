@@ -5,14 +5,12 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>mainwindow.hpp</itemPath>
+      <itemPath>mainform.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>mainform.cpp</itemPath>
-      <itemPath>mainform.h</itemPath>
       <itemPath>mainform.ui</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
@@ -20,7 +18,7 @@
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
       <itemPath>main.cpp</itemPath>
-      <itemPath>mainwindow.cpp</itemPath>
+      <itemPath>mainform.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -113,10 +111,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="mainform.cpp" ex="true" tool="1">
-      </item>
-      <item path="mainform.h" ex="true" tool="3">
-      </item>
     </conf>
   </confs>
 </configurationDescriptor>

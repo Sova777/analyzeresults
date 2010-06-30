@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainform.h'
 **
-** Created: Sat 5. Jun 01:21:47 2010
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.6.2)
+** Created: Wed 30. Jun 22:34:21 2010
+**      by: The Qt Meta Object Compiler version 62 (Qt 4.6.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -11,7 +11,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'mainform.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.6.2. It"
+#error "This file was generated using the moc from 4.6.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -23,18 +23,26 @@ static const uint qt_meta_data_mainform[] = {
        4,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
+ // slots: signature, parameters, type, tag, flags
+      10,    9,    9,    9, 0x08,
+      27,    9,    9,    9, 0x08,
+      46,    9,    9,    9, 0x08,
+      58,    9,    9,    9, 0x08,
+
        0        // eod
 };
 
 static const char qt_meta_stringdata_mainform[] = {
-    "mainform\0"
+    "mainform\0\0calculateTable()\0"
+    "calculateResults()\0saveTable()\0"
+    "selectPath()\0"
 };
 
 const QMetaObject mainform::staticMetaObject = {
@@ -64,6 +72,16 @@ int mainform::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        switch (_id) {
+        case 0: calculateTable(); break;
+        case 1: calculateResults(); break;
+        case 2: saveTable(); break;
+        case 3: selectPath(); break;
+        default: ;
+        }
+        _id -= 4;
+    }
     return _id;
 }
 QT_END_MOC_NAMESPACE
