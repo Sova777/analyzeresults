@@ -40,8 +40,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-library=stlport4
+CXXFLAGS=-library=stlport4
 
 # Fortran Compiler Flags
 FFLAGS=
