@@ -86,6 +86,7 @@
         <platform>3</platform>
       </toolsSet>
       <qt>
+        <buildMode>1</buildMode>
         <modules>core gui</modules>
       </qt>
       <compileType>
