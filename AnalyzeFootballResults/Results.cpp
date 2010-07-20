@@ -47,6 +47,7 @@ void Results::clear(struct Record* record) {
     record->goals_2 = "";
     record->round = "";
     record->clear_goals_int();
+    record->clear_date_int();
     return;
 }
 
@@ -132,6 +133,10 @@ void Results::Record::clear_goals_int() {
     goals_2_int = -2;
 }
 
+void Results::Record::clear_date_int() {
+    date_int = -2;
+}
+
 int Results::Record::get_goals_1() {
     if (goals_1_int != -2) return goals_1_int;
     goals_1_int = Utils::toInt(goals_1);
@@ -174,6 +179,21 @@ string Results::Record::get_team_name_2(Years::Record* year) {
 
 bool Results::Record::is_correct_game() {
     return ((get_goals_1() >= 0) || (get_goals_2() >= 0));
+}
+
+int Results::Record::get_date() {
+    if (date_int > 0) return date_int;
+    size_t pos1 = date.find(".");
+    if (pos1 == string::npos) return -1;
+    size_t pos2 = date.find(".", pos1 + 1);
+    if (pos2 == string::npos) return -2;
+    string s = date.substr(pos2 + 1, 4);
+    date_int = Utils::toInt(s) * 10000;
+    s = date.substr(pos1 + 1, 2);
+    date_int += Utils::toInt(s) * 100;
+    s = date.substr(0, 2);
+    date_int += Utils::toInt(s);
+    return date_int;
 }
 
 void Results::Record::print_result(Years::Record* year) {

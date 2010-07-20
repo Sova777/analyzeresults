@@ -70,42 +70,42 @@ dist/Windows/MinGW-Windows/libAnalyzeFootballResults.dll: ${OBJECTFILES}
 ${OBJECTDIR}/Stat.o: Stat.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Stat.o Stat.cpp
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Stat.o Stat.cpp
 
 ${OBJECTDIR}/ClubName.o: ClubName.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubName.o ClubName.cpp
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubName.o ClubName.cpp
 
 ${OBJECTDIR}/Utils.o: Utils.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Utils.o Utils.cpp
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Utils.o Utils.cpp
 
 ${OBJECTDIR}/Results.o: Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Results.o Results.cpp
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Results.o Results.cpp
 
 ${OBJECTDIR}/Years.o: Years.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Years.o Years.cpp
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Years.o Years.cpp
 
 ${OBJECTDIR}/Clubs.o: Clubs.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Clubs.o Clubs.cpp
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Clubs.o Clubs.cpp
 
 ${OBJECTDIR}/ResultsDB.o: ResultsDB.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResultsDB.o ResultsDB.cpp
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResultsDB.o ResultsDB.cpp
 
 ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
+	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
 
 # Subprojects
 .build-subprojects:
