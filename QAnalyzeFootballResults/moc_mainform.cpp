@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainform.h'
 **
-** Created: Tue 13. Jul 00:07:04 2010
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.6.3)
+** Created: Tue Jul 20 20:57:41 2010
+**      by: The Qt Meta Object Compiler version 62 (Qt 4.6.2)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -11,7 +11,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'mainform.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.6.3. It"
+#error "This file was generated using the moc from 4.6.2. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -31,16 +31,16 @@ static const uint qt_meta_data_mainform[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      10,    9,    9,    9, 0x08,
-      27,    9,    9,    9, 0x08,
-      46,    9,    9,    9, 0x08,
-      58,    9,    9,    9, 0x08,
+       9,   26,   26,   26, 0x08,
+      27,   26,   26,   26, 0x08,
+      46,   26,   26,   26, 0x08,
+      58,   26,   26,   26, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_mainform[] = {
-    "mainform\0\0calculateTable()\0"
+    "mainform\0calculateTable()\0\0"
     "calculateResults()\0saveTable()\0"
     "selectPath()\0"
 };
