@@ -34,51 +34,6 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="OpenSolaris" type="4">
-      <toolsSet>
-        <developmentServer>localhost</developmentServer>
-        <compilerSet>OracleSolarisStudio|OracleSolarisStudio</compilerSet>
-        <platform>1</platform>
-      </toolsSet>
-      <qt>
-        <modules>core gui</modules>
-      </qt>
-      <compileType>
-        <ccTool>
-          <incDir>
-            <pElem>../AnalyzeFootballResults</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../AnalyzeFootballResults"
-                            CT="2"
-                            CN="OpenSolaris"
-                            AC="true"
-                            BL="true"
-                            WD="../AnalyzeFootballResults"
-                            BC="${MAKE}  -f Makefile CONF=OpenSolaris"
-                            CC="${MAKE}  -f Makefile CONF=OpenSolaris clean"
-                            OP="dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so">
-              </makeArtifact>
-            </linkerLibProjectItem>
-          </linkerLibItems>
-        </linkerTool>
-        <requiredProjects>
-          <makeArtifact PL="../AnalyzeFootballResults"
-                        CT="2"
-                        CN="OpenSolaris"
-                        AC="true"
-                        BL="false"
-                        WD="../AnalyzeFootballResults"
-                        BC="${MAKE}  -f Makefile CONF=OpenSolaris"
-                        CC="${MAKE}  -f Makefile CONF=OpenSolaris clean"
-                        OP="dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so">
-          </makeArtifact>
-        </requiredProjects>
-      </compileType>
-    </conf>
     <conf name="Linux" type="4">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
@@ -131,7 +86,6 @@
         <platform>3</platform>
       </toolsSet>
       <qt>
-        <buildMode>1</buildMode>
         <modules>core gui</modules>
       </qt>
       <compileType>
@@ -156,6 +110,51 @@
             </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
+      </compileType>
+    </conf>
+    <conf name="OpenSolaris" type="4">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>OracleSolarisStudio|OracleSolarisStudio</compilerSet>
+        <platform>1</platform>
+      </toolsSet>
+      <qt>
+        <modules>core gui</modules>
+      </qt>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../AnalyzeFootballResults</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../AnalyzeFootballResults"
+                            CT="2"
+                            CN="OpenSolaris"
+                            AC="true"
+                            BL="true"
+                            WD="../AnalyzeFootballResults"
+                            BC="${MAKE}  -f Makefile CONF=OpenSolaris"
+                            CC="${MAKE}  -f Makefile CONF=OpenSolaris clean"
+                            OP="dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../AnalyzeFootballResults"
+                        CT="2"
+                        CN="OpenSolaris"
+                        AC="true"
+                        BL="false"
+                        WD="../AnalyzeFootballResults"
+                        BC="${MAKE}  -f Makefile CONF=OpenSolaris"
+                        CC="${MAKE}  -f Makefile CONF=OpenSolaris clean"
+                        OP="dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
   </confs>

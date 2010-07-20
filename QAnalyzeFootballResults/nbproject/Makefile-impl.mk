@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=QAnalyzeFootballResults
 
 # Active Configuration
-DEFAULTCONF=Linux
+DEFAULTCONF=OpenSolaris
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Linux Windows 
+ALLCONFS=OpenSolaris Linux Windows 
 
 
 # build
