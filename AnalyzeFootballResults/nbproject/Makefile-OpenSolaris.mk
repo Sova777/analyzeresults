@@ -47,8 +47,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-library=stlport4
+CXXFLAGS=-library=stlport4
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -57,7 +57,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-library=stlport4
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
