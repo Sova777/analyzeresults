@@ -74,6 +74,7 @@
           <incDir>
             <pElem>../AnalyzeFootballResults</pElem>
           </incDir>
+          <commandLine>-library=stlport4</commandLine>
         </ccTool>
         <linkerTool>
           <linkerLibItems>
