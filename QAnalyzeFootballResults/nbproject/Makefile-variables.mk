@@ -7,13 +7,13 @@ CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
 # OpenSolaris configuration
-CND_PLATFORM_OpenSolaris=OracleSolarisStudio-Solaris-x86
-CND_ARTIFACT_DIR_OpenSolaris=dist/OpenSolaris/OracleSolarisStudio-Solaris-x86
+CND_PLATFORM_OpenSolaris=
+CND_ARTIFACT_DIR_OpenSolaris=dist/OpenSolaris/
 CND_ARTIFACT_NAME_OpenSolaris=QAnalyzeFootballResults
-CND_ARTIFACT_PATH_OpenSolaris=dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/QAnalyzeFootballResults
-CND_PACKAGE_DIR_OpenSolaris=dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/package
+CND_ARTIFACT_PATH_OpenSolaris=dist/OpenSolaris//QAnalyzeFootballResults
+CND_PACKAGE_DIR_OpenSolaris=dist/OpenSolaris//package
 CND_PACKAGE_NAME_OpenSolaris=QAnalyzeFootballResults.tar
-CND_PACKAGE_PATH_OpenSolaris=dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/package/QAnalyzeFootballResults.tar
+CND_PACKAGE_PATH_OpenSolaris=dist/OpenSolaris//package/QAnalyzeFootballResults.tar
 # Linux configuration
 CND_PLATFORM_Linux=GNU-Linux-x86
 CND_ARTIFACT_DIR_Linux=dist/Linux/GNU-Linux-x86
