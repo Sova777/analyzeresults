@@ -52,6 +52,7 @@ public:
     private:
         int goals_1_int;
         int goals_2_int;
+        int date_int;
 
     public:
 
@@ -74,6 +75,11 @@ public:
          * Присвоить -2
          */
         void clear_goals_int();
+
+        /**
+         * Очистить поле date_int
+         */
+        void clear_date_int();
 
         /**
          * Получить имя команды
@@ -128,6 +134,12 @@ public:
          * @return int
          */
         int get_goals_2(std::string team);
+
+        /**
+         * Получить дату в нормализанном виде (ГГГГММДД)
+         * @return int
+         */
+        int get_date();
 
         /**
          * Обычная игра (счет не содержит "+", "-" или "")

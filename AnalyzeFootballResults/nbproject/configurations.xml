@@ -63,6 +63,9 @@
         <platform>3</platform>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
       </compileType>
     </conf>
   </confs>
