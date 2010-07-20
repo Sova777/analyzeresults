@@ -176,6 +176,10 @@ void mainform::calculateResults() {
     QString qfromgoals2 = widget.fromGoals2->text();
     string s2 = qfromgoals2.toStdString();
     int fromgoals2 = Utils::toInt(s2);
+    QDate qfrom = widget.dateFrom->date();
+    QDate qtill = widget.dateTill->date();
+    int from = qfrom.year() * 10000 + qfrom.month() * 100 + qfrom.day();
+    int till = qtill.year() * 10000 + qtill.month() * 100 + qtill.day();
 
     string team1 = qteam1.toStdString();
     string team2 = qteam2.toStdString();
@@ -186,9 +190,12 @@ void mainform::calculateResults() {
             if (any || ((team2 == "") && r_result->played(team1)) || r_result->played(team1, team2)) {
                 if ((any && ((r_result->get_goals_1() >= fromgoals1) || (r_result->get_goals_2() >= fromgoals1)))
                         || (!any && r_result->get_goals_1(team1) >= fromgoals1)) {
-                    if ((place % 50) == 0) widget.table->setRowCount(place + 50);
-                    place++;
-                    addResultToTable(place, r_result, record_year);
+                    int date = r_result->get_date();
+                    if ((date >= from) && (date <= till)) {
+                        if ((place % 400) == 0) widget.table->setRowCount(place + 400);
+                        place++;
+                        addResultToTable(place, r_result, record_year);
+                    }
                 }
             }
         }
