@@ -116,6 +116,7 @@ Results::Record* Results::next() {
 
 void Results::close() {
     f.close();
+    f.clear();
     headers.clear();
 }
 
