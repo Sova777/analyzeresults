@@ -79,10 +79,13 @@ Clubs::Record* Clubs::next() {
 
     int i = 0;
     p_line = line;
+    int size = headers.size();
     clear(&record);
     do {
         s = getColumn(p_line);
-        if (headers[i] == "id") {
+        if (i >= size) {
+            //cerr << i << ": " << line << endl;
+        } else if (headers[i] == "id") {
             record.id = s;
         } else if (headers[i] == "cl") {
             record.club = s;
@@ -96,6 +99,7 @@ Clubs::Record* Clubs::next() {
 
 void Clubs::close() {
     f.close();
+    f.clear();
     headers.clear();
 }
 
