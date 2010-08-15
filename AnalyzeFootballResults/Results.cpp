@@ -90,10 +90,13 @@ Results::Record* Results::next() {
 
     int i = 0;
     p_line = line;
+    int size = headers.size();
     clear(&record);
     do {
         s = getColumn(p_line);
-        if (headers[i] == "id") {
+        if (i >= size) {
+            //cerr << i << ": " << line << endl;
+        } else if (headers[i] == "id") {
             record.id = s;
         } else if (headers[i] == "d") {
             replace(s.begin(), s.end(), ',', '.');

@@ -81,10 +81,13 @@ Years::Record* Years::next() {
 
     int i = 0;
     p_line = line;
+    int size = headers.size();
     clear(&record);
     do {
         s = getColumn(p_line);
-        if (headers[i] == "y") {
+        if (i >= size) {
+            //cerr << i << ": " << line << endl;
+        } else if (headers[i] == "y") {
             record.year = s;
         } else if (headers[i] == "t") {
             record.title = s;
@@ -104,6 +107,7 @@ Years::Record* Years::next() {
 
 void Years::close() {
     f.close();
+    f.clear();
     headers.clear();
 }
 
