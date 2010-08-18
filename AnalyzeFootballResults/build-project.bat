@@ -1,3 +1,3 @@
 cd build
 cmake ..
-devenv /Build "Debug|Win32" AnalyzeFootballResults.sln
+devenv /Build "Release|Win32" AnalyzeFootballResults.sln
