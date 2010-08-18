@@ -5,7 +5,7 @@ set(SRC main.cpp mainform.cpp moc_mainform.cpp)
 set(HEADRES mainform.hpp)
 
 include_directories ( ../AnalyzeFootballResults )
-link_directories ( "C:/Documents and Settings/valera/My Documents/NetBeansProjects/analyzeresults~mercurial/AnalyzeFootballResults/build/Debug" )
+link_directories ( "C:/Documents and Settings/valera/My Documents/NetBeansProjects/analyzeresults~mercurial/AnalyzeFootballResults/build/Release" )
 
 include(${QT_USE_FILE})
 add_executable(QAnalyzeFootballResults ${SRC} ${HEADERS})
