@@ -37,6 +37,7 @@
     <conf name="OpenSolaris" type="4">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>OracleSolarisStudio|OracleSolarisStudio</compilerSet>
         <platform>1</platform>
       </toolsSet>
@@ -82,6 +83,7 @@
     <conf name="Linux" type="4">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
         <platform>2</platform>
       </toolsSet>
@@ -127,6 +129,7 @@
     <conf name="Windows" type="4">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>MinGW|MinGW</compilerSet>
         <platform>3</platform>
       </toolsSet>

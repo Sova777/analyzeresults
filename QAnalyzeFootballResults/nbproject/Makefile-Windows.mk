@@ -19,6 +19,7 @@ CCC=g++.exe
 CXX=g++.exe
 FC=
 AS=as.exe
+PROC=proc
 QMAKE=qmake.exe
 
 # Macros

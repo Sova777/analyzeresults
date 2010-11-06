@@ -19,6 +19,7 @@ CCC=g++.exe
 CXX=g++.exe
 FC=
 AS=as.exe
+PROC=proc
 
 # Macros
 CND_PLATFORM=MinGW-Windows
