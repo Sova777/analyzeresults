@@ -30,5 +30,15 @@ CND_ARTIFACT_PATH_Windows=dist/Windows/MinGW-Windows/QAnalyzeFootballResults
 CND_PACKAGE_DIR_Windows=dist/Windows/MinGW-Windows/package
 CND_PACKAGE_NAME_Windows=QAnalyzeFootballResults.tar
 CND_PACKAGE_PATH_Windows=dist/Windows/MinGW-Windows/package/QAnalyzeFootballResults.tar
-CND_SYSINCLUDES_C_Windows=F:\Qt\2010.05\mingw\include,F:\Qt\2010.05\mingw\lib\gcc\mingw32\4.4.0\include,F:\Qt\2010.05\mingw\lib\gcc\mingw32\4.4.0\include-fixed,F:\Qt\2010.05\mingw\mingw32\include
-CND_SYSINCLUDES_CPP_Windows=F:\Qt\2010.05\mingw\lib\gcc\mingw32\4.4.0\include\c++,F:\Qt\2010.05\mingw\lib\gcc\mingw32\4.4.0\include\c++\mingw32,F:\Qt\2010.05\mingw\lib\gcc\mingw32\4.4.0\include\c++\backward,F:\Qt\2010.05\mingw\include,F:\Qt\2010.05\mingw\lib\gcc\mingw32\4.4.0\include,F:\Qt\2010.05\mingw\lib\gcc\mingw32\4.4.0\include-fixed,F:\Qt\2010.05\mingw\mingw32\include
+#
+# include compiler specific variables
+#
+# dmake command
+ROOT:sh = test -f nbproject/private/Makefile-variables.mk || \
+	mkdir -p nbproject/private && \
+	touch nbproject/private/Makefile-variables.mk
+#
+# gmake command
+.PHONY: $(shell test -f nbproject/private/Makefile-variables.mk || mkdir -p nbproject/private && touch nbproject/private/Makefile-variables.mk)
+#
+include nbproject/private/Makefile-variables.mk
