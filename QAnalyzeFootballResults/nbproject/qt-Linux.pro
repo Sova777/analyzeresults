@@ -1,7 +1,7 @@
 # This file is generated automatically. Do not edit.
 # Use project properties -> Build -> Qt -> Expert -> Custom Definitions.
 TEMPLATE = app
-DESTDIR = dist/Linux/GNU-Linux-x86
+DESTDIR = dist/Linux/MinGW-Windows
 TARGET = QAnalyzeFootballResults
 VERSION = 1.0.0
 CONFIG -= debug_and_release app_bundle lib_bundle
@@ -12,12 +12,12 @@ HEADERS += mainform.h
 FORMS += mainform.ui
 RESOURCES +=
 TRANSLATIONS +=
-OBJECTS_DIR = build/Linux/GNU-Linux-x86
+OBJECTS_DIR = build/Linux/MinGW-Windows
 MOC_DIR = 
 RCC_DIR = 
 UI_DIR = 
-QMAKE_CC = gcc
-QMAKE_CXX = g++
+QMAKE_CC = gcc.exe
+QMAKE_CXX = g++.exe
 DEFINES += 
 INCLUDEPATH += ../AnalyzeFootballResults 
-LIBS += -Wl,-rpath ../AnalyzeFootballResults/dist/Linux/GNU-Linux-x86 ../AnalyzeFootballResults/dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so  
+LIBS += -L../AnalyzeFootballResults/dist/Linux/MinGW-Windows ../AnalyzeFootballResults/dist/Linux/MinGW-Windows/libAnalyzeFootballResults.so  

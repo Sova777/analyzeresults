@@ -14,15 +14,15 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=cc
-CCC=CC
-CXX=CC
-FC=f90
-AS=as
+CC=gcc.exe
+CCC=g++.exe
+CXX=g++.exe
+FC=gfortran
+AS=as.exe
 PROC=proc
 
 # Macros
-CND_PLATFORM=OracleSolarisStudio-Solaris-x86
+CND_PLATFORM=MinGW-Windows
 CND_CONF=Windows
 CND_DISTDIR=dist
 
@@ -51,21 +51,22 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../AnalyzeFootballResults/dist/Windows/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.dll
+LDLIBSOPTIONS=-L../AnalyzeFootballResults/dist/Windows/MinGW-Windows -lAnalyzeFootballResults
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ../AnalyzeFootballResults/dist/Windows/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.dll
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe: ../AnalyzeFootballResults/dist/Windows/MinGW-Windows/libAnalyzeFootballResults.dll
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -I../AnalyzeFootballResults -o ${OBJECTDIR}/main.o main.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../AnalyzeFootballResults -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
@@ -74,8 +75,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram
-	${CCADMIN} -clean
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe
 
 # Subprojects
 .clean-subprojects:
