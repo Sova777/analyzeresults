@@ -14,17 +14,17 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc.exe
-CCC=g++.exe
-CXX=g++.exe
-FC=gfortran
-AS=as.exe
+CC=cc
+CCC=CC
+CXX=CC
+FC=f90
+AS=as
 PROC=proc
-QMAKE=qmake.exe
+QMAKE=qmake
 
 # Macros
-CND_PLATFORM=MinGW-Windows
-CND_CONF=Unix
+CND_PLATFORM=OracleSolarisStudio-Solaris-x86
+CND_CONF=Linux
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -51,21 +51,19 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../AnalyzeFootballResults/dist/Unix/MinGW-Windows/libAnalyzeFootballResults.so
+LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -L../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -lAnalyzeFootballResults
 
 nbproject/qt-${CND_CONF}.mk: nbproject/qt-${CND_CONF}.pro FORCE
-	${QMAKE} VPATH=. -spec win32-g++ -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro
+	${QMAKE} VPATH=. -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro
 	mv -f qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.mk
-	@sed -e 's/\/qt\/bin/\/qt\/bin\//g' nbproject/qt-${CND_CONF}.mk >nbproject/qt-${CND_CONF}.tmp
-	@mv -f nbproject/qt-${CND_CONF}.tmp nbproject/qt-${CND_CONF}.mk
 
 FORCE:
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS} nbproject/qt-${CND_CONF}.mk
-	"${MAKE}" -f nbproject/qt-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/QAnalyzeFootballResults.exe
+	"${MAKE}" -f nbproject/qt-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/QAnalyzeFootballResults
 
-${CND_BUILDDIR}/Unix/%.o: nbproject/qt-${CND_CONF}.mk
+${CND_BUILDDIR}/Linux/%.o: nbproject/qt-${CND_CONF}.mk
 	$(MAKE) -f nbproject/qt-${CND_CONF}.mk "$@"
 
 # Subprojects

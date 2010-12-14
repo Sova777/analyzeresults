@@ -1,7 +1,7 @@
 # This file is generated automatically. Do not edit.
 # Use project properties -> Build -> Qt -> Expert -> Custom Definitions.
 TEMPLATE = app
-DESTDIR = dist/Linux/OracleSolarisStudio-Solaris-x86
+DESTDIR = dist/Solaris/OracleSolarisStudio-Solaris-x86
 TARGET = QAnalyzeFootballResults
 VERSION = 1.0.0
 CONFIG -= debug_and_release app_bundle lib_bundle
@@ -12,7 +12,7 @@ HEADERS += mainform.h
 FORMS += mainform.ui
 RESOURCES +=
 TRANSLATIONS +=
-OBJECTS_DIR = build/Linux/OracleSolarisStudio-Solaris-x86
+OBJECTS_DIR = build/Solaris/OracleSolarisStudio-Solaris-x86
 MOC_DIR = 
 RCC_DIR = 
 UI_DIR = 

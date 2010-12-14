@@ -23,7 +23,7 @@ PROC=proc
 
 # Macros
 CND_PLATFORM=OracleSolarisStudio-Solaris-x86
-CND_CONF=Windows
+CND_CONF=Linux
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -51,13 +51,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../AnalyzeFootballResults/dist/Windows/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.dll
+LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -L../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -lAnalyzeFootballResults
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ../AnalyzeFootballResults/dist/Windows/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.dll
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -65,11 +65,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ${OBJECTFILES}
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -I../AnalyzeFootballResults -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I../AnalyzeFootballResults -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Unix
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -79,7 +79,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows clean
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Unix clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

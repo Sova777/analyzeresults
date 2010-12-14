@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=AnalyzeResultsProgram
 
 # Active Configuration
-DEFAULTCONF=Unix
+DEFAULTCONF=Solaris
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Unix Windows 
+ALLCONFS=Solaris Linux Windows 
 
 
 # build
