@@ -78,7 +78,7 @@
     <conf name="Windows" type="4">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>MinGW|MinGW</compilerSet>
+        <compilerSet>default</compilerSet>
       </toolsSet>
       <qt>
         <buildMode>1</buildMode>
@@ -101,11 +101,23 @@
                             WD="../AnalyzeFootballResults"
                             BC="${MAKE}  -f Makefile CONF=Windows"
                             CC="${MAKE}  -f Makefile CONF=Windows clean"
-                            OP="dist/Windows/MinGW-Windows/libAnalyzeFootballResults.dll">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.dll">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../AnalyzeFootballResults"
+                        CT="2"
+                        CN="Windows"
+                        AC="true"
+                        BL="false"
+                        WD="../AnalyzeFootballResults"
+                        BC="${MAKE}  -f Makefile CONF=Windows"
+                        CC="${MAKE}  -f Makefile CONF=Windows clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.dll">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
   </confs>

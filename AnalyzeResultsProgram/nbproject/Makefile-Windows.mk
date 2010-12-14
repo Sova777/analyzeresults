@@ -17,7 +17,7 @@ RANLIB=ranlib
 CC=gcc.exe
 CCC=g++.exe
 CXX=g++.exe
-FC=
+FC=gfortran
 AS=as.exe
 PROC=proc
 
@@ -30,7 +30,7 @@ CND_DISTDIR=dist
 include Makefile
 
 # Object Directory
-OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
+OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
@@ -55,12 +55,12 @@ LDLIBSOPTIONS=-L../AnalyzeFootballResults/dist/Windows/MinGW-Windows -lAnalyzeFo
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Windows.mk dist/Windows/MinGW-Windows/analyzeresultsprogram.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe
 
-dist/Windows/MinGW-Windows/analyzeresultsprogram.exe: ../AnalyzeFootballResults/dist/Windows/MinGW-Windows/libAnalyzeFootballResults.dll
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe: ../AnalyzeFootballResults/dist/Windows/MinGW-Windows/libAnalyzeFootballResults.dll
 
-dist/Windows/MinGW-Windows/analyzeresultsprogram.exe: ${OBJECTFILES}
-	${MKDIR} -p dist/Windows/MinGW-Windows
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe: ${OBJECTFILES}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
@@ -71,16 +71,14 @@ ${OBJECTDIR}/main.o: main.cpp
 # Subprojects
 .build-subprojects:
 	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows
-	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/Windows
-	${RM} dist/Windows/MinGW-Windows/analyzeresultsprogram.exe
+	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe
 
 # Subprojects
 .clean-subprojects:
-	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows clean
 	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Windows clean
 
 # Enable dependency checking
