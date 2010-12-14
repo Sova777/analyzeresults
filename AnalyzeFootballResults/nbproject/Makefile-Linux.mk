@@ -23,7 +23,7 @@ PROC=proc
 
 # Macros
 CND_PLATFORM=OracleSolarisStudio-Solaris-x86
-CND_CONF=Windows
+CND_CONF=Linux
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -70,35 +70,35 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so: ${OBJEC
 
 ${OBJECTDIR}/Stat.o: Stat.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/Stat.o Stat.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Stat.o Stat.cpp
 
 ${OBJECTDIR}/ClubName.o: ClubName.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/ClubName.o ClubName.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ClubName.o ClubName.cpp
 
 ${OBJECTDIR}/Utils.o: Utils.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/Utils.o Utils.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Utils.o Utils.cpp
 
 ${OBJECTDIR}/Results.o: Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/Results.o Results.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Results.o Results.cpp
 
 ${OBJECTDIR}/Years.o: Years.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/Years.o Years.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Years.o Years.cpp
 
 ${OBJECTDIR}/Clubs.o: Clubs.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/Clubs.o Clubs.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Clubs.o Clubs.cpp
 
 ${OBJECTDIR}/ResultsDB.o: ResultsDB.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/ResultsDB.o ResultsDB.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ResultsDB.o ResultsDB.cpp
 
 ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
 
 # Subprojects
 .build-subprojects:

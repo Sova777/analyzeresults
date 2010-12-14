@@ -24,7 +24,7 @@ QMAKE=qmake
 
 # Macros
 CND_PLATFORM=OracleSolarisStudio-Solaris-x86
-CND_CONF=Windows
+CND_CONF=Solaris
 CND_DISTDIR=dist
 
 # Include project Makefile
@@ -51,7 +51,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../AnalyzeFootballResults/dist/Windows/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.dll
+LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -L../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -lAnalyzeFootballResults
 
 nbproject/qt-${CND_CONF}.mk: nbproject/qt-${CND_CONF}.pro FORCE
 	${QMAKE} VPATH=. -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro
@@ -63,7 +63,7 @@ FORCE:
 .build-conf: ${BUILD_SUBPROJECTS} nbproject/qt-${CND_CONF}.mk
 	"${MAKE}" -f nbproject/qt-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/QAnalyzeFootballResults
 
-${CND_BUILDDIR}/Windows/%.o: nbproject/qt-${CND_CONF}.mk
+${CND_BUILDDIR}/Solaris/%.o: nbproject/qt-${CND_CONF}.mk
 	$(MAKE) -f nbproject/qt-${CND_CONF}.mk "$@"
 
 # Subprojects

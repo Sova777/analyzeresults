@@ -12,7 +12,8 @@
             <make-dep-projects/>
             <sourceRootList/>
             <confList>
-                <confElem>Unix</confElem>
+                <confElem>Solaris</confElem>
+                <confElem>Linux</confElem>
                 <confElem>Windows</confElem>
             </confList>
         </data>

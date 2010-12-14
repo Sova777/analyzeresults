@@ -7,14 +7,14 @@
 # Macros
 TOP=`pwd`
 CND_PLATFORM=OracleSolarisStudio-Solaris-x86
-CND_CONF=Windows
+CND_CONF=Linux
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 NBTMPDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram
-OUTPUT_BASENAME=analyzeresultsprogram
-PACKAGE_TOP_DIR=analyzeresultsprogram/
+OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/QAnalyzeFootballResults
+OUTPUT_BASENAME=QAnalyzeFootballResults
+PACKAGE_TOP_DIR=QAnalyzeFootballResults/
 
 # Functions
 function checkReturnCode
@@ -59,15 +59,15 @@ mkdir -p ${NBTMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory "${NBTMPDIR}/analyzeresultsprogram/bin"
+makeDirectory "${NBTMPDIR}/QAnalyzeFootballResults/bin"
 copyFileToTmpDir "${OUTPUT_PATH}" "${NBTMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/analyzeresultsprogram.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/QAnalyzeFootballResults.tar
 cd ${NBTMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/analyzeresultsprogram.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/QAnalyzeFootballResults.tar *
 checkReturnCode
 
 # Cleanup
