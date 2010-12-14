@@ -30,7 +30,7 @@ CND_DISTDIR=dist
 include Makefile
 
 # Object Directory
-OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
+OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \

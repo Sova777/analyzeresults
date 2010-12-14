@@ -20,4 +20,4 @@ QMAKE_CC = gcc
 QMAKE_CXX = g++
 DEFINES += 
 INCLUDEPATH += ../AnalyzeFootballResults 
-LIBS += -Wl,-rpath ../AnalyzeFootballResults/dist/Linux/GNU-Linux-x86 ../AnalyzeFootballResults/dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so  
+LIBS += -Wl,-rpath ../AnalyzeFootballResults/dist/Unix/GNU-Linux-x86 ../AnalyzeFootballResults/dist/Unix/GNU-Linux-x86/libAnalyzeFootballResults.so  

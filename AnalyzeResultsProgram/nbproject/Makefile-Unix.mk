@@ -51,13 +51,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath ../AnalyzeFootballResults/dist/Linux/GNU-Linux-x86 -L../AnalyzeFootballResults/dist/Linux/GNU-Linux-x86 -lAnalyzeFootballResults
+LDLIBSOPTIONS=-Wl,-rpath ../AnalyzeFootballResults/dist/Unix/GNU-Linux-x86 -L../AnalyzeFootballResults/dist/Unix/GNU-Linux-x86 -lAnalyzeFootballResults
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ../AnalyzeFootballResults/dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ../AnalyzeFootballResults/dist/Unix/GNU-Linux-x86/libAnalyzeFootballResults.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -70,7 +70,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Linux
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Unix
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -79,7 +79,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Linux clean
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Unix clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
