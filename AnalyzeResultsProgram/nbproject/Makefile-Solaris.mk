@@ -14,15 +14,15 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=cc
-CCC=CC
-CXX=CC
-FC=f90
+CC=gcc
+CCC=g++
+CXX=g++
+FC=gfortran
 AS=as
 PROC=proc
 
 # Macros
-CND_PLATFORM=OracleSolarisStudio-Solaris-x86
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Solaris
 CND_DISTDIR=dist
 
@@ -51,13 +51,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -L../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -lAnalyzeFootballResults
+LDLIBSOPTIONS=-Wl,-rpath ../AnalyzeFootballResults/dist/Solaris/GNU-Linux-x86 -L../AnalyzeFootballResults/dist/Solaris/GNU-Linux-x86 -lAnalyzeFootballResults
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ../AnalyzeFootballResults/dist/Solaris/GNU-Linux-x86/libAnalyzeFootballResults.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -65,7 +65,8 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ${OBJECTFILES}
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -I../AnalyzeFootballResults -o ${OBJECTDIR}/main.o main.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../AnalyzeFootballResults -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
@@ -75,7 +76,6 @@ ${OBJECTDIR}/main.o: main.cpp
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
 	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram
-	${CCADMIN} -clean
 
 # Subprojects
 .clean-subprojects:
