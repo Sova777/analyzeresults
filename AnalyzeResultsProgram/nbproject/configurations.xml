@@ -73,13 +73,13 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../AnalyzeFootballResults"
                             CT="2"
-                            CN="Linux"
+                            CN="Unix"
                             AC="true"
                             BL="true"
                             WD="../AnalyzeFootballResults"
-                            BC="${MAKE}  -f Makefile CONF=Linux"
-                            CC="${MAKE}  -f Makefile CONF=Linux clean"
-                            OP="dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so">
+                            BC="${MAKE}  -f Makefile CONF=Unix"
+                            CC="${MAKE}  -f Makefile CONF=Unix clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
@@ -87,13 +87,13 @@
         <requiredProjects>
           <makeArtifact PL="../AnalyzeFootballResults"
                         CT="2"
-                        CN="Linux"
+                        CN="Unix"
                         AC="true"
                         BL="false"
                         WD="../AnalyzeFootballResults"
-                        BC="${MAKE}  -f Makefile CONF=Linux"
-                        CC="${MAKE}  -f Makefile CONF=Linux clean"
-                        OP="dist/Linux/GNU-Linux-x86/libAnalyzeFootballResults.so">
+                        BC="${MAKE}  -f Makefile CONF=Unix"
+                        CC="${MAKE}  -f Makefile CONF=Unix clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so">
           </makeArtifact>
         </requiredProjects>
       </compileType>
