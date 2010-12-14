@@ -14,8 +14,7 @@
             </make-dep-projects>
             <sourceRootList/>
             <confList>
-                <confElem>OpenSolaris</confElem>
-                <confElem>Linux</confElem>
+                <confElem>Unix</confElem>
                 <confElem>Windows</confElem>
             </confList>
         </data>

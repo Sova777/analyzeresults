@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="70">
-  <logicalFolder name="root" displayName="root" projectFiles="true">
+<configurationDescriptor version="73">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
       <itemPath>mainform.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
       <itemPath>mainform.ui</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
       <itemPath>main.cpp</itemPath>
       <itemPath>mainform.cpp</itemPath>
     </logicalFolder>
@@ -34,56 +31,10 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="OpenSolaris" type="4">
+    <conf name="Unix" type="4">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>OracleSolarisStudio|OracleSolarisStudio</compilerSet>
-        <platform>1</platform>
-      </toolsSet>
-      <qt>
-        <modules>core gui</modules>
-      </qt>
-      <compileType>
-        <ccTool>
-          <incDir>
-            <pElem>../AnalyzeFootballResults</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../AnalyzeFootballResults"
-                            CT="2"
-                            CN="OpenSolaris"
-                            AC="true"
-                            BL="true"
-                            WD="../AnalyzeFootballResults"
-                            BC="${MAKE}  -f Makefile CONF=OpenSolaris"
-                            CC="${MAKE}  -f Makefile CONF=OpenSolaris clean"
-                            OP="dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so">
-              </makeArtifact>
-            </linkerLibProjectItem>
-          </linkerLibItems>
-        </linkerTool>
-        <requiredProjects>
-          <makeArtifact PL="../AnalyzeFootballResults"
-                        CT="2"
-                        CN="OpenSolaris"
-                        AC="true"
-                        BL="false"
-                        WD="../AnalyzeFootballResults"
-                        BC="${MAKE}  -f Makefile CONF=OpenSolaris"
-                        CC="${MAKE}  -f Makefile CONF=OpenSolaris clean"
-                        OP="dist/OpenSolaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so">
-          </makeArtifact>
-        </requiredProjects>
-      </compileType>
-    </conf>
-    <conf name="Linux" type="4">
-      <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
+        <compilerSet>default</compilerSet>
       </toolsSet>
       <qt>
         <modules>core gui</modules>
@@ -128,7 +79,6 @@
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>MinGW|MinGW</compilerSet>
-        <platform>3</platform>
       </toolsSet>
       <qt>
         <buildMode>1</buildMode>
