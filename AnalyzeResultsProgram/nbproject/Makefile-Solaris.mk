@@ -14,15 +14,15 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
+CC=gcc.exe
+CCC=g++.exe
+CXX=g++.exe
 FC=gfortran
-AS=as
+AS=as.exe
 PROC=proc
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=MinGW-Windows
 CND_CONF=Solaris
 CND_DISTDIR=dist
 
@@ -51,15 +51,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath ../AnalyzeFootballResults/dist/Solaris/GNU-Linux-x86 -L../AnalyzeFootballResults/dist/Solaris/GNU-Linux-x86 -lAnalyzeFootballResults
+LDLIBSOPTIONS=../AnalyzeFootballResults/dist/Solaris/MinGW-Windows/libAnalyzeFootballResults.so
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ../AnalyzeFootballResults/dist/Solaris/GNU-Linux-x86/libAnalyzeFootballResults.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe: ../AnalyzeFootballResults/dist/Solaris/MinGW-Windows/libAnalyzeFootballResults.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
@@ -75,7 +75,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe
 
 # Subprojects
 .clean-subprojects:
