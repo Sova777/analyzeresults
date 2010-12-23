@@ -116,12 +116,12 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../AnalyzeFootballResults"
                             CT="2"
-                            CN="Unix"
+                            CN="Linux"
                             AC="true"
                             BL="true"
                             WD="../AnalyzeFootballResults"
-                            BC="${MAKE}  -f Makefile CONF=Unix"
-                            CC="${MAKE}  -f Makefile CONF=Unix clean"
+                            BC="${MAKE}  -f Makefile CONF=Linux"
+                            CC="${MAKE}  -f Makefile CONF=Linux clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so">
               </makeArtifact>
             </linkerLibProjectItem>
