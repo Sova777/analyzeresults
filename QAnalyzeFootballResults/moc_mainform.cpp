@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainform.h'
 **
-** Created: Tue Dec 14 19:08:27 2010
+** Created: Thu Dec 23 22:39:54 2010
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
