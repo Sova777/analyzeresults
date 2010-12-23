@@ -70,7 +70,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Unix
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Linux
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -79,7 +79,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Unix clean
+	cd ../AnalyzeFootballResults && ${MAKE}  -f Makefile CONF=Linux clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
