@@ -6,7 +6,7 @@
 
 # Macros
 TOP=`pwd`
-CND_PLATFORM=OracleSolarisStudio-Solaris-x86
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Windows
 CND_DISTDIR=dist
 CND_BUILDDIR=build
