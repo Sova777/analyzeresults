@@ -14,16 +14,16 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=cc
-CCC=CC
-CXX=CC
-FC=f90
+CC=gcc
+CCC=g++
+CXX=g++
+FC=gfortran
 AS=as
 PROC=proc
 QMAKE=qmake
 
 # Macros
-CND_PLATFORM=OracleSolarisStudio-Solaris-x86
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Linux
 CND_DISTDIR=dist
 
@@ -51,7 +51,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/Linux/OracleSolarisStudio-Solaris-x86 -L../AnalyzeFootballResults/dist/Linux/OracleSolarisStudio-Solaris-x86 -lAnalyzeFootballResults
+LDLIBSOPTIONS=-Wl,-rpath ../AnalyzeFootballResults/dist/Linux/GNU-Linux-x86 -L../AnalyzeFootballResults/dist/Linux/GNU-Linux-x86 -lAnalyzeFootballResults
 
 nbproject/qt-${CND_CONF}.mk: nbproject/qt-${CND_CONF}.pro FORCE
 	${QMAKE} VPATH=. -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro

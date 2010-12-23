@@ -14,15 +14,15 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=cc
-CCC=CC
-CXX=CC
-FC=f90
+CC=gcc
+CCC=g++
+CXX=g++
+FC=gfortran
 AS=as
 PROC=proc
 
 # Macros
-CND_PLATFORM=OracleSolarisStudio-Solaris-x86
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Windows
 CND_DISTDIR=dist
 
@@ -66,39 +66,47 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -G -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so -KPIC -norunpath -h libAnalyzeFootballResults.so ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/Stat.o: Stat.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/Stat.o Stat.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Stat.o Stat.cpp
 
 ${OBJECTDIR}/ClubName.o: ClubName.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/ClubName.o ClubName.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubName.o ClubName.cpp
 
 ${OBJECTDIR}/Utils.o: Utils.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/Utils.o Utils.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Utils.o Utils.cpp
 
 ${OBJECTDIR}/Results.o: Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/Results.o Results.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Results.o Results.cpp
 
 ${OBJECTDIR}/Years.o: Years.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/Years.o Years.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Years.o Years.cpp
 
 ${OBJECTDIR}/Clubs.o: Clubs.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/Clubs.o Clubs.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Clubs.o Clubs.cpp
 
 ${OBJECTDIR}/ResultsDB.o: ResultsDB.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/ResultsDB.o ResultsDB.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResultsDB.o ResultsDB.cpp
 
 ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -fast -g0 -KPIC  -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
 
 # Subprojects
 .build-subprojects:
@@ -107,7 +115,6 @@ ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
 	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so
-	${CCADMIN} -clean
 
 # Subprojects
 .clean-subprojects:
