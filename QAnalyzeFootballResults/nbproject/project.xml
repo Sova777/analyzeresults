@@ -14,9 +14,18 @@
             </make-dep-projects>
             <sourceRootList/>
             <confList>
-                <confElem>Solaris</confElem>
-                <confElem>Linux</confElem>
-                <confElem>Windows</confElem>
+                <confElem>
+                    <name>Solaris</name>
+                    <type>4</type>
+                </confElem>
+                <confElem>
+                    <name>Linux</name>
+                    <type>4</type>
+                </confElem>
+                <confElem>
+                    <name>Windows</name>
+                    <type>4</type>
+                </confElem>
             </confList>
         </data>
     </configuration>

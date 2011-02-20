@@ -17,7 +17,7 @@ RANLIB=ranlib
 CC=gcc.exe
 CCC=g++.exe
 CXX=g++.exe
-FC=gfortran
+FC=gfortran.exe
 AS=as.exe
 PROC=proc
 QMAKE=qmake.exe
@@ -26,6 +26,7 @@ QMAKE=qmake.exe
 CND_PLATFORM=MinGW-Windows
 CND_CONF=Windows
 CND_DISTDIR=dist
+CND_BUILDDIR=build
 
 # Include project Makefile
 include Makefile
