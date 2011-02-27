@@ -222,6 +222,7 @@ void mainform::addResultToTable(int place, Results::Record* r_result, Years::Rec
     stringstream ss4;
     ss4 << r_result->goals_1 << ":" << r_result->goals_2;
     setCellValue(place - 1, 3, ss4.str());
+
 }
 
 void mainform::redrawForm() {
