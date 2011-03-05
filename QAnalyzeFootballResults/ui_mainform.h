@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainform.ui'
 **
-** Created: Sun 27. Feb 14:47:10 2011
-**      by: Qt User Interface Compiler version 4.7.1
+** Created: Sat 5. Mar 20:38:47 2011
+**      by: Qt User Interface Compiler version 4.7.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
