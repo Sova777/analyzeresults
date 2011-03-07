@@ -17,14 +17,14 @@ RANLIB=ranlib
 CC=cc
 CCC=CC
 CXX=CC
-FC=f90
+FC=f95
 AS=as
-PROC=proc
 
 # Macros
-CND_PLATFORM=OracleSolarisStudio-Solaris-x86
+CND_PLATFORM=OracleSolarisStudio-Linux-x86
 CND_CONF=Solaris
 CND_DISTDIR=dist
+CND_BUILDDIR=build
 
 # Include project Makefile
 include Makefile
