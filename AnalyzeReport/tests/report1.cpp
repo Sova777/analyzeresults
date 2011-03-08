@@ -25,12 +25,30 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <cstdlib>
-#include "ReadFile.hpp"
+#include <stdlib.h>
+#include <string>
+#include <iostream>
+#include <ReadFile.hpp>
 
 using namespace std;
 
-int main(int argc, char** argv) {
-    parseFile("tests/report/report1.txt");
-    return EXIT_SUCCESS;
+void test1() {
+    bool result = parseFile("tests/report/report1.txt");
+    if (!result) {
+        std::cout << "%TEST_FAILED% time=0 testname=test1 (report1) message=error message sample" << std::endl;
+    }
 }
+
+int main(int argc, char** argv) {
+    std::cout << "%SUITE_STARTING% report1" << std::endl;
+    std::cout << "%SUITE_STARTED%" << std::endl;
+
+    std::cout << "%TEST_STARTED% test1 (report1)" << std::endl;
+    test1();
+    std::cout << "%TEST_FINISHED% time=0 test1 (report1)" << std::endl;
+
+    std::cout << "%SUITE_FINISHED% time=0" << std::endl;
+
+    return (EXIT_SUCCESS);
+}
+
