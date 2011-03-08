@@ -25,12 +25,29 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <string>
 #include "ReadFile.hpp"
 
 using namespace std;
 
-int main(int argc, char** argv) {
-    parseFile("test/report/report1.txt");
-    return EXIT_SUCCESS;
+bool parseFile(string file_name) {
+    ifstream f;
+    string line;
+
+    f.open(file_name.c_str());
+    if (!f) {
+        cerr << file_name << " " << FileNotFound << endl;
+        return false;
+    }
+
+    getline(f, line);
+    while (!f.eof()) {
+        cout << line << endl;
+        getline(f, line);
+    };
+    f.close();
+    f.clear();
+    return true;
 }
