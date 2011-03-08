@@ -25,12 +25,12 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <cstdlib>
-#include "ReadFile.hpp"
+#ifndef READFILE_HPP
+#define	READFILE_HPP
 
-using namespace std;
+#include <string>
 
-int main(int argc, char** argv) {
-    parseFile("test/report/report1.txt");
-    return EXIT_SUCCESS;
-}
+#define FileNotFound "файл не найден"
+bool parseFile(std::string file_name);
+
+#endif	/* READFILE_HPP */
