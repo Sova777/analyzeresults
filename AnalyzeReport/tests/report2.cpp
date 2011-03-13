@@ -33,19 +33,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using namespace std;
 
 void test1() {
-    bool result = parseFile("tests/report/report1.txt");
+    bool result = parseFile("tests/report/report2.txt");
     if (!result) {
-        std::cout << "%TEST_FAILED% time=0 testname=test1 (report1) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=test1 (report2) message=error message sample" << std::endl;
     }
 }
 
 int main(int argc, char** argv) {
-    std::cout << "%SUITE_STARTING% report1" << std::endl;
+    std::cout << "%SUITE_STARTING% report2" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
 
-    std::cout << "%TEST_STARTED% test1 (report1)" << std::endl;
+    std::cout << "%TEST_STARTED% test1 (report2)" << std::endl;
     test1();
-    std::cout << "%TEST_FINISHED% time=0 test1 (report1)" << std::endl;
+    std::cout << "%TEST_FINISHED% time=0 test1 (report2)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 

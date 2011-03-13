@@ -35,6 +35,7 @@ using namespace std;
 bool parseFile(string file_name) {
     ifstream f;
     string line;
+    size_t len = 0;
 
     f.open(file_name.c_str());
     if (!f) {
@@ -44,9 +45,12 @@ bool parseFile(string file_name) {
 
     getline(f, line);
     while (!f.eof()) {
-        cout << line << endl;
+        len = line.size();
+        for (int i = 0; i <= len; i++) {
+            cout << line[i] << endl;
+        }
         getline(f, line);
-    };
+    }
     f.close();
     f.clear();
     return true;
