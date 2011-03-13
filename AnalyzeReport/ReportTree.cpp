@@ -25,60 +25,27 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <fstream>
-#include <iostream>
-#include <cstdlib>
 #include <string>
-#include "ReadFile.hpp"
+#include <iostream>
 #include "ReportTree.hpp"
 
 using namespace std;
 
-ReportTree* parseFile(string file_name) {
-    ifstream f;
-    string line;
-    string item = "";
-    size_t len = 0;
-
-    f.open(file_name.c_str());
-    if (!f) {
-        cerr << file_name << " " << FileNotFound << endl;
-        return NULL;
+void ReportTree::add(string& item) {
+    if ((item != "") && (item.c_str()[0] != '\x00')) {
+        tree.push_back(item);
     }
+}
 
-    ReportTree* reportTree = new ReportTree();
-    getline(f, line);
-    while (!f.eof()) {
-        len = line.size();
-        for (int i = 0; i <= len; i++) {
-            switch (line[i]) {
-                case ' ':
-                case '\r':
-                case '\n':
-                case '\t':
-                    reportTree->add(item);
-                    item = "";
-                    break;
-                case ',':
-                case '.':
-                case ':':
-                case '(':
-                case ')':
-                case '-':
-                    reportTree->add(item);
-                    reportTree->add(line[i]);
-                    item = "";                    
-                    break;
-                default:
-                    item += line[i];
-                    break;
-            };
-        }
-        reportTree->add(item);
-        item = "";
-        getline(f, line);
+void ReportTree::add(char& item) {
+    string str = "";
+    str += item;
+    tree.push_back(str);
+}
+
+void ReportTree::print() {
+    unsigned int len = tree.size();
+    for (int i = 0; i < len; i++) {
+        cout << tree[i] << endl;
     }
-    f.close();
-    f.clear();
-    return reportTree;
 }

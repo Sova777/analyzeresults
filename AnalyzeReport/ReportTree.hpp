@@ -25,60 +25,21 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <fstream>
-#include <iostream>
-#include <cstdlib>
+#ifndef REPORTTREE_HPP
+#define	REPORTTREE_HPP
+
 #include <string>
-#include "ReadFile.hpp"
-#include "ReportTree.hpp"
+#include <vector>
 
-using namespace std;
+class ReportTree {
+public:
+    void add(std::string& item);
+    void add(char& item);
+    void print();
+private:
+    typedef std::vector<std::string> Tree;
+    Tree tree;
+};
 
-ReportTree* parseFile(string file_name) {
-    ifstream f;
-    string line;
-    string item = "";
-    size_t len = 0;
+#endif	/* REPORTTREE_HPP */
 
-    f.open(file_name.c_str());
-    if (!f) {
-        cerr << file_name << " " << FileNotFound << endl;
-        return NULL;
-    }
-
-    ReportTree* reportTree = new ReportTree();
-    getline(f, line);
-    while (!f.eof()) {
-        len = line.size();
-        for (int i = 0; i <= len; i++) {
-            switch (line[i]) {
-                case ' ':
-                case '\r':
-                case '\n':
-                case '\t':
-                    reportTree->add(item);
-                    item = "";
-                    break;
-                case ',':
-                case '.':
-                case ':':
-                case '(':
-                case ')':
-                case '-':
-                    reportTree->add(item);
-                    reportTree->add(line[i]);
-                    item = "";                    
-                    break;
-                default:
-                    item += line[i];
-                    break;
-            };
-        }
-        reportTree->add(item);
-        item = "";
-        getline(f, line);
-    }
-    f.close();
-    f.clear();
-    return reportTree;
-}

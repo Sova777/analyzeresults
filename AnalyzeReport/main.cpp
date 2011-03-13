@@ -27,10 +27,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <cstdlib>
 #include "ReadFile.hpp"
+#include "ReportTree.hpp"
 
 using namespace std;
 
 int main(int argc, char** argv) {
-    if (argc > 1) parseFile(argv[1]);
+    ReportTree* reportTree;
+    if (argc > 1) {
+        reportTree = parseFile(argv[1]);
+    }
+    reportTree->print();
     return EXIT_SUCCESS;
 }

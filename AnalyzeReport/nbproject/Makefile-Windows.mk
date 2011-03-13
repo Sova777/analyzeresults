@@ -35,7 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/ReadFile.o
+	${OBJECTDIR}/ReadFile.o \
+	${OBJECTDIR}/ReportTree.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -79,6 +80,11 @@ ${OBJECTDIR}/ReadFile.o: ReadFile.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReadFile.o ReadFile.cpp
+
+${OBJECTDIR}/ReportTree.o: ReportTree.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReportTree.o ReportTree.cpp
 
 # Subprojects
 .build-subprojects:
@@ -140,6 +146,19 @@ ${OBJECTDIR}/ReadFile_nomain.o: ${OBJECTDIR}/ReadFile.o ReadFile.cpp
 	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReadFile_nomain.o ReadFile.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/ReadFile.o ${OBJECTDIR}/ReadFile_nomain.o;\
+	fi
+
+${OBJECTDIR}/ReportTree_nomain.o: ${OBJECTDIR}/ReportTree.o ReportTree.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/ReportTree.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReportTree_nomain.o ReportTree.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/ReportTree.o ${OBJECTDIR}/ReportTree_nomain.o;\
 	fi
 
 # Run Test Targets
