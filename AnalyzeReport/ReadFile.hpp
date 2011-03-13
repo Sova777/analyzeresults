@@ -29,8 +29,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	READFILE_HPP
 
 #include <string>
+#include "ReportTree.hpp"
 
 #define FileNotFound "файл не найден"
-bool parseFile(std::string file_name);
+ReportTree* parseFile(std::string file_name);
 
 #endif	/* READFILE_HPP */
