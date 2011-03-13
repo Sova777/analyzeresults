@@ -39,6 +39,7 @@ ReportTree* parseFile(string file_name) {
     string line;
     string item = "";
     size_t len = 0;
+    int id = 0;
 
     f.open(file_name.c_str());
     if (!f) {
@@ -49,6 +50,7 @@ ReportTree* parseFile(string file_name) {
     ReportTree* reportTree = new ReportTree();
     getline(f, line);
     while (!f.eof()) {
+        if (id != 0) reportTree->addNewLine();
         len = line.size();
         for (int i = 0; i <= len; i++) {
             switch (line[i]) {
@@ -77,6 +79,7 @@ ReportTree* parseFile(string file_name) {
         reportTree->add(item);
         item = "";
         getline(f, line);
+        id++;
     }
     f.close();
     f.clear();

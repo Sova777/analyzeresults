@@ -33,11 +33,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class ReportTree {
 public:
+    ReportTree();
     void add(std::string& item);
     void add(char& item);
+    void addNewLine();
     void print();
 private:
-    typedef std::vector<std::string> Tree;
+    unsigned int currentLine;
+    typedef std::vector<std::string> TreeLine;
+    typedef std::vector<TreeLine> Tree;
     Tree tree;
 };
 

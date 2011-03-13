@@ -31,21 +31,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using namespace std;
 
+ReportTree::ReportTree() {
+    currentLine = 0;
+    tree.push_back(TreeLine());
+}
+
+void ReportTree::addNewLine() {
+    currentLine++;
+    tree.push_back(TreeLine());
+}
+
 void ReportTree::add(string& item) {
     if ((item != "") && (item.c_str()[0] != '\x00')) {
-        tree.push_back(item);
+        tree[currentLine].push_back(item);
     }
 }
 
 void ReportTree::add(char& item) {
     string str = "";
     str += item;
-    tree.push_back(str);
+    tree[currentLine].push_back(str);
 }
 
 void ReportTree::print() {
     unsigned int len = tree.size();
+    unsigned int len2;
     for (int i = 0; i < len; i++) {
-        cout << tree[i] << endl;
+        cout << "=====================" << endl;
+        len2 = tree[i].size();
+        for (int j = 0; j < len2; j++) {
+            cout << tree[i][j] << endl;
+        }
     }
 }
