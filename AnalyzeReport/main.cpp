@@ -31,6 +31,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using namespace std;
 
 int main(int argc, char** argv) {
-    parseFile("tests/report/report1.txt");
+    if (argc > 1) parseFile(argv[1]);
     return EXIT_SUCCESS;
 }
