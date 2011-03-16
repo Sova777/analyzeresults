@@ -14,11 +14,11 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc.exe
-CCC=g++.exe
-CXX=g++.exe
-FC=gfortran.exe
-AS=as.exe
+CC=gcc
+CCC=g++
+CXX=g++
+FC=gfortran
+AS=as
 
 # Macros
 CND_PLATFORM=MinGW-Windows
@@ -107,19 +107,19 @@ ${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/report3.o ${OBJECTFILES:%.o=%_nomain.o
 ${TESTDIR}/tests/report1.o: tests/report1.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report1.o tests/report1.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report1.o tests/report1.cpp
 
 
 ${TESTDIR}/tests/report2.o: tests/report2.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report2.o tests/report2.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report2.o tests/report2.cpp
 
 
 ${TESTDIR}/tests/report3.o: tests/report3.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report3.o tests/report3.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report3.o tests/report3.cpp
 
 
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 
