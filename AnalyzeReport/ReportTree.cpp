@@ -60,7 +60,9 @@ void ReportTree::print() {
         cout << "=====================" << endl;
         len2 = tree[i].size();
         for (int j = 0; j < len2; j++) {
-            cout << tree[i][j] << endl;
+            if (tree[i][j] != ",") {
+                cout << tree[i][j] << endl;
+            }
         }
     }
 }
