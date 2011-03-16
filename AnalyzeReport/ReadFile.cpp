@@ -74,7 +74,7 @@ ReportTree* parseFile(string file_name) {
                 default:
                     item += line[i];
                     break;
-            };
+            }
         }
         reportTree->add(item);
         item = "";
