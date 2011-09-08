@@ -4,3 +4,4 @@
 # NOCDDL
 #
 # Windows configuration
+# Solaris configuration

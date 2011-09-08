@@ -15,6 +15,10 @@
                     <name>Windows</name>
                     <type>4</type>
                 </confElem>
+                <confElem>
+                    <name>Solaris</name>
+                    <type>4</type>
+                </confElem>
             </confList>
         </data>
     </configuration>

@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MainWindow.h'
 **
-** Created: Thu 11. Aug 01:57:32 2011
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.3)
+** Created: Thu Sep 8 12:37:40 2011
+**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -11,7 +11,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'MainWindow.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.7.3. It"
+#error "This file was generated using the moc from 4.7.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -31,21 +31,22 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      12,   11,   11,   11, 0x08,
-      26,   11,   11,   11, 0x08,
-      40,   11,   11,   11, 0x08,
-      54,   11,   11,   11, 0x08,
-      68,   11,   11,   11, 0x08,
-      82,   11,   11,   11, 0x08,
-     101,   96,   11,   11, 0x08,
+      11,   25,   25,   25, 0x08,
+      26,   25,   25,   25, 0x08,
+      40,   25,   25,   25, 0x08,
+      54,   25,   25,   25, 0x08,
+      68,   25,   25,   25, 0x08,
+      82,   25,   25,   25, 0x08,
+      96,  116,   25,   25, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0\0selectMode1()\0selectMode2()\0"
+    "MainWindow\0selectMode1()\0\0selectMode2()\0"
     "selectMode3()\0selectMode4()\0selectMode5()\0"
-    "selectMode6()\0link\0linkActivated(QUrl)\0"
+    "selectMode6()\0linkActivated(QUrl)\0"
+    "link\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
