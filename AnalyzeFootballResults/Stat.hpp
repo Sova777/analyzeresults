@@ -65,11 +65,14 @@ public:
 
     std::vector<Stat::Record*>* get_sorted_vector_by_default();
 
+    std::vector<Stat::Record*>* get_sorted_vector_by_3points();
+
     std::vector<Stat::Record*> sorted_vector;
 
 };
 
-bool compare_rows(const Stat::Record* s1, const Stat::Record* s2);
+bool compare_rows2(const Stat::Record* s1, const Stat::Record* s2);
+
+bool compare_rows3(const Stat::Record* s1, const Stat::Record* s2);
 
 #endif	/* STAT_HPP */
-
