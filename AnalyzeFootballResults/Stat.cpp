@@ -130,11 +130,21 @@ vector<Stat::Record*>* Stat::get_sorted_vector_by_default() {
     for (iter = table.begin(); iter != table.end(); ++iter) {
         sorted_vector.push_back(iter->second);
     }
-    sort(sorted_vector.begin(), sorted_vector.end(), compare_rows);
+    sort(sorted_vector.begin(), sorted_vector.end(), compare_rows2);
     return &sorted_vector;
 }
 
- bool compare_rows(const Stat::Record* s1, const Stat::Record* s2) {
+vector<Stat::Record*>* Stat::get_sorted_vector_by_3points() {
+    Stat::TableMap::const_iterator iter;
+    vector<Stat::Record*> v;
+    for (iter = table.begin(); iter != table.end(); ++iter) {
+        sorted_vector.push_back(iter->second);
+    }
+    sort(sorted_vector.begin(), sorted_vector.end(), compare_rows3);
+    return &sorted_vector;
+}
+
+bool compare_rows2(const Stat::Record* s1, const Stat::Record* s2) {
     int w1 = (s1->w1 + s1->w2);
     int w2 = (s2->w1 + s2->w2);
     int diff1 = (s1->f1 + s1->f2) - (s1->a1 + s1->a2);
@@ -147,3 +157,17 @@ vector<Stat::Record*>* Stat::get_sorted_vector_by_default() {
     if (w1 < w2) return false;
     return (diff1 > diff2);
 }
+
+bool compare_rows3(const Stat::Record* s1, const Stat::Record* s2) {
+    int w1 = (s1->w1 + s1->w2);
+    int w2 = (s2->w1 + s2->w2);
+    int diff1 = (s1->f1 + s1->f2) - (s1->a1 + s1->a2);
+    int diff2 = (s2->f1 + s2->f2) - (s2->a1 + s2->a2);
+    int points1 = 2 * w1 + (s1->d1 + s1->d2);
+    int points2 = 2 * w2 + (s2->d1 + s2->d2);
+    if (points1 > points2) return true;
+    if (points1 < points2) return false;
+    if (w1 > w2) return true;
+    if (w1 < w2) return false;
+    return (diff1 > diff2);
+ }
