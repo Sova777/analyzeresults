@@ -7,13 +7,13 @@ CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
 # Windows configuration
-CND_PLATFORM_Windows=
-CND_ARTIFACT_DIR_Windows=dist/Windows/
+CND_PLATFORM_Windows=MinGW-Windows
+CND_ARTIFACT_DIR_Windows=dist/Windows/MinGW-Windows
 CND_ARTIFACT_NAME_Windows=QFootballStat
-CND_ARTIFACT_PATH_Windows=dist/Windows//QFootballStat
-CND_PACKAGE_DIR_Windows=dist/Windows//package
+CND_ARTIFACT_PATH_Windows=dist/Windows/MinGW-Windows/QFootballStat
+CND_PACKAGE_DIR_Windows=dist/Windows/MinGW-Windows/package
 CND_PACKAGE_NAME_Windows=QFootballStat.tar
-CND_PACKAGE_PATH_Windows=dist/Windows//package/QFootballStat.tar
+CND_PACKAGE_PATH_Windows=dist/Windows/MinGW-Windows/package/QFootballStat.tar
 # Solaris configuration
 CND_PLATFORM_Solaris=OracleSolarisStudio-Solaris-x86
 CND_ARTIFACT_DIR_Solaris=dist/Solaris/OracleSolarisStudio-Solaris-x86

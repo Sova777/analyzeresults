@@ -23,13 +23,13 @@ CND_PACKAGE_DIR_Solaris=dist/Solaris/OracleSolarisStudio-Solaris-x86/package
 CND_PACKAGE_NAME_Solaris=analyzereport.tar
 CND_PACKAGE_PATH_Solaris=dist/Solaris/OracleSolarisStudio-Solaris-x86/package/analyzereport.tar
 # Windows configuration
-CND_PLATFORM_Windows=
-CND_ARTIFACT_DIR_Windows=dist/Windows/
+CND_PLATFORM_Windows=MinGW-Windows
+CND_ARTIFACT_DIR_Windows=dist/Windows/MinGW-Windows
 CND_ARTIFACT_NAME_Windows=analyzereport
-CND_ARTIFACT_PATH_Windows=dist/Windows//analyzereport
-CND_PACKAGE_DIR_Windows=dist/Windows//package
+CND_ARTIFACT_PATH_Windows=dist/Windows/MinGW-Windows/analyzereport
+CND_PACKAGE_DIR_Windows=dist/Windows/MinGW-Windows/package
 CND_PACKAGE_NAME_Windows=analyzereport.tar
-CND_PACKAGE_PATH_Windows=dist/Windows//package/analyzereport.tar
+CND_PACKAGE_PATH_Windows=dist/Windows/MinGW-Windows/package/analyzereport.tar
 #
 # include compiler specific variables
 #

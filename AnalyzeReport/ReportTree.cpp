@@ -53,6 +53,15 @@ void ReportTree::add(char& item) {
     tree[currentLine].push_back(str);
 }
 
+bool ReportTree::isGoalKeyword(string& item) {
+    if (item == "Гол") {
+        return true;
+    } else if (item == "Голы") {
+        return true;
+    }
+    return false;
+}
+
 void ReportTree::print() {
     unsigned int len = tree.size();
     unsigned int len2;
