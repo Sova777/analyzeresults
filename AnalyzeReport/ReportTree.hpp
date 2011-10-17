@@ -38,6 +38,7 @@ public:
     void add(char& item);
     void addNewLine();
     void print();
+    bool isGoalKeyword(std::string& item);
 private:
     unsigned int currentLine;
     typedef std::vector<std::string> TreeLine;
