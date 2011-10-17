@@ -21,3 +21,5 @@ QMAKE_CXX = CC
 DEFINES += 
 INCLUDEPATH += ../AnalyzeFootballResults 
 LIBS += -R../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 ../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so  
+QMAKE_LFLAGS=-library=stlport4
+QMAKE_CXXFLAGS=-library=stlport4

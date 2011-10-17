@@ -14,14 +14,14 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
-FC=gfortran
+CC=cc
+CCC=CC
+CXX=CC
+FC=f95
 AS=as
 
 # Macros
-CND_PLATFORM=MinGW-Windows
+CND_PLATFORM=OracleSolarisStudio-Solaris-x86
 CND_CONF=Solaris
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -65,26 +65,23 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzereport.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzereport
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzereport.exe: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzereport: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzereport ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/ReadFile.o: ReadFile.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReadFile.o ReadFile.cpp
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/ReadFile.o ReadFile.cpp
 
 ${OBJECTDIR}/ReportTree.o: ReportTree.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReportTree.o ReportTree.cpp
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/ReportTree.o ReportTree.cpp
 
 # Subprojects
 .build-subprojects:
@@ -106,20 +103,17 @@ ${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/report3.o ${OBJECTFILES:%.o=%_nomain.o
 
 ${TESTDIR}/tests/report1.o: tests/report1.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
-	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report1.o tests/report1.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -o ${TESTDIR}/tests/report1.o tests/report1.cpp
 
 
 ${TESTDIR}/tests/report2.o: tests/report2.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
-	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report2.o tests/report2.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -o ${TESTDIR}/tests/report2.o tests/report2.cpp
 
 
 ${TESTDIR}/tests/report3.o: tests/report3.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
-	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report3.o tests/report3.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -o ${TESTDIR}/tests/report3.o tests/report3.cpp
 
 
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 
@@ -129,8 +123,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/main_nomain.o main.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -o ${OBJECTDIR}/main_nomain.o main.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
 	fi
@@ -142,8 +135,7 @@ ${OBJECTDIR}/ReadFile_nomain.o: ${OBJECTDIR}/ReadFile.o ReadFile.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReadFile_nomain.o ReadFile.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -o ${OBJECTDIR}/ReadFile_nomain.o ReadFile.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/ReadFile.o ${OBJECTDIR}/ReadFile_nomain.o;\
 	fi
@@ -155,8 +147,7 @@ ${OBJECTDIR}/ReportTree_nomain.o: ${OBJECTDIR}/ReportTree.o ReportTree.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/ReportTree_nomain.o ReportTree.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -o ${OBJECTDIR}/ReportTree_nomain.o ReportTree.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/ReportTree.o ${OBJECTDIR}/ReportTree_nomain.o;\
 	fi
@@ -175,7 +166,8 @@ ${OBJECTDIR}/ReportTree_nomain.o: ${OBJECTDIR}/ReportTree.o ReportTree.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzereport.exe
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzereport
+	${CCADMIN} -clean
 
 # Subprojects
 .clean-subprojects:
