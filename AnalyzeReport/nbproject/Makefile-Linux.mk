@@ -17,11 +17,11 @@ RANLIB=ranlib
 CC=gcc
 CCC=g++
 CXX=g++
-FC=gfortran
-AS=as
+FC=g77
+AS=gas
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Solaris-x86
 CND_CONF=Linux
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -107,19 +107,19 @@ ${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/report3.o ${OBJECTFILES:%.o=%_nomain.o
 ${TESTDIR}/tests/report1.o: tests/report1.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report1.o tests/report1.cpp
+	$(COMPILE.cc) -g -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report1.o tests/report1.cpp
 
 
 ${TESTDIR}/tests/report2.o: tests/report2.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report2.o tests/report2.cpp
+	$(COMPILE.cc) -g -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report2.o tests/report2.cpp
 
 
 ${TESTDIR}/tests/report3.o: tests/report3.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report3.o tests/report3.cpp
+	$(COMPILE.cc) -g -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/report3.o tests/report3.cpp
 
 
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 

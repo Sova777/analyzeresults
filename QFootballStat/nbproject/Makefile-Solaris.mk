@@ -54,7 +54,7 @@ ASFLAGS=
 LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -L../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -lAnalyzeFootballResults
 
 nbproject/qt-${CND_CONF}.mk: nbproject/qt-${CND_CONF}.pro FORCE
-	${QMAKE} VPATH=. -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro
+	${QMAKE} VPATH=. -spec solaris-cc -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro
 	mv -f qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.mk
 
 FORCE:

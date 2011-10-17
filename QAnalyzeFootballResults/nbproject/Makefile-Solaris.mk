@@ -22,7 +22,7 @@ AS=as
 QMAKE=qmake
 
 # Macros
-CND_PLATFORM=OracleSolarisStudio-Linux-x86
+CND_PLATFORM=OracleSolarisStudio-Solaris-x86
 CND_CONF=Solaris
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -51,10 +51,10 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Linux-x86 -L../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Linux-x86 -lAnalyzeFootballResults
+LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/Unix/OracleSolarisStudio-Solaris-x86 -L../AnalyzeFootballResults/dist/Unix/OracleSolarisStudio-Solaris-x86 -lAnalyzeFootballResults
 
 nbproject/qt-${CND_CONF}.mk: nbproject/qt-${CND_CONF}.pro FORCE
-	${QMAKE} VPATH=. -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro
+	${QMAKE} VPATH=. -spec solaris-cc -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro
 	mv -f qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.mk
 
 FORCE:
@@ -64,14 +64,14 @@ FORCE:
 	"${MAKE}" -f nbproject/qt-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/QAnalyzeFootballResults
 
 ${CND_BUILDDIR}/Solaris/%.o: nbproject/qt-${CND_CONF}.mk
-	$(MAKE) -f nbproject/qt-${CND_CONF}.mk "$@"
+	${MAKE} -f nbproject/qt-${CND_CONF}.mk "$@"
 
 # Subprojects
 .build-subprojects:
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS} nbproject/qt-${CND_CONF}.mk
-	$(MAKE) -f nbproject/qt-${CND_CONF}.mk distclean
+	${MAKE} -f nbproject/qt-${CND_CONF}.mk distclean
 
 # Subprojects
 .clean-subprojects:

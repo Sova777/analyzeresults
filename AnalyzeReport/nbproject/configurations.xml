@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="79">
+<configurationDescriptor version="80">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -61,8 +61,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
@@ -72,8 +78,14 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
@@ -83,8 +95,14 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
@@ -93,7 +111,7 @@
     <conf name="Solaris" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>MinGW|MinGW</compilerSet>
+        <compilerSet>OracleSolarisStudio|OracleSolarisStudio</compilerSet>
       </toolsSet>
       <compileType>
       </compileType>
@@ -104,10 +122,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -123,10 +143,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -140,10 +162,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -167,10 +191,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -186,10 +212,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -203,10 +231,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>

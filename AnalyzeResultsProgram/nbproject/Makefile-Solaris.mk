@@ -21,7 +21,7 @@ FC=f95
 AS=as
 
 # Macros
-CND_PLATFORM=OracleSolarisStudio-Linux-x86
+CND_PLATFORM=OracleSolarisStudio-Solaris-x86
 CND_CONF=Solaris
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -51,13 +51,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Linux-x86 -L../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Linux-x86 -lAnalyzeFootballResults
+LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -L../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86 -lAnalyzeFootballResults
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Linux-x86/libAnalyzeFootballResults.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ../AnalyzeFootballResults/dist/Solaris/OracleSolarisStudio-Solaris-x86/libAnalyzeFootballResults.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
