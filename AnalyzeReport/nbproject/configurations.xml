@@ -55,60 +55,16 @@
       <compileType>
       </compileType>
       <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f3">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
@@ -121,43 +77,24 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <folder path="TestFiles/f1">
+      <folder path="TestFiles">
         <ccTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </ccTool>
+      </folder>
+      <folder path="TestFiles/f1">
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f3">
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
@@ -171,68 +108,16 @@
       <compileType>
       </compileType>
       <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f3">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
