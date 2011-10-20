@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="80">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>MainWindow.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+      <itemPath>MainWindow.ui</itemPath>
+      <itemPath>resources.qrc</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>MainWindow.cpp</itemPath>
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Windows" type="4">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>MinGW|MinGW</compilerSet>
+      </toolsSet>
+      <qt>
+        <modules>core gui</modules>
+      </qt>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../AnalyzeFootballResults</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../AnalyzeFootballResults"
+                            CT="2"
+                            CN="Windows"
+                            AC="true"
+                            BL="true"
+                            WD="../AnalyzeFootballResults"
+                            BC="${MAKE}  -f Makefile CONF=Windows"
+                            CC="${MAKE}  -f Makefile CONF=Windows clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.dll">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+    </conf>
+    <conf name="Solaris" type="4">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>OracleSolarisStudio|OracleSolarisStudio</compilerSet>
+      </toolsSet>
+      <qt>
+        <modules>core gui</modules>
+        <defs>
+          <Elem>QMAKE_LFLAGS=-library=stlport4</Elem>
+          <Elem>QMAKE_CXXFLAGS=-library=stlport4</Elem>
+        </defs>
+      </qt>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../AnalyzeFootballResults</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../AnalyzeFootballResults"
+                            CT="2"
+                            CN="Solaris"
+                            AC="true"
+                            BL="true"
+                            WD="../AnalyzeFootballResults"
+                            BC="${MAKE}  -f Makefile CONF=Solaris"
+                            CC="${MAKE}  -f Makefile CONF=Solaris clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>
