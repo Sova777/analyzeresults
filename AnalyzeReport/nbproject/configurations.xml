@@ -107,6 +107,13 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
       <folder path="TestFiles/f1">
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
