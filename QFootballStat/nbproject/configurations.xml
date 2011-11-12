@@ -38,7 +38,7 @@
         <compilerSet>MinGW|MinGW</compilerSet>
       </toolsSet>
       <qt>
-        <modules>core gui</modules>
+        <modules>core gui xml</modules>
       </qt>
       <compileType>
         <ccTool>
