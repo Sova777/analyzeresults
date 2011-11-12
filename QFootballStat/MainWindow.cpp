@@ -26,7 +26,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include <QtGui/QtGui>
-
+#include <QtXml/QtXml>
 #include <sstream>
 
 #include <Clubs.hpp>
@@ -80,7 +80,22 @@ void MainWindow::selectMode2() {
 }
 
 void MainWindow::selectMode3() {
-    widget.text->setText("<b>Mode 3</b>");
+    QDomDocument doc("report");
+    QFile file("data/1.xml");
+    if (!file.open(QIODevice::ReadOnly)) return;
+    if (!doc.setContent(&file)) {
+        file.close();
+        return;
+    }
+    file.close();
+    QDomElement docElement = doc.documentElement();
+    QDomNodeList nodes = docElement.elementsByTagName("refery");
+    if (nodes.length() > 0) {
+        QDomElement node = nodes.at(0).toElement();
+        widget.text->setText("<b>" + node.text() +
+            " (" + node.attributes().namedItem("city").nodeValue() +
+            ")</b>");
+    }
 }
 
 void MainWindow::selectMode4() {
