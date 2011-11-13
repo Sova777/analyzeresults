@@ -29,25 +29,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <QtXml/QtXml>
 #include <sstream>
 
-#include <Clubs.hpp>
-#include <ClubInfo.hpp>
-#include <ClubName.hpp>
-#include <Results.hpp>
-#include <Stat.hpp>
-#include <Utils.hpp>
-#include <Years.hpp>
-
 #include "MainWindow.h"
-
-#define CURRENT_CHAMP_ID "v2010"
 
 using namespace std;
 
 MainWindow::MainWindow() {
-    ResultsDB::init("data");
 
     widget.setupUi(this);
-    codec = QTextCodec::codecForName("WINDOWS-1251");
 
     connect(widget.actionExit, SIGNAL(triggered()),
             this, SLOT(close()));
@@ -72,6 +60,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::selectMode1() {
+    widget.text->setText("<b>Mode 1</b>");
     calculateTable();
 }
 
@@ -79,23 +68,19 @@ void MainWindow::selectMode2() {
     widget.text->setText("<b>Mode 2</b>");
 }
 
-void MainWindow::selectMode3() {
-    QDomDocument doc("report");
-    QFile file("data/1.xml");
-    if (!file.open(QIODevice::ReadOnly)) return;
-    if (!doc.setContent(&file)) {
-        file.close();
-        return;
-    }
-    file.close();
-    QDomElement docElement = doc.documentElement();
+void MainWindow::referies(QString &qstr, QDomElement& docElement) {
     QDomNodeList nodes = docElement.elementsByTagName("refery");
     if (nodes.length() > 0) {
         QDomElement node = nodes.at(0).toElement();
-        widget.text->setText("<b>" + node.text() +
+        qstr += "<b>" + node.text() +
             " (" + node.attributes().namedItem("city").nodeValue() +
-            ")</b>");
-    }
+            ")</b><br>";
+    }    
+}
+
+void MainWindow::selectMode3() {
+    QString qstr = analyzeXml(&MainWindow::referies);
+    widget.text->setText(qstr);
 }
 
 void MainWindow::selectMode4() {
@@ -103,12 +88,35 @@ void MainWindow::selectMode4() {
 }
 
 void MainWindow::selectMode5() {
+    widget.text->setText("<b>Mode 5</b>");
     QString qstr("");
     matchResults(qstr);
 }
 
 void MainWindow::selectMode6() {
     widget.text->setText("<b>Mode 6</b>");
+}
+
+QString MainWindow::analyzeXml(void (MainWindow::*func)(QString &qstr, QDomElement& docElement)) {
+    QString qstr;
+    QDir* qDir = new QDir("data/xml");
+    qDir->setFilter(QDir::Files);
+    QStringList list = qDir->entryList();
+    QDomDocument doc("report");
+    stringstream ss;
+    for (int i = 0; i < list.size(); ++i) {
+        QString fileName = list.at(i);
+        QFile file(qDir->absolutePath() + "/" + fileName);
+        if (!file.open(QIODevice::ReadOnly)) continue;
+        if (!doc.setContent(&file)) {
+            file.close();
+            continue;
+        }
+        file.close();
+        QDomElement docElement = doc.documentElement();
+        (this->*func)(qstr, docElement);
+    }
+    return qstr;
 }
 
 void MainWindow::linkActivated(const QUrl & link) {
@@ -126,181 +134,17 @@ void MainWindow::linkActivated(const QUrl & link) {
 }
 
 void MainWindow::matchReport(const QString& matchId) {
-    stringstream ss;
-    ss << "<h1 align='center'>"
-            << "Протокол матча"
-            << "</h1>";
-    string file_name = "";
-    string line = "";
-    file_name = "data/" CURRENT_CHAMP_ID "/" + matchId.toStdString() + "p.txt";
-    fstream f;
-    f.open(file_name.c_str());
-    if (f) {
-        do {
-            getline(f, line);
-            ss << line << endl;
-        } while (!f.eof());
-        f.close();
-        f.clear();
-    }
-    QString qstr = codec->toUnicode(ss.str().c_str());
-    widget.text->setText(qstr);
+    //
 }
 
 void MainWindow::matchResults(const QString& clubId) {
-    Years years;
-    Years::Record* record_year;
-    Results results;
-    Results::Record* record_result;
-    string id = clubId.toStdString();
-
-    stringstream ss;
-    if (clubId != "") {
-        ss << "<h1 align='center'>"
-                << ClubName::getInstance()->getName(clubId.toStdString(), CURRENT_CHAMP_ID)
-                << "</h1>";
-    } else {
-        ss << "<h1 align='center'>"
-                << "Результаты матчей"
-                << "</h1>";
-    }
-    if (!years.open()) return;
-    while ((record_year = years.next()) != NULL) {
-        if (record_year->file_results == CURRENT_CHAMP_ID) {
-            results.open(record_year->file_results);
-            while ((record_result = results.next()) != NULL) {
-                if ((clubId == "") || (record_result->played(id)))
-                    ss << record_result->round
-                        << "-й тур - "
-                        << record_result->date
-                        << " "
-                        << ClubName::getInstance()->getName(record_result->team_id_1, record_year->file_results)
-                    << " - "
-                    << ClubName::getInstance()->getName(record_result->team_id_2, record_year->file_results)
-                    << " "
-                    << record_result->goals_1
-                        << ":"
-                        << record_result->goals_2
-                        << " (<a href='match_" << record_result->id << "'>Протокол</a>)"
-                        << "<br>";
-            }
-        }
-        results.close();
-    }
-    years.close();
-
-    QString qstr = codec->toUnicode(ss.str().c_str());
-    widget.text->setText(qstr);
+    //
 }
 
 void MainWindow::calculateClubStat(const QString& clubId) {
-    Years years;
-    Years::Record* record_year;
-    Results results;
-    Results::Record* record_result;
-    string id = clubId.toStdString();
-
-    stringstream ss;
-    ss << "<h1 align='center'>"
-            << ClubName::getInstance()->getName(clubId.toStdString(), CURRENT_CHAMP_ID)
-            << "</h1>";
-    if (!years.open()) return;
-
-    while ((record_year = years.next()) != NULL) {
-        if (record_year->file_results == CURRENT_CHAMP_ID) {
-            results.open(record_year->file_results);
-            while ((record_result = results.next()) != NULL) {
-                if (record_result->played(id))
-                    ss << record_result->round
-                        << "-й тур - "
-                        << record_result->date
-                        << " "
-                        << ClubName::getInstance()->getName(record_result->team_id_1, record_year->file_results)
-                    << " - "
-                    << ClubName::getInstance()->getName(record_result->team_id_2, record_year->file_results)
-                    << " "
-                    << record_result->goals_1
-                        << ":"
-                        << record_result->goals_2
-                        << " (<a href='match_" << record_result->id << "'>Протокол</a>)"
-                        << "<br>";
-            }
-        }
-        results.close();
-    }
-    years.close();
-
-    QString qstr = codec->toUnicode(ss.str().c_str());
-    widget.text->setText(qstr);
+    //
 }
 
 void MainWindow::calculateTable() {
-    Years years;
-    Years::Record* record_year;
-    Results results;
-    Results::Record* record_result;
-    Stat stat_table;
-    if (!years.open()) return;
-
-    while ((record_year = years.next()) != NULL) {
-        if (record_year->file_results == CURRENT_CHAMP_ID) {
-            results.open(record_year->file_results);
-            while ((record_result = results.next()) != NULL) {
-                stat_table.add(record_result);
-            }
-        }
-        results.close();
-    }
-    years.close();
-
-    vector<Stat::Record*>* v = stat_table.get_sorted_vector_by_3points();
-    vector<Stat::Record*>::const_iterator iter;
-
-    stringstream ss;
-    ss << "<h1 align='center'>Турнирная таблица</h1>";
-    ss << "<table border='1' style='background-color: #99F899;border-color: #FFFFFF;border-width: 2px;'>";
-    ss << "<tr>" <<
-            "<td>М</td><td><b>Команда</b></td>" <<
-            "<td>И</td><td>В</td><td>Н</td><td>П</td><td>Мячи</td><td>О</td>" <<
-            "<td><b>И</b></td><td><b>В</b></td><td><b>Н</b></td><td><b>П</b></td><td><b>Мячи</b></td><td><b>О</b></td>" <<
-            "<td>И</td><td>В</td><td>Н</td><td>П</td><td>Мячи</td><td>О</td>" <<
-            "</tr>";
-
-    int place = 0;
-    for (iter = v->begin(); iter != v->end(); ++iter) {
-        place++;
-        int w = ((*iter)->w1 + (*iter)->w2);
-        int d = ((*iter)->d1 + (*iter)->d2);
-        int l = ((*iter)->l1 + (*iter)->l2);
-        int f = ((*iter)->f1 + (*iter)->f2);
-        int a = ((*iter)->a1 + (*iter)->a2);
-        ss << "<tr>" <<
-                "<td>" << place << "</td>" <<
-                "<td><b><a href='cl_" << (*iter)->team_id << "' style='color:#080853;'>" << ClubName::getInstance()->getName((*iter)->team_id, CURRENT_CHAMP_ID) << "</a></b></td>" <<
-                "<td>" << (w + d + l) << "</td>" <<
-                "<td>" << w << "</td>" <<
-                "<td>" << d << "</td>" <<
-                "<td>" << l << "</td>" <<
-                "<td>" << f << " - " << a << "</td>" <<
-                "<td>" << (3 * w + d) << "</td>" <<
-
-                "<td><b>" << ((*iter)->w1 + (*iter)->d1 + (*iter)->l1) << "</b></td>" <<
-                "<td><b>" << (*iter)->w1 << "</b></td>" <<
-                "<td><b>" << (*iter)->d1 << "</b></td>" <<
-                "<td><b>" << (*iter)->l1 << "</b></td>" <<
-                "<td><b>" << (*iter)->f1 << " - " << (*iter)->a1 << "</b></td>" <<
-                "<td><b>" << (3 * (*iter)->w1 + (*iter)->d1) << "</b></td>" <<
-
-                "<td>" << ((*iter)->w2 + (*iter)->d2 + (*iter)->l2) << "</td>" <<
-                "<td>" << (*iter)->w2 << "</td>" <<
-                "<td>" << (*iter)->d2 << "</td>" <<
-                "<td>" << (*iter)->l2 << "</td>" <<
-                "<td>" << (*iter)->f2 << " - " << (*iter)->a2 << "</td>" <<
-                "<td>" << (3 * (*iter)->w2 + (*iter)->d2) << "</td>" <<
-
-                "</tr>";
-    }
-    ss << "</table>";
-    QString qstr = codec->toUnicode(ss.str().c_str());
-    widget.text->setText(qstr);
+    //
 }

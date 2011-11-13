@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	_MAINWINDOW_H
 
 #include "ui_MainWindow.h"
+#include <QtXml/QtXml>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -37,11 +38,12 @@ public:
     virtual ~MainWindow();
 private:
     Ui::MainWindow widget;
-    QTextCodec* codec;
     void calculateTable();
     void calculateClubStat(const QString& clubId);
     void matchReport(const QString& matchId);
     void matchResults(const QString& clubId);
+    QString analyzeXml(void (MainWindow::*func)(QString &qstr, QDomElement& docElement));
+    void referies(QString &qstr, QDomElement& docElement);
 private slots:
     void selectMode1();
     void selectMode2();
