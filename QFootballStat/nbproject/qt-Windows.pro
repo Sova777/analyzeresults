@@ -19,5 +19,5 @@ UI_DIR =
 QMAKE_CC = gcc
 QMAKE_CXX = g++
 DEFINES += 
-INCLUDEPATH += ../AnalyzeFootballResults 
-LIBS += -L../AnalyzeFootballResults/dist/Windows/MinGW-Windows ../AnalyzeFootballResults/dist/Windows/MinGW-Windows/libAnalyzeFootballResults.dll  
+INCLUDEPATH += 
+LIBS += 
