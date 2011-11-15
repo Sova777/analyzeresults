@@ -49,7 +49,7 @@
         <compilerSet>OracleSolarisStudio|OracleSolarisStudio</compilerSet>
       </toolsSet>
       <qt>
-        <modules>core gui</modules>
+        <modules>core gui xml</modules>
         <defs>
           <Elem>QMAKE_LFLAGS=-library=stlport4</Elem>
           <Elem>QMAKE_CXXFLAGS=-library=stlport4</Elem>
