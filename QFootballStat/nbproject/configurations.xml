@@ -61,22 +61,6 @@
             <pElem>../AnalyzeFootballResults</pElem>
           </incDir>
         </ccTool>
-        <linkerTool>
-          <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../AnalyzeFootballResults"
-                            CT="2"
-                            CN="Solaris"
-                            AC="true"
-                            BL="true"
-                            WD="../AnalyzeFootballResults"
-                            BC="${MAKE}  -f Makefile CONF=Solaris"
-                            CC="${MAKE}  -f Makefile CONF=Solaris clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so">
-              </makeArtifact>
-            </linkerLibProjectItem>
-          </linkerLibItems>
-        </linkerTool>
       </compileType>
     </conf>
   </confs>
