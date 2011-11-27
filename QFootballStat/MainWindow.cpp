@@ -33,6 +33,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using namespace std;
 
+const QString EVENT_GOAL = QString::fromUtf8("Р“РѕР»");
+
 MainWindow::MainWindow() {
 
     widget.setupUi(this);
@@ -107,13 +109,13 @@ void MainWindow::selectMode6() {
 
 void MainWindow::goals(QDomElement& docElement, IntHash& hash) {
     QDomNodeList nodes = docElement.elementsByTagName("event");
-    if (nodes.length() > 0) {
-        QDomElement node = nodes.at(0).toElement();
+    uint length = nodes.length();
+    for (int i = 0; i < length; i++) {
+        QDomElement node = nodes.at(i).toElement();
         QString eventType = node.attributes().namedItem("type").nodeValue();
         QString player = node.attributes().namedItem("player").nodeValue();
         QString club = node.attributes().namedItem("club").nodeValue();
-        qDebug() << eventType;
-        if (eventType == "Гол") {
+        if (eventType == EVENT_GOAL) {
             QString key = player.append(" (").append(club).append(")");
             if (hash.contains(key)) {
                 hash[key]++;
@@ -121,7 +123,7 @@ void MainWindow::goals(QDomElement& docElement, IntHash& hash) {
                 hash[key] = 1;
             }
         }
-    }    
+    }
 }
 
 void MainWindow::referies(QDomElement& docElement, IntHash& hash) {
