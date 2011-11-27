@@ -21,3 +21,4 @@ QMAKE_CXX = g++
 DEFINES += 
 INCLUDEPATH += 
 LIBS += 
+CONFIG += console

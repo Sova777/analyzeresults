@@ -28,6 +28,7 @@
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
+      <itemPath>build-project.bat</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -39,6 +40,9 @@
       </toolsSet>
       <qt>
         <modules>core gui xml</modules>
+        <defs>
+          <Elem>CONFIG += console</Elem>
+        </defs>
       </qt>
       <compileType>
       </compileType>

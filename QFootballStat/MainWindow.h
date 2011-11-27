@@ -42,6 +42,8 @@ private:
     void calculateClubStat(const QString& clubId);
     void matchReport(const QString& matchId);
     void matchResults(const QString& clubId);
+//    QString analyzeXml(void (MainWindow::*func)(QString &qstr, QXmlStreamReader& xml));
+//    void referies(QString &qstr, QXmlStreamReader& xml);
     QString analyzeXml(void (MainWindow::*func)(QString &qstr, QDomElement& docElement));
     void referies(QString &qstr, QDomElement& docElement);
 private slots:
