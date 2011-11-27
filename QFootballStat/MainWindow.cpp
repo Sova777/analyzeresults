@@ -68,41 +68,6 @@ void MainWindow::selectMode2() {
     widget.text->setText("<b>Mode 2</b>");
 }
 
-//void MainWindow::referies(QString &qstr, QXmlStreamReader& xml) {
-//    QString currentTag;
-//    QString name;
-//    QString city;
-//    while (!xml.atEnd()) {
-//        xml.readNext();
-//        if (xml.isStartElement()) {
-//            currentTag = xml.name().toString();
-//            if (currentTag == "refery") {
-//                QXmlStreamAttributes attributes = xml.attributes();
-//                city = attributes.value("city").toString();
-//            }
-//        } else if (currentTag == "refery") {
-//            if (xml.isEndElement()) {
-//                qstr += "<b>" + name +
-//                        " (" + city +
-//                        ")</b><br>";
-//                currentTag = "";
-//            } else if (xml.isCharacters()) {
-//                name = xml.text().toString();
-//            }
-//        }
-//    }
-//}
-
-void MainWindow::referies(QString &qstr, QDomElement& docElement) {
-    QDomNodeList nodes = docElement.elementsByTagName("refery");
-    if (nodes.length() > 0) {
-        QDomElement node = nodes.at(0).toElement();
-        qstr += "<b>" + node.text() +
-                " (" + node.attributes().namedItem("city").nodeValue() +
-                ")</b><br>";
-    }
-}
-
 void MainWindow::selectMode3() {
     QString qstr = analyzeXml(&MainWindow::referies);
     widget.text->setText(qstr);
@@ -122,28 +87,18 @@ void MainWindow::selectMode6() {
     widget.text->setText("<b>Mode 6</b>");
 }
 
-// SAX parser
-//QString MainWindow::analyzeXml(void (MainWindow::*func)(QString &qstr, QXmlStreamReader& xml)) {
-//    QString qstr;
-//    QTime t;
-//    t.start();
-//    QDir* qDir = new QDir("data/xml");
-//    QStringList list = qDir->entryList();
-//    for (int i = 0; i < list.size(); ++i) {
-//        QString fileName = list.at(i);
-//        QFile file(qDir->absolutePath() + "/" + fileName);
-//        if (!file.open(QIODevice::ReadOnly)) continue;
-//        QXmlStreamReader doc(&file);
-//        (this->*func)(qstr, doc);
-//        file.close();
-//    }
-//    QString status = QString("Time: %1 ms.").arg(t.elapsed());
-//    statusBar()->showMessage(status, 2000);
-//    return qstr;
-//}
+void MainWindow::referies(QString &qstr, QDomElement& docElement) {
+    QDomNodeList nodes = docElement.elementsByTagName("refery");
+    if (nodes.length() > 0) {
+        QDomElement node = nodes.at(0).toElement();
+        qstr += "<b>" + node.text() +
+                " (" + node.attributes().namedItem("city").nodeValue() +
+                ")</b><br>";
+    }
+}
 
 // DOM parser
-QString MainWindow::analyzeXml(void (MainWindow::*func)(QString &qstr, QDomElement& docElement)) {
+QString MainWindow::analyzeXml(pointer func) {
     QString qstr;
     QTime t;
     t.start();
@@ -151,7 +106,6 @@ QString MainWindow::analyzeXml(void (MainWindow::*func)(QString &qstr, QDomEleme
     qDir->setFilter(QDir::Files);
     QStringList list = qDir->entryList();
     QDomDocument doc("report");
-    stringstream ss;
     for (int i = 0; i < list.size(); ++i) {
         QString fileName = list.at(i);
         QFile file(qDir->absolutePath() + "/" + fileName);

@@ -34,6 +34,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
+    typedef void (MainWindow::*pointer)(QString &qstr, QDomElement& docElement);
     MainWindow();
     virtual ~MainWindow();
 private:
@@ -42,9 +43,7 @@ private:
     void calculateClubStat(const QString& clubId);
     void matchReport(const QString& matchId);
     void matchResults(const QString& clubId);
-//    QString analyzeXml(void (MainWindow::*func)(QString &qstr, QXmlStreamReader& xml));
-//    void referies(QString &qstr, QXmlStreamReader& xml);
-    QString analyzeXml(void (MainWindow::*func)(QString &qstr, QDomElement& docElement));
+    QString analyzeXml(pointer func);
     void referies(QString &qstr, QDomElement& docElement);
 private slots:
     void selectMode1();
