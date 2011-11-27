@@ -95,7 +95,33 @@ void MainWindow::selectMode5() {
 }
 
 void MainWindow::selectMode6() {
-    widget.text->setText("<b>Mode 6</b>");
+    IntHash hash = analyzeXml(&MainWindow::goals);
+    QString qstr = "";
+    QList<IntHashKey> keys = hash.keys();
+    qSort(keys.begin(), keys.end());
+    foreach (IntHashKey key, keys) {
+        qstr += QString("<b>%1</b> = %2<br>").arg(key).arg(hash[key]);
+    }
+    widget.text->setText(qstr);
+}
+
+void MainWindow::goals(QDomElement& docElement, IntHash& hash) {
+    QDomNodeList nodes = docElement.elementsByTagName("event");
+    if (nodes.length() > 0) {
+        QDomElement node = nodes.at(0).toElement();
+        QString eventType = node.attributes().namedItem("type").nodeValue();
+        QString player = node.attributes().namedItem("player").nodeValue();
+        QString club = node.attributes().namedItem("club").nodeValue();
+        qDebug() << eventType;
+        if (eventType == "Гол") {
+            QString key = player.append(" (").append(club).append(")");
+            if (hash.contains(key)) {
+                hash[key]++;
+            } else {
+                hash[key] = 1;
+            }
+        }
+    }    
 }
 
 void MainWindow::referies(QDomElement& docElement, IntHash& hash) {
