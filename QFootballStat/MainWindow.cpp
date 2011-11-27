@@ -69,7 +69,13 @@ void MainWindow::selectMode2() {
 }
 
 void MainWindow::selectMode3() {
-    QString qstr = analyzeXml(&MainWindow::referies);
+    IntHash hash = analyzeXml(&MainWindow::referies);
+    QString qstr = "";
+    QList<IntHashKey> keys = hash.keys();
+    qSort(keys.begin(), keys.end());
+    foreach (IntHashKey key, keys) {
+        qstr += QString("<b>%1</b> = %2<br>").arg(key).arg(hash[key]);
+    }
     widget.text->setText(qstr);
 }
 
@@ -78,49 +84,78 @@ void MainWindow::selectMode4() {
 }
 
 void MainWindow::selectMode5() {
-    widget.text->setText("<b>Mode 5</b>");
-    QString qstr("");
-    matchResults(qstr);
+    IntHash hash = analyzeXml(&MainWindow::matches);
+    QString qstr = "";
+    QList<IntHashKey> keys = hash.keys();
+    qSort(keys.begin(), keys.end());
+    foreach (IntHashKey key, keys) {
+        qstr += QString("<b>%1</b><br>").arg(key);
+    }
+    widget.text->setText(qstr);
 }
 
 void MainWindow::selectMode6() {
     widget.text->setText("<b>Mode 6</b>");
 }
 
-void MainWindow::referies(QString &qstr, QDomElement& docElement) {
+void MainWindow::referies(QDomElement& docElement, IntHash& hash) {
     QDomNodeList nodes = docElement.elementsByTagName("refery");
     if (nodes.length() > 0) {
         QDomElement node = nodes.at(0).toElement();
-        qstr += "<b>" + node.text() +
-                " (" + node.attributes().namedItem("city").nodeValue() +
-                ")</b><br>";
+        QString name = node.text();
+        QString city = node.attributes().namedItem("city").nodeValue();
+        QString key = name.append(" (").append(city).append(")");
+        if (hash.contains(key)) {
+            hash[key]++;
+        } else {
+            hash[key] = 1;
+        }
+    }
+}
+
+void MainWindow::matches(QDomElement& docElement, IntHash& hash) {
+    QDomNodeList nodesTeam1 = docElement.elementsByTagName("team1");
+    QDomNodeList nodesTeam2 = docElement.elementsByTagName("team2");
+    QDomNodeList nodesScore = docElement.elementsByTagName("score");
+    if ((nodesTeam1.length() > 0) && (nodesTeam2.length() > 0) && (nodesScore.length() > 0)) {
+        QDomElement nodeTeam1 = nodesTeam1.at(0).toElement();
+        QDomElement nodeTeam2 = nodesTeam2.at(0).toElement();
+        QDomElement nodeScore = nodesScore.at(0).toElement();
+        QString team1 = nodeTeam1.text();
+        QString team2 = nodeTeam2.text();
+        QString score = nodeScore.text();
+        QString key = team1.append(" - ")
+                .append(team2)
+                .append(" ")
+                .append(score);
+        hash[key] = 1;
     }
 }
 
 // DOM parser
-QString MainWindow::analyzeXml(pointer func) {
-    QString qstr;
+MainWindow::IntHash MainWindow::analyzeXml(pointer func) {
     QTime t;
     t.start();
     QDir* qDir = new QDir("data/xml");
     qDir->setFilter(QDir::Files);
     QStringList list = qDir->entryList();
-    QDomDocument doc("report");
+    QDomDocument xml("report");
+    IntHash hash;
     for (int i = 0; i < list.size(); ++i) {
         QString fileName = list.at(i);
         QFile file(qDir->absolutePath() + "/" + fileName);
         if (!file.open(QIODevice::ReadOnly)) continue;
-        if (!doc.setContent(&file)) {
+        if (!xml.setContent(&file)) {
             file.close();
             continue;
         }
         file.close();
-        QDomElement docElement = doc.documentElement();
-        (this->*func)(qstr, docElement);
+        QDomElement docElement = xml.documentElement();
+        (this->*func)(docElement, hash);
     }
     QString status = QString("Time: %1 ms.").arg(t.elapsed());
     statusBar()->showMessage(status, 2000);
-    return qstr;
+    return hash;
 }
 
 void MainWindow::linkActivated(const QUrl & link) {
