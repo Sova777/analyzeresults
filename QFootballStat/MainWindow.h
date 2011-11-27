@@ -34,7 +34,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
-    typedef void (MainWindow::*pointer)(QString &qstr, QDomElement& docElement);
+    typedef QString IntHashKey;
+    typedef int IntHashValue;
+    typedef QHash<IntHashKey, IntHashValue> IntHash;
+    typedef void (MainWindow::*pointer)(QDomElement& docElement, IntHash& hash);
     MainWindow();
     virtual ~MainWindow();
 private:
@@ -43,8 +46,10 @@ private:
     void calculateClubStat(const QString& clubId);
     void matchReport(const QString& matchId);
     void matchResults(const QString& clubId);
-    QString analyzeXml(pointer func);
-    void referies(QString &qstr, QDomElement& docElement);
+    IntHash analyzeXml(pointer func);
+
+    void matches(QDomElement& docElement, IntHash& hash);
+    void referies(QDomElement& docElement, IntHash& hash);
 private slots:
     void selectMode1();
     void selectMode2();
