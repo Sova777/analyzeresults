@@ -34,6 +34,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using namespace std;
 
 const QString EVENT_GOAL = QString::fromUtf8("Гол");
+const QString EVENT_GOAL_PENALTY = QString::fromUtf8("Гол с пенальти");
 
 MainWindow::MainWindow() {
 
@@ -115,7 +116,7 @@ void MainWindow::goals(QDomElement& docElement, IntHash& hash) {
         QString eventType = node.attributes().namedItem("type").nodeValue();
         QString player = node.attributes().namedItem("player").nodeValue();
         QString club = node.attributes().namedItem("club").nodeValue();
-        if (eventType == EVENT_GOAL) {
+        if ((eventType == EVENT_GOAL) || (eventType == EVENT_GOAL_PENALTY)) {
             QString key = player.append(" (").append(club).append(")");
             if (hash.contains(key)) {
                 hash[key]++;
