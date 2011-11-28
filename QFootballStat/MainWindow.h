@@ -46,7 +46,7 @@ private:
     void calculateClubStat(const QString& clubId);
     void matchReport(const QString& matchId);
     void matchResults(const QString& clubId);
-    IntHash analyzeXml(pointer func);
+    void analyzeXml(pointer func, IntHash& hash);
 
     void goals(QDomElement& docElement, IntHash& hash);
     void matches(QDomElement& docElement, IntHash& hash);
