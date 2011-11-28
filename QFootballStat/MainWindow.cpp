@@ -114,7 +114,7 @@ void MainWindow::selectMode6() {
 void MainWindow::goals(QDomElement& docElement, IntHash& hash) {
     QDomNodeList nodes = docElement.elementsByTagName("event");
     uint length = nodes.length();
-    for (int i = 0; i < length; i++) {
+    for (uint i = 0; i < length; i++) {
         QDomElement node = nodes.at(i).toElement();
         QString eventType = node.attributes().namedItem("type").nodeValue();
         QString player = node.attributes().namedItem("player").nodeValue();
