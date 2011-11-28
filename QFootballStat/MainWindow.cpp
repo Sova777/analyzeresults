@@ -72,7 +72,8 @@ void MainWindow::selectMode2() {
 }
 
 void MainWindow::selectMode3() {
-    IntHash hash = analyzeXml(&MainWindow::referies);
+    IntHash hash;
+    analyzeXml(&MainWindow::referies, hash);
     QString qstr = "";
     QList<IntHashKey> keys = hash.keys();
     qSort(keys.begin(), keys.end());
@@ -87,7 +88,8 @@ void MainWindow::selectMode4() {
 }
 
 void MainWindow::selectMode5() {
-    IntHash hash = analyzeXml(&MainWindow::matches);
+    IntHash hash;
+    analyzeXml(&MainWindow::matches, hash);
     QString qstr = "";
     QList<IntHashKey> keys = hash.keys();
     qSort(keys.begin(), keys.end());
@@ -98,7 +100,8 @@ void MainWindow::selectMode5() {
 }
 
 void MainWindow::selectMode6() {
-    IntHash hash = analyzeXml(&MainWindow::goals);
+    IntHash hash;
+    analyzeXml(&MainWindow::goals, hash);
     QString qstr = "";
     QList<IntHashKey> keys = hash.keys();
     qSort(keys.begin(), keys.end());
@@ -162,14 +165,13 @@ void MainWindow::matches(QDomElement& docElement, IntHash& hash) {
 }
 
 // DOM parser
-MainWindow::IntHash MainWindow::analyzeXml(pointer func) {
+void MainWindow::analyzeXml(pointer func, IntHash& hash) {
     QTime t;
     t.start();
     QDir* qDir = new QDir("data/xml");
     qDir->setFilter(QDir::Files);
     QStringList list = qDir->entryList();
     QDomDocument xml("report");
-    IntHash hash;
     for (int i = 0; i < list.size(); ++i) {
         QString fileName = list.at(i);
         QFile file(qDir->absolutePath() + "/" + fileName);
@@ -184,7 +186,7 @@ MainWindow::IntHash MainWindow::analyzeXml(pointer func) {
     }
     QString status = QString("Time: %1 ms.").arg(t.elapsed());
     statusBar()->showMessage(status, 2000);
-    return hash;
+    return;
 }
 
 void MainWindow::linkActivated(const QUrl & link) {
