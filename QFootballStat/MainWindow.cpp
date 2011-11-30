@@ -35,6 +35,13 @@ using namespace std;
 
 const QString EVENT_GOAL = QString::fromUtf8("Гол");
 const QString EVENT_GOAL_PENALTY = QString::fromUtf8("Гол с пенальти");
+const QString EVENT_AUTOGOAL = QString::fromUtf8("Гол в свои ворота");
+const QString EVENT_MISSED_PENALTY = QString::fromUtf8("Незабитый пенальти");
+const QString EVENT_SUBSTITUTION = QString::fromUtf8("Замена");
+const QString EVENT_YELLOW_CARD = QString::fromUtf8("Предупреждение");
+const QString EVENT_RED_CARD = QString::fromUtf8("Удаление");
+const QString EVENT_RED_YELLOW_CARD = QString::fromUtf8("Удаление и предупреждение");
+const QString STATUS_TIME = QString::fromUtf8("Время: %1 мс.");
 
 MainWindow::MainWindow() {
 
@@ -63,8 +70,15 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::selectMode1() {
-    widget.text->setText("<b>Mode 1</b>");
-    calculateTable();
+    StatHash hash;
+    analyzeXml(&MainWindow::table, &hash);
+    QString qstr = "";
+    QList<StatHashValue*> keys = hash.values();
+    qSort(keys.begin(), keys.end(), Record::less);
+    foreach (StatHashValue* key, keys) {
+        qstr += QString("<b>%1</b> = %2<br>").arg(key->team_id).arg(key->p1);
+    }
+    widget.text->setText(qstr);
 }
 
 void MainWindow::selectMode2() {
@@ -164,7 +178,40 @@ void MainWindow::matches(QDomElement& docElement, IntHash& hash) {
     }
 }
 
-// DOM parser
+void MainWindow::table(QDomElement& docElement, StatHash* hash) {
+    QDomNodeList nodesTeam1 = docElement.elementsByTagName("team1");
+    QDomNodeList nodesTeam2 = docElement.elementsByTagName("team2");
+    QDomNodeList nodesScore = docElement.elementsByTagName("score");
+    if ((nodesTeam1.length() > 0) && (nodesTeam2.length() > 0) && (nodesScore.length() > 0)) {
+        QDomElement nodeTeam1 = nodesTeam1.at(0).toElement();
+        QDomElement nodeTeam2 = nodesTeam2.at(0).toElement();
+        QDomElement nodeScore = nodesScore.at(0).toElement();
+        QString team1 = nodeTeam1.text();
+        QString team2 = nodeTeam2.text();
+        QString score = nodeScore.text();
+        bool ok;
+        int goal1 = 99999;
+        int goal2 = 99999;
+        goal1 = score.section(':', 0, 0).toInt(&ok);
+        goal2 = score.section(':', 1, 1).toInt(&ok);
+        if(!hash->contains(team1)) {
+            hash->insert(team1, new Record(team1));
+        }
+        if(!hash->contains(team2)) {
+            hash->insert(team2, new Record(team2));
+        }
+        if (goal1 > goal2) {
+            hash->value(team1)->addP1(3);
+        } else if (goal2 > goal1) {
+            hash->value(team2)->addP1(3);
+        } else {
+            hash->value(team1)->addP1(1);
+            hash->value(team2)->addP1(1);
+        }
+    }
+}
+
+// DOM парсер
 void MainWindow::analyzeXml(pointer func, IntHash& hash) {
     QTime t;
     t.start();
@@ -184,7 +231,32 @@ void MainWindow::analyzeXml(pointer func, IntHash& hash) {
         QDomElement docElement = xml.documentElement();
         (this->*func)(docElement, hash);
     }
-    QString status = QString("Time: %1 ms.").arg(t.elapsed());
+    QString status = STATUS_TIME.arg(t.elapsed());
+    statusBar()->showMessage(status, 2000);
+    return;
+}
+
+// DOM парсер
+void MainWindow::analyzeXml(pointerStat func, StatHash* hash) {
+    QTime t;
+    t.start();
+    QDir* qDir = new QDir("data/xml");
+    qDir->setFilter(QDir::Files);
+    QStringList list = qDir->entryList();
+    QDomDocument xml("report");
+    for (int i = 0; i < list.size(); ++i) {
+        QString fileName = list.at(i);
+        QFile file(qDir->absolutePath() + "/" + fileName);
+        if (!file.open(QIODevice::ReadOnly)) continue;
+        if (!xml.setContent(&file)) {
+            file.close();
+            continue;
+        }
+        file.close();
+        QDomElement docElement = xml.documentElement();
+        (this->*func)(docElement, hash);
+    }
+    QString status = STATUS_TIME.arg(t.elapsed());
     statusBar()->showMessage(status, 2000);
     return;
 }
@@ -193,11 +265,11 @@ void MainWindow::linkActivated(const QUrl & link) {
     QString code = link.toString().section("_", 0, 0);
     QString id = link.toString().section("_", 1, 1);
     if (code == "cl") {
-        calculateClubStat(id);
+        //calculateClubStat(id);
         return;
     }
     if (code == "match") {
-        matchReport(id);
+        //matchReport(id);
         return;
     }
     return;
@@ -208,13 +280,5 @@ void MainWindow::matchReport(const QString& matchId) {
 }
 
 void MainWindow::matchResults(const QString& clubId) {
-    //
-}
-
-void MainWindow::calculateClubStat(const QString& clubId) {
-    //
-}
-
-void MainWindow::calculateTable() {
     //
 }
