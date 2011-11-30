@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	_MAINWINDOW_H
 
 #include "ui_MainWindow.h"
+#include "Stat.h"
 #include <QtXml/QtXml>
 
 class MainWindow : public QMainWindow {
@@ -37,20 +38,24 @@ public:
     typedef QString IntHashKey;
     typedef int IntHashValue;
     typedef QHash<IntHashKey, IntHashValue> IntHash;
+    typedef QString StatHashKey;
+    typedef Record StatHashValue;
+    typedef QHash<StatHashKey, StatHashValue*> StatHash;
     typedef void (MainWindow::*pointer)(QDomElement& docElement, IntHash& hash);
+    typedef void (MainWindow::*pointerStat)(QDomElement& docElement, StatHash* hash);
     MainWindow();
     virtual ~MainWindow();
 private:
     Ui::MainWindow widget;
-    void calculateTable();
-    void calculateClubStat(const QString& clubId);
     void matchReport(const QString& matchId);
     void matchResults(const QString& clubId);
     void analyzeXml(pointer func, IntHash& hash);
+    void analyzeXml(pointerStat func, StatHash* hash);
 
     void goals(QDomElement& docElement, IntHash& hash);
     void matches(QDomElement& docElement, IntHash& hash);
     void referies(QDomElement& docElement, IntHash& hash);
+    void table(QDomElement& docElement, StatHash* hash);
 private slots:
     void selectMode1();
     void selectMode2();
@@ -62,4 +67,3 @@ private slots:
 };
 
 #endif	/* _MAINWINDOW_H */
-
