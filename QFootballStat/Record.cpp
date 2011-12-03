@@ -25,32 +25,19 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _STAT_H
-#define	_STAT_H
+#include "Record.h"
 
-class Record {
-public:
-    Record(QString team_id) {this->team_id = team_id; p1 = 0;}
-    QString team_id;
-    void addP1(int add) {
-        p1 += add;
+Record::Record(QString team_id) {
+    this->team_id = team_id;
+    for (int i = 0; i < 10; i++) {
+        field[i] = 0;
     }
-    int w1;
-    int d1;
-    int l1;
-    int f1;
-    int a1;
-    int p1;
-    int w2;
-    int d2;
-    int l2;
-    int f2;
-    int a2;
-    int p2;
-    int unknown;
-    static bool less(const Record* left, const Record* right) {
-        return (right->p1) < (left->p1);
-    }
-};
+}
 
-#endif /* _STAT_H */
+void Record::add(int add, int index) {
+    field[index] += add;
+}
+
+bool Record::less(const Record* left, const Record* right) {
+    return (right->field[0]) < (left->field[0]);
+}

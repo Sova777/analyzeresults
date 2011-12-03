@@ -25,8 +25,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <QtGui/QtGui>
-#include <QtXml/QtXml>
+#include <QtGui>
+#include <QtXml>
 #include <sstream>
 
 #include "MainWindow.h"
@@ -49,6 +49,15 @@ MainWindow::MainWindow() {
 
     connect(widget.actionExit, SIGNAL(triggered()),
             this, SLOT(close()));
+    connect(widget.actionCalculateGoals, SIGNAL(triggered()),
+            this, SLOT(calculateGoals()));
+    connect(widget.actionCalculateMatches, SIGNAL(triggered()),
+            this, SLOT(calculateMatches()));
+    connect(widget.actionCalculateReferies, SIGNAL(triggered()),
+            this, SLOT(calculateReferies()));
+    connect(widget.actionCalculateTable, SIGNAL(triggered()),
+            this, SLOT(calculateTable()));
+
     connect(widget.pushButton_1, SIGNAL(clicked()),
             this, SLOT(selectMode1()));
     connect(widget.pushButton_2, SIGNAL(clicked()),
@@ -70,15 +79,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::selectMode1() {
-    StatHash hash;
-    analyzeXml(&MainWindow::table, &hash);
-    QString qstr = "";
-    QList<StatHashValue*> keys = hash.values();
-    qSort(keys.begin(), keys.end(), Record::less);
-    foreach (StatHashValue* key, keys) {
-        qstr += QString("<b>%1</b> = %2<br>").arg(key->team_id).arg(key->p1);
-    }
-    widget.text->setText(qstr);
+    calculateTable();
 }
 
 void MainWindow::selectMode2() {
@@ -86,15 +87,7 @@ void MainWindow::selectMode2() {
 }
 
 void MainWindow::selectMode3() {
-    IntHash hash;
-    analyzeXml(&MainWindow::referies, hash);
-    QString qstr = "";
-    QList<IntHashKey> keys = hash.keys();
-    qSort(keys.begin(), keys.end());
-    foreach (IntHashKey key, keys) {
-        qstr += QString("<b>%1</b> = %2<br>").arg(key).arg(hash[key]);
-    }
-    widget.text->setText(qstr);
+    calculateReferies();
 }
 
 void MainWindow::selectMode4() {
@@ -102,18 +95,14 @@ void MainWindow::selectMode4() {
 }
 
 void MainWindow::selectMode5() {
-    IntHash hash;
-    analyzeXml(&MainWindow::matches, hash);
-    QString qstr = "";
-    QList<IntHashKey> keys = hash.keys();
-    qSort(keys.begin(), keys.end());
-    foreach (IntHashKey key, keys) {
-        qstr += QString("<b>%1</b><br>").arg(key);
-    }
-    widget.text->setText(qstr);
+    calculateMatches();
 }
 
 void MainWindow::selectMode6() {
+    calculateGoals();
+}
+
+void MainWindow::calculateGoals() {
     IntHash hash;
     analyzeXml(&MainWindow::goals, hash);
     QString qstr = "";
@@ -144,6 +133,18 @@ void MainWindow::goals(QDomElement& docElement, IntHash& hash) {
     }
 }
 
+void MainWindow::calculateReferies() {
+    IntHash hash;
+    analyzeXml(&MainWindow::referies, hash);
+    QString qstr = "";
+    QList<IntHashKey> keys = hash.keys();
+    qSort(keys.begin(), keys.end());
+    foreach (IntHashKey key, keys) {
+        qstr += QString("<b>%1</b> = %2<br>").arg(key).arg(hash[key]);
+    }
+    widget.text->setText(qstr);
+}
+
 void MainWindow::referies(QDomElement& docElement, IntHash& hash) {
     QDomNodeList nodes = docElement.elementsByTagName("refery");
     if (nodes.length() > 0) {
@@ -157,6 +158,18 @@ void MainWindow::referies(QDomElement& docElement, IntHash& hash) {
             hash[key] = 1;
         }
     }
+}
+
+void MainWindow::calculateMatches() {
+    IntHash hash;
+    analyzeXml(&MainWindow::matches, hash);
+    QString qstr = "";
+    QList<IntHashKey> keys = hash.keys();
+    qSort(keys.begin(), keys.end());
+    foreach (IntHashKey key, keys) {
+        qstr += QString("<b>%1</b><br>").arg(key);
+    }
+    widget.text->setText(qstr);
 }
 
 void MainWindow::matches(QDomElement& docElement, IntHash& hash) {
@@ -176,6 +189,18 @@ void MainWindow::matches(QDomElement& docElement, IntHash& hash) {
                 .append(score);
         hash[key] = 1;
     }
+}
+
+void MainWindow::calculateTable() {
+    StatHash hash;
+    analyzeXml(&MainWindow::table, &hash);
+    QString qstr = "";
+    QList<StatHashValue*> keys = hash.values();
+    qSort(keys.begin(), keys.end(), Record::less);
+    foreach (StatHashValue* key, keys) {
+        qstr += QString("<b>%1</b> = %2<br>").arg(key->team_id).arg(key->field[0]);
+    }
+    widget.text->setText(qstr);
 }
 
 void MainWindow::table(QDomElement& docElement, StatHash* hash) {
@@ -201,12 +226,12 @@ void MainWindow::table(QDomElement& docElement, StatHash* hash) {
             hash->insert(team2, new Record(team2));
         }
         if (goal1 > goal2) {
-            hash->value(team1)->addP1(3);
+            hash->value(team1)->add(3, 0);
         } else if (goal2 > goal1) {
-            hash->value(team2)->addP1(3);
+            hash->value(team2)->add(3, 0);
         } else {
-            hash->value(team1)->addP1(1);
-            hash->value(team2)->addP1(1);
+            hash->value(team1)->add(1, 0);
+            hash->value(team2)->add(1, 0);
         }
     }
 }

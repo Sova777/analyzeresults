@@ -29,8 +29,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	_MAINWINDOW_H
 
 #include "ui_MainWindow.h"
-#include "Stat.h"
-#include <QtXml/QtXml>
+#include "Record.h"
+#include <QtXml>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -57,6 +57,11 @@ private:
     void referies(QDomElement& docElement, IntHash& hash);
     void table(QDomElement& docElement, StatHash* hash);
 private slots:
+    void calculateGoals(void);
+    void calculateMatches(void);
+    void calculateReferies(void);
+    void calculateTable(void);
+
     void selectMode1();
     void selectMode2();
     void selectMode3();
