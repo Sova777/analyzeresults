@@ -31,11 +31,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <QString>
 
 class Record {
+private:
+    static const int max = 10;
+    QString team_id;
+    int field[max];
 public:
     Record(QString team_id);
-    QString team_id;
-    int field[10];
     void add(int add, int index);
+    int get(int index);
+    QString getString();
     static bool less(const Record* left, const Record* right);
 };
 
