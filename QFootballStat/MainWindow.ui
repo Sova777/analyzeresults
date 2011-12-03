@@ -435,8 +435,13 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Файл</string>
     </property>
+    <addaction name="actionCalculateTable"/>
+    <addaction name="actionCalculateGoals"/>
+    <addaction name="actionCalculateReferies"/>
+    <addaction name="actionCalculateMatches"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -444,7 +449,27 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>Выход</string>
+   </property>
+  </action>
+  <action name="actionCalculateTable">
+   <property name="text">
+    <string>Турнирная таблица</string>
+   </property>
+  </action>
+  <action name="actionCalculateGoals">
+   <property name="text">
+    <string>Список бомбардиров</string>
+   </property>
+  </action>
+  <action name="actionCalculateReferies">
+   <property name="text">
+    <string>Список судей</string>
+   </property>
+  </action>
+  <action name="actionCalculateMatches">
+   <property name="text">
+    <string>Список матчей</string>
    </property>
   </action>
  </widget>

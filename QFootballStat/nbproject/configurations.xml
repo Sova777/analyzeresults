@@ -5,7 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>MainWindow.h</itemPath>
-      <itemPath>Stat.h</itemPath>
+      <itemPath>Record.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -17,6 +17,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>MainWindow.cpp</itemPath>
+      <itemPath>Record.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
