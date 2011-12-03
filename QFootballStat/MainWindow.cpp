@@ -198,7 +198,7 @@ void MainWindow::calculateTable() {
     QList<StatHashValue*> keys = hash.values();
     qSort(keys.begin(), keys.end(), Record::less);
     foreach (StatHashValue* key, keys) {
-        qstr += QString("<b>%1</b> = %2<br>").arg(key->team_id).arg(key->field[0]);
+        qstr += QString("<b>%1</b> = %2<br>").arg(key->getString()).arg(key->get(0));
     }
     widget.text->setText(qstr);
 }

@@ -29,13 +29,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Record::Record(QString team_id) {
     this->team_id = team_id;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < max; i++) {
         field[i] = 0;
     }
 }
 
 void Record::add(int add, int index) {
+    if (index >= max) {
+        throw 0;
+    }
     field[index] += add;
+}
+
+int Record::get(int index) {
+    if (index >= max) {
+        throw 0;
+    }
+    return field[index];
+}
+
+QString Record::getString() {
+    return team_id;
 }
 
 bool Record::less(const Record* left, const Record* right) {
