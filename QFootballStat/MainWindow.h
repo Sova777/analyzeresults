@@ -35,26 +35,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
-    typedef QString IntHashKey;
-    typedef int IntHashValue;
-    typedef QHash<IntHashKey, IntHashValue> IntHash;
     typedef QString StatHashKey;
     typedef Record StatHashValue;
     typedef QHash<StatHashKey, StatHashValue*> StatHash;
-    typedef void (MainWindow::*pointer)(QDomElement& docElement, IntHash& hash);
-    typedef void (MainWindow::*pointerStat)(QDomElement& docElement, StatHash* hash);
+    typedef void (MainWindow::*pointer)(QDomElement& docElement, StatHash* hash);
     MainWindow();
     virtual ~MainWindow();
 private:
     Ui::MainWindow widget;
     void matchReport(const QString& matchId);
     void matchResults(const QString& clubId);
-    void analyzeXml(pointer func, IntHash& hash);
-    void analyzeXml(pointerStat func, StatHash* hash);
+    void analyzeXml(pointer func, StatHash* hash);
 
-    void goals(QDomElement& docElement, IntHash& hash);
-    void matches(QDomElement& docElement, IntHash& hash);
-    void referies(QDomElement& docElement, IntHash& hash);
+    void goals(QDomElement& docElement, StatHash* hash);
+    void matches(QDomElement& docElement, StatHash* hash);
+    void referies(QDomElement& docElement, StatHash* hash);
     void table(QDomElement& docElement, StatHash* hash);
 private slots:
     void calculateGoals(void);
