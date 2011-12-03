@@ -37,8 +37,8 @@ private:
     int field[max];
 public:
     Record(QString team_id);
-    void add(int add, int index);
-    int get(int index);
+    void add(int add, int index = 0);
+    int get(int index = 0);
     QString getString();
     static bool less(const Record* left, const Record* right);
 };
