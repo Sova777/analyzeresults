@@ -123,6 +123,7 @@ void MainWindow::calculateGoals() {
     analyzeXml(&MainWindow::goals, &hash);
     QList<StatHashKey> keys = hash.keys();
     qSort(keys.begin(), keys.end());
+    widget.table->setSortingEnabled(false);
     widget.table->clear();
     widget.table->setColumnCount(2);
     widget.table->setRowCount(keys.length());
@@ -134,6 +135,8 @@ void MainWindow::calculateGoals() {
         setCellValue(i, 1, QString::number(hash[key]->get()));
         i++;
     }
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(1, Qt::DescendingOrder);
 }
 
 void MainWindow::calculateReferies() {
@@ -142,6 +145,7 @@ void MainWindow::calculateReferies() {
     QList<StatHashKey> keys = hash.keys();
     qSort(keys.begin(), keys.end());
     widget.table->clear();
+    widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(2);
     widget.table->setRowCount(keys.length());
     widget.table->setColumnWidth(0, 240);
@@ -151,9 +155,11 @@ void MainWindow::calculateReferies() {
     int i = 0;
     foreach (StatHashKey key, keys) {
         setCellValue(i, 0, key);
-        setCellValue(i, 1, QString::number(hash[key]->get()));
+        setCellValue(i, 1, QString("%1").arg(hash[key]->get(), 4, 10));
         i++;
     }
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(1, Qt::DescendingOrder);
 }
 
 void MainWindow::calculateMatches() {
@@ -162,6 +168,7 @@ void MainWindow::calculateMatches() {
     QList<StatHashKey> keys = hash.keys();
     qSort(keys.begin(), keys.end());
     widget.table->clear();
+    widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(1);
     widget.table->setRowCount(keys.length());
     widget.table->setColumnWidth(0, 360);
@@ -170,6 +177,8 @@ void MainWindow::calculateMatches() {
         setCellValue(i, 0, key);
         i++;
     }
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void MainWindow::calculateTable() {
@@ -178,6 +187,7 @@ void MainWindow::calculateTable() {
     QList<StatHashValue*> keys = hash.values();
     qSort(keys.begin(), keys.end(), Record::less);
     widget.table->clear();
+    widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(8);
     widget.table->setRowCount(keys.length());
     widget.table->setColumnWidth(0, 180);
@@ -196,6 +206,8 @@ void MainWindow::calculateTable() {
         setCellValue(i, 7, QString::number(points));
         i++;
     }
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(7, Qt::DescendingOrder);
 }
 
 void MainWindow::goals(QDomElement& docElement, StatHash* hash) {
@@ -209,7 +221,7 @@ void MainWindow::goals(QDomElement& docElement, StatHash* hash) {
         if ((eventType == EVENT_GOAL) || (eventType == EVENT_GOAL_PENALTY)) {
             QString key = player.append(" (").append(club).append(")");
             if (!hash->contains(key)) {
-                hash->insert(key, new Record(key));
+                hash->insert(key, new Record());
             }
             hash->value(key)->add(1);
         }
@@ -224,7 +236,7 @@ void MainWindow::referies(QDomElement& docElement, StatHash* hash) {
         QString city = node.attributes().namedItem("city").nodeValue();
         QString key = name.append(" (").append(city).append(")");
         if (!hash->contains(key)) {
-            hash->insert(key, new Record(key));
+            hash->insert(key, new Record());
         }
         hash->value(key)->add(1);
     }
@@ -245,7 +257,7 @@ void MainWindow::matches(QDomElement& docElement, StatHash* hash) {
                 .append(team2)
                 .append(" ")
                 .append(score);
-        hash->insert(key, new Record(key));
+        hash->insert(key, new Record());
     }
 }
 
@@ -266,15 +278,21 @@ void MainWindow::table(QDomElement& docElement, StatHash* hash) {
         goal1 = score.section(':', 0, 0).toInt(&ok);
         goal2 = score.section(':', 1, 1).toInt(&ok);
         if(!hash->contains(team1)) {
-            hash->insert(team1, new Record(team1));
+            hash->insert(team1, new Record());
         }
         if(!hash->contains(team2)) {
-            hash->insert(team2, new Record(team2));
+            hash->insert(team2, new Record());
         }
         Record* recordTeam1 = hash->value(team1);
         Record* recordTeam2 = hash->value(team2);
+        if (recordTeam1->getString() == "") {
+            recordTeam1->setString(team1);
+        }
         recordTeam1->add(goal1, 3);
         recordTeam1->add(goal2, 4);
+        if (recordTeam2->getString() == "") {
+            recordTeam2->setString(team2);
+        }
         recordTeam2->add(goal2, 3);
         recordTeam2->add(goal1, 4);
         if (goal1 > goal2) {
@@ -336,7 +354,7 @@ void MainWindow::setCellValue(int row, int column, QString value) {
 }
 
 void MainWindow::open() {
-    directory = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Выберите имя файла"), directory);
+    directory = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Выберите директорий"), directory);
 }
 
 void MainWindow::save() {

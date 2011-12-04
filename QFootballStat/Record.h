@@ -33,13 +33,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class Record {
 private:
     static const int max = 10;
-    QString team_id;
+    static const int maxText = 3;
+    QString text[maxText];
     int field[max];
 public:
-    Record(QString team_id);
+    Record();
     void add(int add, int index = 0);
     int get(int index = 0);
-    QString getString();
+    int set(int value, int index = 0);
+    QString getString(int index = 0);
+    void setString(QString& value, int index = 0);
     static bool less(const Record* left, const Record* right);
 };
 

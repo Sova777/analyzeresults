@@ -27,8 +27,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "Record.h"
 
-Record::Record(QString team_id) {
-    this->team_id = team_id;
+Record::Record() {
+    for (int i = 0; i < maxText; i++) {
+        this->text[i] = "";
+    }
     for (int i = 0; i < max; i++) {
         field[i] = 0;
     }
@@ -48,8 +50,25 @@ int Record::get(int index) {
     return field[index];
 }
 
-QString Record::getString() {
-    return team_id;
+int Record::set(int value, int index) {
+    if (index >= max) {
+        throw 0;
+    }
+    field[index] = value;
+}
+
+QString Record::getString(int index) {
+    if (index >= maxText) {
+        throw 0;
+    }
+    return text[index];
+}
+
+void Record::setString(QString& value, int index) {
+    if (index >= maxText) {
+        throw 0;
+    }
+    text[index] = value;
 }
 
 bool Record::less(const Record* left, const Record* right) {
