@@ -382,7 +382,7 @@
         </property>
        </spacer>
       </item>
-      <item row="0" column="3">
+      <item row="0" column="4">
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -398,7 +398,7 @@
         </property>
        </spacer>
       </item>
-      <item row="1" column="2">
+      <item row="1" column="3">
        <widget class="QTextBrowser" name="text">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -420,6 +420,9 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="2">
+       <widget class="QTableWidget" name="table"/>
+      </item>
      </layout>
     </item>
    </layout>
@@ -437,6 +440,9 @@
     <property name="title">
      <string>Файл</string>
     </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="separator"/>
     <addaction name="actionCalculateTable"/>
     <addaction name="actionCalculateGoals"/>
     <addaction name="actionCalculateReferies"/>
@@ -470,6 +476,16 @@
   <action name="actionCalculateMatches">
    <property name="text">
     <string>Список матчей</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Сохранить таблицу</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Выбрать директорий</string>
    </property>
   </action>
  </widget>
