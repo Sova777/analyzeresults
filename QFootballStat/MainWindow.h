@@ -43,6 +43,8 @@ public:
     virtual ~MainWindow();
 private:
     Ui::MainWindow widget;
+    QString directory;
+    void setCellValue(int row, int column, QString value);
     void matchReport(const QString& matchId);
     void matchResults(const QString& clubId);
     void analyzeXml(pointer func, StatHash* hash);
@@ -52,6 +54,9 @@ private:
     void referies(QDomElement& docElement, StatHash* hash);
     void table(QDomElement& docElement, StatHash* hash);
 private slots:
+    void open();
+    void save();
+
     void calculateGoals(void);
     void calculateMatches(void);
     void calculateReferies(void);
