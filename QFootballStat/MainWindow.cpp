@@ -43,8 +43,11 @@ const QString EVENT_RED_CARD = QString::fromUtf8("Удаление");
 const QString EVENT_RED_YELLOW_CARD = QString::fromUtf8("Удаление и предупреждение");
 const QString STATUS_TIME = QString::fromUtf8("Время: %1 мс.");
 
-const QString TABLE_REFERIES_COLUMN1 = QString::fromUtf8("Имя");
+const QString TABLE_REFERIES_COLUMN1 = QString::fromUtf8("Судья");
 const QString TABLE_REFERIES_COLUMN2 = QString::fromUtf8("Игр");
+
+const QString TABLE_GOALS_COLUMN1 = QString::fromUtf8("Игрок");
+const QString TABLE_GOALS_COLUMN2 = QString::fromUtf8("Мячей");
 
 MainWindow::MainWindow() {
 
@@ -129,10 +132,12 @@ void MainWindow::calculateGoals() {
     widget.table->setRowCount(keys.length());
     widget.table->setColumnWidth(0, 240);
     widget.table->setColumnWidth(1, 60);
+    widget.table->setHorizontalHeaderItem(0, new QTableWidgetItem(TABLE_GOALS_COLUMN1));
+    widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_GOALS_COLUMN2));
     int i = 0;
     foreach (StatHashKey key, keys) {
         setCellValue(i, 0, key);
-        setCellValue(i, 1, QString::number(hash[key]->get()));
+        setCellValue(i, 1, QString("%1").arg(hash[key]->get(), 4, 10));
         i++;
     }
     widget.table->setSortingEnabled(true);
