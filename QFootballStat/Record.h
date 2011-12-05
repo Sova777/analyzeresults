@@ -40,7 +40,7 @@ public:
     Record();
     void add(int add, int index = 0);
     int get(int index = 0);
-    int set(int value, int index = 0);
+    void set(int value, int index = 0);
     QString getString(int index = 0);
     void setString(QString& value, int index = 0);
     static bool less(const Record* left, const Record* right);

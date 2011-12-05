@@ -50,7 +50,7 @@ int Record::get(int index) {
     return field[index];
 }
 
-int Record::set(int value, int index) {
+void Record::set(int value, int index) {
     if (index >= max) {
         throw 0;
     }
