@@ -31,7 +31,7 @@ DEFAULTCONF=Windows
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Windows Solaris 
+ALLCONFS=Windows Solaris Linux 
 
 
 # build
