@@ -254,7 +254,7 @@ void MainWindow::goals(QDomElement& docElement, StatHash* hash) {
         QString player = node.attributes().namedItem("player").nodeValue();
         QString club = node.attributes().namedItem("club").nodeValue();
         if ((eventType == EVENT_GOAL) || (eventType == EVENT_GOAL_PENALTY)) {
-            QString key = player.append(" (").append(club).append(")");
+            QString key = QString(" %1 (%2)").arg(player).arg(club);
             if (!hash->contains(key)) {
                 hash->insert(key, new Record());
             }
