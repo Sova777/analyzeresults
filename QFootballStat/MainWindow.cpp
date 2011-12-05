@@ -354,13 +354,13 @@ void MainWindow::table(QDomElement& docElement, StatHash* hash) {
 void MainWindow::analyzeXml(pointer func, StatHash* hash) {
     QTime t;
     t.start();
-    QDir* qDir = new QDir(directory);
-    qDir->setFilter(QDir::Files);
-    QStringList list = qDir->entryList();
+    QDir qDir = QDir(directory);
+    qDir.setFilter(QDir::Files);
+    QStringList list = qDir.entryList();
     QDomDocument xml("report");
     for (int i = 0; i < list.size(); ++i) {
         QString fileName = list.at(i);
-        QFile file(qDir->absolutePath() + "/" + fileName);
+        QFile file(qDir.absolutePath() + "/" + fileName);
         if (!file.open(QIODevice::ReadOnly)) continue;
         if (!xml.setContent(&file)) {
             file.close();
