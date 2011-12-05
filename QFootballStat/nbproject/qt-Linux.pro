@@ -1,7 +1,7 @@
 # This file is generated automatically. Do not edit.
 # Use project properties -> Build -> Qt -> Expert -> Custom Definitions.
 TEMPLATE = app
-DESTDIR = dist/Linux/GNU-Linux-x86
+DESTDIR = dist/Linux/GNU-Solaris-x86
 TARGET = QFootballStat
 VERSION = 1.0.0
 CONFIG -= debug_and_release app_bundle lib_bundle
@@ -12,7 +12,7 @@ HEADERS += Record.h MainWindow.h
 FORMS += MainWindow.ui
 RESOURCES += resources.qrc
 TRANSLATIONS +=
-OBJECTS_DIR = build/Linux/GNU-Linux-x86
+OBJECTS_DIR = build/Linux/GNU-Solaris-x86
 MOC_DIR = 
 RCC_DIR = 
 UI_DIR = 
