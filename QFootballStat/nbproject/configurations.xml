@@ -69,5 +69,19 @@
         </ccTool>
       </compileType>
     </conf>
+    <conf name="Linux" type="4">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>GNU|GNU</compilerSet>
+      </toolsSet>
+      <qt>
+        <modules>core gui xml</modules>
+        <defs>
+          <Elem>CONFIG += console</Elem>
+        </defs>
+      </qt>
+      <compileType>
+      </compileType>
+    </conf>
   </confs>
 </configurationDescriptor>
