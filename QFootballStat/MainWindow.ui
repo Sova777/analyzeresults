@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Чемпионат России по футболу</string>
+   <string>QFootballStat: футбольная статистика</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
