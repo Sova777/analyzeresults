@@ -43,11 +43,26 @@ const QString EVENT_RED_CARD = QString::fromUtf8("Удаление");
 const QString EVENT_RED_YELLOW_CARD = QString::fromUtf8("Удаление и предупреждение");
 const QString STATUS_TIME = QString::fromUtf8("Время: %1 мс.");
 
+const QString TABLE_TABLE_COLUMN1 = QString::fromUtf8("Клуб");
+const QString TABLE_TABLE_COLUMN2 = QString::fromUtf8("И");
+const QString TABLE_TABLE_COLUMN3 = QString::fromUtf8("В");
+const QString TABLE_TABLE_COLUMN4 = QString::fromUtf8("Н");
+const QString TABLE_TABLE_COLUMN5 = QString::fromUtf8("П");
+const QString TABLE_TABLE_COLUMN6 = QString::fromUtf8("Заб.");
+const QString TABLE_TABLE_COLUMN7 = QString::fromUtf8("Проп.");
+const QString TABLE_TABLE_COLUMN8 = QString::fromUtf8("О");
+
 const QString TABLE_REFERIES_COLUMN1 = QString::fromUtf8("Судья");
-const QString TABLE_REFERIES_COLUMN2 = QString::fromUtf8("Игр");
+const QString TABLE_REFERIES_COLUMN2 = QString::fromUtf8("Город");
+const QString TABLE_REFERIES_COLUMN3 = QString::fromUtf8("Игр");
 
 const QString TABLE_GOALS_COLUMN1 = QString::fromUtf8("Игрок");
-const QString TABLE_GOALS_COLUMN2 = QString::fromUtf8("Мячей");
+const QString TABLE_GOALS_COLUMN2 = QString::fromUtf8("Клуб");
+const QString TABLE_GOALS_COLUMN3 = QString::fromUtf8("Мячей");
+
+const QString TABLE_MATCHES_COLUMN1 = QString::fromUtf8("Хозяева");
+const QString TABLE_MATCHES_COLUMN2 = QString::fromUtf8("Гости");
+const QString TABLE_MATCHES_COLUMN3 = QString::fromUtf8("Счёт");
 
 MainWindow::MainWindow() {
 
@@ -130,20 +145,24 @@ void MainWindow::calculateGoals() {
     qSort(keys.begin(), keys.end());
     widget.table->setSortingEnabled(false);
     widget.table->clear();
-    widget.table->setColumnCount(2);
+    widget.table->setColumnCount(3);
     widget.table->setRowCount(keys.length());
-    widget.table->setColumnWidth(0, 240);
-    widget.table->setColumnWidth(1, 60);
+    widget.table->setColumnWidth(0, 180);
+    widget.table->setColumnWidth(1, 180);
+    widget.table->setColumnWidth(2, 60);
     widget.table->setHorizontalHeaderItem(0, new QTableWidgetItem(TABLE_GOALS_COLUMN1));
     widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_GOALS_COLUMN2));
+    widget.table->setHorizontalHeaderItem(2, new QTableWidgetItem(TABLE_GOALS_COLUMN3));
     int i = 0;
     foreach (StatHashKey key, keys) {
-        setCellValue(i, 0, key);
-        setCellValue(i, 1, QString("%1").arg(hash[key]->get(), 4, 10));
+        Record* record = hash[key];
+        setCellValue(i, 0, record->getString(0));
+        setCellValue(i, 1, record->getString(1));
+        setCellValue(i, 2, QString("%1").arg(record->get(), 4, 10));
         i++;
     }
     widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(1, Qt::DescendingOrder);
+    widget.table->sortByColumn(2, Qt::DescendingOrder);
 }
 
 void MainWindow::calculateReferies() {
@@ -153,20 +172,24 @@ void MainWindow::calculateReferies() {
     qSort(keys.begin(), keys.end());
     widget.table->clear();
     widget.table->setSortingEnabled(false);
-    widget.table->setColumnCount(2);
+    widget.table->setColumnCount(3);
     widget.table->setRowCount(keys.length());
-    widget.table->setColumnWidth(0, 240);
-    widget.table->setColumnWidth(1, 60);
+    widget.table->setColumnWidth(0, 180);
+    widget.table->setColumnWidth(1, 180);
+    widget.table->setColumnWidth(2, 60);
     widget.table->setHorizontalHeaderItem(0, new QTableWidgetItem(TABLE_REFERIES_COLUMN1));
     widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_REFERIES_COLUMN2));
+    widget.table->setHorizontalHeaderItem(2, new QTableWidgetItem(TABLE_REFERIES_COLUMN3));
     int i = 0;
     foreach (StatHashKey key, keys) {
-        setCellValue(i, 0, key);
-        setCellValue(i, 1, QString("%1").arg(hash[key]->get(), 4, 10));
+        Record* record = hash[key];
+        setCellValue(i, 0, record->getString(0));
+        setCellValue(i, 1, record->getString(1));
+        setCellValue(i, 2, QString("%1").arg(record->get(), 4, 10));
         i++;
     }
     widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(1, Qt::DescendingOrder);
+    widget.table->sortByColumn(2, Qt::DescendingOrder);
 }
 
 void MainWindow::calculateMatches() {
@@ -181,6 +204,9 @@ void MainWindow::calculateMatches() {
     widget.table->setColumnWidth(0, 120);
     widget.table->setColumnWidth(1, 120);
     widget.table->setColumnWidth(2, 120);
+    widget.table->setHorizontalHeaderItem(0, new QTableWidgetItem(TABLE_MATCHES_COLUMN1));
+    widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_MATCHES_COLUMN2));
+    widget.table->setHorizontalHeaderItem(2, new QTableWidgetItem(TABLE_MATCHES_COLUMN3));
     int i = 0;
     foreach (StatHashKey key, keys) {
         Record* record = hash[key];
@@ -203,6 +229,14 @@ void MainWindow::calculateTable() {
     widget.table->setColumnCount(8);
     widget.table->setRowCount(keys.length());
     widget.table->setColumnWidth(0, 180);
+    widget.table->setHorizontalHeaderItem(0, new QTableWidgetItem(TABLE_TABLE_COLUMN1));
+    widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_TABLE_COLUMN2));
+    widget.table->setHorizontalHeaderItem(2, new QTableWidgetItem(TABLE_TABLE_COLUMN3));
+    widget.table->setHorizontalHeaderItem(3, new QTableWidgetItem(TABLE_TABLE_COLUMN4));
+    widget.table->setHorizontalHeaderItem(4, new QTableWidgetItem(TABLE_TABLE_COLUMN5));
+    widget.table->setHorizontalHeaderItem(5, new QTableWidgetItem(TABLE_TABLE_COLUMN6));
+    widget.table->setHorizontalHeaderItem(6, new QTableWidgetItem(TABLE_TABLE_COLUMN7));
+    widget.table->setHorizontalHeaderItem(7, new QTableWidgetItem(TABLE_TABLE_COLUMN8));
     for (int j = 1; j < 8; j++) {
         widget.table->setColumnWidth(j, 60);
     }
@@ -235,7 +269,10 @@ void MainWindow::goals(QDomElement& docElement, StatHash* hash) {
             if (!hash->contains(key)) {
                 hash->insert(key, new Record());
             }
-            hash->value(key)->add(1);
+            Record* record = hash->value(key);
+            record->setString(player, 0);
+            record->setString(club, 1);
+            record->add(1);
         }
     }
 }
@@ -246,11 +283,14 @@ void MainWindow::referies(QDomElement& docElement, StatHash* hash) {
         QDomElement node = nodes.at(0).toElement();
         QString name = node.text();
         QString city = node.attributes().namedItem("city").nodeValue();
-        QString key = name.append(" (").append(city).append(")");
+        QString key = QString("%1 (%2)").arg(name).arg(city);
         if (!hash->contains(key)) {
             hash->insert(key, new Record());
         }
-        hash->value(key)->add(1);
+        Record* record = hash->value(key);
+        record->setString(name, 0);
+        record->setString(city, 1);
+        record->add(1);
     }
 }
 
