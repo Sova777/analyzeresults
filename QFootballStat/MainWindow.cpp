@@ -141,12 +141,10 @@ void MainWindow::selectMode6() {
 void MainWindow::calculateGoals() {
     StatHash hash;
     analyzeXml(&MainWindow::goals, &hash);
-    QList<StatHashKey> keys = hash.keys();
-    qSort(keys.begin(), keys.end());
     widget.table->setSortingEnabled(false);
     widget.table->clear();
     widget.table->setColumnCount(3);
-    widget.table->setRowCount(keys.length());
+    widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
     widget.table->setColumnWidth(2, 60);
@@ -154,8 +152,7 @@ void MainWindow::calculateGoals() {
     widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_GOALS_COLUMN2));
     widget.table->setHorizontalHeaderItem(2, new QTableWidgetItem(TABLE_GOALS_COLUMN3));
     int i = 0;
-    foreach (StatHashKey key, keys) {
-        Record* record = hash[key];
+    foreach (StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(), 4, 10));
@@ -168,12 +165,10 @@ void MainWindow::calculateGoals() {
 void MainWindow::calculateReferies() {
     StatHash hash;
     analyzeXml(&MainWindow::referies, &hash);
-    QList<StatHashKey> keys = hash.keys();
-    qSort(keys.begin(), keys.end());
     widget.table->clear();
     widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(3);
-    widget.table->setRowCount(keys.length());
+    widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
     widget.table->setColumnWidth(2, 60);
@@ -181,8 +176,7 @@ void MainWindow::calculateReferies() {
     widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_REFERIES_COLUMN2));
     widget.table->setHorizontalHeaderItem(2, new QTableWidgetItem(TABLE_REFERIES_COLUMN3));
     int i = 0;
-    foreach (StatHashKey key, keys) {
-        Record* record = hash[key];
+    foreach (StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(), 4, 10));
@@ -195,12 +189,10 @@ void MainWindow::calculateReferies() {
 void MainWindow::calculateMatches() {
     StatHash hash;
     analyzeXml(&MainWindow::matches, &hash);
-    QList<StatHashKey> keys = hash.keys();
-    qSort(keys.begin(), keys.end());
     widget.table->clear();
     widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(3);
-    widget.table->setRowCount(keys.length());
+    widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 120);
     widget.table->setColumnWidth(1, 120);
     widget.table->setColumnWidth(2, 120);
@@ -208,8 +200,7 @@ void MainWindow::calculateMatches() {
     widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_MATCHES_COLUMN2));
     widget.table->setHorizontalHeaderItem(2, new QTableWidgetItem(TABLE_MATCHES_COLUMN3));
     int i = 0;
-    foreach (StatHashKey key, keys) {
-        Record* record = hash[key];
+    foreach (StatHashValue* record, hash) {
         setCellValue(i, 0, QString(record->getString(0)));
         setCellValue(i, 1, QString(record->getString(1)));
         setCellValue(i, 2, QString(record->getString(2)));
@@ -222,12 +213,10 @@ void MainWindow::calculateMatches() {
 void MainWindow::calculateTable() {
     StatHash hash;
     analyzeXml(&MainWindow::table, &hash);
-    QList<StatHashValue*> keys = hash.values();
-    qSort(keys.begin(), keys.end(), Record::less);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(8);
-    widget.table->setRowCount(keys.length());
+    widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setHorizontalHeaderItem(0, new QTableWidgetItem(TABLE_TABLE_COLUMN1));
     widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_TABLE_COLUMN2));
@@ -241,13 +230,13 @@ void MainWindow::calculateTable() {
         widget.table->setColumnWidth(j, 60);
     }
     int i = 0;
-    foreach (StatHashValue* key, keys) {
-        int points = 3 * key->get(0) + key->get(1);
-        int games = key->get(0) + key->get(1) + key->get(2);
-        setCellValue(i, 0, key->getString());
+    foreach (StatHashValue* record, hash) {
+        int points = 3 * record->get(0) + record->get(1);
+        int games = record->get(0) + record->get(1) + record->get(2);
+        setCellValue(i, 0, record->getString());
         setCellValue(i, 1, QString::number(games));
         for (int k = 0; k < 5; k++) {
-            setCellValue(i, 2 + k, QString::number(key->get(k)));
+            setCellValue(i, 2 + k, QString::number(record->get(k)));
         }
         setCellValue(i, 7, QString::number(points));
         i++;
