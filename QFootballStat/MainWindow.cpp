@@ -376,6 +376,7 @@ void MainWindow::analyzeXml(pointer func, StatHash* hash) {
     QDomDocument xml("report");
     for (int i = 0; i < list.size(); ++i) {
         QString fileName = list.at(i);
+        if (!fileName.endsWith(QLatin1String(".xml"))) continue;
         QFile file(qDir.absolutePath() + "/" + fileName);
         if (!file.open(QIODevice::ReadOnly)) continue;
         if (!xml.setContent(&file)) {
