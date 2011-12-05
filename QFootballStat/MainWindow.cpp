@@ -420,10 +420,10 @@ void MainWindow::save() {
     file.close();
 }
 
-void MainWindow::matchReport(const QString& matchId) {
-    //
-}
-
-void MainWindow::matchResults(const QString& clubId) {
-    //
-}
+//void MainWindow::matchReport(const QString& matchId) {
+//    //
+//}
+//
+//void MainWindow::matchResults(const QString& clubId) {
+//    //
+//}

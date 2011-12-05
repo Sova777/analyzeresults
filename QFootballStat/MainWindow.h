@@ -45,8 +45,8 @@ private:
     Ui::MainWindow widget;
     QString directory;
     void setCellValue(int row, int column, QString value);
-    void matchReport(const QString& matchId);
-    void matchResults(const QString& clubId);
+//    void matchReport(const QString& matchId);
+//    void matchResults(const QString& clubId);
     void analyzeXml(pointer func, StatHash* hash);
 
     void goals(QDomElement& docElement, StatHash* hash);
