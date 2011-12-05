@@ -433,7 +433,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -443,14 +443,27 @@
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Статистика</string>
+    </property>
     <addaction name="actionCalculateTable"/>
     <addaction name="actionCalculateGoals"/>
     <addaction name="actionCalculateReferies"/>
     <addaction name="actionCalculateMatches"/>
-    <addaction name="separator"/>
-    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Справка</string>
+    </property>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
@@ -486,6 +499,11 @@
   <action name="actionOpen">
    <property name="text">
     <string>Выбрать директорий</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>О программе</string>
    </property>
   </action>
  </widget>

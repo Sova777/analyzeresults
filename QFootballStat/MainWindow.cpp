@@ -59,6 +59,8 @@ MainWindow::MainWindow() {
             this, SLOT(save()));
     connect(widget.actionOpen, SIGNAL(triggered()),
             this, SLOT(open()));
+    connect(widget.actionAbout, SIGNAL(triggered()),
+            this, SLOT(about()));
 
     connect(widget.actionCalculateGoals, SIGNAL(triggered()),
             this, SLOT(calculateGoals()));
@@ -174,12 +176,17 @@ void MainWindow::calculateMatches() {
     qSort(keys.begin(), keys.end());
     widget.table->clear();
     widget.table->setSortingEnabled(false);
-    widget.table->setColumnCount(1);
+    widget.table->setColumnCount(3);
     widget.table->setRowCount(keys.length());
-    widget.table->setColumnWidth(0, 360);
+    widget.table->setColumnWidth(0, 120);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
     int i = 0;
     foreach (StatHashKey key, keys) {
-        setCellValue(i, 0, key);
+        Record* record = hash[key];
+        setCellValue(i, 0, QString(record->getString(0)));
+        setCellValue(i, 1, QString(record->getString(1)));
+        setCellValue(i, 2, QString(record->getString(2)));
         i++;
     }
     widget.table->setSortingEnabled(true);
@@ -258,11 +265,12 @@ void MainWindow::matches(QDomElement& docElement, StatHash* hash) {
         QString team1 = nodeTeam1.text();
         QString team2 = nodeTeam2.text();
         QString score = nodeScore.text();
-        QString key = team1.append(" - ")
-                .append(team2)
-                .append(" ")
-                .append(score);
+        QString key = QString("%1 - %2 %3").arg(team1).arg(team2).arg(score);
         hash->insert(key, new Record());
+        Record* record = hash->value(key);
+        record->setString(team1, 0);
+        record->setString(team2, 1);
+        record->setString(score, 2);
     }
 }
 
@@ -360,6 +368,10 @@ void MainWindow::setCellValue(int row, int column, QString value) {
 
 void MainWindow::open() {
     directory = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Выберите директорий"), directory);
+}
+
+void MainWindow::about() {
+    QMessageBox::about(this, QString::fromUtf8("О программе QFootballStat"), QString::fromUtf8("<h2>QFootballStat</h2><p>Создана Солдатовым Валерием Фёдоровичем для сайта <a href='http://football.mojgorod.ru'>http://football.mojgorod.ru</a></p>"));
 }
 
 void MainWindow::save() {
