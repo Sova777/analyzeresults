@@ -56,6 +56,7 @@ private:
 private slots:
     void open();
     void save();
+    void about();
 
     void calculateGoals(void);
     void calculateMatches(void);
