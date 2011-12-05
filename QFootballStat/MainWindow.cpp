@@ -148,16 +148,20 @@ void MainWindow::calculateGoals() {
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
     widget.table->setColumnWidth(2, 60);
-    widget.table->setHorizontalHeaderItem(0, new QTableWidgetItem(TABLE_GOALS_COLUMN1));
-    widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_GOALS_COLUMN2));
-    widget.table->setHorizontalHeaderItem(2, new QTableWidgetItem(TABLE_GOALS_COLUMN3));
+    QStringList titles;
+    titles << TABLE_GOALS_COLUMN1
+            << TABLE_GOALS_COLUMN2
+            << TABLE_GOALS_COLUMN3;
+    widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
     foreach (StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(), 4, 10));
+        delete record;
         i++;
     }
+    hash.clear();
     widget.table->setSortingEnabled(true);
     widget.table->sortByColumn(2, Qt::DescendingOrder);
 }
@@ -172,16 +176,20 @@ void MainWindow::calculateReferies() {
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
     widget.table->setColumnWidth(2, 60);
-    widget.table->setHorizontalHeaderItem(0, new QTableWidgetItem(TABLE_REFERIES_COLUMN1));
-    widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_REFERIES_COLUMN2));
-    widget.table->setHorizontalHeaderItem(2, new QTableWidgetItem(TABLE_REFERIES_COLUMN3));
+    QStringList titles;
+    titles << TABLE_REFERIES_COLUMN1
+            << TABLE_REFERIES_COLUMN2
+            << TABLE_REFERIES_COLUMN3;
+    widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
     foreach (StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(), 4, 10));
+        delete record;
         i++;
     }
+    hash.clear();
     widget.table->setSortingEnabled(true);
     widget.table->sortByColumn(2, Qt::DescendingOrder);
 }
@@ -196,16 +204,20 @@ void MainWindow::calculateMatches() {
     widget.table->setColumnWidth(0, 120);
     widget.table->setColumnWidth(1, 120);
     widget.table->setColumnWidth(2, 120);
-    widget.table->setHorizontalHeaderItem(0, new QTableWidgetItem(TABLE_MATCHES_COLUMN1));
-    widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_MATCHES_COLUMN2));
-    widget.table->setHorizontalHeaderItem(2, new QTableWidgetItem(TABLE_MATCHES_COLUMN3));
+    QStringList titles;
+    titles << TABLE_MATCHES_COLUMN1
+            << TABLE_MATCHES_COLUMN2
+            << TABLE_MATCHES_COLUMN3;
+    widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
     foreach (StatHashValue* record, hash) {
         setCellValue(i, 0, QString(record->getString(0)));
         setCellValue(i, 1, QString(record->getString(1)));
         setCellValue(i, 2, QString(record->getString(2)));
+        delete record;
         i++;
     }
+    hash.clear();
     widget.table->setSortingEnabled(true);
     widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
@@ -218,14 +230,16 @@ void MainWindow::calculateTable() {
     widget.table->setColumnCount(8);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
-    widget.table->setHorizontalHeaderItem(0, new QTableWidgetItem(TABLE_TABLE_COLUMN1));
-    widget.table->setHorizontalHeaderItem(1, new QTableWidgetItem(TABLE_TABLE_COLUMN2));
-    widget.table->setHorizontalHeaderItem(2, new QTableWidgetItem(TABLE_TABLE_COLUMN3));
-    widget.table->setHorizontalHeaderItem(3, new QTableWidgetItem(TABLE_TABLE_COLUMN4));
-    widget.table->setHorizontalHeaderItem(4, new QTableWidgetItem(TABLE_TABLE_COLUMN5));
-    widget.table->setHorizontalHeaderItem(5, new QTableWidgetItem(TABLE_TABLE_COLUMN6));
-    widget.table->setHorizontalHeaderItem(6, new QTableWidgetItem(TABLE_TABLE_COLUMN7));
-    widget.table->setHorizontalHeaderItem(7, new QTableWidgetItem(TABLE_TABLE_COLUMN8));
+    QStringList titles;
+    titles << TABLE_TABLE_COLUMN1
+            << TABLE_TABLE_COLUMN2
+            << TABLE_TABLE_COLUMN3
+            << TABLE_TABLE_COLUMN4
+            << TABLE_TABLE_COLUMN5
+            << TABLE_TABLE_COLUMN6
+            << TABLE_TABLE_COLUMN7
+            << TABLE_TABLE_COLUMN8;
+    widget.table->setHorizontalHeaderLabels(titles);
     for (int j = 1; j < 8; j++) {
         widget.table->setColumnWidth(j, 60);
     }
@@ -239,8 +253,10 @@ void MainWindow::calculateTable() {
             setCellValue(i, 2 + k, QString::number(record->get(k)));
         }
         setCellValue(i, 7, QString::number(points));
+        delete record;
         i++;
     }
+    hash.clear();
     widget.table->setSortingEnabled(true);
     widget.table->sortByColumn(7, Qt::DescendingOrder);
 }
