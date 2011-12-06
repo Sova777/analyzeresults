@@ -413,7 +413,10 @@ void MainWindow::setCellValue(int row, int column, QString value) {
 }
 
 void MainWindow::open() {
-    directory = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Выберите директорий"), directory);
+    QString dir = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Выберите директорий"), directory);
+    if (dir != "") {
+        directory = dir;
+    }
 }
 
 void MainWindow::about() {
