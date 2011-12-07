@@ -76,9 +76,6 @@
       </toolsSet>
       <qt>
         <modules>core gui xml</modules>
-        <defs>
-          <Elem>CONFIG += console</Elem>
-        </defs>
       </qt>
       <compileType>
       </compileType>
