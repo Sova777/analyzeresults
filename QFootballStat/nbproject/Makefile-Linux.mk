@@ -18,11 +18,11 @@ CC=gcc
 CCC=g++
 CXX=g++
 FC=gfortran
-AS=gas
+AS=as
 QMAKE=qmake
 
 # Macros
-CND_PLATFORM=GNU-Solaris-x86
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Linux
 CND_DISTDIR=dist
 CND_BUILDDIR=build

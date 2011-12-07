@@ -15,21 +15,21 @@ CND_PACKAGE_DIR_Windows=dist/Windows/MinGW-Windows/package
 CND_PACKAGE_NAME_Windows=QFootballStat.tar
 CND_PACKAGE_PATH_Windows=dist/Windows/MinGW-Windows/package/QFootballStat.tar
 # Solaris configuration
-CND_PLATFORM_Solaris=OracleSolarisStudio-Solaris-x86
-CND_ARTIFACT_DIR_Solaris=dist/Solaris/OracleSolarisStudio-Solaris-x86
+CND_PLATFORM_Solaris=OracleSolarisStudio-Linux-x86
+CND_ARTIFACT_DIR_Solaris=dist/Solaris/OracleSolarisStudio-Linux-x86
 CND_ARTIFACT_NAME_Solaris=QFootballStat
-CND_ARTIFACT_PATH_Solaris=dist/Solaris/OracleSolarisStudio-Solaris-x86/QFootballStat
-CND_PACKAGE_DIR_Solaris=dist/Solaris/OracleSolarisStudio-Solaris-x86/package
+CND_ARTIFACT_PATH_Solaris=dist/Solaris/OracleSolarisStudio-Linux-x86/QFootballStat
+CND_PACKAGE_DIR_Solaris=dist/Solaris/OracleSolarisStudio-Linux-x86/package
 CND_PACKAGE_NAME_Solaris=QFootballStat.tar
-CND_PACKAGE_PATH_Solaris=dist/Solaris/OracleSolarisStudio-Solaris-x86/package/QFootballStat.tar
+CND_PACKAGE_PATH_Solaris=dist/Solaris/OracleSolarisStudio-Linux-x86/package/QFootballStat.tar
 # Linux configuration
-CND_PLATFORM_Linux=GNU-Solaris-x86
-CND_ARTIFACT_DIR_Linux=dist/Linux/GNU-Solaris-x86
+CND_PLATFORM_Linux=GNU-Linux-x86
+CND_ARTIFACT_DIR_Linux=dist/Linux/GNU-Linux-x86
 CND_ARTIFACT_NAME_Linux=QFootballStat
-CND_ARTIFACT_PATH_Linux=dist/Linux/GNU-Solaris-x86/QFootballStat
-CND_PACKAGE_DIR_Linux=dist/Linux/GNU-Solaris-x86/package
+CND_ARTIFACT_PATH_Linux=dist/Linux/GNU-Linux-x86/QFootballStat
+CND_PACKAGE_DIR_Linux=dist/Linux/GNU-Linux-x86/package
 CND_PACKAGE_NAME_Linux=QFootballStat.tar
-CND_PACKAGE_PATH_Linux=dist/Linux/GNU-Solaris-x86/package/QFootballStat.tar
+CND_PACKAGE_PATH_Linux=dist/Linux/GNU-Linux-x86/package/QFootballStat.tar
 #
 # include compiler specific variables
 #
