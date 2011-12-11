@@ -46,7 +46,7 @@ private:
     QString directory;
     void setCellValue(int row, int column, QString value);
 //    void matchReport(const QString& matchId);
-//    void matchResults(const QString& clubId);
+//    void matchResults(const QString& teamId);
     void analyzeXml(pointer func, StatHash* hash);
     QString getTeam1(QDomElement& docElement);
     QString getTeam2(QDomElement& docElement);
@@ -70,6 +70,7 @@ private slots:
     void calculateCoaches(void);
     void calculateStadiums(void);
     void calculatePlayers(void);
+    void calculateTeams(void);
 
     void selectMode1();
     void selectMode2();
