@@ -543,7 +543,6 @@
       <string>Матчи</string>
      </property>
      <addaction name="actionCalculateMatches"/>
-     <addaction name="actionCalculateTable"/>
     </widget>
     <widget class="QMenu" name="menu_4">
      <property name="title">
@@ -570,11 +569,19 @@
      </property>
      <addaction name="actionCalculateStadiums"/>
     </widget>
-    <addaction name="menu_3"/>
+    <widget class="QMenu" name="menu_8">
+     <property name="title">
+      <string>Команды</string>
+     </property>
+     <addaction name="actionCalculateTeams"/>
+     <addaction name="actionCalculateTable"/>
+    </widget>
     <addaction name="menu_4"/>
+    <addaction name="menu_8"/>
+    <addaction name="menu_3"/>
+    <addaction name="menu_7"/>
     <addaction name="menu_5"/>
     <addaction name="menu_6"/>
-    <addaction name="menu_7"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -640,6 +647,11 @@
   <action name="actionCalculatePlayers">
    <property name="text">
     <string>Список игроков</string>
+   </property>
+  </action>
+  <action name="actionCalculateTeams">
+   <property name="text">
+    <string>Количество игроков</string>
    </property>
   </action>
  </widget>
