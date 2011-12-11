@@ -33,7 +33,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class Record {
 private:
     static const int max = 10;
-    static const int maxText = 3;
+    static const int maxText = 5;
     QString text[maxText];
     int field[max];
 public:

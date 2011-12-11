@@ -48,11 +48,16 @@ private:
 //    void matchReport(const QString& matchId);
 //    void matchResults(const QString& clubId);
     void analyzeXml(pointer func, StatHash* hash);
+    QString getTeam1(QDomElement& docElement);
+    QString getTeam2(QDomElement& docElement);
 
     void goals(QDomElement& docElement, StatHash* hash);
     void matches(QDomElement& docElement, StatHash* hash);
     void referies(QDomElement& docElement, StatHash* hash);
     void table(QDomElement& docElement, StatHash* hash);
+    void coaches(QDomElement& docElement, StatHash* hash);
+    void stadiums(QDomElement& docElement, StatHash* hash);
+    void players(QDomElement& docElement, StatHash* hash);
 private slots:
     void open();
     void save();
@@ -62,6 +67,9 @@ private slots:
     void calculateMatches(void);
     void calculateReferies(void);
     void calculateTable(void);
+    void calculateCoaches(void);
+    void calculateStadiums(void);
+    void calculatePlayers(void);
 
     void selectMode1();
     void selectMode2();
@@ -69,6 +77,8 @@ private slots:
     void selectMode4();
     void selectMode5();
     void selectMode6();
+    void selectMode7();
+    void selectMode8();
     void linkActivated(const QUrl & link);
 };
 
