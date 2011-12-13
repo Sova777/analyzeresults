@@ -50,6 +50,7 @@ private:
     void analyzeXml(pointer func, StatHash* hash);
     QString getTeam1(QDomElement& docElement);
     QString getTeam2(QDomElement& docElement);
+    QDate getDate(QDomElement& docElement);
 
     void goals(QDomElement& docElement, StatHash* hash);
     void matches(QDomElement& docElement, StatHash* hash);
