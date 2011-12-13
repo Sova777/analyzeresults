@@ -132,7 +132,7 @@ MainWindow::MainWindow() {
     directory = QString::fromLatin1("xml");
     widget.text->setVisible(false);
     widget.table->setSortingEnabled(true);
-    selectMode1();
+    //selectMode1();
 }
 
 MainWindow::~MainWindow() {
@@ -189,7 +189,7 @@ void MainWindow::calculateGoals() {
     foreach (StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, QString("%1").arg(record->get(), 4, 10));
+        setCellValue(i, 2, QString("%1").arg(record->get(), 4));
         delete record;
         i++;
     }
@@ -217,7 +217,7 @@ void MainWindow::calculateReferies() {
     foreach (StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, QString("%1").arg(record->get(), 4, 10));
+        setCellValue(i, 2, QString("%1").arg(record->get(), 4));
         delete record;
         i++;
     }
@@ -245,7 +245,7 @@ void MainWindow::calculateCoaches(void) {
     foreach (StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, QString("%1").arg(record->get(0), 4, 10));
+        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
         delete record;
         i++;
     }
@@ -273,7 +273,7 @@ void MainWindow::calculateStadiums(void) {
     foreach (StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, QString("%1").arg(record->get(0), 4, 10));
+        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
         delete record;
         i++;
     }
@@ -332,7 +332,7 @@ void MainWindow::calculatePlayers() {
     foreach (StatHashValue* record, hash) {
         setCellValue(i, 0, QString(record->getString(0)));
         setCellValue(i, 1, QString(record->getString(1)));
-        setCellValue(i, 2, QString("%1").arg(record->get(), 4, 10));
+        setCellValue(i, 2, QString("%1").arg(record->get(), 4));
         delete record;
         i++;
     }
@@ -371,7 +371,7 @@ void MainWindow::calculateTable() {
         for (int k = 0; k < 5; k++) {
             setCellValue(i, 2 + k, QString::number(record->get(k)));
         }
-        setCellValue(i, 7, QString::number(points));
+        setCellValue(i, 7, QString("%1").arg(points, 4));
         delete record;
         i++;
     }
@@ -410,7 +410,7 @@ void MainWindow::calculateTeams() {
     i = 0;
     foreach (StatHashValue* record, hash_stat) {
         setCellValue(i, 0, QString(record->getString(0)));
-        setCellValue(i, 1, QString("%1").arg(record->get(), 4, 10));
+        setCellValue(i, 1, QString("%1").arg(record->get(), 4));
         delete record;
         i++;
     }
@@ -515,7 +515,7 @@ void MainWindow::matches(QDomElement& docElement, StatHash* hash) {
         QString score = nodeScore.text();
         QString dateString = nodeDate.text();
         QString date = dateString.right(2)
-                + "." + dateString.mid(3, 2) + "." + dateString.left(4);
+                + "." + dateString.mid(4, 2) + "." + dateString.left(4);
         QString key = QString("%1 - %2 %3").arg(team1).arg(team2).arg(score);
         hash->insert(key, new Record());
         Record* record = hash->value(key);
@@ -640,7 +640,10 @@ void MainWindow::analyzeXml(pointer func, StatHash* hash) {
         }
         file.close();
         QDomElement docElement = xml.documentElement();
-        (this->*func)(docElement, hash);
+        QDate date = getDate(docElement);
+        if ((date >= widget.dateEditFrom->date()) && (date <= widget.dateEditTill->date())) {
+            (this->*func)(docElement, hash);
+        }
     }
     QString status = STATUS_TIME.arg(t.elapsed());
     statusBar()->showMessage(status, 2000);
@@ -713,6 +716,18 @@ QString MainWindow::getTeam2(QDomElement& docElement) {
         value = node.text();
     }
     return value;
+}
+
+QDate MainWindow::getDate(QDomElement& docElement) {
+    QDomNodeList nodes = docElement.elementsByTagName("date");    
+    QString value = "";
+    if (nodes.length() > 0) {
+        QDomElement node = nodes.at(0).toElement();
+        value = node.text();
+        QDate date = QDate::fromString(value, "yyyyMMdd");
+        return date;
+    }
+    return QDate(1, 1, 1);
 }
 
 //void MainWindow::matchReport(const QString& matchId) {
