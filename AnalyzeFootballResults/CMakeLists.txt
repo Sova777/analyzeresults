@@ -1,0 +1,5 @@
+project(AnalyzeFootballResults)
+cmake_minimum_required(VERSION 2.6)
+set(SRC ClubInfo.cpp ClubName.cpp Clubs.cpp Results.cpp ResultsDB.cpp Stat.cpp Utils.cpp Years.cpp)
+set(HEADRES ClubInfo.hpp ClubName.hpp Clubs.hpp Results.hpp ResultsDB.hpp Stat.hpp Utils.hpp Years.hpp)
+add_library(AnalyzeFootballResults ${SRC} ${HEADERS})

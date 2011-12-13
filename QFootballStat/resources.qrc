@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>mode7.png</file>
+    <file>mode8.png</file>
+    <file>window.png</file>
+    <file>mode1.png</file>
+    <file>mode2.png</file>
+    <file>mode3.png</file>
+    <file>mode4.png</file>
+    <file>mode5.png</file>
+    <file>mode6.png</file>
+  </qresource>
+</RCC>
