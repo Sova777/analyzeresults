@@ -82,6 +82,7 @@ private slots:
     void selectMode7();
     void selectMode8();
     void linkActivated(const QUrl & link);
+    void cellSelected(int row, int column);
 };
 
 #endif	/* _MAINWINDOW_H */

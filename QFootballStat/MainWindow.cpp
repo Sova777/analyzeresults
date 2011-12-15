@@ -128,6 +128,8 @@ MainWindow::MainWindow() {
             this, SLOT(selectMode8()));
     connect(widget.text, SIGNAL(anchorClicked(const QUrl &)),
             this, SLOT(linkActivated(const QUrl &)));
+    connect(widget.table, SIGNAL(cellDoubleClicked(int, int)),
+            this, SLOT(cellSelected(int, int)));
 
     directory = QString::fromLatin1("xml");
     widget.text->setVisible(false);
@@ -628,11 +630,13 @@ void MainWindow::analyzeXml(pointer func, StatHash* hash) {
     QDir qDir = QDir(directory);
     qDir.setFilter(QDir::Files);
     QStringList list = qDir.entryList();
+    QString fullPath = qDir.absolutePath();
     QDomDocument xml("report");
-    for (int i = 0; i < list.size(); ++i) {
+    int size = list.size();
+    for (int i = 0; i < size; ++i) {
         QString fileName = list.at(i);
         if (!fileName.endsWith(QLatin1String(".xml"))) continue;
-        QFile file(qDir.absolutePath() + "/" + fileName);
+        QFile file(fullPath + "/" + fileName);
         if (!file.open(QIODevice::ReadOnly)) continue;
         if (!xml.setContent(&file)) {
             file.close();
@@ -728,6 +732,12 @@ QDate MainWindow::getDate(QDomElement& docElement) {
         return date;
     }
     return QDate(1, 1, 1);
+}
+
+void MainWindow::cellSelected (int row, int column) {
+    QMessageBox msg;
+    msg.setText(widget.table->item(row, column)->text());
+    msg.exec();
 }
 
 //void MainWindow::matchReport(const QString& matchId) {
