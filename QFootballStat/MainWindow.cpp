@@ -32,14 +32,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using namespace std;
 
-const QString EVENT_GOAL = QString::fromUtf8("Гол");
-const QString EVENT_GOAL_PENALTY = QString::fromUtf8("Гол с пенальти");
-const QString EVENT_AUTOGOAL = QString::fromUtf8("Гол в свои ворота");
-const QString EVENT_MISSED_PENALTY = QString::fromUtf8("Незабитый пенальти");
-const QString EVENT_SUBSTITUTION = QString::fromUtf8("Замена");
-const QString EVENT_YELLOW_CARD = QString::fromUtf8("Предупреждение");
-const QString EVENT_RED_CARD = QString::fromUtf8("Удаление");
-const QString EVENT_RED_YELLOW_CARD = QString::fromUtf8("Удаление и предупреждение");
 const QString STATUS_TIME = QString::fromUtf8("Время: %1 мс.");
 
 const QString TABLE_TABLE_COLUMN1 = QString::fromUtf8("Команда");
@@ -173,7 +165,7 @@ void MainWindow::selectMode8() {
 
 void MainWindow::calculateGoals() {
     StatHash hash;
-    analyzeXml(&MainWindow::goals, &hash);
+    analyzeXml(&listOfGoals, &hash);
     widget.table->setSortingEnabled(false);
     widget.table->clear();
     widget.table->setColumnCount(3);
@@ -201,7 +193,7 @@ void MainWindow::calculateGoals() {
 
 void MainWindow::calculateReferies() {
     StatHash hash;
-    analyzeXml(&MainWindow::referies, &hash);
+    analyzeXml(&listOfReferies, &hash);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(3);
@@ -229,7 +221,7 @@ void MainWindow::calculateReferies() {
 
 void MainWindow::calculateCoaches(void) {
     StatHash hash;
-    analyzeXml(&MainWindow::coaches, &hash);
+    analyzeXml(&listOfCoaches, &hash);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(3);
@@ -257,7 +249,7 @@ void MainWindow::calculateCoaches(void) {
 
 void MainWindow::calculateStadiums(void) {
     StatHash hash;
-    analyzeXml(&MainWindow::stadiums, &hash);
+    analyzeXml(&listOfStadiums, &hash);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(3);
@@ -285,7 +277,7 @@ void MainWindow::calculateStadiums(void) {
 
 void MainWindow::calculateMatches() {
     StatHash hash;
-    analyzeXml(&MainWindow::matches, &hash);
+    analyzeXml(&listOfMatches, &hash);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(4);
@@ -316,7 +308,7 @@ void MainWindow::calculateMatches() {
 
 void MainWindow::calculatePlayers() {
     StatHash hash;
-    analyzeXml(&MainWindow::players, &hash);
+    analyzeXml(&listOfPlayers, &hash);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(3);
@@ -344,7 +336,7 @@ void MainWindow::calculatePlayers() {
 
 void MainWindow::calculateTable() {
     StatHash hash;
-    analyzeXml(&MainWindow::table, &hash);
+    analyzeXml(&listOfTable, &hash);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(8);
@@ -384,7 +376,7 @@ void MainWindow::calculateTable() {
 void MainWindow::calculateTeams() {
     StatHash hash;
     StatHash hash_stat;
-    analyzeXml(&MainWindow::players, &hash);
+    analyzeXml(&listOfPlayers, &hash);
     int i = 0;
     foreach (StatHashValue* record, hash) {
         QString key = QString("%1").arg(record->getString(1));
@@ -420,205 +412,6 @@ void MainWindow::calculateTeams() {
     widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
-void MainWindow::goals(QDomElement& docElement, StatHash* hash) {
-    QDomNodeList nodes = docElement.elementsByTagName("event");
-    uint length = nodes.length();
-    for (uint i = 0; i < length; i++) {
-        QDomElement node = nodes.at(i).toElement();
-        QString eventType = node.attributes().namedItem("type").nodeValue();
-        QString player = node.attributes().namedItem("player").nodeValue();
-        QString team = node.attributes().namedItem("team").nodeValue();
-        if ((eventType == EVENT_GOAL) || (eventType == EVENT_GOAL_PENALTY)) {
-            QString key = QString("%1 (%2)").arg(player).arg(team);
-            if (!hash->contains(key)) {
-                hash->insert(key, new Record());
-            }
-            Record* record = hash->value(key);
-            record->setString(player, 0);
-            record->setString(team, 1);
-            record->add(1);
-        }
-    }
-}
-
-void MainWindow::referies(QDomElement& docElement, StatHash* hash) {
-    QDomNodeList nodes = docElement.elementsByTagName("referee");
-    if (nodes.length() > 0) {
-        QDomElement node = nodes.at(0).toElement();
-        QString name = node.text();
-        QString city = node.attributes().namedItem("city").nodeValue();
-        QString key = QString("%1 (%2)").arg(name).arg(city);
-        if (!hash->contains(key)) {
-            hash->insert(key, new Record());
-        }
-        Record* record = hash->value(key);
-        record->setString(name, 0);
-        record->setString(city, 1);
-        record->add(1);
-    }
-}
-
-void MainWindow::coaches(QDomElement& docElement, StatHash* hash) {
-    QString team1 = getTeam1(docElement);
-    QString team2 = getTeam2(docElement);
-    QDomNodeList nodes1 = docElement.elementsByTagName("coach1");
-    QDomNodeList nodes2 = docElement.elementsByTagName("coach2");
-    if ((nodes1.length() > 0) && (nodes2.length() > 0)) {
-        QDomElement node1 = nodes1.at(0).toElement();
-        QDomElement node2 = nodes2.at(0).toElement();
-        QString coach1 = node1.text();
-        QString coach2 = node2.text();
-        QString key1 = QString("%1 (%2)").arg(coach1).arg(team1);
-        QString key2 = QString("%1 (%2)").arg(coach2).arg(team2);
-        if (!hash->contains(key1)) {
-            hash->insert(key1, new Record());
-        }
-        if (!hash->contains(key2)) {
-            hash->insert(key2, new Record());
-        }
-        Record* record1 = hash->value(key1);
-        record1->setString(coach1, 0);
-        record1->setString(team1, 1);
-        record1->add(1);
-        Record* record2 = hash->value(key2);
-        record2->setString(coach2, 0);
-        record2->setString(team2, 1);
-        record2->add(1);
-    }
-}
-
-void MainWindow::stadiums(QDomElement& docElement, StatHash* hash) {
-    QString team1 = getTeam1(docElement);
-    QDomNodeList nodes = docElement.elementsByTagName("stadium");
-    if (nodes.length() > 0) {
-        QDomElement node = nodes.at(0).toElement();
-        QString stadium = node.text();
-        QString city = node.attributes().namedItem("city").nodeValue();
-        QString key = QString("%1 (%2)").arg(stadium).arg(city);
-        if (!hash->contains(key)) {
-            hash->insert(key, new Record());
-        }
-        Record* record = hash->value(key);
-        record->setString(stadium, 0);
-        record->setString(city, 1);
-        record->add(1);
-    }
-}
-
-void MainWindow::matches(QDomElement& docElement, StatHash* hash) {
-    QString team1 = getTeam1(docElement);
-    QString team2 = getTeam2(docElement);
-    QDomNodeList nodesScore = docElement.elementsByTagName("score");
-    QDate date = getDate(docElement);
-    if (nodesScore.length() > 0) {
-        QDomElement nodeScore = nodesScore.at(0).toElement();
-        QString score = nodeScore.text();
-        QString key = QString("%1 - %2 %3").arg(team1).arg(team2).arg(score);
-        hash->insert(key, new Record());
-        Record* record = hash->value(key);
-        QString qdate = date.toString("dd.MM.yyyy");
-        record->setString(qdate, 0);
-        record->setString(team1, 1);
-        record->setString(team2, 2);
-        record->setString(score, 3);
-    }
-}
-
-void MainWindow::players(QDomElement& docElement, StatHash* hash) {
-    QString team1 = getTeam1(docElement);
-    QString team2 = getTeam2(docElement);
-    QDomNodeList nodesPlayers1 = docElement.elementsByTagName("player1");
-    QDomNodeList nodesPlayers2 = docElement.elementsByTagName("player2");
-    uint len1 = nodesPlayers1.length();
-    for (uint i = 0; i < len1; i++) {
-        QDomElement nodeElement = nodesPlayers1.at(i).toElement();
-        QString player2 = nodeElement.text();
-        QString key = QString("%1 (%2)").arg(player2).arg(team1);
-        if(!hash->contains(key)) {
-            hash->insert(key, new Record());
-        }
-        Record* record = hash->value(key);
-        record->setString(player2, 0);
-        record->setString(team1, 1);
-        record->add(1);
-    }
-    uint len2 = nodesPlayers1.length();
-    for (uint i = 0; i < len2; i++) {
-        QDomElement nodeElement = nodesPlayers2.at(i).toElement();
-        QString player2 = nodeElement.text();
-        QString key = QString("%1 (%2)").arg(player2).arg(team2);
-        if(!hash->contains(key)) {
-            hash->insert(key, new Record());
-        }
-        Record* record = hash->value(key);
-        record->setString(player2, 0);
-        record->setString(team2, 1);
-        record->add(1);
-    }
-
-    QDomNodeList nodes = docElement.elementsByTagName("event");
-    uint length = nodes.length();
-    for (uint i = 0; i < length; i++) {
-        QDomElement node = nodes.at(i).toElement();
-        QString eventType = node.attributes().namedItem("type").nodeValue();
-        QString player2 = node.attributes().namedItem("player2").nodeValue();
-        QString team = node.attributes().namedItem("team").nodeValue();
-        if (eventType == EVENT_SUBSTITUTION) {
-            QString key = QString("%1 (%2)").arg(player2).arg(team);
-            if (!hash->contains(key)) {
-                hash->insert(key, new Record());
-            }
-            Record* record = hash->value(key);
-            record->setString(player2, 0);
-            record->setString(team, 1);
-            record->add(1);
-        }
-    }
-}
-
-void MainWindow::table(QDomElement& docElement, StatHash* hash) {
-    QString team1 = getTeam1(docElement);
-    QString team2 = getTeam2(docElement);
-    QDomNodeList nodesScore = docElement.elementsByTagName("score");
-    if (nodesScore.length() > 0) {
-        QDomElement nodeScore = nodesScore.at(0).toElement();
-        QString score = nodeScore.text();
-        bool ok;
-        int goal1 = 99999;
-        int goal2 = 99999;
-        goal1 = score.section(':', 0, 0).toInt(&ok);
-        goal2 = score.section(':', 1, 1).toInt(&ok);
-        if(!hash->contains(team1)) {
-            hash->insert(team1, new Record());
-        }
-        if(!hash->contains(team2)) {
-            hash->insert(team2, new Record());
-        }
-        Record* recordTeam1 = hash->value(team1);
-        Record* recordTeam2 = hash->value(team2);
-        if (recordTeam1->getString() == "") {
-            recordTeam1->setString(team1);
-        }
-        recordTeam1->add(goal1, 3);
-        recordTeam1->add(goal2, 4);
-        if (recordTeam2->getString() == "") {
-            recordTeam2->setString(team2);
-        }
-        recordTeam2->add(goal2, 3);
-        recordTeam2->add(goal1, 4);
-        if (goal1 > goal2) {
-            recordTeam1->add(1, 0);
-            recordTeam2->add(1, 2);
-        } else if (goal2 > goal1) {
-            recordTeam2->add(1, 0);
-            recordTeam1->add(1, 2);
-        } else {
-            recordTeam2->add(1, 1);
-            recordTeam1->add(1, 1);
-        }
-    }
-}
-
 // DOM парсер
 void MainWindow::analyzeXml(pointer func, StatHash* hash) {
     QTime t;
@@ -642,7 +435,7 @@ void MainWindow::analyzeXml(pointer func, StatHash* hash) {
         QDomElement docElement = xml.documentElement();
         QDate date = getDate(docElement);
         if ((date >= widget.dateEditFrom->date()) && (date <= widget.dateEditTill->date())) {
-            (this->*func)(docElement, hash);
+            (*func)(docElement, hash);
         }
     }
     QString status = STATUS_TIME.arg(t.elapsed());
@@ -696,38 +489,6 @@ void MainWindow::save() {
         out << "\n";
     }
     file.close();
-}
-
-QString MainWindow::getTeam1(QDomElement& docElement) {
-    QDomNodeList nodes = docElement.elementsByTagName("team1");
-    QString value = "";
-    if (nodes.length() > 0) {
-        QDomElement node = nodes.at(0).toElement();
-        value = node.text();
-    }
-    return value;
-}
-
-QString MainWindow::getTeam2(QDomElement& docElement) {
-    QDomNodeList nodes = docElement.elementsByTagName("team2");
-    QString value = "";
-    if (nodes.length() > 0) {
-        QDomElement node = nodes.at(0).toElement();
-        value = node.text();
-    }
-    return value;
-}
-
-QDate MainWindow::getDate(QDomElement& docElement) {
-    QDomNodeList nodes = docElement.elementsByTagName("date");    
-    QString value = "";
-    if (nodes.length() > 0) {
-        QDomElement node = nodes.at(0).toElement();
-        value = node.text();
-        QDate date = QDate::fromString(value, "yyyyMMdd");
-        return date;
-    }
-    return QDate(1, 1, 1);
 }
 
 void MainWindow::cellSelected (int row, int column) {

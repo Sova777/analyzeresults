@@ -28,17 +28,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _MAINWINDOW_H
 #define	_MAINWINDOW_H
 
+#include <QtXml>
 #include "ui_MainWindow.h"
 #include "Record.h"
-#include <QtXml>
+#include "XmlFileReader.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
-    typedef QString StatHashKey;
-    typedef Record StatHashValue;
-    typedef QHash<StatHashKey, StatHashValue*> StatHash;
-    typedef void (MainWindow::*pointer)(QDomElement& docElement, StatHash* hash);
     MainWindow();
     virtual ~MainWindow();
 private:
@@ -48,17 +45,7 @@ private:
 //    void matchReport(const QString& matchId);
 //    void matchResults(const QString& teamId);
     void analyzeXml(pointer func, StatHash* hash);
-    QString getTeam1(QDomElement& docElement);
-    QString getTeam2(QDomElement& docElement);
-    QDate getDate(QDomElement& docElement);
 
-    void goals(QDomElement& docElement, StatHash* hash);
-    void matches(QDomElement& docElement, StatHash* hash);
-    void referies(QDomElement& docElement, StatHash* hash);
-    void table(QDomElement& docElement, StatHash* hash);
-    void coaches(QDomElement& docElement, StatHash* hash);
-    void stadiums(QDomElement& docElement, StatHash* hash);
-    void players(QDomElement& docElement, StatHash* hash);
 private slots:
     void open();
     void save();
