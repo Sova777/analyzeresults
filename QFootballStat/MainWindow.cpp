@@ -27,7 +27,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <QtGui>
 #include <QtXml>
-#include <sstream>
 
 #include "MainWindow.h"
 
@@ -510,18 +509,15 @@ void MainWindow::matches(QDomElement& docElement, StatHash* hash) {
     QString team1 = getTeam1(docElement);
     QString team2 = getTeam2(docElement);
     QDomNodeList nodesScore = docElement.elementsByTagName("score");
-    QDomNodeList nodesDate = docElement.elementsByTagName("date");
-    if ((nodesScore.length() > 0) && (nodesDate.length() > 0)) {
+    QDate date = getDate(docElement);
+    if (nodesScore.length() > 0) {
         QDomElement nodeScore = nodesScore.at(0).toElement();
-        QDomElement nodeDate = nodesDate.at(0).toElement();
         QString score = nodeScore.text();
-        QString dateString = nodeDate.text();
-        QString date = dateString.right(2)
-                + "." + dateString.mid(4, 2) + "." + dateString.left(4);
         QString key = QString("%1 - %2 %3").arg(team1).arg(team2).arg(score);
         hash->insert(key, new Record());
         Record* record = hash->value(key);
-        record->setString(date, 0);
+        QString qdate = date.toString("dd.MM.yyyy");
+        record->setString(qdate, 0);
         record->setString(team1, 1);
         record->setString(team2, 2);
         record->setString(score, 3);
