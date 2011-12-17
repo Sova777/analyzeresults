@@ -30,6 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "MainWindow.h"
 #include "constants.h"
+#include "ui_MainWindow.h"
 
 using namespace std;
 
@@ -697,6 +698,8 @@ void MainWindow::initTable(int columns) {
     if (columns < 0) {
         return;
     }
+    widget.table->setVisible(true);
+    widget.text->setVisible(false);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(columns);
@@ -722,7 +725,7 @@ void MainWindow::jump(const QString& link) {
     QString code = link.left(5);
     QString id = link.right(size - 5);
     if (code == "xm01_") {
-        //calculateGoals2(id);
+        report(id);
         return;
     }
     if (code == "st02_") {
@@ -755,10 +758,31 @@ void MainWindow::jump(const QString& link) {
     }
 }
 
-//void MainWindow::matchReport(const QString& matchId) {
-//    //
-//}
-//
-//void MainWindow::matchResults(const QString& teamId) {
-//    //
-//}
+void MainWindow::report(const QString& fileName) {
+    widget.table->setVisible(false);
+    widget.text->setVisible(true);
+    QDomDocument xml("r");
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly)) return;
+    if (!xml.setContent(&file)) {
+        file.close();
+        widget.text->setText("");
+        return;
+    }
+    file.close();
+    QDomElement docElement = xml.documentElement();
+    QString team1 = getTeam1(docElement);
+    QString team2 = getTeam2(docElement);
+    QString score = getScore(docElement);
+    QString city;
+    QString attendance;
+    QString stadium = getStadium(docElement, &city, &attendance);
+    QString text = QString::fromUtf8("<h1 align='center'>%1 - %2 %3</h1><h2>%5. %4. %6 зрителей</h2>")
+            .arg(team1)
+            .arg(team2)
+            .arg(score)
+            .arg(stadium)
+            .arg(city)
+            .arg(attendance);
+    widget.text->setText(text);
+}

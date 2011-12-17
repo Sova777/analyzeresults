@@ -42,8 +42,7 @@ private:
     Ui::MainWindow widget;
     QString directory;
     void setCellValue(int row, int column, QString value);
-//    void matchReport(const QString& matchId);
-//    void matchResults(const QString& teamId);
+    void report(const QString& fileName);
     void analyzeXml(pointer func, const QString& filter, StatHash* hash);
 
 private:
