@@ -47,9 +47,13 @@ private:
     void analyzeXml(pointer func, const QString& filter, StatHash* hash);
 
 private:
-    void calculateStadiums2(QString& stadium);
-    void calculateReferies2(QString& referee);
-    void calculateCoaches2(QString& coach);
+    void calculateStadiums2(const QString& stadium);
+    void calculateReferies2(const QString& referee);
+    void calculateCoaches2(const QString& coach);
+    void calculatePlayers2(const QString& player);
+    void calculateGoals2(const QString& player);
+    void calculateTable2(const QString& team);
+    void calculateTeams2(const QString& team);
 private slots:
     void open();
     void save();
@@ -75,7 +79,7 @@ private slots:
     void linkActivated(const QUrl & link);
     void cellSelected(int row, int column);
     void jump(const QString& link);
-    void setColumns(int columns);
+    void initTable(int columns);
 };
 
 #endif	/* _MAINWINDOW_H */

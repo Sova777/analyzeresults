@@ -129,9 +129,7 @@ void MainWindow::calculateGoals() {
     StatHash hash;
     QString filter = "";
     analyzeXml(&listOfGoals, filter, &hash);
-    widget.table->setSortingEnabled(false);
-    widget.table->clear();
-    setColumns(4);
+    initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
@@ -146,6 +144,7 @@ void MainWindow::calculateGoals() {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(), 4));
+        setCellValue(i, 3, QString("go02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }
@@ -154,13 +153,44 @@ void MainWindow::calculateGoals() {
     widget.table->sortByColumn(2, Qt::DescendingOrder);
 }
 
+void MainWindow::calculateGoals2(const QString& player) {
+    StatHash hash;
+    analyzeXml(&listOfGoals2, player, &hash);
+    initTable(6);
+    widget.table->setRowCount(hash.size());
+    widget.table->setColumnWidth(0, 90);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
+    widget.table->setColumnWidth(4, 60);
+    QStringList titles;
+    titles << TABLE_GOALS2_COLUMN1
+            << TABLE_GOALS2_COLUMN2
+            << TABLE_GOALS2_COLUMN3
+            << TABLE_GOALS2_COLUMN4
+            << TABLE_GOALS2_COLUMN5;
+    widget.table->setHorizontalHeaderLabels(titles);
+    int i = 0;
+    foreach (StatHashValue* record, hash) {
+        setCellValue(i, 0, record->getString(0));
+        setCellValue(i, 1, record->getString(1));
+        setCellValue(i, 2, record->getString(2));
+        setCellValue(i, 3, record->getString(3));
+        setCellValue(i, 4, record->getString(4));
+        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+        delete record;
+        i++;
+    }
+    hash.clear();
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
+}
+
 void MainWindow::calculateReferies() {
     StatHash hash;
     QString filter = "";
     analyzeXml(&listOfReferies, filter, &hash);
-    widget.table->clear();
-    widget.table->setSortingEnabled(false);
-    setColumns(4);
+    initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
@@ -175,7 +205,7 @@ void MainWindow::calculateReferies() {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(), 4));
-        setCellValue(i, 3, QString("re01_%1").arg(record->getString(0)));
+        setCellValue(i, 3, QString("re02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }
@@ -184,12 +214,10 @@ void MainWindow::calculateReferies() {
     widget.table->sortByColumn(2, Qt::DescendingOrder);
 }
 
-void MainWindow::calculateReferies2(QString& referee) {
+void MainWindow::calculateReferies2(const QString& referee) {
     StatHash hash;
     analyzeXml(&listOfReferies2, referee, &hash);
-    widget.table->clear();
-    widget.table->setSortingEnabled(false);
-    setColumns(6);
+    initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
     widget.table->setColumnWidth(1, 120);
@@ -210,21 +238,20 @@ void MainWindow::calculateReferies2(QString& referee) {
         setCellValue(i, 2, record->getString(2));
         setCellValue(i, 3, record->getString(3));
         setCellValue(i, 4, record->getString(4));
+        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
         delete record;
         i++;
     }
     hash.clear();
     widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(2, Qt::DescendingOrder);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void MainWindow::calculateCoaches(void) {
     StatHash hash;
     QString filter = "";
     analyzeXml(&listOfCoaches, filter, &hash);
-    widget.table->clear();
-    widget.table->setSortingEnabled(false);
-    setColumns(4);
+    initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
@@ -239,7 +266,7 @@ void MainWindow::calculateCoaches(void) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-        setCellValue(i, 3, QString("co01_%1").arg(record->getString(0)));
+        setCellValue(i, 3, QString("co02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }
@@ -248,12 +275,10 @@ void MainWindow::calculateCoaches(void) {
     widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
-void MainWindow::calculateCoaches2(QString& coach) {
+void MainWindow::calculateCoaches2(const QString& coach) {
     StatHash hash;
     analyzeXml(&listOfCoaches2, coach, &hash);
-    widget.table->clear();
-    widget.table->setSortingEnabled(false);
-    setColumns(6);
+    initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
     widget.table->setColumnWidth(1, 120);
@@ -274,6 +299,7 @@ void MainWindow::calculateCoaches2(QString& coach) {
         setCellValue(i, 2, record->getString(2));
         setCellValue(i, 3, record->getString(3));
         setCellValue(i, 4, record->getString(4));
+        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
         delete record;
         i++;
     }
@@ -286,9 +312,7 @@ void MainWindow::calculateStadiums(void) {
     StatHash hash;
     QString filter = "";
     analyzeXml(&listOfStadiums, filter, &hash);
-    widget.table->clear();
-    widget.table->setSortingEnabled(false);
-    setColumns(4);
+    initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
@@ -303,7 +327,7 @@ void MainWindow::calculateStadiums(void) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-        setCellValue(i, 3, QString("st01_%1").arg(record->getString(0)));
+        setCellValue(i, 3, QString("st02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }
@@ -312,12 +336,10 @@ void MainWindow::calculateStadiums(void) {
     widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
-void MainWindow::calculateStadiums2(QString& stadium) {
+void MainWindow::calculateStadiums2(const QString& stadium) {
     StatHash hash;
     analyzeXml(&listOfStadiums2, stadium, &hash);
-    widget.table->clear();
-    widget.table->setSortingEnabled(false);
-    setColumns(6);
+    initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
     widget.table->setColumnWidth(1, 120);
@@ -338,6 +360,7 @@ void MainWindow::calculateStadiums2(QString& stadium) {
         setCellValue(i, 2, record->getString(2));
         setCellValue(i, 3, record->getString(3));
         setCellValue(i, 4, record->getString(4));
+        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
         delete record;
         i++;
     }
@@ -350,9 +373,7 @@ void MainWindow::calculateMatches() {
     StatHash hash;
     QString filter = "";
     analyzeXml(&listOfMatches, filter, &hash);
-    widget.table->clear();
-    widget.table->setSortingEnabled(false);
-    setColumns(5);
+    initTable(5);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 120);
     widget.table->setColumnWidth(1, 120);
@@ -370,21 +391,20 @@ void MainWindow::calculateMatches() {
         setCellValue(i, 1, QString(record->getString(1)));
         setCellValue(i, 2, QString(record->getString(2)));
         setCellValue(i, 3, QString(record->getString(3)));
+        setCellValue(i, 4, QString("xm01_%1").arg(record->getString(4)));
         delete record;
         i++;
     }
     hash.clear();
     widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(1, Qt::AscendingOrder);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void MainWindow::calculatePlayers() {
     StatHash hash;
     QString filter = "";
     analyzeXml(&listOfPlayers, filter, &hash);
-    widget.table->clear();
-    widget.table->setSortingEnabled(false);
-    setColumns(4);
+    initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 120);
     widget.table->setColumnWidth(1, 120);
@@ -399,6 +419,40 @@ void MainWindow::calculatePlayers() {
         setCellValue(i, 0, QString(record->getString(0)));
         setCellValue(i, 1, QString(record->getString(1)));
         setCellValue(i, 2, QString("%1").arg(record->get(), 4));
+        setCellValue(i, 3, QString("pl02_%1").arg(record->getString(0)));
+        delete record;
+        i++;
+    }
+    hash.clear();
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
+}
+
+void MainWindow::calculatePlayers2(const QString& player) {
+    StatHash hash;
+    analyzeXml(&listOfPlayers2, player, &hash);
+    initTable(6);
+    widget.table->setRowCount(hash.size());
+    widget.table->setColumnWidth(0, 90);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
+    widget.table->setColumnWidth(4, 60);
+    QStringList titles;
+    titles << TABLE_PLAYERS2_COLUMN1
+            << TABLE_PLAYERS2_COLUMN2
+            << TABLE_PLAYERS2_COLUMN3
+            << TABLE_PLAYERS2_COLUMN4
+            << TABLE_PLAYERS2_COLUMN5;
+    widget.table->setHorizontalHeaderLabels(titles);
+    int i = 0;
+    foreach (StatHashValue* record, hash) {
+        setCellValue(i, 0, record->getString(0));
+        setCellValue(i, 1, record->getString(1));
+        setCellValue(i, 2, record->getString(2));
+        setCellValue(i, 3, record->getString(3));
+        setCellValue(i, 4, record->getString(4));
+        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
         delete record;
         i++;
     }
@@ -411,9 +465,7 @@ void MainWindow::calculateTable() {
     StatHash hash;
     QString filter = "";
     analyzeXml(&listOfTable, filter, &hash);
-    widget.table->clear();
-    widget.table->setSortingEnabled(false);
-    setColumns(9);
+    initTable(9);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
     QStringList titles;
@@ -439,12 +491,46 @@ void MainWindow::calculateTable() {
             setCellValue(i, 2 + k, QString::number(record->get(k)));
         }
         setCellValue(i, 7, QString("%1").arg(points, 4));
+        setCellValue(i, 8, QString("ta02_%1").arg(record->getString()));
         delete record;
         i++;
     }
     hash.clear();
     widget.table->setSortingEnabled(true);
     widget.table->sortByColumn(7, Qt::DescendingOrder);
+}
+
+void MainWindow::calculateTable2(const QString& team) {
+    StatHash hash;
+    analyzeXml(&listOfTable2, team, &hash);
+    initTable(6);
+    widget.table->setRowCount(hash.size());
+    widget.table->setColumnWidth(0, 90);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
+    widget.table->setColumnWidth(4, 60);
+    QStringList titles;
+    titles << TABLE_TABLE2_COLUMN1
+            << TABLE_TABLE2_COLUMN2
+            << TABLE_TABLE2_COLUMN3
+            << TABLE_TABLE2_COLUMN4
+            << TABLE_TABLE2_COLUMN5;
+    widget.table->setHorizontalHeaderLabels(titles);
+    int i = 0;
+    foreach (StatHashValue* record, hash) {
+        setCellValue(i, 0, record->getString(0));
+        setCellValue(i, 1, record->getString(1));
+        setCellValue(i, 2, record->getString(2));
+        setCellValue(i, 3, record->getString(3));
+        setCellValue(i, 4, record->getString(4));
+        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+        delete record;
+        i++;
+    }
+    hash.clear();
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void MainWindow::calculateTeams() {
@@ -462,9 +548,7 @@ void MainWindow::calculateTeams() {
         i++;
     }
     hash.clear();
-    widget.table->clear();
-    widget.table->setSortingEnabled(false);
-    setColumns(3);
+    initTable(3);
     widget.table->setRowCount(hash_stat.size());
     widget.table->setColumnWidth(0, 120);
     widget.table->setColumnWidth(1, 60);
@@ -476,6 +560,49 @@ void MainWindow::calculateTeams() {
     foreach (StatHashValue* record, hash_stat) {
         setCellValue(i, 0, QString(record->getString(0)));
         setCellValue(i, 1, QString("%1").arg(record->get(), 4));
+        setCellValue(i, 2, QString("te02_%1").arg(record->getString(0)));
+        delete record;
+        i++;
+    }
+    hash_stat.clear();
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
+}
+
+void MainWindow::calculateTeams2(const QString& team) {
+    StatHash hash;
+    StatHash hash_stat;
+    QString filter = "";
+    analyzeXml(&listOfPlayers, filter, &hash);
+    int i = 0;
+    foreach (StatHashValue* record, hash) {
+        if (record->getString(1) == team) {
+            QString key = QString("%1").arg(record->getString(0));
+            Record* record_stat = Record::getInstance(hash_stat, key);
+            record_stat->setString(record->getString(0), 0);
+            record_stat->setString(record->getString(1), 1);
+            record_stat->set(record->get(0), 0);
+            delete record;
+            i++;
+        }
+    }
+    hash.clear();
+    initTable(4);
+    widget.table->setRowCount(hash_stat.size());
+    widget.table->setColumnWidth(0, 120);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 60);
+    QStringList titles;
+    titles << TABLE_TEAMS2_COLUMN1
+            << TABLE_TEAMS2_COLUMN2
+            << TABLE_TEAMS2_COLUMN3;
+    widget.table->setHorizontalHeaderLabels(titles);
+    i = 0;
+    foreach (StatHashValue* record, hash_stat) {
+        setCellValue(i, 0, record->getString(0));
+        setCellValue(i, 1, record->getString(1));
+        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
+        setCellValue(i, 3, QString("pl02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }
@@ -497,7 +624,8 @@ void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash)
     for (int i = 0; i < size; ++i) {
         QString fileName = list.at(i);
         if (!fileName.endsWith(QLatin1String(".xml"))) continue;
-        QFile file(fullPath + "/" + fileName);
+        QString fullName = fullPath + "/" + fileName;
+        QFile file(fullName);
         if (!file.open(QIODevice::ReadOnly)) continue;
         if (!xml.setContent(&file)) {
             file.close();
@@ -507,7 +635,7 @@ void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash)
         QDomElement docElement = xml.documentElement();
         QDate date = getDate(docElement);
         if ((date >= widget.dateEditFrom->date()) && (date <= widget.dateEditTill->date())) {
-            (*func)(docElement, filter, hash);
+            (*func)(docElement, date, fullName, filter, hash);
         }
     }
     QString status = STATUS_TIME.arg(t.elapsed());
@@ -565,10 +693,12 @@ void MainWindow::save() {
     file.close();
 }
 
-void MainWindow::setColumns(int columns) {
+void MainWindow::initTable(int columns) {
     if (columns < 0) {
         return;
     }
+    widget.table->clear();
+    widget.table->setSortingEnabled(false);
     widget.table->setColumnCount(columns);
     for (int j = 0; j < (columns - 1); j++) {
         widget.table->setColumnHidden(j, false);
@@ -591,16 +721,36 @@ void MainWindow::jump(const QString& link) {
     }
     QString code = link.left(5);
     QString id = link.right(size - 5);
-    if (code == "st01_") {
+    if (code == "xm01_") {
+        //calculateGoals2(id);
+        return;
+    }
+    if (code == "st02_") {
         calculateStadiums2(id);
         return;
     }
-    if (code == "re01_") {
+    if (code == "re02_") {
         calculateReferies2(id);
         return;
     }
-    if (code == "co01_") {
+    if (code == "co02_") {
         calculateCoaches2(id);
+        return;
+    }
+    if (code == "pl02_") {
+        calculatePlayers2(id);
+        return;
+    }
+    if (code == "go02_") {
+        calculateGoals2(id);
+        return;
+    }
+    if (code == "te02_") {
+        calculateTeams2(id);
+        return;
+    }
+    if (code == "ta02_") {
+        calculateTable2(id);
         return;
     }
 }
