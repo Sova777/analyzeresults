@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	_RECORD_H
 
 #include <QString>
+#include "constants.h"
 
 class Record {
 private:
@@ -36,13 +37,16 @@ private:
     static const int maxText = 5;
     QString text[maxText];
     int field[max];
-public:
+    QString key;
     Record();
+public:
     void add(int add, int index = 0);
     int get(int index = 0);
     void set(int value, int index = 0);
     QString getString(int index = 0);
     void setString(QString& value, int index = 0);
+    static Record* getInstance(StatHash& hash, const StatHashKey& key);
+    static Record* getInstance(StatHash* hash, const StatHashKey& key);
     static bool less(const Record* left, const Record* right);
 };
 

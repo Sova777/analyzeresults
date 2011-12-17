@@ -30,10 +30,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <QtGui>
 #include <QtXml>
+#include "constants.h"
 
-typedef QString StatHashKey;
-typedef Record StatHashValue;
-typedef QHash<StatHashKey, StatHashValue*> StatHash;
 typedef void (*pointer)(const QDomElement& docElement, const QString& filter, StatHash* hash);
 
 void listOfGoals(const QDomElement& docElement, const QString& filter, StatHash* hash);
@@ -43,6 +41,7 @@ void listOfReferies(const QDomElement& docElement, const QString& filter, StatHa
 void listOfReferies2(const QDomElement& docElement, const QString& filter, StatHash* hash);
 void listOfTable(const QDomElement& docElement, const QString& filter, StatHash* hash);
 void listOfCoaches(const QDomElement& docElement, const QString& filter, StatHash* hash);
+void listOfCoaches2(const QDomElement& docElement, const QString& filter, StatHash* hash);
 void listOfStadiums(const QDomElement& docElement, const QString& filter, StatHash* hash);
 void listOfStadiums2(const QDomElement& docElement, const QString& filter, StatHash* hash);
 void listOfPlayers(const QDomElement& docElement, const QString& filter, StatHash* hash);
@@ -53,5 +52,7 @@ QDate getDate(const QDomElement& docElement);
 QString getReferee(const QDomElement& docElement);
 QString getScore(const QDomElement& docElement);
 QString getStadium(const QDomElement& docElement, QString* city = NULL);
+QString getCoach1(const QDomElement& docElement);
+QString getCoach2(const QDomElement& docElement);
 
 #endif	/* XMLFILEREADER_H */

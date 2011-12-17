@@ -25,6 +25,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <QHash>
+#include "XmlFileReader.h"
 #include "Record.h"
 
 Record::Record() {
@@ -73,4 +75,22 @@ void Record::setString(QString& value, int index) {
 
 bool Record::less(const Record* left, const Record* right) {
     return (right->field[0]) < (left->field[0]);
+}
+
+Record* Record::getInstance(StatHash& hash, const StatHashKey& key) {
+    if (!hash.contains(key)) {
+        hash.insert(key, new Record());
+    }
+    Record* record = hash.value(key);
+    record->key = key;
+    return record;
+}
+
+Record* Record::getInstance(StatHash* hash, const StatHashKey& key) {
+    if (!hash->contains(key)) {
+        hash->insert(key, new Record());
+    }
+    Record* record = hash->value(key);
+    record->key = key;
+    return record;
 }
