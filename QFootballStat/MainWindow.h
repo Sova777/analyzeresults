@@ -30,8 +30,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <QtXml>
 #include "ui_MainWindow.h"
-#include "Record.h"
 #include "XmlFileReader.h"
+#include "Record.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -49,6 +49,7 @@ private:
 private:
     void calculateStadiums2(QString& stadium);
     void calculateReferies2(QString& referee);
+    void calculateCoaches2(QString& coach);
 private slots:
     void open();
     void save();
@@ -73,6 +74,7 @@ private slots:
     void selectMode8();
     void linkActivated(const QUrl & link);
     void cellSelected(int row, int column);
+    void jump(const QString& link);
     void setColumns(int columns);
 };
 

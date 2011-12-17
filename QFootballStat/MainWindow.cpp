@@ -29,59 +29,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <QtXml>
 
 #include "MainWindow.h"
+#include "constants.h"
 
 using namespace std;
-
-const QString STATUS_TIME = QString::fromUtf8("Время: %1 мс.");
-
-const QString TABLE_TABLE_COLUMN1 = QString::fromUtf8("Команда");
-const QString TABLE_TABLE_COLUMN2 = QString::fromUtf8("И");
-const QString TABLE_TABLE_COLUMN3 = QString::fromUtf8("В");
-const QString TABLE_TABLE_COLUMN4 = QString::fromUtf8("Н");
-const QString TABLE_TABLE_COLUMN5 = QString::fromUtf8("П");
-const QString TABLE_TABLE_COLUMN6 = QString::fromUtf8("Заб.");
-const QString TABLE_TABLE_COLUMN7 = QString::fromUtf8("Проп.");
-const QString TABLE_TABLE_COLUMN8 = QString::fromUtf8("О");
-
-const QString TABLE_REFERIES_COLUMN1 = QString::fromUtf8("Судья");
-const QString TABLE_REFERIES_COLUMN2 = QString::fromUtf8("Город");
-const QString TABLE_REFERIES_COLUMN3 = QString::fromUtf8("Игр");
-
-const QString TABLE_REFERIES2_COLUMN1 = QString::fromUtf8("Дата");
-const QString TABLE_REFERIES2_COLUMN2 = QString::fromUtf8("Город");
-const QString TABLE_REFERIES2_COLUMN3 = QString::fromUtf8("Хозяева");
-const QString TABLE_REFERIES2_COLUMN4 = QString::fromUtf8("Гости");
-const QString TABLE_REFERIES2_COLUMN5 = QString::fromUtf8("Счёт");
-
-const QString TABLE_GOALS_COLUMN1 = QString::fromUtf8("Игрок");
-const QString TABLE_GOALS_COLUMN2 = QString::fromUtf8("Команда");
-const QString TABLE_GOALS_COLUMN3 = QString::fromUtf8("Мячей");
-
-const QString TABLE_COACHES_COLUMN1 = QString::fromUtf8("Тренер");
-const QString TABLE_COACHES_COLUMN2 = QString::fromUtf8("Команда");
-const QString TABLE_COACHES_COLUMN3 = QString::fromUtf8("Матчей");
-
-const QString TABLE_MATCHES_COLUMN1 = QString::fromUtf8("Дата");
-const QString TABLE_MATCHES_COLUMN2 = QString::fromUtf8("Хозяева");
-const QString TABLE_MATCHES_COLUMN3 = QString::fromUtf8("Гости");
-const QString TABLE_MATCHES_COLUMN4 = QString::fromUtf8("Счёт");
-
-const QString TABLE_STADIUMS_COLUMN1 = QString::fromUtf8("Стадион");
-const QString TABLE_STADIUMS_COLUMN2 = QString::fromUtf8("Город");
-const QString TABLE_STADIUMS_COLUMN3 = QString::fromUtf8("Матчей");
-
-const QString TABLE_STADIUMS2_COLUMN1 = QString::fromUtf8("Дата");
-const QString TABLE_STADIUMS2_COLUMN2 = QString::fromUtf8("Город");
-const QString TABLE_STADIUMS2_COLUMN3 = QString::fromUtf8("Хозяева");
-const QString TABLE_STADIUMS2_COLUMN4 = QString::fromUtf8("Гости");
-const QString TABLE_STADIUMS2_COLUMN5 = QString::fromUtf8("Счёт");
-
-const QString TABLE_PLAYERS_COLUMN1 = QString::fromUtf8("Игрок");
-const QString TABLE_PLAYERS_COLUMN2 = QString::fromUtf8("Команда");
-const QString TABLE_PLAYERS_COLUMN3 = QString::fromUtf8("Матчей");
-
-const QString TABLE_TEAMS_COLUMN1 = QString::fromUtf8("Команда");
-const QString TABLE_TEAMS_COLUMN2 = QString::fromUtf8("Игроков");
 
 MainWindow::MainWindow() {
 
@@ -181,7 +131,7 @@ void MainWindow::calculateGoals() {
     analyzeXml(&listOfGoals, filter, &hash);
     widget.table->setSortingEnabled(false);
     widget.table->clear();
-    widget.table->setColumnCount(3);
+    setColumns(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
@@ -274,7 +224,7 @@ void MainWindow::calculateCoaches(void) {
     analyzeXml(&listOfCoaches, filter, &hash);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
-    widget.table->setColumnCount(3);
+    setColumns(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
@@ -289,6 +239,41 @@ void MainWindow::calculateCoaches(void) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
+        setCellValue(i, 3, QString("co01_%1").arg(record->getString(0)));
+        delete record;
+        i++;
+    }
+    hash.clear();
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
+}
+
+void MainWindow::calculateCoaches2(QString& coach) {
+    StatHash hash;
+    analyzeXml(&listOfCoaches2, coach, &hash);
+    widget.table->clear();
+    widget.table->setSortingEnabled(false);
+    setColumns(6);
+    widget.table->setRowCount(hash.size());
+    widget.table->setColumnWidth(0, 90);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
+    widget.table->setColumnWidth(4, 60);
+    QStringList titles;
+    titles << TABLE_COACHES2_COLUMN1
+            << TABLE_COACHES2_COLUMN2
+            << TABLE_COACHES2_COLUMN3
+            << TABLE_COACHES2_COLUMN4
+            << TABLE_COACHES2_COLUMN5;
+    widget.table->setHorizontalHeaderLabels(titles);
+    int i = 0;
+    foreach (StatHashValue* record, hash) {
+        setCellValue(i, 0, record->getString(0));
+        setCellValue(i, 1, record->getString(1));
+        setCellValue(i, 2, record->getString(2));
+        setCellValue(i, 3, record->getString(3));
+        setCellValue(i, 4, record->getString(4));
         delete record;
         i++;
     }
@@ -367,7 +352,7 @@ void MainWindow::calculateMatches() {
     analyzeXml(&listOfMatches, filter, &hash);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
-    widget.table->setColumnCount(4);
+    setColumns(5);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 120);
     widget.table->setColumnWidth(1, 120);
@@ -399,7 +384,7 @@ void MainWindow::calculatePlayers() {
     analyzeXml(&listOfPlayers, filter, &hash);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
-    widget.table->setColumnCount(3);
+    setColumns(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 120);
     widget.table->setColumnWidth(1, 120);
@@ -428,7 +413,7 @@ void MainWindow::calculateTable() {
     analyzeXml(&listOfTable, filter, &hash);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
-    widget.table->setColumnCount(8);
+    setColumns(9);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
     QStringList titles;
@@ -470,10 +455,7 @@ void MainWindow::calculateTeams() {
     int i = 0;
     foreach (StatHashValue* record, hash) {
         QString key = QString("%1").arg(record->getString(1));
-        if (!hash_stat.contains(key)) {
-            hash_stat.insert(key, new Record());
-        }
-        Record* record_stat = hash_stat.value(key);
+        Record* record_stat = Record::getInstance(hash_stat, key);
         record_stat->setString(key);
         record_stat->add(1);
         delete record;
@@ -482,7 +464,7 @@ void MainWindow::calculateTeams() {
     hash.clear();
     widget.table->clear();
     widget.table->setSortingEnabled(false);
-    widget.table->setColumnCount(2);
+    setColumns(3);
     widget.table->setRowCount(hash_stat.size());
     widget.table->setColumnWidth(0, 120);
     widget.table->setColumnWidth(1, 60);
@@ -595,15 +577,30 @@ void MainWindow::setColumns(int columns) {
 }
 
 void MainWindow::cellSelected(int row, int column) {
-    QString link = widget.table->item(row, widget.table->columnCount() - 1)->text();
-    QString code = link.section("_", 0, 0);
-    QString id = link.section("_", 1, 1);
-    if (code == "st01") {
+    QTableWidgetItem* item = widget.table->item(row, widget.table->columnCount() - 1);
+    if (item != NULL) {
+        QString link = item->text();
+        jump(link);
+    }
+}
+
+void MainWindow::jump(const QString& link) {
+    int size = link.length();
+    if (size < 5) {
+        return;
+    }
+    QString code = link.left(5);
+    QString id = link.right(size - 5);
+    if (code == "st01_") {
         calculateStadiums2(id);
         return;
     }
-    if (code == "re01") {
+    if (code == "re01_") {
         calculateReferies2(id);
+        return;
+    }
+    if (code == "co01_") {
+        calculateCoaches2(id);
         return;
     }
 }
