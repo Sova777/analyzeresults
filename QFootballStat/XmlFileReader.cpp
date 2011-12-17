@@ -37,7 +37,7 @@ const QString EVENT_YELLOW_CARD = QString::fromUtf8("Предупреждени�
 const QString EVENT_RED_CARD = QString::fromUtf8("Удаление");
 const QString EVENT_RED_YELLOW_CARD = QString::fromUtf8("Удаление и предупреждение");
 
-void listOfGoals(const QDomElement& docElement, StatHash* hash) {
+void listOfGoals(const QDomElement& docElement, const QString& filter, StatHash* hash) {
     QDomNodeList nodes = docElement.elementsByTagName("event");
     uint length = nodes.length();
     for (uint i = 0; i < length; i++) {
@@ -58,7 +58,7 @@ void listOfGoals(const QDomElement& docElement, StatHash* hash) {
     }
 }
 
-void listOfReferies(const QDomElement& docElement, StatHash* hash) {
+void listOfReferies(const QDomElement& docElement, const QString& filter, StatHash* hash) {
     QDomNodeList nodes = docElement.elementsByTagName("referee");
     if (nodes.length() > 0) {
         QDomElement node = nodes.at(0).toElement();
@@ -75,7 +75,28 @@ void listOfReferies(const QDomElement& docElement, StatHash* hash) {
     }
 }
 
-void listOfCoaches(const QDomElement& docElement, StatHash* hash) {
+void listOfReferies2(const QDomElement& docElement, const QString& filter, StatHash* hash) {
+    QString team1 = getTeam1(docElement);
+    QString team2 = getTeam2(docElement);
+    QString score = getScore(docElement);
+    QDate date = getDate(docElement);
+    QString city;
+    QString stadium = getStadium(docElement, &city);
+    QString referee = getReferee(docElement);
+    if (referee == filter) {
+        QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
+        hash->insert(key, new Record());
+        Record* record = hash->value(key);
+        QString qdate = date.toString("dd.MM.yyyy");
+        record->setString(qdate, 0);
+        record->setString(city, 1);
+        record->setString(team1, 2);
+        record->setString(team2, 3);
+        record->setString(score, 4);
+    }
+}
+
+void listOfCoaches(const QDomElement& docElement, const QString& filter, StatHash* hash) {
     QString team1 = getTeam1(docElement);
     QString team2 = getTeam2(docElement);
     QDomNodeList nodes1 = docElement.elementsByTagName("coach1");
@@ -104,7 +125,7 @@ void listOfCoaches(const QDomElement& docElement, StatHash* hash) {
     }
 }
 
-void listOfStadiums(const QDomElement& docElement, StatHash* hash) {
+void listOfStadiums(const QDomElement& docElement, const QString& filter, StatHash* hash) {
     QDomNodeList nodes = docElement.elementsByTagName("stadium");
     if (nodes.length() > 0) {
         QDomElement node = nodes.at(0).toElement();
@@ -121,23 +142,29 @@ void listOfStadiums(const QDomElement& docElement, StatHash* hash) {
     }
 }
 
-void listOfStadiums2(const QDomElement& docElement, StatHash* hash) {
+void listOfStadiums2(const QDomElement& docElement, const QString& filter, StatHash* hash) {
     QString team1 = getTeam1(docElement);
     QString team2 = getTeam2(docElement);
     QString score = getScore(docElement);
+    QDate date = getDate(docElement);
     QString city;
     QString stadium = getStadium(docElement, &city);
-    QString key = QString("%1 (%2)").arg(stadium).arg(city);
-    if (!hash->contains(key)) {
-        hash->insert(key, new Record());
+    if (stadium == filter) {
+        QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
+        if (!hash->contains(key)) {
+            hash->insert(key, new Record());
+        }
+        Record* record = hash->value(key);
+        QString qdate = date.toString("dd.MM.yyyy");
+        record->setString(qdate, 0);
+        record->setString(city, 1);
+        record->setString(team1, 2);
+        record->setString(team2, 3);
+        record->setString(score, 4);
     }
-    Record* record = hash->value(key);
-    record->setString(stadium, 0);
-    record->setString(city, 1);
-    record->add(1);
 }
 
-void listOfMatches(const QDomElement& docElement, StatHash* hash) {
+void listOfMatches(const QDomElement& docElement, const QString& filter, StatHash* hash) {
     QString team1 = getTeam1(docElement);
     QString team2 = getTeam2(docElement);
     QDomNodeList nodesScore = docElement.elementsByTagName("score");
@@ -156,7 +183,7 @@ void listOfMatches(const QDomElement& docElement, StatHash* hash) {
     }
 }
 
-void listOfPlayers(const QDomElement& docElement, StatHash* hash) {
+void listOfPlayers(const QDomElement& docElement, const QString& filter, StatHash* hash) {
     QString team1 = getTeam1(docElement);
     QString team2 = getTeam2(docElement);
     QDomNodeList nodesPlayers1 = docElement.elementsByTagName("player1");
@@ -208,7 +235,7 @@ void listOfPlayers(const QDomElement& docElement, StatHash* hash) {
     }
 }
 
-void listOfTable(const QDomElement& docElement, StatHash* hash) {
+void listOfTable(const QDomElement& docElement, const QString& filter, StatHash* hash) {
     QString team1 = getTeam1(docElement);
     QString team2 = getTeam2(docElement);
     QDomNodeList nodesScore = docElement.elementsByTagName("score");
@@ -308,4 +335,14 @@ QString getStadium(const QDomElement& docElement, QString* city) {
         }
     }
     return value;    
+}
+
+QString getReferee(const QDomElement& docElement) {
+    QDomNodeList nodes = docElement.elementsByTagName("referee");
+    QString value = "";
+    if (nodes.length() > 0) {
+        QDomElement node = nodes.at(0).toElement();
+        value = node.text();
+    }
+    return value;
 }

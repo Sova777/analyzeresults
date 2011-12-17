@@ -44,8 +44,11 @@ private:
     void setCellValue(int row, int column, QString value);
 //    void matchReport(const QString& matchId);
 //    void matchResults(const QString& teamId);
-    void analyzeXml(pointer func, StatHash* hash);
+    void analyzeXml(pointer func, const QString& filter, StatHash* hash);
 
+private:
+    void calculateStadiums2(QString& stadium);
+    void calculateReferies2(QString& referee);
 private slots:
     void open();
     void save();
@@ -70,6 +73,7 @@ private slots:
     void selectMode8();
     void linkActivated(const QUrl & link);
     void cellSelected(int row, int column);
+    void setColumns(int columns);
 };
 
 #endif	/* _MAINWINDOW_H */
