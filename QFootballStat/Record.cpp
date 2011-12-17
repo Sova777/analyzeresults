@@ -66,7 +66,7 @@ QString Record::getString(int index) {
     return text[index];
 }
 
-void Record::setString(QString& value, int index) {
+void Record::setString(const QString& value, int index) {
     if (index >= maxText) {
         throw 0;
     }

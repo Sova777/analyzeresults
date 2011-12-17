@@ -34,7 +34,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class Record {
 private:
     static const int max = 10;
-    static const int maxText = 5;
+    static const int maxText = 6;
     QString text[maxText];
     int field[max];
     QString key;
@@ -44,7 +44,7 @@ public:
     int get(int index = 0);
     void set(int value, int index = 0);
     QString getString(int index = 0);
-    void setString(QString& value, int index = 0);
+    void setString(const QString& value, int index = 0);
     static Record* getInstance(StatHash& hash, const StatHashKey& key);
     static Record* getInstance(StatHash* hash, const StatHashKey& key);
     static bool less(const Record* left, const Record* right);

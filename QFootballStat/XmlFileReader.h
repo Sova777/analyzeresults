@@ -30,21 +30,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <QtGui>
 #include <QtXml>
+#include <QDate>
 #include "constants.h"
 
-typedef void (*pointer)(const QDomElement& docElement, const QString& filter, StatHash* hash);
+typedef void (*pointer)(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 
-void listOfGoals(const QDomElement& docElement, const QString& filter, StatHash* hash);
-void listOfMatches(const QDomElement& docElement, const QString& filter, StatHash* hash);
-void listOfMatches2(const QDomElement& docElement, const QString& filter, StatHash* hash);
-void listOfReferies(const QDomElement& docElement, const QString& filter, StatHash* hash);
-void listOfReferies2(const QDomElement& docElement, const QString& filter, StatHash* hash);
-void listOfTable(const QDomElement& docElement, const QString& filter, StatHash* hash);
-void listOfCoaches(const QDomElement& docElement, const QString& filter, StatHash* hash);
-void listOfCoaches2(const QDomElement& docElement, const QString& filter, StatHash* hash);
-void listOfStadiums(const QDomElement& docElement, const QString& filter, StatHash* hash);
-void listOfStadiums2(const QDomElement& docElement, const QString& filter, StatHash* hash);
-void listOfPlayers(const QDomElement& docElement, const QString& filter, StatHash* hash);
+void listOfGoals(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfGoals2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfMatches(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfMatches2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfReferies(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfReferies2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfTable(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfTable2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfCoaches(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfCoaches2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfStadiums(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfStadiums2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfPlayers(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfPlayers2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 
 QString getTeam1(const QDomElement& docElement);
 QString getTeam2(const QDomElement& docElement);
@@ -54,5 +58,7 @@ QString getScore(const QDomElement& docElement);
 QString getStadium(const QDomElement& docElement, QString* city = NULL);
 QString getCoach1(const QDomElement& docElement);
 QString getCoach2(const QDomElement& docElement);
+bool isPlayed(const QDomElement& docElement, const QString& player);
+bool isScored(const QDomElement& docElement, const QString& player);
 
 #endif	/* XMLFILEREADER_H */

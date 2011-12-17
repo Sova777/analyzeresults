@@ -56,6 +56,12 @@ const QString TABLE_TABLE_COLUMN6 = QString::fromUtf8("Заб.");
 const QString TABLE_TABLE_COLUMN7 = QString::fromUtf8("Проп.");
 const QString TABLE_TABLE_COLUMN8 = QString::fromUtf8("О");
 
+const QString TABLE_TABLE2_COLUMN1 = QString::fromUtf8("Дата");
+const QString TABLE_TABLE2_COLUMN2 = QString::fromUtf8("Город");
+const QString TABLE_TABLE2_COLUMN3 = QString::fromUtf8("Хозяева");
+const QString TABLE_TABLE2_COLUMN4 = QString::fromUtf8("Гости");
+const QString TABLE_TABLE2_COLUMN5 = QString::fromUtf8("Счёт");
+
 const QString TABLE_REFERIES_COLUMN1 = QString::fromUtf8("Судья");
 const QString TABLE_REFERIES_COLUMN2 = QString::fromUtf8("Город");
 const QString TABLE_REFERIES_COLUMN3 = QString::fromUtf8("Игр");
@@ -69,6 +75,12 @@ const QString TABLE_REFERIES2_COLUMN5 = QString::fromUtf8("Счёт");
 const QString TABLE_GOALS_COLUMN1 = QString::fromUtf8("Игрок");
 const QString TABLE_GOALS_COLUMN2 = QString::fromUtf8("Команда");
 const QString TABLE_GOALS_COLUMN3 = QString::fromUtf8("Мячей");
+
+const QString TABLE_GOALS2_COLUMN1 = QString::fromUtf8("Дата");
+const QString TABLE_GOALS2_COLUMN2 = QString::fromUtf8("Город");
+const QString TABLE_GOALS2_COLUMN3 = QString::fromUtf8("Хозяева");
+const QString TABLE_GOALS2_COLUMN4 = QString::fromUtf8("Гости");
+const QString TABLE_GOALS2_COLUMN5 = QString::fromUtf8("Счёт");
 
 const QString TABLE_COACHES_COLUMN1 = QString::fromUtf8("Тренер");
 const QString TABLE_COACHES_COLUMN2 = QString::fromUtf8("Команда");
@@ -99,8 +111,18 @@ const QString TABLE_PLAYERS_COLUMN1 = QString::fromUtf8("Игрок");
 const QString TABLE_PLAYERS_COLUMN2 = QString::fromUtf8("Команда");
 const QString TABLE_PLAYERS_COLUMN3 = QString::fromUtf8("Матчей");
 
+const QString TABLE_PLAYERS2_COLUMN1 = QString::fromUtf8("Дата");
+const QString TABLE_PLAYERS2_COLUMN2 = QString::fromUtf8("Город");
+const QString TABLE_PLAYERS2_COLUMN3 = QString::fromUtf8("Хозяева");
+const QString TABLE_PLAYERS2_COLUMN4 = QString::fromUtf8("Гости");
+const QString TABLE_PLAYERS2_COLUMN5 = QString::fromUtf8("Счёт");
+
 const QString TABLE_TEAMS_COLUMN1 = QString::fromUtf8("Команда");
 const QString TABLE_TEAMS_COLUMN2 = QString::fromUtf8("Игроков");
+
+const QString TABLE_TEAMS2_COLUMN1 = QString::fromUtf8("Игрок");
+const QString TABLE_TEAMS2_COLUMN2 = QString::fromUtf8("Команда");
+const QString TABLE_TEAMS2_COLUMN3 = QString::fromUtf8("Матчей");
 
 #endif	/* CONSTANTS_H */
 
