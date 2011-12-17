@@ -356,17 +356,23 @@ QString getScore(const QDomElement& docElement) {
     return value;
 }
 
-QString getStadium(const QDomElement& docElement, QString* city) {
+QString getStadium(const QDomElement& docElement, QString* city, QString* attendance) {
     QDomNodeList nodes = docElement.elementsByTagName("stadium");
     QString value = "";
     if (city != NULL) {
         *city = "";
+    }
+    if (attendance != NULL) {
+        *attendance = "";
     }
     if (nodes.length() > 0) {
         QDomElement node = nodes.at(0).toElement();
         value = node.text();
         if (city != NULL) {
             *city = node.attributes().namedItem("city").nodeValue();
+        }
+        if (attendance != NULL) {
+            *attendance = node.attributes().namedItem("attendance").nodeValue();
         }
     }
     return value;    

@@ -55,7 +55,7 @@ QString getTeam2(const QDomElement& docElement);
 QDate getDate(const QDomElement& docElement);
 QString getReferee(const QDomElement& docElement);
 QString getScore(const QDomElement& docElement);
-QString getStadium(const QDomElement& docElement, QString* city = NULL);
+QString getStadium(const QDomElement& docElement, QString* city = NULL, QString* attendance = NULL);
 QString getCoach1(const QDomElement& docElement);
 QString getCoach2(const QDomElement& docElement);
 bool isPlayed(const QDomElement& docElement, const QString& player);
