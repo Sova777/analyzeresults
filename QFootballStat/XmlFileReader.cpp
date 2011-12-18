@@ -384,12 +384,18 @@ QString getStadium(const QDomElement& docElement, QString* city, QString* attend
     return value;    
 }
 
-QString getReferee(const QDomElement& docElement) {
+QString getReferee(const QDomElement& docElement, QString* city) {
     QDomNodeList nodes = docElement.elementsByTagName("referee");
     QString value = "";
+    if (city != NULL) {
+        *city = "";
+    }
     if (nodes.length() > 0) {
         QDomElement node = nodes.at(0).toElement();
         value = node.text();
+        if (city != NULL) {
+            *city = node.attributes().namedItem("city").nodeValue();
+        }
     }
     return value;
 }

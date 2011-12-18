@@ -778,7 +778,8 @@ void MainWindow::report(const QString& fileName) {
     QString score = getScore(docElement);
     QString time;
     QDate date = getDate(docElement, &time);
-    QString referee = getReferee(docElement);
+    QString rcity;
+    QString referee = getReferee(docElement, &rcity);
     QString round;
     QString tournament = getMatch(docElement, &round);
     QString city;
@@ -792,11 +793,12 @@ void MainWindow::report(const QString& fileName) {
             .arg(team1)
             .arg(team2)
             .arg(score));
-    text.append(QString::fromUtf8("<p>%2. %1. %3 зрителей<br><b>Судья:</b> %4<br>%6 %5</p>")
+    text.append(QString::fromUtf8("<p>%2. %1. %3 зрителей<br><b>Судья:</b> %4 (%5)<br>%7 %6</p>")
             .arg(stadium)
             .arg(city)
             .arg(attendance)
             .arg(referee)
+            .arg(rcity)
             .arg(time)
             .arg(date.toString(Qt::DefaultLocaleLongDate)));
 
