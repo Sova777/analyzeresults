@@ -52,12 +52,13 @@ void listOfPlayers2(const QDomElement& docElement, const QDate& date, const QStr
 
 QString getTeam1(const QDomElement& docElement);
 QString getTeam2(const QDomElement& docElement);
-QDate getDate(const QDomElement& docElement);
+QDate getDate(const QDomElement& docElement, QString* time = NULL);
 QString getReferee(const QDomElement& docElement);
 QString getScore(const QDomElement& docElement);
 QString getStadium(const QDomElement& docElement, QString* city = NULL, QString* attendance = NULL);
 QString getCoach1(const QDomElement& docElement);
 QString getCoach2(const QDomElement& docElement);
+QString getMatch(const QDomElement& docElement, QString* round = NULL);
 bool isPlayed(const QDomElement& docElement, const QString& player);
 bool isScored(const QDomElement& docElement, const QString& player);
 

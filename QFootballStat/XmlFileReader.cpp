@@ -334,12 +334,18 @@ QString getTeam2(const QDomElement& docElement) {
     return value;
 }
 
-QDate getDate(const QDomElement& docElement) {
+QDate getDate(const QDomElement& docElement, QString* time) {
     QDomNodeList nodes = docElement.elementsByTagName("date");    
     QString value = "";
+    if (time != NULL) {
+        *time = "";
+    }
     if (nodes.length() > 0) {
         QDomElement node = nodes.at(0).toElement();
         value = node.text();
+        if (time != NULL) {
+            *time = node.attributes().namedItem("time").nodeValue();
+        }
         QDate date = QDate::fromString(value, "yyyyMMdd");
         return date;
     }
@@ -404,6 +410,22 @@ QString getCoach2(const QDomElement& docElement) {
     if (nodes.length() > 0) {
         QDomElement node = nodes.at(0).toElement();
         value = node.text();
+    }
+    return value;
+}
+
+QString getMatch(const QDomElement& docElement, QString* round) {
+    QDomNodeList nodes = docElement.elementsByTagName("match");
+    QString value = "";
+    if (round != NULL) {
+        *round = "";
+    }
+    if (nodes.length() > 0) {
+        QDomElement node = nodes.at(0).toElement();
+        value = node.attributes().namedItem("tournament").nodeValue();
+        if (round != NULL) {
+            *round = node.attributes().namedItem("round").nodeValue();
+        }
     }
     return value;
 }

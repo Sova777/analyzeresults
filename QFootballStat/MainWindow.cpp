@@ -773,16 +773,78 @@ void MainWindow::report(const QString& fileName) {
     QDomElement docElement = xml.documentElement();
     QString team1 = getTeam1(docElement);
     QString team2 = getTeam2(docElement);
+    QString coach1 = getCoach1(docElement);
+    QString coach2 = getCoach2(docElement);
     QString score = getScore(docElement);
+    QString time;
+    QDate date = getDate(docElement, &time);
+    QString referee = getReferee(docElement);
+    QString round;
+    QString tournament = getMatch(docElement, &round);
     QString city;
     QString attendance;
     QString stadium = getStadium(docElement, &city, &attendance);
-    QString text = QString::fromUtf8("<h1 align='center'>%1 - %2 %3</h1><h2>%5. %4. %6 зрителей</h2>")
+    QString text = QString::fromUtf8("<h1 align='center'>%1</h1>")
+            .arg(tournament);
+    text.append(QString::fromUtf8("<h2 align='center'>Тур: %1</h2>")
+            .arg(round));
+    text.append(QString::fromUtf8("<h2 align='center'>%1 - %2 - %3</h2>")
             .arg(team1)
             .arg(team2)
-            .arg(score)
+            .arg(score));
+    text.append(QString::fromUtf8("<p>%2. %1. %3 зрителей<br><b>Судья:</b> %4<br>%6 %5</p>")
             .arg(stadium)
             .arg(city)
-            .arg(attendance);
+            .arg(attendance)
+            .arg(referee)
+            .arg(time)
+            .arg(date.toString(Qt::DefaultLocaleLongDate)));
+
+    // игроки
+    QDomNodeList nodes1 = docElement.elementsByTagName("player1");
+    text.append(QString::fromLatin1("<table border='0' width='100%'>"));
+    text.append(QString::fromLatin1("<tr><td>"));
+    uint length1 = nodes1.length();
+    for (uint i = 0; i < length1; i++) {
+        QDomElement node1 = nodes1.at(i).toElement();
+        QString value = node1.text();
+        if (i != 0) {
+            text.append(QString("<br>"));
+        }
+        text.append(QString("%1").arg(value));
+    }
+    text.append(QString::fromLatin1("</td><td>"));
+    QDomNodeList nodes2 = docElement.elementsByTagName("player2");
+    uint length2 = nodes2.length();
+    for (uint i = 0; i < length2; i++) {
+        QDomElement node2 = nodes2.at(i).toElement();
+        QString value = node2.text();
+        if (i != 0) {
+            text.append(QString("<br>"));
+        }
+        text.append(QString("%1").arg(value));
+    }
+    text.append(QString::fromLatin1("</td></tr>"));
+    text.append(QString::fromUtf8("<tr><td><b>Тренер:</b> %1</td><td><b>Тренер:</b> %2</td></tr>").arg(coach1).arg(coach2));
+    text.append(QString::fromLatin1("</table>"));
+
+    // события в матче
+    text.append(QString::fromLatin1("<table border='0' width='100%'>"));
+    QDomNodeList nodes = docElement.elementsByTagName("event");
+    uint length = nodes.length();
+    for (uint i = 0; i < length; i++) {
+        QDomElement node = nodes.at(i).toElement();
+        QString eventType = node.attributes().namedItem("type").nodeValue();
+        QString player = node.attributes().namedItem("player").nodeValue();
+        QString player2 = node.attributes().namedItem("player2").nodeValue();
+        QString team = node.attributes().namedItem("team").nodeValue();
+        QString time = node.attributes().namedItem("time").nodeValue();
+        if (player2 == "") {
+            text.append(QString("<tr><td>%1'</td><td>%2</td><td>%3</td><td>%4</td></tr>").arg(time).arg(eventType).arg(team).arg(player));
+        } else {
+            text.append(QString("<tr><td>%1'</td><td>%2</td><td>%3</td><td>%4 - %5</td></tr>").arg(time).arg(eventType).arg(team).arg(player).arg(player2));
+        }
+    }
+    text.append(QString::fromLatin1("</table>"));
     widget.text->setText(text);
 }
