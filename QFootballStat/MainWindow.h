@@ -67,6 +67,10 @@ private slots:
     void calculatePlayers(void);
     void calculateTeams(void);
 
+    void verifyPlayers(void);
+    void verifyPlayers2(void);
+    void verifyAttendance(void);
+
     void selectMode1();
     void selectMode2();
     void selectMode3();

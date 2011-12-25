@@ -63,7 +63,12 @@ MainWindow::MainWindow() {
             this, SLOT(calculatePlayers()));
     connect(widget.actionCalculateTeams, SIGNAL(triggered()),
             this, SLOT(calculateTeams()));
-
+    connect(widget.actionVerifyPlayers, SIGNAL(triggered()),
+            this, SLOT(verifyPlayers()));
+    connect(widget.actionVerifyPlayers2, SIGNAL(triggered()),
+            this, SLOT(verifyPlayers2()));
+    connect(widget.actionVerifyAttendance, SIGNAL(triggered()),
+            this, SLOT(verifyAttendance()));
     connect(widget.pushButton_1, SIGNAL(clicked()),
             this, SLOT(selectMode1()));
     connect(widget.pushButton_2, SIGNAL(clicked()),
@@ -612,31 +617,137 @@ void MainWindow::calculateTeams2(const QString& team) {
     widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
+void MainWindow::verifyPlayers(void) {
+    StatHash hash;
+    QString filter = "";
+    analyzeXml(&checkListOfPlayers, filter, &hash);
+    initTable(6);
+    widget.table->setRowCount(hash.size());
+    widget.table->setColumnWidth(0, 120);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
+    widget.table->setColumnWidth(4, 120);
+    QStringList titles;
+    titles << TABLE_MATCHINFO_COLUMN1
+            << TABLE_MATCHINFO_COLUMN2
+            << TABLE_MATCHINFO_COLUMN3
+            << TABLE_MATCHINFO_COLUMN4
+            << TABLE_MATCHINFO_COLUMN5;
+    widget.table->setHorizontalHeaderLabels(titles);
+    int i = 0;
+    foreach (StatHashValue* record, hash) {
+        setCellValue(i, 0, record->getString(0));
+        setCellValue(i, 1, record->getString(1));
+        setCellValue(i, 2, record->getString(2));
+        setCellValue(i, 3, record->getString(3));
+        setCellValue(i, 4, record->getString(4));
+        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+        delete record;
+        i++;
+    }
+    hash.clear();
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);    
+}
+
+void MainWindow::verifyPlayers2(void) {
+    StatHash hash;
+    QString filter = "";
+    analyzeXml(&checkListOfPlayers2, filter, &hash);
+    initTable(5);
+    widget.table->setColumnWidth(0, 120);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
+    QStringList titles;
+    titles << TABLE_CHECKPLAYERS2_COLUMN1
+            << TABLE_CHECKPLAYERS2_COLUMN2
+            << TABLE_CHECKPLAYERS2_COLUMN3
+            << TABLE_CHECKPLAYERS2_COLUMN4;
+    widget.table->setHorizontalHeaderLabels(titles);
+    int i = 0;
+    foreach (StatHashValue* record, hash) {
+        if (record->get() > 1) {
+            i++;
+        }
+    }
+    widget.table->setRowCount(i);
+    i = 0;
+    foreach (StatHashValue* record, hash) {
+        if (record->get() > 1) {
+            setCellValue(i, 0, record->getString(1));
+            setCellValue(i, 1, record->getString(2));
+            setCellValue(i, 2, record->getString(3));
+            setCellValue(i, 3, record->getString(4));
+            setCellValue(i, 4, QString(""));
+            delete record;
+            i++;
+        }
+    }
+    hash.clear();
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);    
+}
+
+void MainWindow::verifyAttendance(void) {
+    StatHash hash;
+    QString filter = "";
+    analyzeXml(&checkListOfAttendance, filter, &hash);
+    initTable(6);
+    widget.table->setRowCount(hash.size());
+    widget.table->setColumnWidth(0, 120);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
+    widget.table->setColumnWidth(4, 120);
+    QStringList titles;
+    titles << TABLE_MATCHINFO_COLUMN1
+            << TABLE_MATCHINFO_COLUMN2
+            << TABLE_MATCHINFO_COLUMN3
+            << TABLE_MATCHINFO_COLUMN4
+            << TABLE_MATCHINFO_COLUMN5;
+    widget.table->setHorizontalHeaderLabels(titles);
+    int i = 0;
+    foreach (StatHashValue* record, hash) {
+        setCellValue(i, 0, record->getString(0));
+        setCellValue(i, 1, record->getString(1));
+        setCellValue(i, 2, record->getString(2));
+        setCellValue(i, 3, record->getString(3));
+        setCellValue(i, 4, record->getString(4));
+        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+        delete record;
+        i++;
+    }
+    hash.clear();
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);    
+}
+
 // DOM парсер
 void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash) {
     QTime t;
     t.start();
     QDir qDir = QDir(directory);
-    qDir.setFilter(QDir::Files);
-    QStringList list = qDir.entryList();
-    QString fullPath = qDir.absolutePath();
     QDomDocument xml("report");
-    int size = list.size();
-    for (int i = 0; i < size; ++i) {
-        QString fileName = list.at(i);
-        if (!fileName.endsWith(QLatin1String(".xml"))) continue;
-        QString fullName = fullPath + "/" + fileName;
-        QFile file(fullName);
-        if (!file.open(QIODevice::ReadOnly)) continue;
-        if (!xml.setContent(&file)) {
+    QDirIterator it(qDir.absolutePath(), QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        it.next();
+        if (!it.fileInfo().isDir()) {
+            QString fileName = it.fileName();
+            if (!fileName.endsWith(QLatin1String(".xml"))) continue;
+            QFile file(it.fileInfo().absoluteFilePath());
+            if (!file.open(QIODevice::ReadOnly)) continue;
+            if (!xml.setContent(&file)) {
+                file.close();
+                continue;
+            }
             file.close();
-            continue;
-        }
-        file.close();
-        QDomElement docElement = xml.documentElement();
-        QDate date = getDate(docElement);
-        if ((date >= widget.dateEditFrom->date()) && (date <= widget.dateEditTill->date())) {
-            (*func)(docElement, date, fullName, filter, hash);
+            QDomElement docElement = xml.documentElement();
+            QDate date = getDate(docElement);
+            if ((date >= widget.dateEditFrom->date()) && (date <= widget.dateEditTill->date())) {
+                (*func)(docElement, date, fileName, filter, hash);
+            }
         }
     }
     QString status = STATUS_TIME.arg(t.elapsed());
