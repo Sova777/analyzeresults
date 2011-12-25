@@ -314,6 +314,121 @@ void listOfTable2(const QDomElement& docElement, const QDate& date, const QStrin
     }
 }
 
+void checkListOfPlayers(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash) {
+    QDomNodeList nodesPlayers1 = docElement.elementsByTagName("player1");
+    QDomNodeList nodesPlayers2 = docElement.elementsByTagName("player2");
+    uint len1 = nodesPlayers1.length();
+    uint len2 = nodesPlayers2.length();
+    if ((len1 != 11) || (len2 != 11)) {
+        addMatch(docElement, date, fileName, hash);
+    }
+}
+
+void checkListOfPlayers2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash) {
+    QString team1 = getTeam1(docElement);
+    QString team2 = getTeam2(docElement);
+    QDomNodeList nodesPlayers1 = docElement.elementsByTagName("player1");
+    QDomNodeList nodesPlayers2 = docElement.elementsByTagName("player2");
+    uint len1 = nodesPlayers1.length();
+    for (uint i = 0; i < len1; i++) {
+        QDomElement nodeElement = nodesPlayers1.at(i).toElement();
+        QString player = nodeElement.text();
+        QString id = nodeElement.attributes().namedItem("id").nodeValue();
+        QString key = QString("%1,%2").arg(player).arg(team1);
+        Record* record = Record::getInstance(hash, key);
+        QString real_id = record->getString();
+        int counter = record->get();
+        if ((real_id == "") && (counter == 0)) {
+            record->setString(id, 0);
+            record->setString(player, 1);
+            record->setString(team1, 2);
+            record->setString(id, 3);
+            record->add(1);
+        } else {
+            if (real_id != id) {
+                record->setString(id, 4);
+                record->add(1);     
+            }
+        }
+    }
+    uint len2 = nodesPlayers2.length();
+    for (uint i = 0; i < len2; i++) {
+        QDomElement nodeElement = nodesPlayers2.at(i).toElement();
+        QString player = nodeElement.text();
+        QString id = nodeElement.attributes().namedItem("id").nodeValue();
+        QString key = QString("%1,%2").arg(player).arg(team2);
+        Record* record = Record::getInstance(hash, key);
+        QString real_id = record->getString();
+        int counter = record->get();
+        if ((real_id == "") && (counter == 0)) {
+            record->setString(id, 0);
+            record->setString(player, 1);
+            record->setString(team2, 2);
+            record->setString(id, 3);
+            record->add(1);
+        } else {
+            if (real_id != id) {
+                record->setString(id, 4);
+                record->add(1);     
+            }
+        }
+    }
+    QDomNodeList nodes = docElement.elementsByTagName("event");
+    uint length = nodes.length();
+    for (uint i = 0; i < length; i++) {
+        QDomElement node = nodes.at(i).toElement();
+        QString team = node.attributes().namedItem("team").nodeValue();
+        QString eventType = node.attributes().namedItem("type").nodeValue();
+        QString player = node.attributes().namedItem("player").nodeValue();
+        QString playerid = node.attributes().namedItem("playerid").nodeValue();
+        QString key = QString("%1,%2").arg(player).arg(team);
+        Record* record = Record::getInstance(hash, key);
+        QString real_id = record->getString();
+        int counter = record->get();
+        if ((real_id == "") && (counter == 0)) {
+            record->setString(playerid, 0);
+            record->setString(player, 1);
+            record->setString(team, 2);
+            record->setString(playerid, 3);
+            record->add(1);
+        } else {
+            if (real_id != playerid) {
+                record->setString(playerid, 4);
+                record->add(1);     
+            }
+        }
+        if (eventType == EVENT_SUBSTITUTION) {
+            QString player2 = node.attributes().namedItem("player2").nodeValue();
+            QString playerid2 = node.attributes().namedItem("playerid2").nodeValue();
+            QString key = QString("%1,%2").arg(player2).arg(team);
+            Record* record = Record::getInstance(hash, key);
+            QString real_id = record->getString();
+            int counter = record->get();
+            if ((real_id == "") && (counter == 0)) {
+                record->setString(playerid2, 0);
+                record->setString(player2, 1);
+                record->setString(team, 2);
+                record->setString(playerid2, 3);
+                record->add(1);
+            } else {
+                if (real_id != playerid2) {
+                    record->setString(playerid2, 4);
+                    record->add(1);     
+                }
+            }
+        }
+    }
+}
+
+void checkListOfAttendance(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash) {
+    QString city;
+    QString attendance;
+    QString stadium = getStadium(docElement, &city, &attendance);
+    if (attendance == "") {
+        addMatch(docElement, date, fileName, hash);
+    }
+}
+
 QString getTeam1(const QDomElement& docElement) {
     QDomNodeList nodes = docElement.elementsByTagName("team1");
     QString value = "";
@@ -486,4 +601,21 @@ bool isScored(const QDomElement& docElement, const QString& player) {
         }
     }
     return value;
+}
+
+void addMatch(const QDomElement& docElement, const QDate& date, const QString& fileName, StatHash* hash) {
+    QString team1 = getTeam1(docElement);
+    QString team2 = getTeam2(docElement);
+    QString score = getScore(docElement);
+    QString city;
+    QString stadium = getStadium(docElement, &city);
+    QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
+    Record* record = Record::getInstance(hash, key);
+    QString qdate = date.toString("yyyy/MM/dd");
+    record->setString(qdate, 0);
+    record->setString(city, 1);
+    record->setString(team1, 2);
+    record->setString(team2, 3);
+    record->setString(score, 4);
+    record->setString(fileName, 5);
 }

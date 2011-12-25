@@ -50,6 +50,12 @@ void listOfStadiums2(const QDomElement& docElement, const QDate& date, const QSt
 void listOfPlayers(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfPlayers2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 
+void checkListOfPlayers(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void checkListOfPlayers2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void checkListOfAttendance(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+
+void addMatch(const QDomElement& docElement, const QDate& date, const QString& fileName, StatHash* hash);
+
 QString getTeam1(const QDomElement& docElement);
 QString getTeam2(const QDomElement& docElement);
 QDate getDate(const QDomElement& docElement, QString* time = NULL);

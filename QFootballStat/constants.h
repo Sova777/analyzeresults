@@ -124,5 +124,16 @@ const QString TABLE_TEAMS2_COLUMN1 = QString::fromUtf8("Игрок");
 const QString TABLE_TEAMS2_COLUMN2 = QString::fromUtf8("Команда");
 const QString TABLE_TEAMS2_COLUMN3 = QString::fromUtf8("Матчей");
 
+const QString TABLE_MATCHINFO_COLUMN1 = QString::fromUtf8("Дата");
+const QString TABLE_MATCHINFO_COLUMN2 = QString::fromUtf8("Город");
+const QString TABLE_MATCHINFO_COLUMN3 = QString::fromUtf8("Хозяева");
+const QString TABLE_MATCHINFO_COLUMN4 = QString::fromUtf8("Гости");
+const QString TABLE_MATCHINFO_COLUMN5 = QString::fromUtf8("Счёт");
+
+const QString TABLE_CHECKPLAYERS2_COLUMN1 = QString::fromUtf8("Фамилия");
+const QString TABLE_CHECKPLAYERS2_COLUMN2 = QString::fromUtf8("Команда");
+const QString TABLE_CHECKPLAYERS2_COLUMN3 = QString::fromUtf8("ID1");
+const QString TABLE_CHECKPLAYERS2_COLUMN4 = QString::fromUtf8("ID2");
+
 #endif	/* CONSTANTS_H */
 
