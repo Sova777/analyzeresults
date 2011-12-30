@@ -1,4 +1,4 @@
-set PATH=D:/Qt/4.8.0/bin;%PATH%
+set PATH=D:/Qt/4.8.0-vs2008/bin;%PATH%
 rm -rf vsbuild
 mkdir vsbuild
 cd vsbuild

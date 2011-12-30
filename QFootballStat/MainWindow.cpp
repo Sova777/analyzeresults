@@ -736,7 +736,8 @@ void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash)
         if (!it.fileInfo().isDir()) {
             QString fileName = it.fileName();
             if (!fileName.endsWith(QLatin1String(".xml"))) continue;
-            QFile file(it.fileInfo().absoluteFilePath());
+            QString fullFileName = it.fileInfo().absoluteFilePath();
+            QFile file(fullFileName);
             if (!file.open(QIODevice::ReadOnly)) continue;
             if (!xml.setContent(&file)) {
                 file.close();
@@ -746,7 +747,7 @@ void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash)
             QDomElement docElement = xml.documentElement();
             QDate date = getDate(docElement);
             if ((date >= widget.dateEditFrom->date()) && (date <= widget.dateEditTill->date())) {
-                (*func)(docElement, date, fileName, filter, hash);
+                (*func)(docElement, date, fullFileName, filter, hash);
             }
         }
     }
