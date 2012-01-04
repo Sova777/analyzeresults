@@ -41,6 +41,7 @@ public:
 private:
     Ui::MainWindow widget;
     QString directory;
+    void closeEvent(QCloseEvent *event);
     void setCellValue(int row, int column, QString value);
     void report(const QString& fileName);
     void analyzeXml(pointer func, const QString& filter, StatHash* hash);

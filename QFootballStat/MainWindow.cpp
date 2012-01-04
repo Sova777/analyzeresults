@@ -90,13 +90,26 @@ MainWindow::MainWindow() {
     connect(widget.table, SIGNAL(cellDoubleClicked(int, int)),
             this, SLOT(cellSelected(int, int)));
 
-    directory = QString::fromLatin1("xml");
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope,
+            "football.mojgorod.ru", "QFootballStat");
+    directory = settings.value("currentDir").toString();
+    if (directory == "") {
+        directory = QString::fromLatin1("xml");
+    }
     widget.text->setVisible(false);
     widget.table->setSortingEnabled(true);
-    //selectMode1();
+    selectMode1();
 }
 
 MainWindow::~MainWindow() {
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope,
+            "football.mojgorod.ru", "QFootballStat");
+    settings.setValue("currentDir", directory);
+    settings.sync();
+    event->accept();
 }
 
 void MainWindow::selectMode1() {
@@ -648,7 +661,7 @@ void MainWindow::verifyPlayers(void) {
     }
     hash.clear();
     widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);    
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void MainWindow::verifyPlayers2(void) {
@@ -687,7 +700,7 @@ void MainWindow::verifyPlayers2(void) {
     }
     hash.clear();
     widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);    
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void MainWindow::verifyAttendance(void) {
@@ -721,15 +734,16 @@ void MainWindow::verifyAttendance(void) {
     }
     hash.clear();
     widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);    
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
 // DOM парсер
 void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash) {
+    statusBar()->showMessage(STATUS_CALCULATING);
     QTime t;
     t.start();
     QDir qDir = QDir(directory);
-    QDomDocument xml("report");
+    QDomDocument xml;
     QDirIterator it(qDir.absolutePath(), QDirIterator::Subdirectories);
     while (it.hasNext()) {
         it.next();
@@ -873,10 +887,10 @@ void MainWindow::jump(const QString& link) {
 void MainWindow::report(const QString& fileName) {
     widget.table->setVisible(false);
     widget.text->setVisible(true);
-    QDomDocument xml("r");
+    QDomDocument xml;
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly)) return;
-    if (!xml.setContent(&file)) {
+    if (!xml.setContent(&file, false)) {
         file.close();
         widget.text->setText("");
         return;
