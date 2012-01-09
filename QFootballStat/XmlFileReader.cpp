@@ -210,7 +210,7 @@ void listOfPlayers(const QDomElement& docElement, const QDate& date, const QStri
         record->setString(team1, 1);
         record->add(1);
     }
-    uint len2 = nodesPlayers1.length();
+    uint len2 = nodesPlayers2.length();
     for (uint i = 0; i < len2; i++) {
         QDomElement nodeElement = nodesPlayers2.at(i).toElement();
         QString player2 = nodeElement.text();
@@ -563,7 +563,7 @@ bool isPlayed(const QDomElement& docElement, const QString& player) {
             return true;
         }
     }
-    uint len2 = nodesPlayers1.length();
+    uint len2 = nodesPlayers2.length();
     for (uint i = 0; i < len2; i++) {
         QDomElement nodeElement = nodesPlayers2.at(i).toElement();
         QString player2 = nodeElement.text();
