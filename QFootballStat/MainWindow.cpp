@@ -96,9 +96,9 @@ MainWindow::MainWindow() {
     if (directory == "") {
         directory = QString::fromLatin1("xml");
     }
-    widget.text->setVisible(false);
-    widget.table->setSortingEnabled(true);
-    selectMode1();
+    widget.text->setVisible(true);
+    widget.table->setVisible(false);
+    //selectMode1();
 }
 
 MainWindow::~MainWindow() {
