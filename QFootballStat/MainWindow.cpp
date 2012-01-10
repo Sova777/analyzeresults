@@ -96,6 +96,7 @@ MainWindow::MainWindow() {
     if (directory == "") {
         directory = QString::fromLatin1("xml");
     }
+    widget.text->setText(FIRST_MESSAGE);
     widget.text->setVisible(true);
     widget.table->setVisible(false);
     //selectMode1();
@@ -795,6 +796,9 @@ void MainWindow::open() {
     if (dir != "") {
         directory = dir;
     }
+    widget.text->setText(FIRST_MESSAGE);
+    widget.text->setVisible(true);
+    widget.table->setVisible(false);
 }
 
 void MainWindow::about() {
