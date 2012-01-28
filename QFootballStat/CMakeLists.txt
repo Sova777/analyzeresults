@@ -4,7 +4,7 @@ find_package(Qt4 REQUIRED)
 set(GUI_TYPE WIN32)
 set(QT_USE_QTXML TRUE)
 set(SRC main.cpp Record.cpp MainWindow.cpp XmlFileReader.cpp moc_MainWindow.cpp)
-set(HEADRES MainWindow.h Record.h XmlFileReader.h constants.h)
+set(HEADRES MainWindow.h Record.h XmlFileReader.h Report.h constants.h)
 
 include(${QT_USE_FILE})
 QT4_ADD_RESOURCES(QFootballStat_rc resources.qrc)
