@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009 - 2011, Valeriy Soldatov
+Copyright (c) 2009 - 2012, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <QtXml>
 
 #include "MainWindow.h"
+#include "Report.h"
 #include "constants.h"
 #include "ui_MainWindow.h"
 
@@ -769,6 +770,39 @@ void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash)
     QString status = STATUS_TIME.arg(t.elapsed());
     statusBar()->showMessage(status, 2000);
     return;
+}
+
+Report saxParser(QFile& file) {
+    Report report;
+    QXmlStreamReader xml(&file);
+    QString currentTag;
+    while (!xml.atEnd()) {
+        QXmlStreamReader::TokenType token = xml.readNext();
+        QStringRef ref = xml.name();
+        if (xml.isStartElement()) {
+            currentTag = ref.toString();
+            if (currentTag == "team1") {
+                report.team1id = xml.attributes().value("id").toString();
+            } else if (currentTag == "team2") {
+                report.team2id = xml.attributes().value("id").toString();
+            } else if (currentTag == "date") {
+                report.time = xml.attributes().value("time").toString();
+            }
+        } else if (xml.isCharacters()) {
+            if (currentTag == "team1") {
+                report.team1 = xml.text().toString();
+            } else if (currentTag == "team2") {
+                report.team2 = xml.text().toString();
+            } else if (currentTag == "date") {
+                report.date = xml.text().toString();
+            } else if (currentTag == "score") {
+                report.score = xml.text().toString();
+            }
+        } else {
+            currentTag = "";
+        }
+    }
+    return report;
 }
 
 void MainWindow::linkActivated(const QUrl & link) {

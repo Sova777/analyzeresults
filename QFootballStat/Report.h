@@ -25,72 +25,22 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <QHash>
-#include "XmlFileReader.h"
-#include "Record.h"
+#ifndef REPORT_H
+#define	REPORT_H
 
-Record::Record() {
-    for (int i = 0; i < maxText; i++) {
-        this->text[i] = "";
-    }
-    for (int i = 0; i < max; i++) {
-        field[i] = 0;
-    }
-}
+#include <QString>
 
-void Record::add(int add, int index) {
-    if (index >= max) {
-        throw 0;
-    }
-    field[index] += add;
-}
+class Report {
+public:
+    QString team1;
+    QString team2;
+    QString team1id;
+    QString team2id;
+    QString date;
+    QString time;
+    QString score;
+private:
 
-int Record::get(int index) {
-    if (index >= max) {
-        throw 0;
-    }
-    return field[index];
-}
+};
 
-void Record::set(int value, int index) {
-    if (index >= max) {
-        throw 0;
-    }
-    field[index] = value;
-}
-
-QString Record::getString(int index) {
-    if (index >= maxText) {
-        throw 0;
-    }
-    return text[index];
-}
-
-void Record::setString(const QString& value, int index) {
-    if (index >= maxText) {
-        throw 0;
-    }
-    text[index] = value;
-}
-
-bool Record::less(const Record* left, const Record* right) {
-    return (right->field[0]) < (left->field[0]);
-}
-
-Record* Record::getInstance(StatHash& hash, const StatHashKey& key) {
-    if (!hash.contains(key)) {
-        hash.insert(key, new Record());
-    }
-    Record* record = hash.value(key);
-    record->key = key;
-    return record;
-}
-
-Record* Record::getInstance(StatHash* hash, const StatHashKey& key) {
-    if (!hash->contains(key)) {
-        hash->insert(key, new Record());
-    }
-    Record* record = hash->value(key);
-    record->key = key;
-    return record;
-}
+#endif	/* REPORT_H */
