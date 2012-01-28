@@ -28,6 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef REPORT_H
 #define	REPORT_H
 
+#include <QDate>
 #include <QString>
 
 class Report {
@@ -36,7 +37,7 @@ public:
     QString team2;
     QString team1id;
     QString team2id;
-    QString date;
+    QDate date;
     QString time;
     QString score;
 private:
