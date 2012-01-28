@@ -393,7 +393,7 @@ void MainWindow::calculateStadiums2(const QString& stadium) {
 void MainWindow::calculateMatches() {
     StatHash hash;
     QString filter = "";
-    analyzeXml(&listOfMatches, filter, &hash);
+    analyzeXml2(&listOfMatches, filter, &hash);
     initTable(5);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 120);
@@ -772,12 +772,41 @@ void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash)
     return;
 }
 
-Report saxParser(QFile& file) {
+// SAX парсер
+void MainWindow::analyzeXml2(pointer2 func, const QString& filter, StatHash* hash) {
+    QDomElement docElement;
+    statusBar()->showMessage(STATUS_CALCULATING);
+    QTime t;
+    t.start();
+    QDir qDir = QDir(directory);
+    QDirIterator it(qDir.absolutePath(), QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        it.next();
+        if (!it.fileInfo().isDir()) {
+            QString fileName = it.fileName();
+            if (!fileName.endsWith(QLatin1String(".xml"))) continue;
+            QString fullFileName = it.fileInfo().absoluteFilePath();
+            QFile file(fullFileName);
+            if (!file.open(QIODevice::ReadOnly)) continue;
+            Report report = saxParser(file);
+            file.close();
+            QDate date = report.date;
+            if ((date >= widget.dateEditFrom->date()) && (date <= widget.dateEditTill->date())) {
+                (*func)(report, date, fullFileName, filter, hash);
+            }
+        }
+    }
+    QString status = STATUS_TIME.arg(t.elapsed());
+    statusBar()->showMessage(status, 2000);
+    return;
+}
+
+Report MainWindow::saxParser(QFile& file) {
     Report report;
     QXmlStreamReader xml(&file);
     QString currentTag;
     while (!xml.atEnd()) {
-        QXmlStreamReader::TokenType token = xml.readNext();
+        xml.readNext();
         QStringRef ref = xml.name();
         if (xml.isStartElement()) {
             currentTag = ref.toString();
@@ -794,7 +823,7 @@ Report saxParser(QFile& file) {
             } else if (currentTag == "team2") {
                 report.team2 = xml.text().toString();
             } else if (currentTag == "date") {
-                report.date = xml.text().toString();
+                report.date = QDate::fromString(xml.text().toString(), "yyyyMMdd");
             } else if (currentTag == "score") {
                 report.score = xml.text().toString();
             }

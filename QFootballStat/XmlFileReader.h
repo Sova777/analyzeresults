@@ -31,13 +31,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <QtGui>
 #include <QtXml>
 #include <QDate>
+#include "Report.h"
 #include "constants.h"
 
 typedef void (*pointer)(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+typedef void (*pointer2)(const Report& report, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 
 void listOfGoals(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfGoals2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfMatches(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfMatches(const Report& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfMatches2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfReferies(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfReferies2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);

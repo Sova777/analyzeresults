@@ -26,6 +26,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "Record.h"
+#include "Report.h"
 #include "XmlFileReader.h"
 #include "constants.h"
 
@@ -177,22 +178,18 @@ void listOfStadiums2(const QDomElement& docElement, const QDate& date, const QSt
     }
 }
 
-void listOfMatches(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash) {
-    QString team1 = getTeam1(docElement);
-    QString team2 = getTeam2(docElement);
-    QDomNodeList nodesScore = docElement.elementsByTagName("score");
-    if (nodesScore.length() > 0) {
-        QDomElement nodeScore = nodesScore.at(0).toElement();
-        QString score = nodeScore.text();
-        QString key = QString("%1 - %2 %3").arg(team1).arg(team2).arg(score);
-        Record* record = Record::getInstance(hash, key);
-        QString qdate = date.toString("yyyy/MM/dd");
-        record->setString(qdate, 0);
-        record->setString(team1, 1);
-        record->setString(team2, 2);
-        record->setString(score, 3);
-        record->setString(fileName, 4);
-    }
+void listOfMatches(const Report& report, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash) {
+    QString team1 = report.team1;
+    QString team2 = report.team2;
+    QString score = report.score;
+    QString key = QString("%1 - %2 %3").arg(team1).arg(team2).arg(score);
+    Record* record = Record::getInstance(hash, key);
+    QString qdate = date.toString("yyyy/MM/dd");
+    record->setString(qdate, 0);
+    record->setString(team1, 1);
+    record->setString(team2, 2);
+    record->setString(score, 3);
+    record->setString(fileName, 4);
 }
 
 void listOfPlayers(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash) {
