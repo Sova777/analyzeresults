@@ -161,7 +161,8 @@ void MainWindow::calculateGoals() {
             << TABLE_GOALS_COLUMN3;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(), 4));
@@ -192,7 +193,8 @@ void MainWindow::calculateGoals2(const QString& player) {
             << TABLE_GOALS2_COLUMN5;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, record->getString(2));
@@ -210,7 +212,7 @@ void MainWindow::calculateGoals2(const QString& player) {
 void MainWindow::calculateReferies() {
     StatHash hash;
     QString filter = "";
-    analyzeXml2(&listOfReferies, filter, &hash);
+    analyzeXml2(&listOfReferies, true, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -222,7 +224,8 @@ void MainWindow::calculateReferies() {
             << TABLE_REFERIES_COLUMN3;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(), 4));
@@ -237,7 +240,7 @@ void MainWindow::calculateReferies() {
 
 void MainWindow::calculateReferies2(const QString& referee) {
     StatHash hash;
-    analyzeXml2(&listOfReferies2, referee, &hash);
+    analyzeXml2(&listOfReferies2, true, referee, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -253,7 +256,8 @@ void MainWindow::calculateReferies2(const QString& referee) {
             << TABLE_REFERIES2_COLUMN5;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, record->getString(2));
@@ -271,7 +275,7 @@ void MainWindow::calculateReferies2(const QString& referee) {
 void MainWindow::calculateCoaches(void) {
     StatHash hash;
     QString filter = "";
-    analyzeXml2(&listOfCoaches, filter, &hash);
+    analyzeXml2(&listOfCoaches, true, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -283,7 +287,8 @@ void MainWindow::calculateCoaches(void) {
             << TABLE_COACHES_COLUMN3;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
@@ -298,7 +303,7 @@ void MainWindow::calculateCoaches(void) {
 
 void MainWindow::calculateCoaches2(const QString& coach) {
     StatHash hash;
-    analyzeXml2(&listOfCoaches2, coach, &hash);
+    analyzeXml2(&listOfCoaches2, true, coach, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -314,7 +319,8 @@ void MainWindow::calculateCoaches2(const QString& coach) {
             << TABLE_COACHES2_COLUMN5;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, record->getString(2));
@@ -332,7 +338,7 @@ void MainWindow::calculateCoaches2(const QString& coach) {
 void MainWindow::calculateStadiums(void) {
     StatHash hash;
     QString filter = "";
-    analyzeXml2(&listOfStadiums, filter, &hash);
+    analyzeXml2(&listOfStadiums, true, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -344,7 +350,8 @@ void MainWindow::calculateStadiums(void) {
             << TABLE_STADIUMS_COLUMN3;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
@@ -359,7 +366,7 @@ void MainWindow::calculateStadiums(void) {
 
 void MainWindow::calculateStadiums2(const QString& stadium) {
     StatHash hash;
-    analyzeXml2(&listOfStadiums2, stadium, &hash);
+    analyzeXml2(&listOfStadiums2, true, stadium, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -375,7 +382,8 @@ void MainWindow::calculateStadiums2(const QString& stadium) {
             << TABLE_STADIUMS2_COLUMN5;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, record->getString(2));
@@ -393,7 +401,7 @@ void MainWindow::calculateStadiums2(const QString& stadium) {
 void MainWindow::calculateMatches() {
     StatHash hash;
     QString filter = "";
-    analyzeXml2(&listOfMatches, filter, &hash);
+    analyzeXml2(&listOfMatches, true, filter, &hash);
     initTable(5);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 120);
@@ -407,7 +415,8 @@ void MainWindow::calculateMatches() {
             << TABLE_MATCHES_COLUMN4;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, QString(record->getString(0)));
         setCellValue(i, 1, QString(record->getString(1)));
         setCellValue(i, 2, QString(record->getString(2)));
@@ -436,7 +445,8 @@ void MainWindow::calculatePlayers() {
             << TABLE_PLAYERS_COLUMN3;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, QString(record->getString(0)));
         setCellValue(i, 1, QString(record->getString(1)));
         setCellValue(i, 2, QString("%1").arg(record->get(), 4));
@@ -467,7 +477,8 @@ void MainWindow::calculatePlayers2(const QString& player) {
             << TABLE_PLAYERS2_COLUMN5;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, record->getString(2));
@@ -485,7 +496,7 @@ void MainWindow::calculatePlayers2(const QString& player) {
 void MainWindow::calculateTable() {
     StatHash hash;
     QString filter = "";
-    analyzeXml2(&listOfTable, filter, &hash);
+    analyzeXml2(&listOfTable, true, filter, &hash);
     initTable(9);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -503,7 +514,8 @@ void MainWindow::calculateTable() {
         widget.table->setColumnWidth(j, 60);
     }
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         int points = 3 * record->get(0) + record->get(1);
         int games = record->get(0) + record->get(1) + record->get(2);
         setCellValue(i, 0, record->getString());
@@ -523,7 +535,7 @@ void MainWindow::calculateTable() {
 
 void MainWindow::calculateTable2(const QString& team) {
     StatHash hash;
-    analyzeXml2(&listOfTable2, team, &hash);
+    analyzeXml2(&listOfTable2, true, team, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -539,7 +551,8 @@ void MainWindow::calculateTable2(const QString& team) {
             << TABLE_TABLE2_COLUMN5;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, record->getString(2));
@@ -560,7 +573,8 @@ void MainWindow::calculateTeams() {
     QString filter = "";
     analyzeXml(&listOfPlayers, filter, &hash);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         QString key = QString("%1").arg(record->getString(1));
         Record* record_stat = Record::getInstance(hash_stat, key);
         record_stat->setString(key);
@@ -578,7 +592,8 @@ void MainWindow::calculateTeams() {
             << TABLE_TEAMS_COLUMN2;
     widget.table->setHorizontalHeaderLabels(titles);
     i = 0;
-    foreach (StatHashValue* record, hash_stat) {
+
+    foreach(StatHashValue* record, hash_stat) {
         setCellValue(i, 0, QString(record->getString(0)));
         setCellValue(i, 1, QString("%1").arg(record->get(), 4));
         setCellValue(i, 2, QString("te02_%1").arg(record->getString(0)));
@@ -596,7 +611,8 @@ void MainWindow::calculateTeams2(const QString& team) {
     QString filter = "";
     analyzeXml(&listOfPlayers, filter, &hash);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         if (record->getString(1) == team) {
             QString key = QString("%1").arg(record->getString(0));
             Record* record_stat = Record::getInstance(hash_stat, key);
@@ -619,7 +635,8 @@ void MainWindow::calculateTeams2(const QString& team) {
             << TABLE_TEAMS2_COLUMN3;
     widget.table->setHorizontalHeaderLabels(titles);
     i = 0;
-    foreach (StatHashValue* record, hash_stat) {
+
+    foreach(StatHashValue* record, hash_stat) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
@@ -651,7 +668,8 @@ void MainWindow::verifyPlayers(void) {
             << TABLE_MATCHINFO_COLUMN5;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, record->getString(2));
@@ -682,14 +700,16 @@ void MainWindow::verifyPlayers2(void) {
             << TABLE_CHECKPLAYERS2_COLUMN4;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         if (record->get() > 1) {
             i++;
         }
     }
     widget.table->setRowCount(i);
     i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         if (record->get() > 1) {
             setCellValue(i, 0, record->getString(1));
             setCellValue(i, 1, record->getString(2));
@@ -724,7 +744,8 @@ void MainWindow::verifyAttendance(void) {
             << TABLE_MATCHINFO_COLUMN5;
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
-    foreach (StatHashValue* record, hash) {
+
+    foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, record->getString(2));
@@ -773,7 +794,8 @@ void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash)
 }
 
 // SAX парсер
-void MainWindow::analyzeXml2(pointer2 func, const QString& filter, StatHash* hash) {
+void MainWindow::analyzeXml2(pointer2 func, bool simpleMode, const QString& filter, StatHash* hash) {
+    int counter = 0;
     statusBar()->showMessage(STATUS_CALCULATING);
     const QCursor cursor = this->cursor();
     this->setCursor(Qt::WaitCursor);
@@ -787,17 +809,25 @@ void MainWindow::analyzeXml2(pointer2 func, const QString& filter, StatHash* has
     while (it.hasNext()) {
         it.next();
         if (!it.fileInfo().isDir()) {
+            counter++;
             QString fileName = it.fileName();
             if (!fileName.endsWith(QLatin1String(".xml"))) continue;
             QString fullFileName = it.fileInfo().absoluteFilePath();
             QFile file(fullFileName);
             if (!file.open(QIODevice::ReadOnly)) continue;
-            Report report = saxParser(file);
+            Report report = saxParser(file, simpleMode);
             file.close();
             QDate date = report.getDate();
             if ((date >= fromDate) && (date <= tillDate)) {
                 (*func)(report, fullFileName, filter, hash);
             }
+        }
+        if ((counter % 100) == 0) {
+            statusBar()->showMessage(QString("%1 (%2 %3)")
+                    .arg(STATUS_CALCULATING)
+                    .arg(counter)
+                    .arg(STATUS_CALCULATING2));
+            QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
         }
     }
     this->setCursor(cursor);
@@ -806,7 +836,7 @@ void MainWindow::analyzeXml2(pointer2 func, const QString& filter, StatHash* has
     return;
 }
 
-Report MainWindow::saxParser(QFile& file) {
+Report MainWindow::saxParser(QFile& file, bool simpleMode) {
     Report report;
     QXmlStreamReader xml(&file);
     QString currentTag;
@@ -873,9 +903,9 @@ void MainWindow::linkActivated(const QUrl & link) {
 }
 
 void MainWindow::setCellValue(int row, int column, QString value) {
-        QTableWidgetItem* stlb = new QTableWidgetItem(value);
-        stlb->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-        widget.table->setItem(row, column, stlb);
+    QTableWidgetItem* stlb = new QTableWidgetItem(value);
+    stlb->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    widget.table->setItem(row, column, stlb);
 }
 
 void MainWindow::open() {
