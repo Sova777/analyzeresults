@@ -29,6 +29,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "XmlFileReader.h"
 #include "Record.h"
 
+int Record::id = 0;
+
 Record::Record() {
     for (int i = 0; i < maxText; i++) {
         this->text[i] = "";
@@ -90,6 +92,30 @@ Record* Record::getInstance(StatHash* hash, const StatHashKey& key) {
     if (!hash->contains(key)) {
         hash->insert(key, new Record());
     }
+    Record* record = hash->value(key);
+    record->key = key;
+    return record;
+}
+
+Record* Record::newInstance(StatHash& hash) {
+    QString key = QString::number(id);
+    while (hash.contains(key)) {
+        id++;
+        key = QString::number(id);
+    }
+    hash.insert(key, new Record());
+    Record* record = hash.value(key);
+    record->key = key;
+    return record;
+}
+
+Record* Record::newInstance(StatHash* hash) {
+    QString key = QString::number(id);
+    while (hash->contains(key)) {
+        id++;
+        key = QString::number(id);
+    }
+    hash->insert(key, new Record());
     Record* record = hash->value(key);
     record->key = key;
     return record;

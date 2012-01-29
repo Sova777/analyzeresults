@@ -183,8 +183,7 @@ void listOfMatches(const Report& report, const QDate& date, const QString& fileN
     QString team2 = report.getTeam2();
     QString score = report.getScore();
     QString qdate = date.toString("yyyy/MM/dd");
-    QString key = QString("%1 %2 - %3 %4").arg(qdate).arg(team1).arg(team2).arg(score);
-    Record* record = Record::getInstance(hash, key);
+    Record* record = Record::newInstance(hash);
     record->setString(qdate, 0);
     record->setString(team1, 1);
     record->setString(team2, 2);

@@ -35,6 +35,7 @@ class Record {
 private:
     static const int max = 10;
     static const int maxText = 6;
+    static int id;
     QString text[maxText];
     int field[max];
     QString key;
@@ -47,6 +48,8 @@ public:
     void setString(const QString& value, int index = 0);
     static Record* getInstance(StatHash& hash, const StatHashKey& key);
     static Record* getInstance(StatHash* hash, const StatHashKey& key);
+    static Record* newInstance(StatHash& hash);
+    static Record* newInstance(StatHash* hash);
     static bool less(const Record* left, const Record* right);
 };
 
