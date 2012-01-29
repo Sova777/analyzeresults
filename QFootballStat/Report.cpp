@@ -114,3 +114,52 @@ void Report::setTeam1(QXmlStreamReader& xml) {
 const QString& Report::getTeam1() const {
     return team1;
 }
+
+void Report::setStadium(QXmlStreamReader& xml) {
+    this->stadium = xml.text().toString();
+}
+
+const QString& Report::getStadium() const {
+    return stadium;
+}
+
+void Report::setStadiumAttributes(QXmlStreamReader& xml) {
+    QXmlStreamAttributes attributes = xml.attributes();
+    this->stadiumId = attributes.value("id").toString();
+    this->stadiumCity = attributes.value("city").toString();
+    this->stadiumAttendance = attributes.value("attendance").toString();
+}
+
+const QString& Report::getStadiumId() const {
+    return stadiumId;
+}
+
+const QString& Report::getStadiumCity() const {
+    return stadiumCity;
+}
+
+const QString& Report::getStadiumAttendance() const {
+    return stadiumAttendance;
+}
+
+void Report::setRefereeAttributes(QXmlStreamReader& xml) {
+    QXmlStreamAttributes attributes = xml.attributes();
+    this->refereeId = attributes.value("id").toString();
+    this->refereeCity = attributes.value("city").toString();
+}
+
+void Report::setReferee(QXmlStreamReader& xml) {
+    this->referee = xml.text().toString();
+}
+
+const QString& Report::getReferee() const {
+    return referee;
+}
+
+const QString& Report::getRefereeId() const {
+    return refereeId;
+}
+
+const QString& Report::getRefereeCity() const {
+    return refereeCity;    
+}

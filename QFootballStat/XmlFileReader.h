@@ -35,20 +35,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "constants.h"
 
 typedef void (*pointer)(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-typedef void (*pointer2)(const Report& report, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+typedef void (*pointer2)(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
 
 void listOfGoals(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfGoals2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfMatches(const Report& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfMatches2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfReferies(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfReferies2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfTable(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfTable2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfCoaches(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfCoaches2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfStadiums(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfStadiums2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfMatches(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfReferies(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfReferies2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfTable(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfTable2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfCoaches(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfCoaches2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfStadiums(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfStadiums2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfPlayers(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfPlayers2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
 
