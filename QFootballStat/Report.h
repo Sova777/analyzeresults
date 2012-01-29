@@ -56,6 +56,17 @@ public:
     const QString& getTeam2() const;
     void setTeam1(QXmlStreamReader& xml);
     const QString& getTeam1() const;
+    void setStadium(QXmlStreamReader& xml);
+    const QString& getStadium() const;
+    void setStadiumAttributes(QXmlStreamReader& xml);
+    const QString& getStadiumId() const;
+    const QString& getStadiumCity() const;
+    const QString& getStadiumAttendance() const;
+    void setRefereeAttributes(QXmlStreamReader& xml);
+    const QString& getRefereeId() const;
+    const QString& getRefereeCity() const;
+    void setReferee(QXmlStreamReader& xml);
+    const QString& getReferee() const;
 private:
     QString team1;
     QString team2;
@@ -68,6 +79,13 @@ private:
     QDate date;
     QString time;
     QString score;
+    QString stadium;
+    QString stadiumId;
+    QString stadiumCity;
+    QString stadiumAttendance;
+    QString referee;
+    QString refereeId;
+    QString refereeCity;
 };
 
 #endif	/* REPORT_H */

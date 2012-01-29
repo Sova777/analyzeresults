@@ -210,7 +210,7 @@ void MainWindow::calculateGoals2(const QString& player) {
 void MainWindow::calculateReferies() {
     StatHash hash;
     QString filter = "";
-    analyzeXml(&listOfReferies, filter, &hash);
+    analyzeXml2(&listOfReferies, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -237,7 +237,7 @@ void MainWindow::calculateReferies() {
 
 void MainWindow::calculateReferies2(const QString& referee) {
     StatHash hash;
-    analyzeXml(&listOfReferies2, referee, &hash);
+    analyzeXml2(&listOfReferies2, referee, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -271,7 +271,7 @@ void MainWindow::calculateReferies2(const QString& referee) {
 void MainWindow::calculateCoaches(void) {
     StatHash hash;
     QString filter = "";
-    analyzeXml(&listOfCoaches, filter, &hash);
+    analyzeXml2(&listOfCoaches, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -298,7 +298,7 @@ void MainWindow::calculateCoaches(void) {
 
 void MainWindow::calculateCoaches2(const QString& coach) {
     StatHash hash;
-    analyzeXml(&listOfCoaches2, coach, &hash);
+    analyzeXml2(&listOfCoaches2, coach, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -332,7 +332,7 @@ void MainWindow::calculateCoaches2(const QString& coach) {
 void MainWindow::calculateStadiums(void) {
     StatHash hash;
     QString filter = "";
-    analyzeXml(&listOfStadiums, filter, &hash);
+    analyzeXml2(&listOfStadiums, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -359,7 +359,7 @@ void MainWindow::calculateStadiums(void) {
 
 void MainWindow::calculateStadiums2(const QString& stadium) {
     StatHash hash;
-    analyzeXml(&listOfStadiums2, stadium, &hash);
+    analyzeXml2(&listOfStadiums2, stadium, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -485,7 +485,7 @@ void MainWindow::calculatePlayers2(const QString& player) {
 void MainWindow::calculateTable() {
     StatHash hash;
     QString filter = "";
-    analyzeXml(&listOfTable, filter, &hash);
+    analyzeXml2(&listOfTable, filter, &hash);
     initTable(9);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -523,7 +523,7 @@ void MainWindow::calculateTable() {
 
 void MainWindow::calculateTable2(const QString& team) {
     StatHash hash;
-    analyzeXml(&listOfTable2, team, &hash);
+    analyzeXml2(&listOfTable2, team, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -793,7 +793,7 @@ void MainWindow::analyzeXml2(pointer2 func, const QString& filter, StatHash* has
             file.close();
             QDate date = report.getDate();
             if ((date >= fromDate) && (date <= tillDate)) {
-                (*func)(report, date, fullFileName, filter, hash);
+                (*func)(report, fullFileName, filter, hash);
             }
         }
     }
@@ -817,6 +817,14 @@ Report MainWindow::saxParser(QFile& file) {
                 report.setTeam2Attributes(xml);
             } else if (currentTag == "date") {
                 report.setDateAttributes(xml);
+            } else if (currentTag == "coach1") {
+                report.setCoach1Attributes(xml);
+            } else if (currentTag == "coach2") {
+                report.setCoach2Attributes(xml);
+            } else if (currentTag == "stadium") {
+                report.setStadiumAttributes(xml);
+            } else if (currentTag == "referee") {
+                report.setRefereeAttributes(xml);
             }
         } else if (xml.isCharacters()) {
             if (currentTag == "team1") {
@@ -827,6 +835,14 @@ Report MainWindow::saxParser(QFile& file) {
                 report.setDate(xml);
             } else if (currentTag == "score") {
                 report.setScore(xml);
+            } else if (currentTag == "coach1") {
+                report.setCoach1(xml);
+            } else if (currentTag == "coach2") {
+                report.setCoach2(xml);
+            } else if (currentTag == "stadium") {
+                report.setStadium(xml);
+            } else if (currentTag == "referee") {
+                report.setReferee(xml);
             }
         } else {
             currentTag = "";
