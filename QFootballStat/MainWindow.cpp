@@ -775,6 +775,9 @@ void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash)
 // SAX парсер
 void MainWindow::analyzeXml2(pointer2 func, const QString& filter, StatHash* hash) {
     statusBar()->showMessage(STATUS_CALCULATING);
+    const QCursor cursor = this->cursor();
+    this->setCursor(Qt::WaitCursor);
+    QApplication::processEvents();
     QTime t;
     t.start();
     QDate fromDate = widget.dateEditFrom->date();
@@ -797,6 +800,7 @@ void MainWindow::analyzeXml2(pointer2 func, const QString& filter, StatHash* has
             }
         }
     }
+    this->setCursor(cursor);
     QString status = STATUS_TIME.arg(t.elapsed());
     statusBar()->showMessage(status, 2000);
     return;
