@@ -56,15 +56,6 @@ void checkListOfAttendance(const Report& report, const QString& fileName, const 
 
 void addMatch(const Report& report, const QString& fileName, StatHash* hash);
 
-QString getTeam1(const QDomElement& docElement);
-QString getTeam2(const QDomElement& docElement);
-QDate getDate(const QDomElement& docElement, QString* time = NULL);
-QString getReferee(const QDomElement& docElement, QString* city = NULL);
-QString getScore(const QDomElement& docElement);
-QString getStadium(const QDomElement& docElement, QString* city = NULL, QString* attendance = NULL);
-QString getCoach1(const QDomElement& docElement);
-QString getCoach2(const QDomElement& docElement);
-QString getMatch(const QDomElement& docElement, QString* round = NULL);
 bool isPlayed(const Report& report, const QString& player);
 bool isScored(const Report& report, const QString& player);
 

@@ -996,30 +996,27 @@ void MainWindow::jump(const QString& link) {
 void MainWindow::report(const QString& fileName) {
     widget.table->setVisible(false);
     widget.text->setVisible(true);
-    QDomDocument xml;
     QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly)) return;
-    if (!xml.setContent(&file, false)) {
-        file.close();
+    if (!file.open(QIODevice::ReadOnly)) {
         widget.text->setText("");
         return;
     }
+    Report report = saxParser(file, false);
     file.close();
-    QDomElement docElement = xml.documentElement();
-    QString team1 = getTeam1(docElement);
-    QString team2 = getTeam2(docElement);
-    QString coach1 = getCoach1(docElement);
-    QString coach2 = getCoach2(docElement);
-    QString score = getScore(docElement);
-    QString time;
-    QDate date = getDate(docElement, &time);
-    QString rcity;
-    QString referee = getReferee(docElement, &rcity);
-    QString round;
-    QString tournament = getMatch(docElement, &round);
-    QString city;
-    QString attendance;
-    QString stadium = getStadium(docElement, &city, &attendance);
+    QString team1 = report.getTeam1();
+    QString team2 = report.getTeam2();
+    QString coach1 = report.getCoach1();
+    QString coach2 = report.getCoach2();
+    QString score = report.getScore();
+    QString time = report.getTime();
+    QDate date = report.getDate();
+    QString rcity = report.getRefereeCity();
+    QString referee = report.getReferee();
+    QString round = report.getRound();
+    QString tournament = report.getTournament();
+    QString city = report.getStadiumCity();
+    QString attendance = report.getStadiumAttendance();
+    QString stadium = report.getStadium();
     QString text = QString::fromUtf8("<h1 align='center'>%1</h1>")
             .arg(tournament);
     text.append(QString::fromUtf8("<h2 align='center'>Тур: %1</h2>")
@@ -1038,24 +1035,22 @@ void MainWindow::report(const QString& fileName) {
             .arg(date.toString(Qt::DefaultLocaleLongDate)));
 
     // игроки
-    QDomNodeList nodes1 = docElement.elementsByTagName("player1");
+    QVector<Report::Player> players1 = report.getPlayers1();
     text.append(QString::fromLatin1("<table border='0' width='100%'>"));
     text.append(QString::fromLatin1("<tr><td>"));
-    uint length1 = nodes1.length();
+    uint length1 = players1.size();
     for (uint i = 0; i < length1; i++) {
-        QDomElement node1 = nodes1.at(i).toElement();
-        QString value = node1.text();
+        QString value = players1.at(i).player;
         if (i != 0) {
             text.append(QString("<br>"));
         }
         text.append(QString("%1").arg(value));
     }
     text.append(QString::fromLatin1("</td><td>"));
-    QDomNodeList nodes2 = docElement.elementsByTagName("player2");
-    uint length2 = nodes2.length();
+    QVector<Report::Player> players2 = report.getPlayers2();
+    uint length2 = players2.size();
     for (uint i = 0; i < length2; i++) {
-        QDomElement node2 = nodes2.at(i).toElement();
-        QString value = node2.text();
+        QString value = players2.at(i).player;
         if (i != 0) {
             text.append(QString("<br>"));
         }
@@ -1067,15 +1062,14 @@ void MainWindow::report(const QString& fileName) {
 
     // события в матче
     text.append(QString::fromLatin1("<table border='0' width='100%'>"));
-    QDomNodeList nodes = docElement.elementsByTagName("event");
-    uint length = nodes.length();
+    QVector<Report::Event> events = report.getEvents();
+    uint length = events.size();
     for (uint i = 0; i < length; i++) {
-        QDomElement node = nodes.at(i).toElement();
-        QString eventType = node.attributes().namedItem("type").nodeValue();
-        QString player = node.attributes().namedItem("player").nodeValue();
-        QString player2 = node.attributes().namedItem("player2").nodeValue();
-        QString team = node.attributes().namedItem("team").nodeValue();
-        QString time = node.attributes().namedItem("time").nodeValue();
+        QString eventType = events.at(i).type;
+        QString player = events.at(i).player;
+        QString player2 = events.at(i).player2;
+        QString team = events.at(i).team;
+        QString time = events.at(i).time;
         if (player2 == "") {
             text.append(QString("<tr><td>%1'</td><td>%2</td><td>%3</td><td>%4</td></tr>").arg(time).arg(eventType).arg(team).arg(player));
         } else {

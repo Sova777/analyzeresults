@@ -203,3 +203,11 @@ const QString& Report::getRefereeId() const {
 const QString& Report::getRefereeCity() const {
     return refereeCity;    
 }
+
+const QString& Report::getRound() const {
+    return round;
+}
+
+const QString& Report::getTournament() const {
+    return tournament;
+}
