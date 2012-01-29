@@ -149,7 +149,7 @@ void MainWindow::selectMode8() {
 void MainWindow::calculateGoals() {
     StatHash hash;
     QString filter = "";
-    analyzeXml(&listOfGoals, filter, &hash);
+    analyzeXml(&listOfGoals, false, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -177,7 +177,7 @@ void MainWindow::calculateGoals() {
 
 void MainWindow::calculateGoals2(const QString& player) {
     StatHash hash;
-    analyzeXml(&listOfGoals2, player, &hash);
+    analyzeXml(&listOfGoals2, false, player, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -212,7 +212,7 @@ void MainWindow::calculateGoals2(const QString& player) {
 void MainWindow::calculateReferies() {
     StatHash hash;
     QString filter = "";
-    analyzeXml2(&listOfReferies, true, filter, &hash);
+    analyzeXml(&listOfReferies, true, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -240,7 +240,7 @@ void MainWindow::calculateReferies() {
 
 void MainWindow::calculateReferies2(const QString& referee) {
     StatHash hash;
-    analyzeXml2(&listOfReferies2, true, referee, &hash);
+    analyzeXml(&listOfReferies2, true, referee, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -275,7 +275,7 @@ void MainWindow::calculateReferies2(const QString& referee) {
 void MainWindow::calculateCoaches(void) {
     StatHash hash;
     QString filter = "";
-    analyzeXml2(&listOfCoaches, true, filter, &hash);
+    analyzeXml(&listOfCoaches, true, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -303,7 +303,7 @@ void MainWindow::calculateCoaches(void) {
 
 void MainWindow::calculateCoaches2(const QString& coach) {
     StatHash hash;
-    analyzeXml2(&listOfCoaches2, true, coach, &hash);
+    analyzeXml(&listOfCoaches2, true, coach, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -338,7 +338,7 @@ void MainWindow::calculateCoaches2(const QString& coach) {
 void MainWindow::calculateStadiums(void) {
     StatHash hash;
     QString filter = "";
-    analyzeXml2(&listOfStadiums, true, filter, &hash);
+    analyzeXml(&listOfStadiums, true, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -366,7 +366,7 @@ void MainWindow::calculateStadiums(void) {
 
 void MainWindow::calculateStadiums2(const QString& stadium) {
     StatHash hash;
-    analyzeXml2(&listOfStadiums2, true, stadium, &hash);
+    analyzeXml(&listOfStadiums2, true, stadium, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -401,7 +401,7 @@ void MainWindow::calculateStadiums2(const QString& stadium) {
 void MainWindow::calculateMatches() {
     StatHash hash;
     QString filter = "";
-    analyzeXml2(&listOfMatches, true, filter, &hash);
+    analyzeXml(&listOfMatches, true, filter, &hash);
     initTable(5);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 120);
@@ -433,7 +433,7 @@ void MainWindow::calculateMatches() {
 void MainWindow::calculatePlayers() {
     StatHash hash;
     QString filter = "";
-    analyzeXml(&listOfPlayers, filter, &hash);
+    analyzeXml(&listOfPlayers, false, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 120);
@@ -461,7 +461,7 @@ void MainWindow::calculatePlayers() {
 
 void MainWindow::calculatePlayers2(const QString& player) {
     StatHash hash;
-    analyzeXml(&listOfPlayers2, player, &hash);
+    analyzeXml(&listOfPlayers2, false, player, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -496,7 +496,7 @@ void MainWindow::calculatePlayers2(const QString& player) {
 void MainWindow::calculateTable() {
     StatHash hash;
     QString filter = "";
-    analyzeXml2(&listOfTable, true, filter, &hash);
+    analyzeXml(&listOfTable, true, filter, &hash);
     initTable(9);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 180);
@@ -535,7 +535,7 @@ void MainWindow::calculateTable() {
 
 void MainWindow::calculateTable2(const QString& team) {
     StatHash hash;
-    analyzeXml2(&listOfTable2, true, team, &hash);
+    analyzeXml(&listOfTable2, true, team, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 90);
@@ -571,7 +571,7 @@ void MainWindow::calculateTeams() {
     StatHash hash;
     StatHash hash_stat;
     QString filter = "";
-    analyzeXml(&listOfPlayers, filter, &hash);
+    analyzeXml(&listOfPlayers, false, filter, &hash);
     int i = 0;
 
     foreach(StatHashValue* record, hash) {
@@ -609,7 +609,7 @@ void MainWindow::calculateTeams2(const QString& team) {
     StatHash hash;
     StatHash hash_stat;
     QString filter = "";
-    analyzeXml(&listOfPlayers, filter, &hash);
+    analyzeXml(&listOfPlayers, false, filter, &hash);
     int i = 0;
 
     foreach(StatHashValue* record, hash) {
@@ -652,7 +652,7 @@ void MainWindow::calculateTeams2(const QString& team) {
 void MainWindow::verifyPlayers(void) {
     StatHash hash;
     QString filter = "";
-    analyzeXml(&checkListOfPlayers, filter, &hash);
+    analyzeXml(&checkListOfPlayers, false, filter, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 120);
@@ -687,7 +687,7 @@ void MainWindow::verifyPlayers(void) {
 void MainWindow::verifyPlayers2(void) {
     StatHash hash;
     QString filter = "";
-    analyzeXml(&checkListOfPlayers2, filter, &hash);
+    analyzeXml(&checkListOfPlayers2, false, filter, &hash);
     initTable(5);
     widget.table->setColumnWidth(0, 120);
     widget.table->setColumnWidth(1, 120);
@@ -728,7 +728,7 @@ void MainWindow::verifyPlayers2(void) {
 void MainWindow::verifyAttendance(void) {
     StatHash hash;
     QString filter = "";
-    analyzeXml(&checkListOfAttendance, filter, &hash);
+    analyzeXml(&checkListOfAttendance, false, filter, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
     widget.table->setColumnWidth(0, 120);
@@ -760,41 +760,8 @@ void MainWindow::verifyAttendance(void) {
     widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
-// DOM парсер
-void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash) {
-    statusBar()->showMessage(STATUS_CALCULATING);
-    QTime t;
-    t.start();
-    QDir qDir = QDir(directory);
-    QDomDocument xml;
-    QDirIterator it(qDir.absolutePath(), QDirIterator::Subdirectories);
-    while (it.hasNext()) {
-        it.next();
-        if (!it.fileInfo().isDir()) {
-            QString fileName = it.fileName();
-            if (!fileName.endsWith(QLatin1String(".xml"))) continue;
-            QString fullFileName = it.fileInfo().absoluteFilePath();
-            QFile file(fullFileName);
-            if (!file.open(QIODevice::ReadOnly)) continue;
-            if (!xml.setContent(&file)) {
-                file.close();
-                continue;
-            }
-            file.close();
-            QDomElement docElement = xml.documentElement();
-            QDate date = getDate(docElement);
-            if ((date >= widget.dateEditFrom->date()) && (date <= widget.dateEditTill->date())) {
-                (*func)(docElement, date, fullFileName, filter, hash);
-            }
-        }
-    }
-    QString status = STATUS_TIME.arg(t.elapsed());
-    statusBar()->showMessage(status, 2000);
-    return;
-}
-
 // SAX парсер
-void MainWindow::analyzeXml2(pointer2 func, bool simpleMode, const QString& filter, StatHash* hash) {
+void MainWindow::analyzeXml(pointer func, bool simpleMode, const QString& filter, StatHash* hash) {
     int counter = 0;
     statusBar()->showMessage(STATUS_CALCULATING);
     const QCursor cursor = this->cursor();
@@ -840,6 +807,7 @@ Report MainWindow::saxParser(QFile& file, bool simpleMode) {
     Report report;
     QXmlStreamReader xml(&file);
     QString currentTag;
+    QString currentId;
     while (!xml.atEnd()) {
         xml.readNext();
         QStringRef ref = xml.name();
@@ -859,6 +827,18 @@ Report MainWindow::saxParser(QFile& file, bool simpleMode) {
                 report.setStadiumAttributes(xml);
             } else if (currentTag == "referee") {
                 report.setRefereeAttributes(xml);
+            } else if (currentTag == "event") {
+                if (!simpleMode) {
+                    report.addEvent(xml);
+                }
+            } else if (currentTag == "player1") {
+                if (!simpleMode) {
+                    currentId = xml.attributes().value("id").toString();
+                }
+            } else if (currentTag == "player2") {
+                if (!simpleMode) {
+                    currentId = xml.attributes().value("id").toString();
+                }
             }
         } else if (xml.isCharacters()) {
             if (currentTag == "team1") {
@@ -877,6 +857,14 @@ Report MainWindow::saxParser(QFile& file, bool simpleMode) {
                 report.setStadium(xml);
             } else if (currentTag == "referee") {
                 report.setReferee(xml);
+            } else if (currentTag == "player1") {
+                if (!simpleMode) {
+                    report.addPlayer1(xml, currentId);
+                }
+            } else if (currentTag == "player2") {
+                if (!simpleMode) {
+                    report.addPlayer2(xml, currentId);
+                }
             }
         } else {
             currentTag = "";

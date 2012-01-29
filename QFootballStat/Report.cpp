@@ -27,6 +27,46 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "Report.h"
 
+void Report::addPlayer1(QXmlStreamReader& xml, QString& id) {
+    Player player;
+    player.player = xml.text().toString();
+    player.id = id;
+    players1.append(player);
+}
+
+void Report::addPlayer2(QXmlStreamReader& xml, QString& id) {
+    Player player;
+    player.player = xml.text().toString();
+    player.id = id;
+    players2.append(player);
+}
+
+void Report::addEvent(QXmlStreamReader& xml) {
+    Event event;
+    QXmlStreamAttributes attributes = xml.attributes();
+    event.comment = attributes.value("comment").toString();
+    event.player = attributes.value("player").toString();
+    event.player2 = attributes.value("player2").toString();
+    event.playerid = attributes.value("playerid").toString();
+    event.playerid2 = attributes.value("playerid2").toString();
+    event.team = attributes.value("team").toString();
+    event.time = attributes.value("time").toString();
+    event.type = attributes.value("type").toString();
+    events.append(event);
+}
+
+const QVector<Report::Event>& Report::getEvents() const {
+    return events;
+}
+
+const QVector<Report::Player>& Report::getPlayers1() const {
+    return players1;
+}
+
+const QVector<Report::Player>& Report::getPlayers2() const {
+    return players2;
+}
+
 void Report::setScore(QXmlStreamReader& xml) {
     this->score = xml.text().toString();
 }
