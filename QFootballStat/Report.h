@@ -34,6 +34,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class Report {
 public:
+    struct Player {
+        QString id;
+        QString player;
+    };
+    struct Event {
+        QString time;
+        QString type;
+        QString comment;
+        QString team;
+        QString playerid;
+        QString player;
+        QString playerid2;
+        QString player2;
+    };
     void setScore(QXmlStreamReader& xml);
     const QString& getScore() const;
     void setDateAttributes(QXmlStreamReader& xml);
@@ -86,6 +100,9 @@ private:
     QString referee;
     QString refereeId;
     QString refereeCity;
+    QVector<Player> players1;
+    QVector<Player> players2;
+    QVector<Event> events;
 };
 
 #endif	/* REPORT_H */

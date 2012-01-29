@@ -49,6 +49,7 @@ const QString EVENT_RED_YELLOW_CARD = QString::fromUtf8("Удаление и п�
 
 const QString STATUS_TIME = QString::fromUtf8("Время: %1 мс.");
 const QString STATUS_CALCULATING = QString::fromUtf8("Считаем...");
+const QString STATUS_CALCULATING2 = QString::fromUtf8("файлов");
 
 const QString TABLE_TABLE_COLUMN1 = QString::fromUtf8("Команда");
 const QString TABLE_TABLE_COLUMN2 = QString::fromUtf8("И");

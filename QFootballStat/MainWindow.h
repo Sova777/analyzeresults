@@ -46,8 +46,8 @@ private:
     void setCellValue(int row, int column, QString value);
     void report(const QString& fileName);
     void analyzeXml(pointer func, const QString& filter, StatHash* hash);
-    void analyzeXml2(pointer2 func, const QString& filter, StatHash* hash);
-    Report saxParser(QFile& file);
+    void analyzeXml2(pointer2 func, bool simpleMode, const QString& filter, StatHash* hash);
+    Report saxParser(QFile& file, bool simpleMode);
 
 private:
     void calculateStadiums2(const QString& stadium);
