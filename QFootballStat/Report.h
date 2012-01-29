@@ -48,6 +48,13 @@ public:
         QString playerid2;
         QString player2;
     };
+    void addPlayer1(QXmlStreamReader& xml, QString& id);
+    void addPlayer2(QXmlStreamReader& xml, QString& id);
+    void addEvent(QXmlStreamReader& xml);
+    const QVector<Event>& getEvents() const;
+    const QVector<Player>& getPlayers1() const;
+    const QVector<Player>& getPlayers2() const;
+
     void setScore(QXmlStreamReader& xml);
     const QString& getScore() const;
     void setDateAttributes(QXmlStreamReader& xml);

@@ -34,11 +34,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Report.h"
 #include "constants.h"
 
-typedef void (*pointer)(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-typedef void (*pointer2)(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+typedef void (*pointer)(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
 
-void listOfGoals(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfGoals2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfGoals(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfGoals2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfMatches(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfReferies(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfReferies2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
@@ -48,14 +47,14 @@ void listOfCoaches(const Report& report, const QString& fileName, const QString&
 void listOfCoaches2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfStadiums(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
 void listOfStadiums2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfPlayers(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void listOfPlayers2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfPlayers(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void listOfPlayers2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
 
-void checkListOfPlayers(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void checkListOfPlayers2(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
-void checkListOfAttendance(const QDomElement& docElement, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash);
+void checkListOfPlayers(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void checkListOfPlayers2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
+void checkListOfAttendance(const Report& report, const QString& fileName, const QString& filter, StatHash* hash);
 
-void addMatch(const QDomElement& docElement, const QDate& date, const QString& fileName, StatHash* hash);
+void addMatch(const Report& report, const QString& fileName, StatHash* hash);
 
 QString getTeam1(const QDomElement& docElement);
 QString getTeam2(const QDomElement& docElement);
@@ -66,7 +65,7 @@ QString getStadium(const QDomElement& docElement, QString* city = NULL, QString*
 QString getCoach1(const QDomElement& docElement);
 QString getCoach2(const QDomElement& docElement);
 QString getMatch(const QDomElement& docElement, QString* round = NULL);
-bool isPlayed(const QDomElement& docElement, const QString& player);
-bool isScored(const QDomElement& docElement, const QString& player);
+bool isPlayed(const Report& report, const QString& player);
+bool isScored(const Report& report, const QString& player);
 
 #endif	/* XMLFILEREADER_H */
