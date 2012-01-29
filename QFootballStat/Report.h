@@ -30,18 +30,44 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <QDate>
 #include <QString>
+#include <QXmlStreamReader>
 
 class Report {
 public:
+    void setScore(QXmlStreamReader& xml);
+    const QString& getScore() const;
+    void setDateAttributes(QXmlStreamReader& xml);
+    const QString& getTime() const;
+    void setDate(QXmlStreamReader& xml);
+    const QDate& getDate() const;
+    void setCoach2Attributes(QXmlStreamReader& xml);
+    const QString& getCoach2id() const;
+    void setCoach1Attributes(QXmlStreamReader& xml);
+    const QString& getCoach1id() const;
+    void setCoach2(QXmlStreamReader& xml);
+    const QString& getCoach2() const;
+    void setCoach1(QXmlStreamReader& xml);
+    const QString& getCoach1() const;
+    void setTeam2Attributes(QXmlStreamReader& xml);
+    const QString& getTeam2id() const;
+    void setTeam1Attributes(QXmlStreamReader& xml);
+    const QString& getTeam1id() const;
+    void setTeam2(QXmlStreamReader& xml);
+    const QString& getTeam2() const;
+    void setTeam1(QXmlStreamReader& xml);
+    const QString& getTeam1() const;
+private:
     QString team1;
     QString team2;
     QString team1id;
     QString team2id;
+    QString coach1;
+    QString coach2;
+    QString coach1id;
+    QString coach2id;
     QDate date;
     QString time;
     QString score;
-private:
-
 };
 
 #endif	/* REPORT_H */
