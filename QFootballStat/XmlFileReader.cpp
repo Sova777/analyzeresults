@@ -179,12 +179,12 @@ void listOfStadiums2(const QDomElement& docElement, const QDate& date, const QSt
 }
 
 void listOfMatches(const Report& report, const QDate& date, const QString& fileName, const QString& filter, StatHash* hash) {
-    QString team1 = report.team1;
-    QString team2 = report.team2;
-    QString score = report.score;
-    QString key = QString("%1 - %2 %3").arg(team1).arg(team2).arg(score);
-    Record* record = Record::getInstance(hash, key);
+    QString team1 = report.getTeam1();
+    QString team2 = report.getTeam2();
+    QString score = report.getScore();
     QString qdate = date.toString("yyyy/MM/dd");
+    QString key = QString("%1 %2 - %3 %4").arg(qdate).arg(team1).arg(team2).arg(score);
+    Record* record = Record::getInstance(hash, key);
     record->setString(qdate, 0);
     record->setString(team1, 1);
     record->setString(team2, 2);
