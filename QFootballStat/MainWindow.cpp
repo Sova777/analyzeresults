@@ -827,6 +827,8 @@ Report MainWindow::saxParser(QFile& file, bool simpleMode) {
                 report.setStadiumAttributes(xml);
             } else if (currentTag == "referee") {
                 report.setRefereeAttributes(xml);
+            } else if (currentTag == "match") {
+                report.setMatchAttributes(xml);
             } else if (currentTag == "event") {
                 if (!simpleMode) {
                     report.addEvent(xml);
@@ -1012,8 +1014,8 @@ void MainWindow::report(const QString& fileName) {
     QDate date = report.getDate();
     QString rcity = report.getRefereeCity();
     QString referee = report.getReferee();
-    QString round = report.getRound();
-    QString tournament = report.getTournament();
+    QString round = report.getMatchRound();
+    QString tournament = report.getMatchTournament();
     QString city = report.getStadiumCity();
     QString attendance = report.getStadiumAttendance();
     QString stadium = report.getStadium();

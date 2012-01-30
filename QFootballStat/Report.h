@@ -88,8 +88,10 @@ public:
     const QString& getRefereeCity() const;
     void setReferee(QXmlStreamReader& xml);
     const QString& getReferee() const;
-    const QString& getRound() const;
-    const QString& getTournament() const;
+    void setMatchAttributes(QXmlStreamReader& xml);
+    const QString& getMatchId() const;
+    const QString& getMatchRound() const;
+    const QString& getMatchTournament() const;
 private:
     QString team1;
     QString team2;
@@ -109,8 +111,9 @@ private:
     QString referee;
     QString refereeId;
     QString refereeCity;
-    QString round;
-    QString tournament;
+    QString matchId;
+    QString matchRound;
+    QString matchTournament;
     QVector<Player> players1;
     QVector<Player> players2;
     QVector<Event> events;
