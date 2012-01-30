@@ -204,10 +204,21 @@ const QString& Report::getRefereeCity() const {
     return refereeCity;    
 }
 
-const QString& Report::getRound() const {
-    return round;
+void Report::setMatchAttributes(QXmlStreamReader& xml) {
+    QXmlStreamAttributes attributes = xml.attributes();
+    this->matchId = attributes.value("id").toString();
+    this->matchRound = attributes.value("round").toString();
+    this->matchTournament = attributes.value("tournament").toString();
 }
 
-const QString& Report::getTournament() const {
-    return tournament;
+const QString& Report::getMatchId() const {
+    return matchId;
+}
+
+const QString& Report::getMatchRound() const {
+    return matchRound;
+}
+
+const QString& Report::getMatchTournament() const {
+    return matchTournament;
 }
