@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	REPORT_H
 
 #include <QDate>
+#include <QFile>
 #include <QString>
 #include <QXmlStreamReader>
 
@@ -92,7 +93,10 @@ public:
     const QString& getMatchId() const;
     const QString& getMatchRound() const;
     const QString& getMatchTournament() const;
+    void setFileName(QFile& file);
+    const QString& getFileName() const;
 private:
+    QString fileName;
     QString team1;
     QString team2;
     QString team1id;

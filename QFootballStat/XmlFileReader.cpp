@@ -466,3 +466,14 @@ void addMatch(const Report& report, const QString& fileName, StatHash* hash) {
     record->setString(score, 4);
     record->setString(fileName, 5);
 }
+
+// QDataStream &operator<<(QDataStream& stream, const Report& report);
+// QDataStream &operator>>(QDataStream& stream, Report& report);
+// QFile file("file.xxx");
+// file.open(QIODevice::WriteOnly);
+// QDataStream out(&file);
+// out << (quint32)0xA0B0C0D0;
+// out << (qint32)123;
+// out.setVersion(QDataStream::Qt_4_0);
+// out << lots_of_interesting_data;
+ 

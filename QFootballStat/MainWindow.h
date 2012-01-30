@@ -42,11 +42,12 @@ public:
 private:
     Ui::MainWindow widget;
     QString directory;
+    QVector<Report> reports;
     void closeEvent(QCloseEvent *event);
     void setCellValue(int row, int column, QString value);
     void report(const QString& fileName);
-    void analyzeXml(pointer func, bool simpleMode, const QString& filter, StatHash* hash);
-    Report saxParser(QFile& file, bool simpleMode);
+    void analyzeXml(pointer func, const QString& filter, StatHash* hash);
+    Report saxParser(QFile& file);
 
 private:
     void calculateStadiums2(const QString& stadium);
