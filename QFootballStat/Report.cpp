@@ -27,6 +27,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "Report.h"
 
+void Report::setFileName(QFile& file) {
+    this->fileName = file.fileName();
+}
+
+const QString& Report::getFileName() const {
+    return fileName;
+}
+
 void Report::addPlayer1(QXmlStreamReader& xml, QString& id) {
     Player player;
     player.player = xml.text().toString();
