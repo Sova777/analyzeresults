@@ -434,23 +434,44 @@ void MainWindow::calculatePlayers() {
     StatHash hash;
     QString filter = "";
     analyzeXml(&listOfPlayers, filter, &hash);
-    initTable(4);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 120);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 60);
     QStringList titles;
     titles << TABLE_PLAYERS_COLUMN1
             << TABLE_PLAYERS_COLUMN2
-            << TABLE_PLAYERS_COLUMN3;
+            << TABLE_PLAYERS_COLUMN3
+            << TABLE_PLAYERS_COLUMN4
+            << TABLE_PLAYERS_COLUMN5
+            << TABLE_PLAYERS_COLUMN6
+            << TABLE_PLAYERS_COLUMN7
+            << TABLE_PLAYERS_COLUMN8
+            << TABLE_PLAYERS_COLUMN9
+            << TABLE_PLAYERS_COLUMN10;
+    initTable(titles.length() + 1);
+    widget.table->setRowCount(hash.size());
+    widget.table->setColumnWidth(0, 120);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 70);
+    widget.table->setColumnWidth(3, 70);
+    widget.table->setColumnWidth(4, 70);
+    widget.table->setColumnWidth(5, 70);
+    widget.table->setColumnWidth(6, 70);
+    widget.table->setColumnWidth(7, 70);
+    widget.table->setColumnWidth(8, 70);
+    widget.table->setColumnWidth(9, 70);
     widget.table->setHorizontalHeaderLabels(titles);
     int i = 0;
 
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, QString(record->getString(0)));
         setCellValue(i, 1, QString(record->getString(1)));
-        setCellValue(i, 2, QString("%1").arg(record->get(), 4));
-        setCellValue(i, 3, QString("pl02_%1").arg(record->getString(0)));
+        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
+        setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
+        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+        setCellValue(i, 6, QString("%1").arg(record->get(4) + record->get(5), 4));
+        setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
+        setCellValue(i, 8, QString("%1").arg(record->get(6), 4));
+        setCellValue(i, 9, QString("%1").arg(record->get(7), 4));
+        setCellValue(i, 10, QString("pl02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }
