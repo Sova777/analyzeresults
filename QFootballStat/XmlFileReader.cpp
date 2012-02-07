@@ -205,6 +205,7 @@ void listOfPlayers(const Report& report, const QString& fileName, const QString&
     uint length = events.size();
     for (uint i = 0; i < length; i++) {
         QString eventType = events.at(i).type;
+        QString player1 = events.at(i).player;
         QString player2 = events.at(i).player2;
         QString team = events.at(i).team;
         if (eventType == EVENT_SUBSTITUTION) {
@@ -212,7 +213,27 @@ void listOfPlayers(const Report& report, const QString& fileName, const QString&
             Record* record = Record::getInstance(hash, key);
             record->setString(player2, 0);
             record->setString(team, 1);
-            record->add(1);
+            record->add(1, 0);
+        } else {
+            QString key = QString("%1 (%2)").arg(player1).arg(team);
+            Record* record = Record::getInstance(hash, key);
+            record->setString(player1, 0);
+            record->setString(team, 1);
+            if (eventType == EVENT_RED_CARD) {
+                record->add(1, 1);
+            } else if (eventType == EVENT_RED_YELLOW_CARD) {
+                record->add(1, 2);
+            } else if (eventType == EVENT_YELLOW_CARD) {
+                record->add(1, 3);
+            } else if (eventType == EVENT_GOAL) {
+                record->add(1, 4);
+            } else if (eventType == EVENT_GOAL_PENALTY) {
+                record->add(1, 5);
+            } else if (eventType == EVENT_MISSED_PENALTY) {
+                record->add(1, 6);
+            } else if (eventType == EVENT_AUTOGOAL) {
+                record->add(1, 7);
+            }
         }
     }
 }
