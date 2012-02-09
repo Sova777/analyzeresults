@@ -90,6 +90,12 @@ MainWindow::MainWindow() {
             this, SLOT(linkActivated(const QUrl &)));
     connect(widget.table, SIGNAL(cellDoubleClicked(int, int)),
             this, SLOT(cellSelected(int, int)));
+    connect(widget.pushRefresh, SIGNAL(clicked()),
+            this, SLOT(refresh()));
+    connect(widget.pushBack, SIGNAL(clicked()),
+            this, SLOT(back()));
+    connect(widget.pushForward, SIGNAL(clicked()),
+            this, SLOT(forward()));
 
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
             "football.mojgorod.ru", "QFootballStat");
@@ -983,6 +989,7 @@ void MainWindow::cellSelected(int row, int column) {
 }
 
 void MainWindow::jump(const QString& link) {
+    history.append(link);
     int size = link.length();
     if (size < 5) {
         return;
@@ -1100,7 +1107,23 @@ void MainWindow::report(const QString& fileName) {
         QString player2 = events.at(i).player2;
         QString team = events.at(i).team;
         QString time = events.at(i).time;
-        if (player2 == "") {
+        if (eventType == EVENT_GOAL) {
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/goal.png'>").arg(eventType).arg(team).arg(player));
+        } else if (eventType == EVENT_GOAL_PENALTY) {
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/pen.png'>").arg(eventType).arg(team).arg(player));
+        } else if (eventType == EVENT_MISSED_PENALTY) {
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/missed.png'>").arg(eventType).arg(team).arg(player));
+        } else if (eventType == EVENT_AUTOGOAL) {
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/autogoal.png'>").arg(eventType).arg(team).arg(player));
+        } else if (eventType == EVENT_RED_CARD) {
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/red.png'>").arg(eventType).arg(team).arg(player));
+        } else if (eventType == EVENT_RED_YELLOW_CARD) {
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/yellow2.png'>").arg(eventType).arg(team).arg(player));
+        } else if (eventType == EVENT_YELLOW_CARD) {
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/yellow.png'>").arg(eventType).arg(team).arg(player));
+        } else if (eventType == EVENT_SUBSTITUTION) {
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5 - %6</td></tr>").arg(time).arg("<img src=':/icon/subs.png'>").arg(eventType).arg(team).arg(player).arg(player2));
+        } else if (player2 == "") {
             text.append(QString("<tr><td>%1'</td><td>%2</td><td>%3</td><td>%4</td></tr>").arg(time).arg(eventType).arg(team).arg(player));
         } else {
             text.append(QString("<tr><td>%1'</td><td>%2</td><td>%3</td><td>%4 - %5</td></tr>").arg(time).arg(eventType).arg(team).arg(player).arg(player2));
@@ -1108,4 +1131,20 @@ void MainWindow::report(const QString& fileName) {
     }
     text.append(QString::fromLatin1("</table>"));
     widget.text->setText(text);
+}
+
+void MainWindow::refresh() {
+    if (history.size() > 0) {
+        jump(history.last());
+    }
+}
+
+void MainWindow::forward() {
+    
+}
+
+void MainWindow::back() {
+    if (history.size() > 1) {
+        jump(history.at(history.size() - 1));
+    }    
 }

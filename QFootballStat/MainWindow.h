@@ -43,6 +43,7 @@ private:
     Ui::MainWindow widget;
     QString directory;
     QVector<Report> reports;
+    QVector<QString> history;
     void closeEvent(QCloseEvent *event);
     void setCellValue(int row, int column, QString value);
     void report(const QString& fileName);
@@ -87,6 +88,9 @@ private slots:
     void cellSelected(int row, int column);
     void jump(const QString& link);
     void initTable(int columns);
+    void refresh();
+    void forward();
+    void back();
 };
 
 #endif	/* _MAINWINDOW_H */
