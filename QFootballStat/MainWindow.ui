@@ -642,13 +642,6 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="6">
-       <widget class="QPushButton" name="pushForward">
-        <property name="text">
-         <string>Вперёд</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
    </layout>

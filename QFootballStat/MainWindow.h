@@ -43,7 +43,8 @@ private:
     Ui::MainWindow widget;
     QString directory;
     QVector<Report> reports;
-    QVector<QString> history;
+    QString previous;
+    QString current;
     void closeEvent(QCloseEvent *event);
     void setCellValue(int row, int column, QString value);
     void report(const QString& fileName);
@@ -86,10 +87,9 @@ private slots:
     void selectMode8();
     void linkActivated(const QUrl & link);
     void cellSelected(int row, int column);
-    void jump(const QString& link);
+    void jump(const QString link);
     void initTable(int columns);
     void refresh();
-    void forward();
     void back();
 };
 
