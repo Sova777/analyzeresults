@@ -9,5 +9,13 @@
     <file>mode4.png</file>
     <file>mode5.png</file>
     <file>mode6.png</file>
+    <file>autogoal.png</file>
+    <file>goal.png</file>
+    <file>missed.png</file>
+    <file>pen.png</file>
+    <file>yellow.png</file>
+    <file>yellow2.png</file>
+    <file>red.png</file>
+    <file>subs.png</file>
   </qresource>
 </RCC>
