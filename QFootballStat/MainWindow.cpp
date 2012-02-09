@@ -94,8 +94,6 @@ MainWindow::MainWindow() {
             this, SLOT(refresh()));
     connect(widget.pushBack, SIGNAL(clicked()),
             this, SLOT(back()));
-    connect(widget.pushForward, SIGNAL(clicked()),
-            this, SLOT(forward()));
 
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
             "football.mojgorod.ru", "QFootballStat");
@@ -121,35 +119,35 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 void MainWindow::selectMode1() {
-    calculateTable();
+    jump("ta01_");
 }
 
 void MainWindow::selectMode2() {
-    calculateTeams();
+    jump("te01_");
 }
 
 void MainWindow::selectMode3() {
-    calculateReferies();
+    jump("re01_");
 }
 
 void MainWindow::selectMode4() {
-    calculatePlayers();
+    jump("pl01_");
 }
 
 void MainWindow::selectMode5() {
-    calculateMatches();
+    jump("ma01_");
 }
 
 void MainWindow::selectMode6() {
-    calculateGoals();
+    jump("go01_");
 }
 
 void MainWindow::selectMode7() {
-    calculateCoaches();
+    jump("co01_");
 }
 
 void MainWindow::selectMode8() {
-    calculateStadiums();
+    jump("st01_");
 }
 
 void MainWindow::calculateGoals() {
@@ -988,40 +986,73 @@ void MainWindow::cellSelected(int row, int column) {
     }
 }
 
-void MainWindow::jump(const QString& link) {
-    history.append(link);
+void MainWindow::jump(const QString link) {
     int size = link.length();
     if (size < 5) {
         return;
     }
+    previous = current;
+    current = link;
     QString code = link.left(5);
     QString id = link.right(size - 5);
     if (code == "xm01_") {
         report(id);
         return;
     }
+    if (code == "ma01_") {
+        calculateMatches();
+        return;
+    }
+    if (code == "st01_") {
+        calculateStadiums();
+        return;
+    }
     if (code == "st02_") {
         calculateStadiums2(id);
+        return;
+    }
+    if (code == "re01_") {
+        calculateReferies();
         return;
     }
     if (code == "re02_") {
         calculateReferies2(id);
         return;
     }
+    if (code == "co01_") {
+        calculateCoaches();
+        return;
+    }
     if (code == "co02_") {
         calculateCoaches2(id);
+        return;
+    }
+    if (code == "pl01_") {
+        calculatePlayers();
         return;
     }
     if (code == "pl02_") {
         calculatePlayers2(id);
         return;
     }
+    if (code == "go01_") {
+        calculateGoals();
+        return;
+    }
     if (code == "go02_") {
         calculateGoals2(id);
         return;
     }
+    if (code == "te01_") {
+        calculateTeams();
+        return;
+    }
     if (code == "te02_") {
         calculateTeams2(id);
+        return;
+    }
+    if (code == "ta01_") {
+        calculateTable();
         return;
     }
     if (code == "ta02_") {
@@ -1134,17 +1165,9 @@ void MainWindow::report(const QString& fileName) {
 }
 
 void MainWindow::refresh() {
-    if (history.size() > 0) {
-        jump(history.last());
-    }
-}
-
-void MainWindow::forward() {
-    
+    jump(current);
 }
 
 void MainWindow::back() {
-    if (history.size() > 1) {
-        jump(history.at(history.size() - 1));
-    }    
+    jump(previous);
 }
