@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>874</width>
+    <height>657</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>655</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>6000</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>QFootballStat: футбольная статистика</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icon/images/window.png</normaloff>:/icon/images/window.png</iconset>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>32</width>
+    <height>32</height>
+   </size>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <property name="verticalSpacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="7">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>5</width>
+          <height>5</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>5</width>
+          <height>5</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>88</width>
+          <height>5</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="1" rowspan="6">
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>88</width>
+          <height>440</height>
+         </size>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAsNeeded</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>86</width>
+           <height>589</height>
+          </rect>
+         </property>
+         <widget class="QPushButton" name="pushButton_1">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>9</y>
+            <width>72</width>
+            <height>72</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Турнирная таблица</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icon/images/mode1.png</normaloff>:/icon/images/mode1.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>79</y>
+            <width>72</width>
+            <height>72</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Командная статистика</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icon/images/mode2.png</normaloff>:/icon/images/mode2.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>149</y>
+            <width>72</width>
+            <height>72</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Судейская статистика</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icon/images/mode3.png</normaloff>:/icon/images/mode3.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>219</y>
+            <width>72</width>
+            <height>72</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Личная статистика игроков</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icon/images/mode4.png</normaloff>:/icon/images/mode4.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>289</y>
+            <width>72</width>
+            <height>72</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Результаты матчей</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icon/images/mode5.png</normaloff>:/icon/images/mode5.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>359</y>
+            <width>72</width>
+            <height>72</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Список бомбардиров</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icon/images/mode6.png</normaloff>:/icon/images/mode6.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_7">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>429</y>
+            <width>72</width>
+            <height>72</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Тренерская статистика</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icon/images/mode7.png</normaloff>:/icon/images/mode7.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_8">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>499</y>
+            <width>72</width>
+            <height>72</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Статистика по стадионам</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icon/images/mode8.png</normaloff>:/icon/images/mode8.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
+         </widget>
+        </widget>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QDateEdit" name="dateEditFrom">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="dateTime">
+         <datetime>
+          <hour>0</hour>
+          <minute>0</minute>
+          <second>0</second>
+          <year>1900</year>
+          <month>1</month>
+          <day>1</day>
+         </datetime>
+        </property>
+        <property name="date">
+         <date>
+          <year>1900</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
+        </property>
+        <property name="displayFormat">
+         <string>dd.MM.yyyy</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QDateEdit" name="dateEditTill">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="date">
+         <date>
+          <year>2100</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
+        </property>
+        <property name="displayFormat">
+         <string>dd.MM.yyyy</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>С:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="label_2">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>По:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2" colspan="5">
+       <widget class="QTableWidget" name="table"/>
+      </item>
+      <item row="6" column="2" colspan="5">
+       <widget class="QTextBrowser" name="text">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAsNeeded</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAsNeeded</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>6</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="4" column="3">
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>6</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="4">
+       <widget class="QPushButton" name="pushRefresh">
+        <property name="text">
+         <string>Обновить</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QPushButton" name="pushBack">
+        <property name="text">
+         <string>Назад</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>874</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Статистика</string>
+    </property>
+    <widget class="QMenu" name="menu_3">
+     <property name="title">
+      <string>Матчи</string>
+     </property>
+     <addaction name="actionCalculateMatches"/>
+    </widget>
+    <widget class="QMenu" name="menu_4">
+     <property name="title">
+      <string>Игроки</string>
+     </property>
+     <addaction name="actionCalculateGoals"/>
+     <addaction name="actionCalculatePlayers"/>
+    </widget>
+    <widget class="QMenu" name="menu_5">
+     <property name="title">
+      <string>Судьи</string>
+     </property>
+     <addaction name="actionCalculateReferies"/>
+    </widget>
+    <widget class="QMenu" name="menu_6">
+     <property name="title">
+      <string>Тренеры</string>
+     </property>
+     <addaction name="actionCalculateCoaches"/>
+    </widget>
+    <widget class="QMenu" name="menu_7">
+     <property name="title">
+      <string>Стадионы</string>
+     </property>
+     <addaction name="actionCalculateStadiums"/>
+    </widget>
+    <widget class="QMenu" name="menu_8">
+     <property name="title">
+      <string>Команды</string>
+     </property>
+     <addaction name="actionCalculateTeams"/>
+     <addaction name="actionCalculateTable"/>
+    </widget>
+    <addaction name="menu_4"/>
+    <addaction name="menu_8"/>
+    <addaction name="menu_3"/>
+    <addaction name="menu_7"/>
+    <addaction name="menu_5"/>
+    <addaction name="menu_6"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Справка</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menu_9">
+    <property name="title">
+     <string>Проверка</string>
+    </property>
+    <addaction name="actionVerifyPlayers"/>
+    <addaction name="actionVerifyAttendance"/>
+    <addaction name="actionVerifyPlayers2"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menu"/>
+   <addaction name="menu_9"/>
+   <addaction name="menu_2"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionExit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+  </action>
+  <action name="actionCalculateTable">
+   <property name="text">
+    <string>Турнирная таблица</string>
+   </property>
+  </action>
+  <action name="actionCalculateGoals">
+   <property name="text">
+    <string>Список бомбардиров</string>
+   </property>
+  </action>
+  <action name="actionCalculateReferies">
+   <property name="text">
+    <string>Список судей</string>
+   </property>
+  </action>
+  <action name="actionCalculateMatches">
+   <property name="text">
+    <string>Список матчей</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Сохранить таблицу</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Выбрать директорий</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>О программе</string>
+   </property>
+  </action>
+  <action name="actionCalculateCoaches">
+   <property name="text">
+    <string>Список тренеров</string>
+   </property>
+  </action>
+  <action name="actionCalculateStadiums">
+   <property name="text">
+    <string>Список стадионов</string>
+   </property>
+  </action>
+  <action name="actionCalculatePlayers">
+   <property name="text">
+    <string>Список игроков</string>
+   </property>
+  </action>
+  <action name="actionCalculateTeams">
+   <property name="text">
+    <string>Количество игроков</string>
+   </property>
+  </action>
+  <action name="actionVerifyPlayers">
+   <property name="text">
+    <string>В команде не 11 игроков</string>
+   </property>
+  </action>
+  <action name="actionVerifyAttendance">
+   <property name="text">
+    <string>Не указано число зрителей</string>
+   </property>
+  </action>
+  <action name="actionVerifyPlayers2">
+   <property name="text">
+    <string>Одна фамилия, но разный ID</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
