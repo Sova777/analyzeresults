@@ -811,6 +811,13 @@ void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash)
                 if (!file.open(QIODevice::ReadOnly)) continue;
                 Report report = saxParser(file);
                 reports.append(report);
+                QDate currentDate = report.getDate();
+                if (currentDate < fromDate) {
+                    fromDate = currentDate;
+                }
+                if (currentDate > tillDate) {
+                    tillDate = currentDate;
+                }
                 file.close();
             }
             if ((counter % 100) == 0) {
@@ -821,6 +828,8 @@ void MainWindow::analyzeXml(pointer func, const QString& filter, StatHash* hash)
                 QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
             }
         }
+        widget.dateEditFrom->setDate(fromDate);
+        widget.dateEditTill->setDate(tillDate);
     }
     counter = 0;
     foreach(Report report, reports) {
