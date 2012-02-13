@@ -1139,21 +1139,21 @@ void MainWindow::report(const QString& fileName) {
         QString team = events.at(i).team;
         QString time = events.at(i).time;
         if (eventType == EVENT_GOAL) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/goal.png'>").arg(eventType).arg(team).arg(player));
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/goal.png'>").arg(eventType).arg(team).arg(player));
         } else if (eventType == EVENT_GOAL_PENALTY) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/pen.png'>").arg(eventType).arg(team).arg(player));
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/pen.png'>").arg(eventType).arg(team).arg(player));
         } else if (eventType == EVENT_MISSED_PENALTY) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/missed.png'>").arg(eventType).arg(team).arg(player));
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/missed.png'>").arg(eventType).arg(team).arg(player));
         } else if (eventType == EVENT_AUTOGOAL) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/autogoal.png'>").arg(eventType).arg(team).arg(player));
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/autogoal.png'>").arg(eventType).arg(team).arg(player));
         } else if (eventType == EVENT_RED_CARD) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/red.png'>").arg(eventType).arg(team).arg(player));
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/red.png'>").arg(eventType).arg(team).arg(player));
         } else if (eventType == EVENT_RED_YELLOW_CARD) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/yellow2.png'>").arg(eventType).arg(team).arg(player));
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/yellow2.png'>").arg(eventType).arg(team).arg(player));
         } else if (eventType == EVENT_YELLOW_CARD) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/yellow.png'>").arg(eventType).arg(team).arg(player));
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/yellow.png'>").arg(eventType).arg(team).arg(player));
         } else if (eventType == EVENT_SUBSTITUTION) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5 - %6</td></tr>").arg(time).arg("<img src=':/icon/subs.png'>").arg(eventType).arg(team).arg(player).arg(player2));
+            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5 - %6</td></tr>").arg(time).arg("<img src=':/icon/images/subs.png'>").arg(eventType).arg(team).arg(player).arg(player2));
         } else if (player2 == "") {
             text.append(QString("<tr><td>%1'</td><td>%2</td><td>%3</td><td>%4</td></tr>").arg(time).arg(eventType).arg(team).arg(player));
         } else {

@@ -27,7 +27,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/icon/window.png</normaloff>:/icon/window.png</iconset>
+    <normaloff>:/icon/images/window.png</normaloff>:/icon/images/window.png</iconset>
   </property>
   <property name="iconSize">
    <size>
@@ -169,7 +169,7 @@
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/icon/mode1.png</normaloff>:/icon/mode1.png</iconset>
+            <normaloff>:/icon/images/mode1.png</normaloff>:/icon/images/mode1.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -213,7 +213,7 @@
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/icon/mode2.png</normaloff>:/icon/mode2.png</iconset>
+            <normaloff>:/icon/images/mode2.png</normaloff>:/icon/images/mode2.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -257,7 +257,7 @@
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/icon/mode3.png</normaloff>:/icon/mode3.png</iconset>
+            <normaloff>:/icon/images/mode3.png</normaloff>:/icon/images/mode3.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -301,7 +301,7 @@
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/icon/mode4.png</normaloff>:/icon/mode4.png</iconset>
+            <normaloff>:/icon/images/mode4.png</normaloff>:/icon/images/mode4.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -345,7 +345,7 @@
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/icon/mode5.png</normaloff>:/icon/mode5.png</iconset>
+            <normaloff>:/icon/images/mode5.png</normaloff>:/icon/images/mode5.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -389,7 +389,7 @@
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/icon/mode6.png</normaloff>:/icon/mode6.png</iconset>
+            <normaloff>:/icon/images/mode6.png</normaloff>:/icon/images/mode6.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -433,7 +433,7 @@
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/icon/mode7.png</normaloff>:/icon/mode7.png</iconset>
+            <normaloff>:/icon/images/mode7.png</normaloff>:/icon/images/mode7.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -477,7 +477,7 @@
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/icon/mode8.png</normaloff>:/icon/mode8.png</iconset>
+            <normaloff>:/icon/images/mode8.png</normaloff>:/icon/images/mode8.png</iconset>
           </property>
           <property name="iconSize">
            <size>
