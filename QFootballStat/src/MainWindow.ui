@@ -502,14 +502,14 @@
           <hour>0</hour>
           <minute>0</minute>
           <second>0</second>
-          <year>1900</year>
+          <year>2800</year>
           <month>1</month>
           <day>1</day>
          </datetime>
         </property>
         <property name="date">
          <date>
-          <year>1900</year>
+          <year>2800</year>
           <month>1</month>
           <day>1</day>
          </date>
@@ -529,7 +529,7 @@
         </property>
         <property name="date">
          <date>
-          <year>2100</year>
+          <year>1800</year>
           <month>1</month>
           <day>1</day>
          </date>
