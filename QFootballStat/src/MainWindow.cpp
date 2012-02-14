@@ -197,7 +197,7 @@ void MainWindow::callVerifyAttendance() {
 
 void MainWindow::calculateGoals() {
     StatHash hash;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfGoals, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
@@ -226,7 +226,7 @@ void MainWindow::calculateGoals() {
 
 void MainWindow::calculateGoals2(const QString& player) {
     StatHash hash;
-    Filter filter(player, true);
+    Filter filter(player, widget.checkBoxID->isChecked());
     analyzeXml(&listOfGoals2, filter, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
@@ -261,7 +261,7 @@ void MainWindow::calculateGoals2(const QString& player) {
 
 void MainWindow::calculateReferies() {
     StatHash hash;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfReferies, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
@@ -290,7 +290,7 @@ void MainWindow::calculateReferies() {
 
 void MainWindow::calculateReferies2(const QString& referee) {
     StatHash hash;
-    Filter filter(referee, true);
+    Filter filter(referee, widget.checkBoxID->isChecked());
     analyzeXml(&listOfReferies2, filter, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
@@ -325,7 +325,7 @@ void MainWindow::calculateReferies2(const QString& referee) {
 
 void MainWindow::calculateCoaches(void) {
     StatHash hash;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfCoaches, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
@@ -354,7 +354,7 @@ void MainWindow::calculateCoaches(void) {
 
 void MainWindow::calculateCoaches2(const QString& coach) {
     StatHash hash;
-    Filter filter(coach, true);
+    Filter filter(coach, widget.checkBoxID->isChecked());
     analyzeXml(&listOfCoaches2, filter, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
@@ -389,7 +389,7 @@ void MainWindow::calculateCoaches2(const QString& coach) {
 
 void MainWindow::calculateStadiums(void) {
     StatHash hash;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfStadiums, filter, &hash);
     initTable(4);
     widget.table->setRowCount(hash.size());
@@ -418,7 +418,7 @@ void MainWindow::calculateStadiums(void) {
 
 void MainWindow::calculateStadiums2(const QString& stadium) {
     StatHash hash;
-    Filter filter(stadium, true);
+    Filter filter(stadium, widget.checkBoxID->isChecked());
     analyzeXml(&listOfStadiums2, filter, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
@@ -453,7 +453,7 @@ void MainWindow::calculateStadiums2(const QString& stadium) {
 
 void MainWindow::calculateMatches() {
     StatHash hash;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfMatches, filter, &hash);
     initTable(5);
     widget.table->setRowCount(hash.size());
@@ -485,7 +485,7 @@ void MainWindow::calculateMatches() {
 
 void MainWindow::calculatePlayers() {
     StatHash hash;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfPlayers, filter, &hash);
     QStringList titles;
     titles << TABLE_PLAYERS_COLUMN1
@@ -535,7 +535,7 @@ void MainWindow::calculatePlayers() {
 
 void MainWindow::calculatePlayers2(const QString& player) {
     StatHash hash;
-    Filter filter(player, true);
+    Filter filter(player, widget.checkBoxID->isChecked());
     analyzeXml(&listOfPlayers2, filter, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
@@ -570,7 +570,7 @@ void MainWindow::calculatePlayers2(const QString& player) {
 
 void MainWindow::calculateTable() {
     StatHash hash;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfTable, filter, &hash);
     initTable(9);
     widget.table->setRowCount(hash.size());
@@ -610,7 +610,7 @@ void MainWindow::calculateTable() {
 
 void MainWindow::calculateTable2(const QString& team) {
     StatHash hash;
-    Filter filter(team, true);
+    Filter filter(team, widget.checkBoxID->isChecked());
     analyzeXml(&listOfTable2, filter, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
@@ -646,7 +646,7 @@ void MainWindow::calculateTable2(const QString& team) {
 void MainWindow::calculateTeams() {
     StatHash hash;
     StatHash hash_stat;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfPlayers, filter, &hash);
     int i = 0;
 
@@ -684,7 +684,7 @@ void MainWindow::calculateTeams() {
 void MainWindow::calculateTeams2(const QString& team) {
     StatHash hash;
     StatHash hash_stat;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfPlayers, filter, &hash);
     int i = 0;
 
@@ -727,7 +727,7 @@ void MainWindow::calculateTeams2(const QString& team) {
 
 void MainWindow::verifyPlayers(void) {
     StatHash hash;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&checkListOfPlayers, filter, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());
@@ -762,7 +762,7 @@ void MainWindow::verifyPlayers(void) {
 
 void MainWindow::verifyPlayers2(void) {
     StatHash hash;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&checkListOfPlayers2, filter, &hash);
     initTable(5);
     widget.table->setColumnWidth(0, 120);
@@ -803,7 +803,7 @@ void MainWindow::verifyPlayers2(void) {
 
 void MainWindow::verifyAttendance(void) {
     StatHash hash;
-    Filter filter("", true);
+    Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&checkListOfAttendance, filter, &hash);
     initTable(6);
     widget.table->setRowCount(hash.size());

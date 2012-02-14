@@ -37,9 +37,10 @@ void listOfGoals(const Report& report, const QString& fileName, const Filter& fi
     for (uint i = 0; i < length; i++) {
         QString eventType = events.at(i).type;
         QString player = events.at(i).player;
+        QString playerid = events.at(i).playerid;
         QString team = events.at(i).team;
         if ((eventType == EVENT_GOAL) || (eventType == EVENT_GOAL_PENALTY)) {
-            QString key = QString("%1 (%2)").arg(player).arg(team);
+            QString key = getKeyPlayer(filter.useID, playerid, player, team);
             Record* record = Record::getInstance(hash, key);
             record->setString(player, 0);
             record->setString(team, 1);
@@ -101,9 +102,11 @@ void listOfCoaches(const Report& report, const QString& fileName, const Filter& 
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QString coach1 = report.getCoach1();
+    QString coach1id = report.getCoach1id();
     QString coach2 = report.getCoach2();
-    QString key1 = QString("%1 (%2)").arg(coach1).arg(team1);
-    QString key2 = QString("%1 (%2)").arg(coach2).arg(team2);
+    QString coach2id = report.getCoach2id();
+    QString key1 = getKeyCoach(filter.useID, coach1id, coach1, team1);
+    QString key2 = getKeyCoach(filter.useID, coach2id, coach2, team2);
     Record* record1 = Record::getInstance(hash, key1);
     record1->setString(coach1, 0);
     record1->setString(team1, 1);
@@ -186,7 +189,8 @@ void listOfPlayers(const Report& report, const QString& fileName, const Filter& 
     uint len1 = players1.size();
     for (uint i = 0; i < len1; i++) {
         QString player2 = players1.at(i).player;
-        QString key = QString("%1 (%2)").arg(player2).arg(team1);
+        QString player2id = players1.at(i).id;
+        QString key = getKeyPlayer(filter.useID, player2id, player2, team1);
         Record* record = Record::getInstance(hash, key);
         record->setString(player2, 0);
         record->setString(team1, 1);
@@ -195,7 +199,8 @@ void listOfPlayers(const Report& report, const QString& fileName, const Filter& 
     uint len2 = players2.size();
     for (uint i = 0; i < len2; i++) {
         QString player2 = players2.at(i).player;
-        QString key = QString("%1 (%2)").arg(player2).arg(team2);
+        QString player2id = players2.at(i).id;
+        QString key = getKeyPlayer(filter.useID, player2id, player2, team2);
         Record* record = Record::getInstance(hash, key);
         record->setString(player2, 0);
         record->setString(team2, 1);
@@ -207,16 +212,18 @@ void listOfPlayers(const Report& report, const QString& fileName, const Filter& 
     for (uint i = 0; i < length; i++) {
         QString eventType = events.at(i).type;
         QString player1 = events.at(i).player;
+        QString player1id = events.at(i).playerid;
         QString player2 = events.at(i).player2;
+        QString player2id = events.at(i).playerid2;
         QString team = events.at(i).team;
         if (eventType == EVENT_SUBSTITUTION) {
-            QString key = QString("%1 (%2)").arg(player2).arg(team);
+            QString key = getKeyPlayer(filter.useID, player2id, player2, team);
             Record* record = Record::getInstance(hash, key);
             record->setString(player2, 0);
             record->setString(team, 1);
             record->add(1, 0);
         } else {
-            QString key = QString("%1 (%2)").arg(player1).arg(team);
+            QString key = getKeyPlayer(filter.useID, player1id, player1, team);
             Record* record = Record::getInstance(hash, key);
             record->setString(player1, 0);
             record->setString(team, 1);
@@ -489,10 +496,17 @@ void addMatch(const Report& report, const QString& fileName, StatHash* hash) {
     record->setString(fileName, 5);
 }
 
-QString getKeyPlayer(const bool useID, const QString& playerid, const QString& player, const QString& teamid, const QString& team) {
+QString getKeyPlayer(const bool useID, const QString& playerid, const QString& player, const QString& team) {
     QString qstr = (useID) ?
-        QString("%1 %2 %3 %4").arg(playerid).arg(player).arg(teamid).arg(team) :
+        QString("%1").arg(playerid) :
         QString("%1 %2").arg(player).arg(team);        
+    return qstr;
+}
+
+QString getKeyCoach(const bool useID, const QString& coachid, const QString& coach, const QString& team) {
+    QString qstr = (useID) ?
+        ((coachid == "") ? QString("%1").arg(coach) : QString("%1").arg(coachid)) :
+        QString("%1 %2").arg(coach).arg(team);        
     return qstr;
 }
 
