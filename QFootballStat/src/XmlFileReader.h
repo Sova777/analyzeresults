@@ -58,5 +58,6 @@ void addMatch(const Report& report, const QString& fileName, StatHash* hash);
 
 bool isPlayed(const Report& report, const QString& player);
 bool isScored(const Report& report, const QString& player);
+QString getKeyPlayer(const bool useID, const QString& playerid, const QString& player, const QString& teamid, const QString& team);
 
 #endif	/* XMLFILEREADER_H */
