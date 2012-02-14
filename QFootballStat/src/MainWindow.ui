@@ -642,6 +642,13 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="4">
+       <widget class="QCheckBox" name="checkBoxID">
+        <property name="text">
+         <string>Учитывать ID</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
