@@ -488,6 +488,13 @@ void addMatch(const Report& report, const QString& fileName, StatHash* hash) {
     record->setString(fileName, 5);
 }
 
+QString getKeyPlayer(const bool useID, const QString& playerid, const QString& player, const QString& teamid, const QString& team) {
+    QString qstr = (useID) ?
+        QString("%1 %2 %3 %4").arg(playerid).arg(player).arg(teamid).arg(team) :
+        QString("%1 %2").arg(player).arg(team);        
+    return qstr;
+}
+
 // QDataStream &operator<<(QDataStream& stream, const Report& report);
 // QDataStream &operator>>(QDataStream& stream, Report& report);
 // QFile file("file.xxx");
