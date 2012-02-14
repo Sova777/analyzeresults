@@ -49,27 +49,27 @@ MainWindow::MainWindow() {
             this, SLOT(about()));
 
     connect(widget.actionCalculateGoals, SIGNAL(triggered()),
-            this, SLOT(calculateGoals()));
+            this, SLOT(callCalculateGoals()));
     connect(widget.actionCalculateMatches, SIGNAL(triggered()),
-            this, SLOT(calculateMatches()));
+            this, SLOT(callCalculateMatches()));
     connect(widget.actionCalculateReferies, SIGNAL(triggered()),
-            this, SLOT(calculateReferies()));
+            this, SLOT(callCalculateReferies()));
     connect(widget.actionCalculateCoaches, SIGNAL(triggered()),
-            this, SLOT(calculateCoaches()));
+            this, SLOT(callCalculateCoaches()));
     connect(widget.actionCalculateTable, SIGNAL(triggered()),
-            this, SLOT(calculateTable()));
+            this, SLOT(callCalculateTable()));
     connect(widget.actionCalculateStadiums, SIGNAL(triggered()),
-            this, SLOT(calculateStadiums()));
+            this, SLOT(callCalculateStadiums()));
     connect(widget.actionCalculatePlayers, SIGNAL(triggered()),
-            this, SLOT(calculatePlayers()));
+            this, SLOT(callCalculatePlayers()));
     connect(widget.actionCalculateTeams, SIGNAL(triggered()),
-            this, SLOT(calculateTeams()));
+            this, SLOT(callCalculateTeams()));
     connect(widget.actionVerifyPlayers, SIGNAL(triggered()),
-            this, SLOT(verifyPlayers()));
+            this, SLOT(callVerifyPlayers()));
     connect(widget.actionVerifyPlayers2, SIGNAL(triggered()),
-            this, SLOT(verifyPlayers2()));
+            this, SLOT(callVerifyPlayers2()));
     connect(widget.actionVerifyAttendance, SIGNAL(triggered()),
-            this, SLOT(verifyAttendance()));
+            this, SLOT(callVerifyAttendance()));
     connect(widget.pushButton_1, SIGNAL(clicked()),
             this, SLOT(selectMode1()));
     connect(widget.pushButton_2, SIGNAL(clicked()),
@@ -148,6 +148,50 @@ void MainWindow::selectMode7() {
 
 void MainWindow::selectMode8() {
     jump("st01_");
+}
+
+void MainWindow::callCalculateGoals() {
+    jump("go01_");
+}
+
+void MainWindow::callCalculateMatches() {
+    jump("ma01_");
+}
+
+void MainWindow::callCalculateReferies() {
+    jump("re01_");
+}
+
+void MainWindow::callCalculateCoaches() {
+    jump("co01_");
+}
+
+void MainWindow::callCalculateTable() {
+    jump("ta01_");
+}
+
+void MainWindow::callCalculateStadiums() {
+    jump("st01_");
+}
+
+void MainWindow::callCalculatePlayers() {
+    jump("pl01_");
+}
+
+void MainWindow::callCalculateTeams() {
+    jump("te01_");
+}
+
+void MainWindow::callVerifyPlayers() {
+    jump("vpl1_");
+}
+
+void MainWindow::callVerifyPlayers2() {
+    jump("vpl2_");
+}
+
+void MainWindow::callVerifyAttendance() {
+    jump("vat1_");
 }
 
 void MainWindow::calculateGoals() {
@@ -1066,6 +1110,18 @@ void MainWindow::jump(const QString link) {
     }
     if (code == "ta02_") {
         calculateTable2(id);
+        return;
+    }
+    if (code == "vpl1_") {
+        verifyPlayers();
+        return;
+    }
+    if (code == "vpl2_") {
+        verifyPlayers2();
+        return;
+    }
+    if (code == "vat1_") {
+        verifyAttendance();
         return;
     }
 }

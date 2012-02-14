@@ -50,8 +50,8 @@ private:
     void report(const QString& fileName);
     void analyzeXml(pointer func, const QString& filter, StatHash* hash);
     Report saxParser(QFile& file);
+    void initTable(int columns);
 
-private:
     void calculateStadiums2(const QString& stadium);
     void calculateReferies2(const QString& referee);
     void calculateCoaches2(const QString& coach);
@@ -59,11 +59,6 @@ private:
     void calculateGoals2(const QString& player);
     void calculateTable2(const QString& team);
     void calculateTeams2(const QString& team);
-private slots:
-    void open();
-    void save();
-    void about();
-
     void calculateGoals(void);
     void calculateMatches(void);
     void calculateReferies(void);
@@ -77,6 +72,22 @@ private slots:
     void verifyPlayers2(void);
     void verifyAttendance(void);
 
+private slots:
+    void open();
+    void save();
+    void about();
+    void callCalculateGoals();
+    void callCalculateMatches();
+    void callCalculateReferies();
+    void callCalculateCoaches();
+    void callCalculateTable();
+    void callCalculateStadiums();
+    void callCalculatePlayers();
+    void callCalculateTeams();
+    void callVerifyPlayers();
+    void callVerifyPlayers2();
+    void callVerifyAttendance();
+
     void selectMode1();
     void selectMode2();
     void selectMode3();
@@ -88,7 +99,6 @@ private slots:
     void linkActivated(const QUrl & link);
     void cellSelected(int row, int column);
     void jump(const QString link);
-    void initTable(int columns);
     void refresh();
     void back();
 };
