@@ -31,6 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <QtXml>
 #include "ui_MainWindow.h"
 #include "XmlFileReader.h"
+#include "Filter.h"
 #include "Record.h"
 #include "Report.h"
 
@@ -48,7 +49,7 @@ private:
     void closeEvent(QCloseEvent *event);
     void setCellValue(int row, int column, QString value);
     void report(const QString& fileName);
-    void analyzeXml(pointer func, const QString& filter, StatHash* hash);
+    void analyzeXml(pointer func, const Filter& filter, StatHash* hash);
     Report saxParser(QFile& file);
     void initTable(int columns);
 

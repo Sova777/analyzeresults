@@ -25,12 +25,13 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "Filter.h"
 #include "Record.h"
 #include "Report.h"
 #include "XmlFileReader.h"
 #include "constants.h"
 
-void listOfGoals(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfGoals(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QVector<Report::Event> events = report.getEvents();
     uint length = events.size();
     for (uint i = 0; i < length; i++) {
@@ -47,13 +48,13 @@ void listOfGoals(const Report& report, const QString& fileName, const QString& f
     }
 }
 
-void listOfGoals2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfGoals2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QDate date = report.getDate();
     QString score = report.getScore();
     QString city = report.getStadiumCity();
-    if (isScored(report, filter)) {
+    if (isScored(report, filter.filter)) {
         QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
         Record* record = Record::getInstance(hash, key);
         QString qdate = date.toString("yyyy/MM/dd");
@@ -66,7 +67,7 @@ void listOfGoals2(const Report& report, const QString& fileName, const QString& 
     }
 }
 
-void listOfReferies(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfReferies(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString name = report.getReferee();
     QString city = report.getRefereeCity();
     QString key = QString("%1 (%2)").arg(name).arg(city);
@@ -76,14 +77,14 @@ void listOfReferies(const Report& report, const QString& fileName, const QString
     record->add(1);
 }
 
-void listOfReferies2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfReferies2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QDate date = report.getDate();
     QString score = report.getScore();
     QString city = report.getStadiumCity();
     QString referee = report.getReferee();
-    if (referee == filter) {
+    if (referee == filter.filter) {
         QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
         Record* record = Record::getInstance(hash, key);
         QString qdate = date.toString("yyyy/MM/dd");
@@ -96,7 +97,7 @@ void listOfReferies2(const Report& report, const QString& fileName, const QStrin
     }
 }
 
-void listOfCoaches(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfCoaches(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QString coach1 = report.getCoach1();
@@ -113,7 +114,7 @@ void listOfCoaches(const Report& report, const QString& fileName, const QString&
     record2->add(1);
 }
 
-void listOfCoaches2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfCoaches2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QDate date = report.getDate();
@@ -121,7 +122,7 @@ void listOfCoaches2(const Report& report, const QString& fileName, const QString
     QString city = report.getStadiumCity();
     QString coach1 = report.getCoach1();
     QString coach2 = report.getCoach2();
-    if ((coach1 == filter) || (coach2 == filter)) {
+    if ((coach1 == filter.filter) || (coach2 == filter.filter)) {
         QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
         Record* record = Record::getInstance(hash, key);
         QString qdate = date.toString("yyyy/MM/dd");
@@ -134,7 +135,7 @@ void listOfCoaches2(const Report& report, const QString& fileName, const QString
     }
 }
 
-void listOfStadiums(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfStadiums(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString stadium = report.getStadium();
     QString city = report.getStadiumCity();
     QString key = QString("%1 (%2)").arg(stadium).arg(city);
@@ -144,14 +145,14 @@ void listOfStadiums(const Report& report, const QString& fileName, const QString
     record->add(1);
 }
 
-void listOfStadiums2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfStadiums2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QDate date = report.getDate();
     QString score = report.getScore();
     QString city = report.getStadiumCity();
     QString stadium = report.getStadium();
-    if (stadium == filter) {
+    if (stadium == filter.filter) {
         QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
         Record* record = Record::getInstance(hash, key);
         QString qdate = date.toString("yyyy/MM/dd");
@@ -164,7 +165,7 @@ void listOfStadiums2(const Report& report, const QString& fileName, const QStrin
     }
 }
 
-void listOfMatches(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfMatches(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QString score = report.getScore();
@@ -177,7 +178,7 @@ void listOfMatches(const Report& report, const QString& fileName, const QString&
     record->setString(fileName, 4);
 }
 
-void listOfPlayers(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfPlayers(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QVector<Report::Player> players1 = report.getPlayers1();
@@ -238,13 +239,13 @@ void listOfPlayers(const Report& report, const QString& fileName, const QString&
     }
 }
 
-void listOfPlayers2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfPlayers2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QDate date = report.getDate();
     QString score = report.getScore();
     QString city = report.getStadiumCity();
-    if (isPlayed(report, filter)) {
+    if (isPlayed(report, filter.filter)) {
         QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
         Record* record = Record::getInstance(hash, key);
         QString qdate = date.toString("yyyy/MM/dd");
@@ -257,7 +258,7 @@ void listOfPlayers2(const Report& report, const QString& fileName, const QString
     }
 }
 
-void listOfTable(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfTable(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QString score = report.getScore();
@@ -293,13 +294,13 @@ void listOfTable(const Report& report, const QString& fileName, const QString& f
 
 }
 
-void listOfTable2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void listOfTable2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QDate date = report.getDate();
     QString score = report.getScore();
     QString city = report.getStadiumCity();
-    if ((team1 == filter) || (team2 == filter)) {
+    if ((team1 == filter.filter) || (team2 == filter.filter)) {
         QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
         Record* record = Record::getInstance(hash, key);
         QString qdate = date.toString("yyyy/MM/dd");
@@ -312,7 +313,7 @@ void listOfTable2(const Report& report, const QString& fileName, const QString& 
     }
 }
 
-void checkListOfPlayers(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void checkListOfPlayers(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QVector<Report::Player> players1 = report.getPlayers1();
     QVector<Report::Player> players2 = report.getPlayers2();
     uint len1 = players1.size();
@@ -322,7 +323,7 @@ void checkListOfPlayers(const Report& report, const QString& fileName, const QSt
     }
 }
 
-void checkListOfPlayers2(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void checkListOfPlayers2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QVector<Report::Player> players1 = report.getPlayers1();
@@ -415,7 +416,7 @@ void checkListOfPlayers2(const Report& report, const QString& fileName, const QS
     }
 }
 
-void checkListOfAttendance(const Report& report, const QString& fileName, const QString& filter, StatHash* hash) {
+void checkListOfAttendance(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString city = report.getStadiumCity();
     QString attendance = report.getStadiumAttendance();
     if (attendance == "") {
