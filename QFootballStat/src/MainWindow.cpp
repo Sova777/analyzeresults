@@ -199,18 +199,15 @@ void MainWindow::calculateGoals() {
     StatHash hash;
     Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfGoals, filter, &hash);
-    initTable(4);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 180);
-    widget.table->setColumnWidth(1, 180);
-    widget.table->setColumnWidth(2, 60);
     QStringList titles;
     titles << TABLE_GOALS_COLUMN1
             << TABLE_GOALS_COLUMN2
             << TABLE_GOALS_COLUMN3;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 180);
+    widget.table->setColumnWidth(1, 180);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -228,22 +225,19 @@ void MainWindow::calculateGoals2(const QString& player) {
     StatHash hash;
     Filter filter(player, widget.checkBoxID->isChecked());
     analyzeXml(&listOfGoals2, filter, &hash);
-    initTable(6);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-    widget.table->setColumnWidth(4, 60);
     QStringList titles;
     titles << TABLE_GOALS2_COLUMN1
             << TABLE_GOALS2_COLUMN2
             << TABLE_GOALS2_COLUMN3
             << TABLE_GOALS2_COLUMN4
             << TABLE_GOALS2_COLUMN5;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 90);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -263,18 +257,16 @@ void MainWindow::calculateReferies() {
     StatHash hash;
     Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfReferies, filter, &hash);
-    initTable(4);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 180);
-    widget.table->setColumnWidth(1, 180);
-    widget.table->setColumnWidth(2, 60);
     QStringList titles;
     titles << TABLE_REFERIES_COLUMN1
             << TABLE_REFERIES_COLUMN2
             << TABLE_REFERIES_COLUMN3;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 180);
+    widget.table->setColumnWidth(1, 180);
+    widget.table->setColumnWidth(2, 60);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -292,22 +284,19 @@ void MainWindow::calculateReferies2(const QString& referee) {
     StatHash hash;
     Filter filter(referee, widget.checkBoxID->isChecked());
     analyzeXml(&listOfReferies2, filter, &hash);
-    initTable(6);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-    widget.table->setColumnWidth(4, 60);
     QStringList titles;
     titles << TABLE_REFERIES2_COLUMN1
             << TABLE_REFERIES2_COLUMN2
             << TABLE_REFERIES2_COLUMN3
             << TABLE_REFERIES2_COLUMN4
             << TABLE_REFERIES2_COLUMN5;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 90);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -327,18 +316,15 @@ void MainWindow::calculateCoaches(void) {
     StatHash hash;
     Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfCoaches, filter, &hash);
-    initTable(4);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 180);
-    widget.table->setColumnWidth(1, 180);
-    widget.table->setColumnWidth(2, 60);
     QStringList titles;
     titles << TABLE_COACHES_COLUMN1
             << TABLE_COACHES_COLUMN2
             << TABLE_COACHES_COLUMN3;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 180);
+    widget.table->setColumnWidth(1, 180);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -356,22 +342,19 @@ void MainWindow::calculateCoaches2(const QString& coach) {
     StatHash hash;
     Filter filter(coach, widget.checkBoxID->isChecked());
     analyzeXml(&listOfCoaches2, filter, &hash);
-    initTable(6);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-    widget.table->setColumnWidth(4, 60);
     QStringList titles;
     titles << TABLE_COACHES2_COLUMN1
             << TABLE_COACHES2_COLUMN2
             << TABLE_COACHES2_COLUMN3
             << TABLE_COACHES2_COLUMN4
             << TABLE_COACHES2_COLUMN5;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 90);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -391,18 +374,15 @@ void MainWindow::calculateStadiums(void) {
     StatHash hash;
     Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfStadiums, filter, &hash);
-    initTable(4);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 180);
-    widget.table->setColumnWidth(1, 180);
-    widget.table->setColumnWidth(2, 60);
     QStringList titles;
     titles << TABLE_STADIUMS_COLUMN1
             << TABLE_STADIUMS_COLUMN2
             << TABLE_STADIUMS_COLUMN3;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 180);
+    widget.table->setColumnWidth(1, 180);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -420,22 +400,19 @@ void MainWindow::calculateStadiums2(const QString& stadium) {
     StatHash hash;
     Filter filter(stadium, widget.checkBoxID->isChecked());
     analyzeXml(&listOfStadiums2, filter, &hash);
-    initTable(6);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-    widget.table->setColumnWidth(4, 60);
     QStringList titles;
     titles << TABLE_STADIUMS2_COLUMN1
             << TABLE_STADIUMS2_COLUMN2
             << TABLE_STADIUMS2_COLUMN3
             << TABLE_STADIUMS2_COLUMN4
             << TABLE_STADIUMS2_COLUMN5;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 90);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -455,20 +432,17 @@ void MainWindow::calculateMatches() {
     StatHash hash;
     Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfMatches, filter, &hash);
-    initTable(5);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 120);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 60);
     QStringList titles;
     titles << TABLE_MATCHES_COLUMN1
             << TABLE_MATCHES_COLUMN2
             << TABLE_MATCHES_COLUMN3
             << TABLE_MATCHES_COLUMN4;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 120);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, QString(record->getString(0)));
         setCellValue(i, 1, QString(record->getString(1)));
@@ -498,21 +472,11 @@ void MainWindow::calculatePlayers() {
             << TABLE_PLAYERS_COLUMN8
             << TABLE_PLAYERS_COLUMN9
             << TABLE_PLAYERS_COLUMN10;
-    initTable(titles.length() + 1);
-    widget.table->setRowCount(hash.size());
+    initTable(titles, 70, hash.size());
     widget.table->setColumnWidth(0, 120);
     widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 70);
-    widget.table->setColumnWidth(3, 70);
-    widget.table->setColumnWidth(4, 70);
-    widget.table->setColumnWidth(5, 70);
-    widget.table->setColumnWidth(6, 70);
-    widget.table->setColumnWidth(7, 70);
-    widget.table->setColumnWidth(8, 70);
-    widget.table->setColumnWidth(9, 70);
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, QString(record->getString(0)));
         setCellValue(i, 1, QString(record->getString(1)));
@@ -537,22 +501,19 @@ void MainWindow::calculatePlayers2(const QString& player) {
     StatHash hash;
     Filter filter(player, widget.checkBoxID->isChecked());
     analyzeXml(&listOfPlayers2, filter, &hash);
-    initTable(6);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-    widget.table->setColumnWidth(4, 60);
     QStringList titles;
     titles << TABLE_PLAYERS2_COLUMN1
             << TABLE_PLAYERS2_COLUMN2
             << TABLE_PLAYERS2_COLUMN3
             << TABLE_PLAYERS2_COLUMN4
             << TABLE_PLAYERS2_COLUMN5;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 90);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -572,9 +533,6 @@ void MainWindow::calculateTable() {
     StatHash hash;
     Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&listOfTable, filter, &hash);
-    initTable(9);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 180);
     QStringList titles;
     titles << TABLE_TABLE_COLUMN1
             << TABLE_TABLE_COLUMN2
@@ -584,12 +542,10 @@ void MainWindow::calculateTable() {
             << TABLE_TABLE_COLUMN6
             << TABLE_TABLE_COLUMN7
             << TABLE_TABLE_COLUMN8;
-    widget.table->setHorizontalHeaderLabels(titles);
-    for (int j = 1; j < 8; j++) {
-        widget.table->setColumnWidth(j, 60);
-    }
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 180);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         int points = 3 * record->get(0) + record->get(1);
         int games = record->get(0) + record->get(1) + record->get(2);
@@ -612,22 +568,19 @@ void MainWindow::calculateTable2(const QString& team) {
     StatHash hash;
     Filter filter(team, widget.checkBoxID->isChecked());
     analyzeXml(&listOfTable2, filter, &hash);
-    initTable(6);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-    widget.table->setColumnWidth(4, 60);
     QStringList titles;
     titles << TABLE_TABLE2_COLUMN1
             << TABLE_TABLE2_COLUMN2
             << TABLE_TABLE2_COLUMN3
             << TABLE_TABLE2_COLUMN4
             << TABLE_TABLE2_COLUMN5;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 90);
+    widget.table->setColumnWidth(1, 120);
+    widget.table->setColumnWidth(2, 120);
+    widget.table->setColumnWidth(3, 120);
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -645,38 +598,37 @@ void MainWindow::calculateTable2(const QString& team) {
 
 void MainWindow::calculateTeams() {
     StatHash hash;
-    StatHash hash_stat;
     Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&listOfPlayers, filter, &hash);
+    analyzeXml(&listOfTeams, filter, &hash);
+    QStringList titles;
+    titles << TABLE_TEAMS_COLUMN1
+            << TABLE_TEAMS_COLUMN2
+            << TABLE_TEAMS_COLUMN3
+            << TABLE_TEAMS_COLUMN4
+            << TABLE_TEAMS_COLUMN5
+            << TABLE_TEAMS_COLUMN6
+            << TABLE_TEAMS_COLUMN7
+            << TABLE_TEAMS_COLUMN8
+            << TABLE_TEAMS_COLUMN9;
+    initTable(titles, 70, hash.size());
+    widget.table->setColumnWidth(0, 120);
     int i = 0;
 
     foreach(StatHashValue* record, hash) {
-        QString key = QString("%1").arg(record->getString(1));
-        Record* record_stat = Record::getInstance(hash_stat, key);
-        record_stat->setString(key);
-        record_stat->add(1);
+        setCellValue(i, 0, QString(record->getString(0)));
+        setCellValue(i, 1, QString("%1").arg(record->get(0), 4));
+        setCellValue(i, 2, QString("%1").arg(record->get(1), 4));
+        setCellValue(i, 3, QString("%1").arg(record->get(2), 4));
+        setCellValue(i, 4, QString("%1").arg(record->get(3), 4));
+        setCellValue(i, 5, QString("%1").arg(record->get(4) + record->get(5), 4));
+        setCellValue(i, 6, QString("%1").arg(record->get(5), 4));
+        setCellValue(i, 7, QString("%1").arg(record->get(6), 4));
+        setCellValue(i, 8, QString("%1").arg(record->get(7), 4));
+        setCellValue(i, 9, QString("te02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }
     hash.clear();
-    initTable(3);
-    widget.table->setRowCount(hash_stat.size());
-    widget.table->setColumnWidth(0, 120);
-    widget.table->setColumnWidth(1, 60);
-    QStringList titles;
-    titles << TABLE_TEAMS_COLUMN1
-            << TABLE_TEAMS_COLUMN2;
-    widget.table->setHorizontalHeaderLabels(titles);
-    i = 0;
-
-    foreach(StatHashValue* record, hash_stat) {
-        setCellValue(i, 0, QString(record->getString(0)));
-        setCellValue(i, 1, QString("%1").arg(record->get(), 4));
-        setCellValue(i, 2, QString("te02_%1").arg(record->getString(0)));
-        delete record;
-        i++;
-    }
-    hash_stat.clear();
     widget.table->setSortingEnabled(true);
     widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
@@ -700,18 +652,15 @@ void MainWindow::calculateTeams2(const QString& team) {
         }
     }
     hash.clear();
-    initTable(4);
-    widget.table->setRowCount(hash_stat.size());
-    widget.table->setColumnWidth(0, 120);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 60);
     QStringList titles;
     titles << TABLE_TEAMS2_COLUMN1
             << TABLE_TEAMS2_COLUMN2
             << TABLE_TEAMS2_COLUMN3;
-    widget.table->setHorizontalHeaderLabels(titles);
-    i = 0;
+    initTable(titles, 60, hash_stat.size());
+    widget.table->setColumnWidth(0, 120);
+    widget.table->setColumnWidth(1, 120);
 
+    i = 0;
     foreach(StatHashValue* record, hash_stat) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -729,22 +678,15 @@ void MainWindow::verifyPlayers(void) {
     StatHash hash;
     Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&checkListOfPlayers, filter, &hash);
-    initTable(6);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 120);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-    widget.table->setColumnWidth(4, 120);
     QStringList titles;
     titles << TABLE_MATCHINFO_COLUMN1
             << TABLE_MATCHINFO_COLUMN2
             << TABLE_MATCHINFO_COLUMN3
             << TABLE_MATCHINFO_COLUMN4
             << TABLE_MATCHINFO_COLUMN5;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 120, hash.size());
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -764,19 +706,14 @@ void MainWindow::verifyPlayers2(void) {
     StatHash hash;
     Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&checkListOfPlayers2, filter, &hash);
-    initTable(5);
-    widget.table->setColumnWidth(0, 120);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
     QStringList titles;
     titles << TABLE_CHECKPLAYERS2_COLUMN1
             << TABLE_CHECKPLAYERS2_COLUMN2
             << TABLE_CHECKPLAYERS2_COLUMN3
             << TABLE_CHECKPLAYERS2_COLUMN4;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 120, hash.size());
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         if (record->get() > 1) {
             i++;
@@ -805,22 +742,15 @@ void MainWindow::verifyAttendance(void) {
     StatHash hash;
     Filter filter("", widget.checkBoxID->isChecked());
     analyzeXml(&checkListOfAttendance, filter, &hash);
-    initTable(6);
-    widget.table->setRowCount(hash.size());
-    widget.table->setColumnWidth(0, 120);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-    widget.table->setColumnWidth(4, 120);
     QStringList titles;
     titles << TABLE_MATCHINFO_COLUMN1
             << TABLE_MATCHINFO_COLUMN2
             << TABLE_MATCHINFO_COLUMN3
             << TABLE_MATCHINFO_COLUMN4
             << TABLE_MATCHINFO_COLUMN5;
-    widget.table->setHorizontalHeaderLabels(titles);
-    int i = 0;
+    initTable(titles, 120, hash.size());
 
+    int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
@@ -1035,7 +965,8 @@ void MainWindow::save() {
     file.close();
 }
 
-void MainWindow::initTable(int columns) {
+void MainWindow::initTable(QStringList& titles, int columnWidth, int rows) {
+    int columns = titles.size();
     if (columns < 0) {
         return;
     }
@@ -1043,11 +974,14 @@ void MainWindow::initTable(int columns) {
     widget.text->setVisible(false);
     widget.table->clear();
     widget.table->setSortingEnabled(false);
-    widget.table->setColumnCount(columns);
-    for (int j = 0; j < (columns - 1); j++) {
+    widget.table->setColumnCount(columns + 1);
+    for (int j = 0; j < columns; j++) {
         widget.table->setColumnHidden(j, false);
+        widget.table->setColumnWidth(j, columnWidth);
     }
-    widget.table->setColumnHidden(columns - 1, true);
+    widget.table->setColumnHidden(columns, true);
+    widget.table->setRowCount(rows);
+    widget.table->setHorizontalHeaderLabels(titles);
 }
 
 void MainWindow::cellSelected(int row, int column) {

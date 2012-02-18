@@ -265,6 +265,74 @@ void listOfPlayers2(const Report& report, const QString& fileName, const Filter&
     }
 }
 
+void listOfTeams(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
+    QString team1 = report.getTeam1();
+    QString team1id = report.getTeam1id();
+    QString team2 = report.getTeam2();
+    QString team2id = report.getTeam2id();
+    QVector<Report::Player> players1 = report.getPlayers1();
+    QVector<Report::Player> players2 = report.getPlayers2();
+//    uint len1 = players1.size();
+//    for (uint i = 0; i < len1; i++) {
+//        QString player2 = players1.at(i).player;
+//        QString player2id = players1.at(i).id;
+//        QString keyPlayer = getKeyPlayer(filter.useID, player2id, player2, team1);
+//        QString key = getKeyTeam(filter.useID, team1id, team1);
+//        Record* record = Record::getInstance(hash, key);
+//        record->setString(player2, 0);
+//        record->setString(team1, 1);
+//        record->add(1);
+//    }
+//    uint len2 = players2.size();
+//    for (uint i = 0; i < len2; i++) {
+//        QString player2 = players2.at(i).player;
+//        QString player2id = players2.at(i).id;
+//        QString keyPlayer = getKeyPlayer(filter.useID, player2id, player2, team2);
+//        QString key = getKeyTeam(filter.useID, team2id, team2);
+//        Record* record = Record::getInstance(hash, key);
+//        record->setString(player2, 0);
+//        record->setString(team2, 1);
+//        record->add(1);
+//    }
+
+    QVector<Report::Event> events = report.getEvents();
+    uint length = events.size();
+    for (uint i = 0; i < length; i++) {
+        QString eventType = events.at(i).type;
+        QString player1 = events.at(i).player;
+        QString player1id = events.at(i).playerid;
+        QString player2 = events.at(i).player2;
+        QString player2id = events.at(i).playerid2;
+        QString team = events.at(i).team;
+        if (eventType == EVENT_SUBSTITUTION) {
+//            QString key = getKeyPlayer(filter.useID, player2id, player2, team);
+//            Record* record = Record::getInstance(hash, key);
+//            record->setString(player2, 0);
+//            record->setString(team, 1);
+//            record->add(1, 0);
+        } else {
+            QString key = QString("%1").arg(team);
+            Record* record = Record::getInstance(hash, key);
+            record->setString(team, 0);
+            if (eventType == EVENT_RED_CARD) {
+                record->add(1, 1);
+            } else if (eventType == EVENT_RED_YELLOW_CARD) {
+                record->add(1, 2);
+            } else if (eventType == EVENT_YELLOW_CARD) {
+                record->add(1, 3);
+            } else if (eventType == EVENT_GOAL) {
+                record->add(1, 4);
+            } else if (eventType == EVENT_GOAL_PENALTY) {
+                record->add(1, 5);
+            } else if (eventType == EVENT_MISSED_PENALTY) {
+                record->add(1, 6);
+            } else if (eventType == EVENT_AUTOGOAL) {
+                record->add(1, 7);
+            }
+        }
+    }
+}
+
 void listOfTable(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
@@ -352,7 +420,7 @@ void checkListOfPlayers2(const Report& report, const QString& fileName, const Fi
         } else {
             if (real_id != id) {
                 record->setString(id, 4);
-                record->add(1);     
+                record->add(1);
             }
         }
     }
@@ -373,7 +441,7 @@ void checkListOfPlayers2(const Report& report, const QString& fileName, const Fi
         } else {
             if (real_id != id) {
                 record->setString(id, 4);
-                record->add(1);     
+                record->add(1);
             }
         }
     }
@@ -397,7 +465,7 @@ void checkListOfPlayers2(const Report& report, const QString& fileName, const Fi
         } else {
             if (real_id != playerid) {
                 record->setString(playerid, 4);
-                record->add(1);     
+                record->add(1);
             }
         }
         if (eventType == EVENT_SUBSTITUTION) {
@@ -416,7 +484,7 @@ void checkListOfPlayers2(const Report& report, const QString& fileName, const Fi
             } else {
                 if (real_id != playerid2) {
                     record->setString(playerid2, 4);
-                    record->add(1);     
+                    record->add(1);
                 }
             }
         }
@@ -498,15 +566,22 @@ void addMatch(const Report& report, const QString& fileName, StatHash* hash) {
 
 QString getKeyPlayer(const bool useID, const QString& playerid, const QString& player, const QString& team) {
     QString qstr = (useID) ?
-        QString("%1").arg(playerid) :
-        QString("%1 %2").arg(player).arg(team);        
+        ((playerid == "") ? QString("%1").arg(player) : QString("%1").arg(playerid)) :
+        QString("%1 %2").arg(player).arg(team);
     return qstr;
 }
 
 QString getKeyCoach(const bool useID, const QString& coachid, const QString& coach, const QString& team) {
     QString qstr = (useID) ?
         ((coachid == "") ? QString("%1").arg(coach) : QString("%1").arg(coachid)) :
-        QString("%1 %2").arg(coach).arg(team);        
+        QString("%1 %2").arg(coach).arg(team);
+    return qstr;
+}
+
+QString getKeyTeam(const bool useID, const QString& teamid, const QString& team) {
+    QString qstr = (useID) ?
+        ((teamid == "") ? QString("%1").arg(team) : QString("%1").arg(teamid)) :
+        QString("%1").arg(team);
     return qstr;
 }
 
@@ -519,4 +594,3 @@ QString getKeyCoach(const bool useID, const QString& coachid, const QString& coa
 // out << (qint32)123;
 // out.setVersion(QDataStream::Qt_4_0);
 // out << lots_of_interesting_data;
- 
