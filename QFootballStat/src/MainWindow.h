@@ -28,6 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _MAINWINDOW_H
 #define	_MAINWINDOW_H
 
+#include <QMap>
 #include <QtXml>
 #include "ui_MainWindow.h"
 #include "XmlFileReader.h"
@@ -44,6 +45,7 @@ private:
     Ui::MainWindow widget;
     QString directory;
     QVector<Report> reports;
+    QMap<QString, int> tournaments;
     QString previous;
     QString current;
     void closeEvent(QCloseEvent *event);

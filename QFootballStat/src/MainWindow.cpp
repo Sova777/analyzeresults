@@ -849,6 +849,7 @@ void MainWindow::analyzeXml(pointer func, const Filter& filter, StatHash* hash) 
     QDate fromDate = widget.dateEditFrom->date();
     QDate tillDate = widget.dateEditTill->date();
     if (emptyCache) {
+        tournaments.clear();
         QDir qDir = QDir(directory);
         QDirIterator it(qDir.absolutePath(), QDirIterator::Subdirectories);
         while (it.hasNext()) {
@@ -863,6 +864,7 @@ void MainWindow::analyzeXml(pointer func, const Filter& filter, StatHash* hash) 
                 Report report = saxParser(file);
                 reports.append(report);
                 QDate currentDate = report.getDate();
+                tournaments.insert(report.getMatchTournament(), 0);
                 if (currentDate < fromDate) {
                     fromDate = currentDate;
                 }
@@ -881,13 +883,23 @@ void MainWindow::analyzeXml(pointer func, const Filter& filter, StatHash* hash) 
         }
         widget.dateEditFrom->setDate(fromDate);
         widget.dateEditTill->setDate(tillDate);
+        QComboBox* combo = widget.comboTournaments;
+        combo->clear();
+        combo->addItem(ALL_TOURNAMENTS);
+        foreach(QString t, tournaments.keys()) {
+            combo->addItem(t);
+        }
     }
     counter = 0;
+    QString tourn = widget.comboTournaments->currentText();
     foreach(Report report, reports) {
         counter++;
         QDate date = report.getDate();
-        if ((date >= fromDate) && (date <= tillDate)) {
-            (*func)(report, report.getFileName(), filter, hash);
+        QString currentTournament = report.getMatchTournament();
+        if ((tourn == ALL_TOURNAMENTS) || (currentTournament == tourn)) {
+            if ((date >= fromDate) && (date <= tillDate)) {
+                (*func)(report, report.getFileName(), filter, hash);
+            }
         }
         if ((counter % 1000) == 0) {
             statusBar()->showMessage(QString("%1 (%2 %3)")
