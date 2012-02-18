@@ -53,7 +53,7 @@ private:
     void report(const QString& fileName);
     void analyzeXml(pointer func, const Filter& filter, StatHash* hash);
     Report saxParser(QFile& file);
-    void initTable(int columns);
+    void initTable(QStringList& titles, int columnWidth, int rows);
 
     void calculateStadiums2(const QString& stadium);
     void calculateReferies2(const QString& referee);

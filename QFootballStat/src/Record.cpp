@@ -120,3 +120,7 @@ Record* Record::newInstance(StatHash* hash) {
     record->key = key;
     return record;
 }
+
+//QMap<QString&, int> Record::getMap() {
+//    return map;
+//}

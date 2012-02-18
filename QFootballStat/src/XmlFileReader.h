@@ -50,6 +50,7 @@ void listOfStadiums(const Report& report, const QString& fileName, const Filter&
 void listOfStadiums2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
 void listOfPlayers(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
 void listOfPlayers2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
+void listOfTeams(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
 
 void checkListOfPlayers(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
 void checkListOfPlayers2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
@@ -61,5 +62,6 @@ bool isPlayed(const Report& report, const QString& player);
 bool isScored(const Report& report, const QString& player);
 QString getKeyPlayer(const bool useID, const QString& playerid, const QString& player, const QString& team);
 QString getKeyCoach(const bool useID, const QString& coachid, const QString& coach, const QString& team);
+QString getKeyTeam(const bool useID, const QString& teamid, const QString& team);
 
 #endif	/* XMLFILEREADER_H */

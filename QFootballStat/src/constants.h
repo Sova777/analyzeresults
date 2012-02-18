@@ -133,6 +133,13 @@ const QString TABLE_PLAYERS2_COLUMN5 = QString::fromUtf8("Счёт");
 
 const QString TABLE_TEAMS_COLUMN1 = QString::fromUtf8("Команда");
 const QString TABLE_TEAMS_COLUMN2 = QString::fromUtf8("Игроков");
+const QString TABLE_TEAMS_COLUMN3 = QString::fromUtf8("Красная");
+const QString TABLE_TEAMS_COLUMN4 = QString::fromUtf8("Ж+Кр");
+const QString TABLE_TEAMS_COLUMN5 = QString::fromUtf8("Жёлтая");
+const QString TABLE_TEAMS_COLUMN6 = QString::fromUtf8("Голы");
+const QString TABLE_TEAMS_COLUMN7 = QString::fromUtf8("С пен.");
+const QString TABLE_TEAMS_COLUMN8 = QString::fromUtf8("Нез. пен");
+const QString TABLE_TEAMS_COLUMN9 = QString::fromUtf8("Автогол");
 
 const QString TABLE_TEAMS2_COLUMN1 = QString::fromUtf8("Игрок");
 const QString TABLE_TEAMS2_COLUMN2 = QString::fromUtf8("Команда");
