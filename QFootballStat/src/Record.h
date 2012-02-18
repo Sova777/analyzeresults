@@ -40,13 +40,13 @@ private:
     QString text[maxText];
     int field[max];
     QString key;
+    QMap<QString, int> map;
     Record();
 public:
-//    QMap<QString&, int> map;
     void add(int add, int index = 0);
     int get(int index = 0);
     void set(int value, int index = 0);
-//    QMap<QString&, int> getMap();
+    QMap<QString, int>* getMap();
     QString getString(int index = 0);
     void setString(const QString& value, int index = 0);
     static Record* getInstance(StatHash& hash, const StatHashKey& key);

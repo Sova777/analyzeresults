@@ -616,7 +616,7 @@ void MainWindow::calculateTeams() {
 
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, QString(record->getString(0)));
-        setCellValue(i, 1, QString("%1").arg(record->get(0), 4));
+        setCellValue(i, 1, QString("%1").arg(record->getMap()->size(), 4));
         setCellValue(i, 2, QString("%1").arg(record->get(1), 4));
         setCellValue(i, 3, QString("%1").arg(record->get(2), 4));
         setCellValue(i, 4, QString("%1").arg(record->get(3), 4));
