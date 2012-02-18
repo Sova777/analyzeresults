@@ -71,11 +71,26 @@ void listOfGoals2(const Report& report, const QString& fileName, const Filter& f
 void listOfReferies(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString name = report.getReferee();
     QString city = report.getRefereeCity();
+    QVector<Report::Event> events = report.getEvents();
     QString key = QString("%1 (%2)").arg(name).arg(city);
     Record* record = Record::getInstance(hash, key);
     record->setString(name, 0);
     record->setString(city, 1);
     record->add(1);
+
+    uint length = events.size();
+    for (uint i = 0; i < length; i++) {
+        QString eventType = events.at(i).type;
+        if (eventType == EVENT_RED_CARD) {
+            record->add(1, 1);
+        } else if (eventType == EVENT_RED_YELLOW_CARD) {
+            record->add(1, 2);
+        } else if (eventType == EVENT_YELLOW_CARD) {
+            record->add(1, 3);
+        } else if ((eventType == EVENT_GOAL_PENALTY) || (eventType == EVENT_MISSED_PENALTY)) {
+            record->add(1, 4);
+        }
+    }
 }
 
 void listOfReferies2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
@@ -105,6 +120,7 @@ void listOfCoaches(const Report& report, const QString& fileName, const Filter& 
     QString coach1id = report.getCoach1id();
     QString coach2 = report.getCoach2();
     QString coach2id = report.getCoach2id();
+    QString score = report.getScore();
     QString key1 = getKeyCoach(filter.useID, coach1id, coach1, team1);
     QString key2 = getKeyCoach(filter.useID, coach2id, coach2, team2);
     Record* record1 = Record::getInstance(hash, key1);
@@ -115,6 +131,28 @@ void listOfCoaches(const Report& report, const QString& fileName, const Filter& 
     record2->setString(coach2, 0);
     record2->setString(team2, 1);
     record2->add(1);
+
+    if (score != "") {
+        bool ok;
+        int goal1 = 99999;
+        int goal2 = 99999;
+        goal1 = score.section(':', 0, 0).toInt(&ok);
+        goal2 = score.section(':', 1, 1).toInt(&ok);
+        record1->add(goal1, 4);
+        record1->add(goal2, 5);
+        record2->add(goal2, 4);
+        record2->add(goal1, 5);
+        if (goal1 > goal2) {
+            record1->add(1, 1);
+            record2->add(1, 3);
+        } else if (goal2 > goal1) {
+            record2->add(1, 1);
+            record1->add(1, 3);
+        } else {
+            record2->add(1, 2);
+            record1->add(1, 2);
+        }
+    }
 }
 
 void listOfCoaches2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
@@ -141,11 +179,24 @@ void listOfCoaches2(const Report& report, const QString& fileName, const Filter&
 void listOfStadiums(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
     QString stadium = report.getStadium();
     QString city = report.getStadiumCity();
+    QString attendance = report.getStadiumAttendance();
     QString key = QString("%1 (%2)").arg(stadium).arg(city);
     Record* record = Record::getInstance(hash, key);
     record->setString(stadium, 0);
     record->setString(city, 1);
     record->add(1);
+    bool ok;
+    int att = 0;
+    att = attendance.toInt(&ok);
+    record->add(att, 1);
+    if (att != 0) {
+        if ((record->get(2) < att) || (record->get(2) == 0)) {
+            record->set(att, 2);
+        }
+        if ((record->get(3) > att) || (record->get(3) == 0)) {
+            record->set(att, 3);
+        }
+    }
 }
 
 void listOfStadiums2(const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
