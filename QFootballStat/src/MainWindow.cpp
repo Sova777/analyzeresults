@@ -260,18 +260,25 @@ void MainWindow::calculateReferies() {
     QStringList titles;
     titles << TABLE_REFERIES_COLUMN1
             << TABLE_REFERIES_COLUMN2
-            << TABLE_REFERIES_COLUMN3;
+            << TABLE_REFERIES_COLUMN3
+            << TABLE_REFERIES_COLUMN4
+            << TABLE_REFERIES_COLUMN5
+            << TABLE_REFERIES_COLUMN6
+            << TABLE_REFERIES_COLUMN7;
     initTable(titles, 60, hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
-    widget.table->setColumnWidth(2, 60);
 
     int i = 0;
     foreach(StatHashValue* record, hash) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(), 4));
-        setCellValue(i, 3, QString("re02_%1").arg(record->getString(0)));
+        setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
+        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+        setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
+        setCellValue(i, 7, QString("re02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }
@@ -319,7 +326,13 @@ void MainWindow::calculateCoaches(void) {
     QStringList titles;
     titles << TABLE_COACHES_COLUMN1
             << TABLE_COACHES_COLUMN2
-            << TABLE_COACHES_COLUMN3;
+            << TABLE_COACHES_COLUMN3
+            << TABLE_COACHES_COLUMN4
+            << TABLE_COACHES_COLUMN5
+            << TABLE_COACHES_COLUMN6
+            << TABLE_COACHES_COLUMN7
+            << TABLE_COACHES_COLUMN8
+            << TABLE_COACHES_COLUMN9;
     initTable(titles, 60, hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
@@ -329,7 +342,13 @@ void MainWindow::calculateCoaches(void) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-        setCellValue(i, 3, QString("co02_%1").arg(record->getString(0)));
+        setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
+        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+        setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
+        setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
+        setCellValue(i, 8, QString("%1").arg(3 * record->get(1) + record->get(2), 4));
+        setCellValue(i, 9, QString("co02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }
@@ -377,8 +396,11 @@ void MainWindow::calculateStadiums(void) {
     QStringList titles;
     titles << TABLE_STADIUMS_COLUMN1
             << TABLE_STADIUMS_COLUMN2
-            << TABLE_STADIUMS_COLUMN3;
-    initTable(titles, 60, hash.size());
+            << TABLE_STADIUMS_COLUMN3
+            << TABLE_STADIUMS_COLUMN4
+            << TABLE_STADIUMS_COLUMN5
+            << TABLE_STADIUMS_COLUMN6;
+    initTable(titles, 90, hash.size());
     widget.table->setColumnWidth(0, 180);
     widget.table->setColumnWidth(1, 180);
 
@@ -387,7 +409,10 @@ void MainWindow::calculateStadiums(void) {
         setCellValue(i, 0, record->getString(0));
         setCellValue(i, 1, record->getString(1));
         setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-        setCellValue(i, 3, QString("st02_%1").arg(record->getString(0)));
+        setCellValue(i, 3, QString("%1").arg(record->get(1) / record->get(0), 4));
+        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+        setCellValue(i, 6, QString("st02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }

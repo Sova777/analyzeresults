@@ -72,6 +72,10 @@ const QString TABLE_TABLE2_COLUMN5 = QString::fromUtf8("Счёт");
 const QString TABLE_REFERIES_COLUMN1 = QString::fromUtf8("Судья");
 const QString TABLE_REFERIES_COLUMN2 = QString::fromUtf8("Город");
 const QString TABLE_REFERIES_COLUMN3 = QString::fromUtf8("Игр");
+const QString TABLE_REFERIES_COLUMN4 = QString::fromUtf8("Красная");
+const QString TABLE_REFERIES_COLUMN5 = QString::fromUtf8("Ж+Кр");
+const QString TABLE_REFERIES_COLUMN6 = QString::fromUtf8("Жёлтая");
+const QString TABLE_REFERIES_COLUMN7 = QString::fromUtf8("Пенальти");
 
 const QString TABLE_REFERIES2_COLUMN1 = QString::fromUtf8("Дата");
 const QString TABLE_REFERIES2_COLUMN2 = QString::fromUtf8("Город");
@@ -91,7 +95,13 @@ const QString TABLE_GOALS2_COLUMN5 = QString::fromUtf8("Счёт");
 
 const QString TABLE_COACHES_COLUMN1 = QString::fromUtf8("Тренер");
 const QString TABLE_COACHES_COLUMN2 = QString::fromUtf8("Команда");
-const QString TABLE_COACHES_COLUMN3 = QString::fromUtf8("Матчей");
+const QString TABLE_COACHES_COLUMN3 = QString::fromUtf8("И");
+const QString TABLE_COACHES_COLUMN4 = QString::fromUtf8("В");
+const QString TABLE_COACHES_COLUMN5 = QString::fromUtf8("Н");
+const QString TABLE_COACHES_COLUMN6 = QString::fromUtf8("П");
+const QString TABLE_COACHES_COLUMN7 = QString::fromUtf8("Заб.");
+const QString TABLE_COACHES_COLUMN8 = QString::fromUtf8("Проп.");
+const QString TABLE_COACHES_COLUMN9 = QString::fromUtf8("О");
 
 const QString TABLE_COACHES2_COLUMN1 = QString::fromUtf8("Дата");
 const QString TABLE_COACHES2_COLUMN2 = QString::fromUtf8("Город");
@@ -107,6 +117,9 @@ const QString TABLE_MATCHES_COLUMN4 = QString::fromUtf8("Счёт");
 const QString TABLE_STADIUMS_COLUMN1 = QString::fromUtf8("Стадион");
 const QString TABLE_STADIUMS_COLUMN2 = QString::fromUtf8("Город");
 const QString TABLE_STADIUMS_COLUMN3 = QString::fromUtf8("Матчей");
+const QString TABLE_STADIUMS_COLUMN4 = QString::fromUtf8("Зрит.(сред.)");
+const QString TABLE_STADIUMS_COLUMN5 = QString::fromUtf8("Зрит.(макс.)");
+const QString TABLE_STADIUMS_COLUMN6 = QString::fromUtf8("Зрит.(мин.)");
 
 const QString TABLE_STADIUMS2_COLUMN1 = QString::fromUtf8("Дата");
 const QString TABLE_STADIUMS2_COLUMN2 = QString::fromUtf8("Город");
