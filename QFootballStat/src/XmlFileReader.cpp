@@ -272,28 +272,29 @@ void listOfTeams(const Report& report, const QString& fileName, const Filter& fi
     QString team2id = report.getTeam2id();
     QVector<Report::Player> players1 = report.getPlayers1();
     QVector<Report::Player> players2 = report.getPlayers2();
-//    uint len1 = players1.size();
-//    for (uint i = 0; i < len1; i++) {
-//        QString player2 = players1.at(i).player;
-//        QString player2id = players1.at(i).id;
-//        QString keyPlayer = getKeyPlayer(filter.useID, player2id, player2, team1);
-//        QString key = getKeyTeam(filter.useID, team1id, team1);
-//        Record* record = Record::getInstance(hash, key);
-//        record->setString(player2, 0);
-//        record->setString(team1, 1);
-//        record->add(1);
-//    }
-//    uint len2 = players2.size();
-//    for (uint i = 0; i < len2; i++) {
-//        QString player2 = players2.at(i).player;
-//        QString player2id = players2.at(i).id;
-//        QString keyPlayer = getKeyPlayer(filter.useID, player2id, player2, team2);
-//        QString key = getKeyTeam(filter.useID, team2id, team2);
-//        Record* record = Record::getInstance(hash, key);
-//        record->setString(player2, 0);
-//        record->setString(team2, 1);
-//        record->add(1);
-//    }
+    uint len1 = players1.size();
+    for (uint i = 0; i < len1; i++) {
+        QString player2 = players1.at(i).player;
+        QString key = QString("%1").arg(team1);
+        Record* record = Record::getInstance(hash, key);
+        QMap<QString, int>* map = record->getMap();
+        if (!map->contains(player2)) {
+            map->insert(player2, 0);
+        }
+        record->setString(team1, 0);
+    }
+    uint len2 = players2.size();
+    for (uint i = 0; i < len2; i++) {
+        QString player2 = players2.at(i).player;
+        QString player2id = players2.at(i).id;
+        QString key = QString("%1").arg(team2);
+        Record* record = Record::getInstance(hash, key);
+        QMap<QString, int>* map = record->getMap();
+        if (!map->contains(player2)) {
+            map->insert(player2, 0);
+        }
+        record->setString(team2, 0);
+    }
 
     QVector<Report::Event> events = report.getEvents();
     uint length = events.size();
@@ -305,11 +306,13 @@ void listOfTeams(const Report& report, const QString& fileName, const Filter& fi
         QString player2id = events.at(i).playerid2;
         QString team = events.at(i).team;
         if (eventType == EVENT_SUBSTITUTION) {
-//            QString key = getKeyPlayer(filter.useID, player2id, player2, team);
-//            Record* record = Record::getInstance(hash, key);
-//            record->setString(player2, 0);
-//            record->setString(team, 1);
-//            record->add(1, 0);
+            QString key = QString("%1").arg(team);
+            Record* record = Record::getInstance(hash, key);
+            QMap<QString, int>* map = record->getMap();
+            if (!map->contains(player2)) {
+                map->insert(player2, 0);
+            }
+            record->setString(team, 0);
         } else {
             QString key = QString("%1").arg(team);
             Record* record = Record::getInstance(hash, key);

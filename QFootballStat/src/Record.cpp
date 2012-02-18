@@ -121,6 +121,6 @@ Record* Record::newInstance(StatHash* hash) {
     return record;
 }
 
-//QMap<QString&, int> Record::getMap() {
-//    return map;
-//}
+QMap<QString, int>* Record::getMap() {
+    return &map;
+}
