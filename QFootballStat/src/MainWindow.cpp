@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <QtXml>
 
 #include "Filter.h"
+#include "Find.h"
 #include "MainWindow.h"
 #include "Report.h"
 #include "constants.h"
@@ -71,6 +72,10 @@ MainWindow::MainWindow() {
             this, SLOT(callVerifyPlayers2()));
     connect(widget.actionVerifyAttendance, SIGNAL(triggered()),
             this, SLOT(callVerifyAttendance()));
+    connect(widget.actionFindPlayer, SIGNAL(triggered()),
+            this, SLOT(findPlayer()));
+    connect(widget.actionFindCoach, SIGNAL(triggered()),
+            this, SLOT(findCoach()));
     connect(widget.pushButton_1, SIGNAL(clicked()),
             this, SLOT(selectMode1()));
     connect(widget.pushButton_2, SIGNAL(clicked()),
@@ -389,6 +394,44 @@ void MainWindow::calculateCoaches2(const QString& coach) {
     widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
+void MainWindow::calculateCoaches3(const QString& expr) {
+    StatHash hash;
+    Filter filter(expr, widget.checkBoxID->isChecked());
+    analyzeXml(&listOfCoaches, filter, &hash);
+    QStringList titles;
+    titles << TABLE_COACHES_COLUMN1
+            << TABLE_COACHES_COLUMN2
+            << TABLE_COACHES_COLUMN3
+            << TABLE_COACHES_COLUMN4
+            << TABLE_COACHES_COLUMN5
+            << TABLE_COACHES_COLUMN6
+            << TABLE_COACHES_COLUMN7
+            << TABLE_COACHES_COLUMN8
+            << TABLE_COACHES_COLUMN9;
+    initTable(titles, 60, hash.size());
+    widget.table->setColumnWidth(0, 180);
+    widget.table->setColumnWidth(1, 180);
+
+    int i = 0;
+    foreach(StatHashValue* record, hash) {
+        setCellValue(i, 0, record->getString(0));
+        setCellValue(i, 1, record->getString(1));
+        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
+        setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
+        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+        setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
+        setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
+        setCellValue(i, 8, QString("%1").arg(3 * record->get(1) + record->get(2), 4));
+        setCellValue(i, 9, QString("co02_%1").arg(record->getString(0)));
+        delete record;
+        i++;
+    }
+    hash.clear();
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
+}
+
 void MainWindow::calculateStadiums(void) {
     StatHash hash;
     Filter filter("", widget.checkBoxID->isChecked());
@@ -546,6 +589,46 @@ void MainWindow::calculatePlayers2(const QString& player) {
         setCellValue(i, 3, record->getString(3));
         setCellValue(i, 4, record->getString(4));
         setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+        delete record;
+        i++;
+    }
+    hash.clear();
+    widget.table->setSortingEnabled(true);
+    widget.table->sortByColumn(0, Qt::AscendingOrder);
+}
+
+void MainWindow::calculatePlayers3(const QString& expr) {
+    StatHash hash;
+    Filter filter(expr, widget.checkBoxID->isChecked());
+    analyzeXml(&listOfPlayers, filter, &hash);
+    QStringList titles;
+    titles << TABLE_PLAYERS_COLUMN1
+            << TABLE_PLAYERS_COLUMN2
+            << TABLE_PLAYERS_COLUMN3
+            << TABLE_PLAYERS_COLUMN4
+            << TABLE_PLAYERS_COLUMN5
+            << TABLE_PLAYERS_COLUMN6
+            << TABLE_PLAYERS_COLUMN7
+            << TABLE_PLAYERS_COLUMN8
+            << TABLE_PLAYERS_COLUMN9
+            << TABLE_PLAYERS_COLUMN10;
+    initTable(titles, 70, hash.size());
+    widget.table->setColumnWidth(0, 120);
+    widget.table->setColumnWidth(1, 120);
+
+    int i = 0;
+    foreach(StatHashValue* record, hash) {
+        setCellValue(i, 0, QString(record->getString(0)));
+        setCellValue(i, 1, QString(record->getString(1)));
+        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
+        setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
+        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+        setCellValue(i, 6, QString("%1").arg(record->get(4) + record->get(5), 4));
+        setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
+        setCellValue(i, 8, QString("%1").arg(record->get(6), 4));
+        setCellValue(i, 9, QString("%1").arg(record->get(7), 4));
+        setCellValue(i, 10, QString("pl02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }
@@ -791,61 +874,87 @@ void MainWindow::verifyAttendance(void) {
     widget.table->sortByColumn(0, Qt::AscendingOrder);
 }
 
+void MainWindow::findPlayer(void) {
+    expr = "";
+    Find find(this);
+    find.setWindowTitle(FIND_PLAYER);
+    find.exec();
+    if (expr != "") {
+        calculatePlayers3(expr);
+    }
+}
+
+void MainWindow::findCoach(void) {
+    expr = "";
+    Find find(this);
+    find.setWindowTitle(FIND_COACH);
+    find.exec();
+    if (expr != "") {
+        calculateCoaches3(expr);
+    }
+}
+
+void MainWindow::cache() {
+    int counter = 0;
+    QDate fromDate = widget.dateEditFrom->date();
+    QDate tillDate = widget.dateEditTill->date();
+    tournaments.clear();
+    QDir qDir = QDir(directory);
+    QDirIterator it(qDir.absolutePath(), QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        it.next();
+        if (!it.fileInfo().isDir()) {
+            counter++;
+            QString fileName = it.fileName();
+            if (!fileName.endsWith(QLatin1String(".xml"))) continue;
+            QString fullFileName = it.fileInfo().absoluteFilePath();
+            QFile file(fullFileName);
+            if (!file.open(QIODevice::ReadOnly)) continue;
+            Report report = saxParser(file);
+            reports.append(report);
+            QDate currentDate = report.getDate();
+            tournaments.insert(report.getMatchTournament(), 0);
+            if (currentDate < fromDate) {
+                fromDate = currentDate;
+            }
+            if (currentDate > tillDate) {
+                tillDate = currentDate;
+            }
+            file.close();
+        }
+        if ((counter % 100) == 0) {
+            statusBar()->showMessage(QString("%1 (%2 %3)")
+                    .arg(STATUS_CALCULATING)
+                    .arg(counter)
+                    .arg(STATUS_CALCULATING2));
+            QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+        }
+    }
+    widget.dateEditFrom->setDate(fromDate);
+    widget.dateEditTill->setDate(tillDate);
+    QComboBox* combo = widget.comboTournaments;
+    combo->clear();
+    combo->addItem(ALL_TOURNAMENTS);
+    foreach(QString t, tournaments.keys()) {
+        combo->addItem(t);
+    }
+}
+
 // SAX парсер
 void MainWindow::analyzeXml(pointer func, const Filter& filter, StatHash* hash) {
     bool emptyCache = (reports.size() == 0) ? true : false;
-    int counter = 0;
     statusBar()->showMessage(STATUS_CALCULATING);
     const QCursor cursor = this->cursor();
     this->setCursor(Qt::WaitCursor);
     QApplication::processEvents();
     QTime t;
     t.start();
+    if (emptyCache) {
+        cache();
+    }
+    int counter = 0;
     QDate fromDate = widget.dateEditFrom->date();
     QDate tillDate = widget.dateEditTill->date();
-    if (emptyCache) {
-        tournaments.clear();
-        QDir qDir = QDir(directory);
-        QDirIterator it(qDir.absolutePath(), QDirIterator::Subdirectories);
-        while (it.hasNext()) {
-            it.next();
-            if (!it.fileInfo().isDir()) {
-                counter++;
-                QString fileName = it.fileName();
-                if (!fileName.endsWith(QLatin1String(".xml"))) continue;
-                QString fullFileName = it.fileInfo().absoluteFilePath();
-                QFile file(fullFileName);
-                if (!file.open(QIODevice::ReadOnly)) continue;
-                Report report = saxParser(file);
-                reports.append(report);
-                QDate currentDate = report.getDate();
-                tournaments.insert(report.getMatchTournament(), 0);
-                if (currentDate < fromDate) {
-                    fromDate = currentDate;
-                }
-                if (currentDate > tillDate) {
-                    tillDate = currentDate;
-                }
-                file.close();
-            }
-            if ((counter % 100) == 0) {
-                statusBar()->showMessage(QString("%1 (%2 %3)")
-                        .arg(STATUS_CALCULATING)
-                        .arg(counter)
-                        .arg(STATUS_CALCULATING2));
-                QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
-            }
-        }
-        widget.dateEditFrom->setDate(fromDate);
-        widget.dateEditTill->setDate(tillDate);
-        QComboBox* combo = widget.comboTournaments;
-        combo->clear();
-        combo->addItem(ALL_TOURNAMENTS);
-        foreach(QString t, tournaments.keys()) {
-            combo->addItem(t);
-        }
-    }
-    counter = 0;
     QString tourn = widget.comboTournaments->currentText();
     foreach(Report report, reports) {
         counter++;

@@ -26,10 +26,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "Find.h"
+#include "MainWindow.h"
 
-Find::Find() {
+Find::Find(MainWindow *parent) : QDialog(parent) {
+    mainWindow = parent;
     widget.setupUi(this);
 }
 
 Find::~Find() {
+}
+
+void Find::accept() {
+    mainWindow->expr = widget.lineEdit->text();
+    QDialog::accept();
 }

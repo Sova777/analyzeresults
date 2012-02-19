@@ -117,20 +117,27 @@ void listOfCoaches(const Report& report, const QString& fileName, const Filter& 
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QString coach1 = report.getCoach1();
-    QString coach1id = report.getCoach1id();
+    QString coach1id = report.getCoach1id();    
     QString coach2 = report.getCoach2();
     QString coach2id = report.getCoach2id();
     QString score = report.getScore();
+    QString expr = filter.filter;
     QString key1 = getKeyCoach(filter.useID, coach1id, coach1, team1);
     QString key2 = getKeyCoach(filter.useID, coach2id, coach2, team2);
-    Record* record1 = Record::getInstance(hash, key1);
-    record1->setString(coach1, 0);
-    record1->setString(team1, 1);
-    record1->add(1);
-    Record* record2 = Record::getInstance(hash, key2);
-    record2->setString(coach2, 0);
-    record2->setString(team2, 1);
-    record2->add(1);
+    Record* record1 = NULL;
+    if ((expr == "") || coach1.contains(expr)) {
+        record1 = Record::getInstance(hash, key1);
+        record1->setString(coach1, 0);
+        record1->setString(team1, 1);
+        record1->add(1);
+    }
+    Record* record2 = NULL;
+    if ((expr == "") || coach2.contains(expr)) {
+        record2 = Record::getInstance(hash, key2);
+        record2->setString(coach2, 0);
+        record2->setString(team2, 1);
+        record2->add(1);
+    }
 
     if (score != "") {
         bool ok;
@@ -138,19 +145,23 @@ void listOfCoaches(const Report& report, const QString& fileName, const Filter& 
         int goal2 = 99999;
         goal1 = score.section(':', 0, 0).toInt(&ok);
         goal2 = score.section(':', 1, 1).toInt(&ok);
-        record1->add(goal1, 4);
-        record1->add(goal2, 5);
-        record2->add(goal2, 4);
-        record2->add(goal1, 5);
+        if (record1 != NULL) {
+            record1->add(goal1, 4);
+            record1->add(goal2, 5);
+        }
+        if (record2 != NULL) {
+            record2->add(goal2, 4);
+            record2->add(goal1, 5);
+        }
         if (goal1 > goal2) {
-            record1->add(1, 1);
-            record2->add(1, 3);
+            if (record1 != NULL) {record1->add(1, 1);}
+            if (record2 != NULL) {record2->add(1, 3);}
         } else if (goal2 > goal1) {
-            record2->add(1, 1);
-            record1->add(1, 3);
+            if (record2 != NULL) {record2->add(1, 1);}
+            if (record1 != NULL) {record1->add(1, 3);}
         } else {
-            record2->add(1, 2);
-            record1->add(1, 2);
+            if (record2 != NULL) {record2->add(1, 2);}
+            if (record1 != NULL) {record1->add(1, 2);}
         }
     }
 }
@@ -237,25 +248,30 @@ void listOfPlayers(const Report& report, const QString& fileName, const Filter& 
     QString team2 = report.getTeam2();
     QVector<Report::Player> players1 = report.getPlayers1();
     QVector<Report::Player> players2 = report.getPlayers2();
+    QString expr = filter.filter;
     uint len1 = players1.size();
     for (uint i = 0; i < len1; i++) {
         QString player2 = players1.at(i).player;
         QString player2id = players1.at(i).id;
-        QString key = getKeyPlayer(filter.useID, player2id, player2, team1);
-        Record* record = Record::getInstance(hash, key);
-        record->setString(player2, 0);
-        record->setString(team1, 1);
-        record->add(1);
+        if ((expr == "") || (player2.contains(expr))) {
+            QString key = getKeyPlayer(filter.useID, player2id, player2, team1);
+            Record* record = Record::getInstance(hash, key);
+            record->setString(player2, 0);
+            record->setString(team1, 1);
+            record->add(1);
+        }
     }
     uint len2 = players2.size();
     for (uint i = 0; i < len2; i++) {
         QString player2 = players2.at(i).player;
         QString player2id = players2.at(i).id;
-        QString key = getKeyPlayer(filter.useID, player2id, player2, team2);
-        Record* record = Record::getInstance(hash, key);
-        record->setString(player2, 0);
-        record->setString(team2, 1);
-        record->add(1);
+        if ((expr == "") || (player2.contains(expr))) {
+            QString key = getKeyPlayer(filter.useID, player2id, player2, team2);
+            Record* record = Record::getInstance(hash, key);
+            record->setString(player2, 0);
+            record->setString(team2, 1);
+            record->add(1);
+        }
     }
 
     QVector<Report::Event> events = report.getEvents();
@@ -268,30 +284,34 @@ void listOfPlayers(const Report& report, const QString& fileName, const Filter& 
         QString player2id = events.at(i).playerid2;
         QString team = events.at(i).team;
         if (eventType == EVENT_SUBSTITUTION) {
-            QString key = getKeyPlayer(filter.useID, player2id, player2, team);
-            Record* record = Record::getInstance(hash, key);
-            record->setString(player2, 0);
-            record->setString(team, 1);
-            record->add(1, 0);
+            if ((expr == "") || (player2.contains(expr))) {
+                QString key = getKeyPlayer(filter.useID, player2id, player2, team);
+                Record* record = Record::getInstance(hash, key);
+                record->setString(player2, 0);
+                record->setString(team, 1);
+                record->add(1, 0);
+            }
         } else {
-            QString key = getKeyPlayer(filter.useID, player1id, player1, team);
-            Record* record = Record::getInstance(hash, key);
-            record->setString(player1, 0);
-            record->setString(team, 1);
-            if (eventType == EVENT_RED_CARD) {
-                record->add(1, 1);
-            } else if (eventType == EVENT_RED_YELLOW_CARD) {
-                record->add(1, 2);
-            } else if (eventType == EVENT_YELLOW_CARD) {
-                record->add(1, 3);
-            } else if (eventType == EVENT_GOAL) {
-                record->add(1, 4);
-            } else if (eventType == EVENT_GOAL_PENALTY) {
-                record->add(1, 5);
-            } else if (eventType == EVENT_MISSED_PENALTY) {
-                record->add(1, 6);
-            } else if (eventType == EVENT_AUTOGOAL) {
-                record->add(1, 7);
+            if ((expr == "") || (player1.contains(expr))) {
+                QString key = getKeyPlayer(filter.useID, player1id, player1, team);
+                Record* record = Record::getInstance(hash, key);
+                record->setString(player1, 0);
+                record->setString(team, 1);
+                if (eventType == EVENT_RED_CARD) {
+                    record->add(1, 1);
+                } else if (eventType == EVENT_RED_YELLOW_CARD) {
+                    record->add(1, 2);
+                } else if (eventType == EVENT_YELLOW_CARD) {
+                    record->add(1, 3);
+                } else if (eventType == EVENT_GOAL) {
+                    record->add(1, 4);
+                } else if (eventType == EVENT_GOAL_PENALTY) {
+                    record->add(1, 5);
+                } else if (eventType == EVENT_MISSED_PENALTY) {
+                    record->add(1, 6);
+                } else if (eventType == EVENT_AUTOGOAL) {
+                    record->add(1, 7);
+                }
             }
         }
     }

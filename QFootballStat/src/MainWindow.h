@@ -41,6 +41,7 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow();
     virtual ~MainWindow();
+    QString expr;
 private:
     Ui::MainWindow widget;
     QString directory;
@@ -54,7 +55,10 @@ private:
     void analyzeXml(pointer func, const Filter& filter, StatHash* hash);
     Report saxParser(QFile& file);
     void initTable(QStringList& titles, int columnWidth, int rows);
+    void cache();
 
+    void calculatePlayers3(const QString& expr);
+    void calculateCoaches3(const QString& expr);
     void calculateStadiums2(const QString& stadium);
     void calculateReferies2(const QString& referee);
     void calculateCoaches2(const QString& coach);
@@ -90,6 +94,9 @@ private slots:
     void callVerifyPlayers();
     void callVerifyPlayers2();
     void callVerifyAttendance();
+
+    void findPlayer();
+    void findCoach();
 
     void selectMode1();
     void selectMode2();
