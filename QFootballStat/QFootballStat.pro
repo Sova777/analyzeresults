@@ -8,13 +8,16 @@ INCLUDEPATH += . src
 
 HEADERS += src/constants.h \
            src/Filter.h \
+           src/Find.h \
            src/MainWindow.h \
            src/Record.h \
            src/Report.h \
            src/XmlFileReader.h
-FORMS += src/MainWindow.ui
+FORMS += src/MainWindow.ui \
+         src/Find.ui
 SOURCES += src/main.cpp \
            src/Filter.cpp \
+           src/Find.cpp \
            src/MainWindow.cpp \
            src/Record.cpp \
            src/Report.cpp \
