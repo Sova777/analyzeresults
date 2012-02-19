@@ -28,15 +28,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef FIND_H
 #define	FIND_H
 
+#include "MainWindow.h"
 #include "ui_Find.h"
 
 class Find : public QDialog {
     Q_OBJECT
 public:
-    Find();
+    Find(MainWindow *parent = 0);
     virtual ~Find();
 private:
+    MainWindow* mainWindow;
     Ui::Find widget;
+public slots:
+    void accept();
 };
 
 #endif	/* FIND_H */
