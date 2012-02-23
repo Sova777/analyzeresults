@@ -177,6 +177,9 @@
           <property name="toolTip">
            <string>Турнирная таблица</string>
           </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -189,6 +192,9 @@
             <width>64</width>
             <height>64</height>
            </size>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
           </property>
          </widget>
          <widget class="QPushButton" name="pushButton_2">
