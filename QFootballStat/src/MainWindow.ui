@@ -57,7 +57,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Обновить</string>
+         <string>&amp;Обновить</string>
         </property>
        </widget>
       </item>
@@ -656,7 +656,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Назад</string>
+         <string>&amp;Назад</string>
         </property>
        </widget>
       </item>
@@ -666,7 +666,7 @@
       <item row="3" column="4">
        <widget class="QCheckBox" name="checkBoxID">
         <property name="text">
-         <string>Учитывать ID</string>
+         <string>&amp;Учитывать ID</string>
         </property>
        </widget>
       </item>

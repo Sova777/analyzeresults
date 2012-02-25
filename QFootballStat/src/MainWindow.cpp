@@ -73,9 +73,9 @@ MainWindow::MainWindow() {
     connect(widget.actionVerifyAttendance, SIGNAL(triggered()),
             this, SLOT(callVerifyAttendance()));
     connect(widget.actionFindPlayer, SIGNAL(triggered()),
-            this, SLOT(findPlayer()));
+            this, SLOT(callFindPlayer()));
     connect(widget.actionFindCoach, SIGNAL(triggered()),
-            this, SLOT(findCoach()));
+            this, SLOT(callFindCoach()));
     connect(widget.pushButton_1, SIGNAL(clicked()),
             this, SLOT(selectMode1()));
     connect(widget.pushButton_2, SIGNAL(clicked()),
@@ -198,6 +198,14 @@ void MainWindow::callVerifyPlayers2() {
 
 void MainWindow::callVerifyAttendance() {
     jump("vat1_");
+}
+
+void MainWindow::callFindPlayer() {
+    jump("fpl1_");
+}
+
+void MainWindow::callFindCoach() {
+    jump("fco1_");
 }
 
 void MainWindow::calculateGoals() {
@@ -1209,6 +1217,14 @@ void MainWindow::jump(const QString link) {
     }
     if (code == "vat1_") {
         verifyAttendance();
+        return;
+    }
+    if (code == "fpl1_") {
+        findPlayer();
+        return;
+    }
+    if (code == "fco1_") {
+        findCoach();
         return;
     }
 }

@@ -79,6 +79,9 @@ private:
     void verifyPlayers2(void);
     void verifyAttendance(void);
 
+    void findPlayer();
+    void findCoach();
+
 private slots:
     void open();
     void save();
@@ -94,9 +97,8 @@ private slots:
     void callVerifyPlayers();
     void callVerifyPlayers2();
     void callVerifyAttendance();
-
-    void findPlayer();
-    void findCoach();
+    void callFindPlayer();
+    void callFindCoach();
 
     void selectMode1();
     void selectMode2();
