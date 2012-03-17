@@ -46,6 +46,9 @@
    <property name="text">
     <string>Фамилия:</string>
    </property>
+   <property name="buddy">
+    <cstring>lineEdit</cstring>
+   </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">

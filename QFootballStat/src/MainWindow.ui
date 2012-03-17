@@ -856,6 +856,25 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>pushButton_1</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>pushButton_3</tabstop>
+  <tabstop>pushButton_4</tabstop>
+  <tabstop>pushButton_5</tabstop>
+  <tabstop>pushButton_6</tabstop>
+  <tabstop>pushButton_7</tabstop>
+  <tabstop>pushButton_8</tabstop>
+  <tabstop>dateEditFrom</tabstop>
+  <tabstop>dateEditTill</tabstop>
+  <tabstop>comboTournaments</tabstop>
+  <tabstop>checkBoxID</tabstop>
+  <tabstop>pushRefresh</tabstop>
+  <tabstop>pushBack</tabstop>
+  <tabstop>table</tabstop>
+  <tabstop>text</tabstop>
+ </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>

@@ -105,7 +105,15 @@ MainWindow::MainWindow() {
             "football.mojgorod.ru", "QFootballStat");
     directory = settings.value("currentDir").toString();
     if (directory == "") {
-        directory = QString::fromLatin1("xml");
+        QString applicationDir = QCoreApplication::applicationDirPath();
+        if (applicationDir != "") {
+            if (QFile::exists(applicationDir + "/xml")) {
+                directory = applicationDir + "/xml";
+            }
+        }
+        if (directory == "") {
+            directory = QString::fromLatin1("xml");
+        }
     }
     widget.text->setText(FIRST_MESSAGE);
     widget.text->setVisible(true);
@@ -1048,7 +1056,7 @@ Report MainWindow::saxParser(QFile& file) {
         }
     }
     if (xml.hasError()) {
-        qDebug() << "file has error";
+        qDebug() << "\"" << file.fileName() << "\" file has error";
     }
     return report;
 }
