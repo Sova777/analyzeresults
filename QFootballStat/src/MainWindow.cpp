@@ -1263,8 +1263,13 @@ void MainWindow::report(const QString& fileName) {
     QString stadium = report.getStadium();
     QString text = QString::fromUtf8("<h1 align='center'>%1</h1>")
             .arg(tournament);
-    text.append(QString::fromUtf8("<h2 align='center'>%1</h2>")
-            .arg(round));
+    if ((round == "") || (round.length() > 3)) {
+        text.append(QString::fromUtf8("<h2 align='center'>%1</h2>")
+                .arg(round));
+    } else {
+        text.append(QString::fromUtf8("<h2 align='center'>Тур: %1</h2>")
+                .arg(round));
+    }
     text.append(QString::fromUtf8("<h2 align='center'>%1 - %2 - %3</h2>")
             .arg(team1)
             .arg(team2)
@@ -1273,7 +1278,7 @@ void MainWindow::report(const QString& fileName) {
     if (city != "") {
         text.append(QString::fromUtf8("%1. ").arg(city));
     }
-    text.append(QString::fromUtf8("<p>%1. %2 зрителей<br><b>Судья:</b> %3 (%4)<br>%6 %5</p>")
+    text.append(QString::fromUtf8("%1. %2 зрителей<br><b>Судья:</b> %3 (%4)<br>%6 %5</p>")
             .arg(stadium)
             .arg(attendance)
             .arg(referee)
