@@ -733,7 +733,8 @@ void MainWindow::calculateTeams() {
             << TABLE_TEAMS_COLUMN6
             << TABLE_TEAMS_COLUMN7
             << TABLE_TEAMS_COLUMN8
-            << TABLE_TEAMS_COLUMN9;
+            << TABLE_TEAMS_COLUMN9
+            << TABLE_TEAMS_COLUMN10;
     initTable(titles, 70, hash.size());
     widget.table->setColumnWidth(0, 120);
     int i = 0;
@@ -748,7 +749,8 @@ void MainWindow::calculateTeams() {
         setCellValue(i, 6, QString("%1").arg(record->get(5), 4));
         setCellValue(i, 7, QString("%1").arg(record->get(6), 4));
         setCellValue(i, 8, QString("%1").arg(record->get(7), 4));
-        setCellValue(i, 9, QString("te02_%1").arg(record->getString(0)));
+        setCellValue(i, 9, QString("%1").arg(record->get(8), 4));
+        setCellValue(i, 10, QString("te02_%1").arg(record->getString(0)));
         delete record;
         i++;
     }
