@@ -387,6 +387,8 @@ void listOfTeams(const Report& report, const QString& fileName, const Filter& fi
         } else {
             QString key = QString("%1").arg(team);
             Record* record = Record::getInstance(hash, key);
+            QString key2 = QString("%1").arg(team2);
+            Record* record2 = Record::getInstance(hash, key2);
             record->setString(team, 0);
             if (eventType == EVENT_RED_CARD) {
                 record->add(1, 1);
@@ -398,8 +400,10 @@ void listOfTeams(const Report& report, const QString& fileName, const Filter& fi
                 record->add(1, 4);
             } else if (eventType == EVENT_GOAL_PENALTY) {
                 record->add(1, 5);
+                record2->add(1, 8);
             } else if (eventType == EVENT_MISSED_PENALTY) {
                 record->add(1, 6);
+                record2->add(1, 8);
             } else if (eventType == EVENT_AUTOGOAL) {
                 record->add(1, 7);
             }
