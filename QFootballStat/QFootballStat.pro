@@ -23,3 +23,4 @@ SOURCES += src/main.cpp \
            src/Report.cpp \
            src/XmlFileReader.cpp
 RESOURCES += src/resources.qrc
+RC_FILE += src/QFootballStat.rc

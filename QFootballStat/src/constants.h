@@ -120,9 +120,9 @@ const QString TABLE_MATCHES_COLUMN4 = QString::fromUtf8("Счёт");
 const QString TABLE_STADIUMS_COLUMN1 = QString::fromUtf8("Стадион");
 const QString TABLE_STADIUMS_COLUMN2 = QString::fromUtf8("Город");
 const QString TABLE_STADIUMS_COLUMN3 = QString::fromUtf8("Матчей");
-const QString TABLE_STADIUMS_COLUMN4 = QString::fromUtf8("Зрит.(сред.)");
-const QString TABLE_STADIUMS_COLUMN5 = QString::fromUtf8("Зрит.(макс.)");
-const QString TABLE_STADIUMS_COLUMN6 = QString::fromUtf8("Зрит.(мин.)");
+const QString TABLE_STADIUMS_COLUMN4 = QString::fromUtf8("Зрителей\n(среднее)");
+const QString TABLE_STADIUMS_COLUMN5 = QString::fromUtf8("Зрителей\n(максимум)");
+const QString TABLE_STADIUMS_COLUMN6 = QString::fromUtf8("Зрителей\n(минимум)");
 
 const QString TABLE_STADIUMS2_COLUMN1 = QString::fromUtf8("Дата");
 const QString TABLE_STADIUMS2_COLUMN2 = QString::fromUtf8("Город");
@@ -137,8 +137,8 @@ const QString TABLE_PLAYERS_COLUMN4 = QString::fromUtf8("Красная");
 const QString TABLE_PLAYERS_COLUMN5 = QString::fromUtf8("Ж+Кр");
 const QString TABLE_PLAYERS_COLUMN6 = QString::fromUtf8("Жёлтая");
 const QString TABLE_PLAYERS_COLUMN7 = QString::fromUtf8("Голы");
-const QString TABLE_PLAYERS_COLUMN8 = QString::fromUtf8("С пен.");
-const QString TABLE_PLAYERS_COLUMN9 = QString::fromUtf8("Нез. пен");
+const QString TABLE_PLAYERS_COLUMN8 = QString::fromUtf8("Пенальти\n(забито)");
+const QString TABLE_PLAYERS_COLUMN9 = QString::fromUtf8("Пенальти\n(не забито)");
 const QString TABLE_PLAYERS_COLUMN10 = QString::fromUtf8("Автогол");
 
 const QString TABLE_PLAYERS2_COLUMN1 = QString::fromUtf8("Дата");
