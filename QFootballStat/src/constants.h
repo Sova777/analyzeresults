@@ -95,6 +95,7 @@ const QString TABLE_GOALS2_COLUMN2 = QString::fromUtf8("Город");
 const QString TABLE_GOALS2_COLUMN3 = QString::fromUtf8("Хозяева");
 const QString TABLE_GOALS2_COLUMN4 = QString::fromUtf8("Гости");
 const QString TABLE_GOALS2_COLUMN5 = QString::fromUtf8("Счёт");
+const QString TABLE_GOALS2_COLUMN6 = QString::fromUtf8("Мячей");
 
 const QString TABLE_COACHES_COLUMN1 = QString::fromUtf8("Тренер");
 const QString TABLE_COACHES_COLUMN2 = QString::fromUtf8("Команда");
