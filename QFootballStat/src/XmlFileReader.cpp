@@ -80,7 +80,8 @@ void listOfGoals2(MainWindow* window, const Report& report, const QString& fileN
         QDate date = report.getDate();
         QString score = report.getScore();
         QString city = report.getStadiumCity();
-        if (isScored(report, filter.filter)) {
+        int goals = getPlayerGoals(report, filter.filter);
+        if (goals > 0) {
             QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
             Record* record = Record::getInstance(hash, key);
             QString qdate = date.toString("yyyy/MM/dd");
@@ -89,6 +90,7 @@ void listOfGoals2(MainWindow* window, const Report& report, const QString& fileN
             record->setString(team1, 2);
             record->setString(team2, 3);
             record->setString(score, 4);
+            record->set(goals, 0);
             record->setString(fileName, 5);
         }
     } else {
@@ -97,12 +99,14 @@ void listOfGoals2(MainWindow* window, const Report& report, const QString& fileN
                 << TABLE_GOALS2_COLUMN2
                 << TABLE_GOALS2_COLUMN3
                 << TABLE_GOALS2_COLUMN4
-                << TABLE_GOALS2_COLUMN5;
+                << TABLE_GOALS2_COLUMN5
+                << TABLE_GOALS2_COLUMN6;
         window->initTable(titles, 60, hash->size());
         window->widget.table->setColumnWidth(0, 90);
         window->widget.table->setColumnWidth(1, 120);
         window->widget.table->setColumnWidth(2, 120);
-        window->widget.table->setColumnWidth(3, 120);
+        window->widget.table->setColumnWidth(3, 90);
+        window->widget.table->setColumnWidth(4, 90);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
@@ -111,7 +115,8 @@ void listOfGoals2(MainWindow* window, const Report& report, const QString& fileN
             window->setCellValue(i, 2, record->getString(2));
             window->setCellValue(i, 3, record->getString(3));
             window->setCellValue(i, 4, record->getString(4));
-            window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+            window->setCellValue(i, 5, QString("%1").arg(record->get(0)));
+            window->setCellValue(i, 6, QString("xm01_%1").arg(record->getString(5)));
             delete record;
             i++;
         }
@@ -1418,8 +1423,8 @@ bool isPlayed(const Report& report, const QString& player) {
     return value;
 }
 
-bool isScored(const Report& report, const QString& player) {
-    bool value = false;
+int getPlayerGoals(const Report& report, const QString& player) {
+    int value = 0;
     QVector<Report::Event> events = report.getEvents();
     uint length = events.size();
     for (uint i = 0; i < length; i++) {
@@ -1427,7 +1432,7 @@ bool isScored(const Report& report, const QString& player) {
         if ((eventType == EVENT_GOAL) || (eventType == EVENT_GOAL_PENALTY)) {
             QString player2 = events.at(i).player;
             if (player2 == player) {
-                return true;
+                value++;
             }
         }
     }
