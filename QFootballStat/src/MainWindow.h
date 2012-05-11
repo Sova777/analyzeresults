@@ -42,21 +42,22 @@ public:
     MainWindow();
     virtual ~MainWindow();
     QString expr;
-private:
     Ui::MainWindow widget;
+    void initTable(QStringList& titles, int columnWidth, int rows);
+    void setCellValue(int row, int column, QString value);
+private:
     QString directory;
     QVector<Report> reports;
     QMap<QString, int> tournaments;
     QString previous;
     QString current;
     void closeEvent(QCloseEvent *event);
-    void setCellValue(int row, int column, QString value);
     void report(const QString& fileName);
     void analyzeXml(pointer func, const Filter& filter, StatHash* hash);
     Report saxParser(QFile& file);
-    void initTable(QStringList& titles, int columnWidth, int rows);
     void cache();
 
+    void calculate(pointer func, const QString& qfilter);
     void calculatePlayers3(const QString& expr);
     void calculateCoaches3(const QString& expr);
     void calculateStadiums2(const QString& stadium);

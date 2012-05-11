@@ -216,680 +216,92 @@ void MainWindow::callFindCoach() {
     jump("fco1_");
 }
 
-void MainWindow::calculateGoals() {
+void MainWindow::calculate(pointer func, const QString& qfilter) {
     StatHash hash;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&listOfGoals, filter, &hash);
-    QStringList titles;
-    titles << TABLE_GOALS_COLUMN1
-            << TABLE_GOALS_COLUMN2
-            << TABLE_GOALS_COLUMN3;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 180);
-    widget.table->setColumnWidth(1, 180);
+    Filter filter(qfilter, widget.checkBoxID->isChecked());
+    analyzeXml(func, filter, &hash);
+    Report report = reports[0];
+    (*func)(this, report, report.getFileName(), filter, &hash);
+}
 
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, QString("%1").arg(record->get(), 4));
-        setCellValue(i, 3, QString("go02_%1").arg(record->getString(0)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(2, Qt::DescendingOrder);
+void MainWindow::calculateGoals() {
+    calculate(&listOfGoals, "");
 }
 
 void MainWindow::calculateGoals2(const QString& player) {
-    StatHash hash;
-    Filter filter(player, widget.checkBoxID->isChecked());
-    analyzeXml(&listOfGoals2, filter, &hash);
-    QStringList titles;
-    titles << TABLE_GOALS2_COLUMN1
-            << TABLE_GOALS2_COLUMN2
-            << TABLE_GOALS2_COLUMN3
-            << TABLE_GOALS2_COLUMN4
-            << TABLE_GOALS2_COLUMN5;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, record->getString(2));
-        setCellValue(i, 3, record->getString(3));
-        setCellValue(i, 4, record->getString(4));
-        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfGoals2, player);
 }
 
 void MainWindow::calculateReferies() {
-    StatHash hash;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&listOfReferies, filter, &hash);
-    QStringList titles;
-    titles << TABLE_REFERIES_COLUMN1
-            << TABLE_REFERIES_COLUMN2
-            << TABLE_REFERIES_COLUMN3
-            << TABLE_REFERIES_COLUMN4
-            << TABLE_REFERIES_COLUMN5
-            << TABLE_REFERIES_COLUMN6
-            << TABLE_REFERIES_COLUMN7;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 180);
-    widget.table->setColumnWidth(1, 180);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, QString("%1").arg(record->get(), 4));
-        setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
-        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-        setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
-        setCellValue(i, 7, QString("re02_%1").arg(record->getString(0)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(2, Qt::DescendingOrder);
+    calculate(&listOfReferies, "");
 }
 
 void MainWindow::calculateReferies2(const QString& referee) {
-    StatHash hash;
-    Filter filter(referee, widget.checkBoxID->isChecked());
-    analyzeXml(&listOfReferies2, filter, &hash);
-    QStringList titles;
-    titles << TABLE_REFERIES2_COLUMN1
-            << TABLE_REFERIES2_COLUMN2
-            << TABLE_REFERIES2_COLUMN3
-            << TABLE_REFERIES2_COLUMN4
-            << TABLE_REFERIES2_COLUMN5;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, record->getString(2));
-        setCellValue(i, 3, record->getString(3));
-        setCellValue(i, 4, record->getString(4));
-        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfReferies2, referee);
 }
 
 void MainWindow::calculateCoaches(void) {
-    StatHash hash;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&listOfCoaches, filter, &hash);
-    QStringList titles;
-    titles << TABLE_COACHES_COLUMN1
-            << TABLE_COACHES_COLUMN2
-            << TABLE_COACHES_COLUMN3
-            << TABLE_COACHES_COLUMN4
-            << TABLE_COACHES_COLUMN5
-            << TABLE_COACHES_COLUMN6
-            << TABLE_COACHES_COLUMN7
-            << TABLE_COACHES_COLUMN8
-            << TABLE_COACHES_COLUMN9;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 180);
-    widget.table->setColumnWidth(1, 180);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-        setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
-        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-        setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
-        setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
-        setCellValue(i, 8, QString("%1").arg(3 * record->get(1) + record->get(2), 4));
-        setCellValue(i, 9, QString("co02_%1").arg(record->getString(0)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfCoaches, "");
 }
 
 void MainWindow::calculateCoaches2(const QString& coach) {
-    StatHash hash;
-    Filter filter(coach, widget.checkBoxID->isChecked());
-    analyzeXml(&listOfCoaches2, filter, &hash);
-    QStringList titles;
-    titles << TABLE_COACHES2_COLUMN1
-            << TABLE_COACHES2_COLUMN2
-            << TABLE_COACHES2_COLUMN3
-            << TABLE_COACHES2_COLUMN4
-            << TABLE_COACHES2_COLUMN5;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, record->getString(2));
-        setCellValue(i, 3, record->getString(3));
-        setCellValue(i, 4, record->getString(4));
-        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfCoaches2, coach);
 }
 
 void MainWindow::calculateCoaches3(const QString& expr) {
-    StatHash hash;
-    Filter filter(expr, widget.checkBoxID->isChecked());
-    analyzeXml(&listOfCoaches, filter, &hash);
-    QStringList titles;
-    titles << TABLE_COACHES_COLUMN1
-            << TABLE_COACHES_COLUMN2
-            << TABLE_COACHES_COLUMN3
-            << TABLE_COACHES_COLUMN4
-            << TABLE_COACHES_COLUMN5
-            << TABLE_COACHES_COLUMN6
-            << TABLE_COACHES_COLUMN7
-            << TABLE_COACHES_COLUMN8
-            << TABLE_COACHES_COLUMN9;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 180);
-    widget.table->setColumnWidth(1, 180);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-        setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
-        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-        setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
-        setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
-        setCellValue(i, 8, QString("%1").arg(3 * record->get(1) + record->get(2), 4));
-        setCellValue(i, 9, QString("co02_%1").arg(record->getString(0)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfCoaches3, expr);
 }
 
 void MainWindow::calculateStadiums(void) {
-    StatHash hash;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&listOfStadiums, filter, &hash);
-    QStringList titles;
-    titles << TABLE_STADIUMS_COLUMN1
-            << TABLE_STADIUMS_COLUMN2
-            << TABLE_STADIUMS_COLUMN3
-            << TABLE_STADIUMS_COLUMN4
-            << TABLE_STADIUMS_COLUMN5
-            << TABLE_STADIUMS_COLUMN6;
-    initTable(titles, 90, hash.size());
-    widget.table->setColumnWidth(0, 180);
-    widget.table->setColumnWidth(1, 180);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-        setCellValue(i, 3, QString("%1").arg(record->get(1) / record->get(0), 4));
-        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-        setCellValue(i, 6, QString("st02_%1").arg(record->getString(0)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfStadiums, "");
 }
 
 void MainWindow::calculateStadiums2(const QString& stadium) {
-    StatHash hash;
-    Filter filter(stadium, widget.checkBoxID->isChecked());
-    analyzeXml(&listOfStadiums2, filter, &hash);
-    QStringList titles;
-    titles << TABLE_STADIUMS2_COLUMN1
-            << TABLE_STADIUMS2_COLUMN2
-            << TABLE_STADIUMS2_COLUMN3
-            << TABLE_STADIUMS2_COLUMN4
-            << TABLE_STADIUMS2_COLUMN5;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, record->getString(2));
-        setCellValue(i, 3, record->getString(3));
-        setCellValue(i, 4, record->getString(4));
-        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfStadiums2, stadium);
 }
 
 void MainWindow::calculateMatches() {
-    StatHash hash;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&listOfMatches, filter, &hash);
-    QStringList titles;
-    titles << TABLE_MATCHES_COLUMN1
-            << TABLE_MATCHES_COLUMN2
-            << TABLE_MATCHES_COLUMN3
-            << TABLE_MATCHES_COLUMN4;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 120);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, QString(record->getString(0)));
-        setCellValue(i, 1, QString(record->getString(1)));
-        setCellValue(i, 2, QString(record->getString(2)));
-        setCellValue(i, 3, QString(record->getString(3)));
-        setCellValue(i, 4, QString("xm01_%1").arg(record->getString(4)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfMatches, "");
 }
 
 void MainWindow::calculatePlayers() {
-    StatHash hash;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&listOfPlayers, filter, &hash);
-    QStringList titles;
-    titles << TABLE_PLAYERS_COLUMN1
-            << TABLE_PLAYERS_COLUMN2
-            << TABLE_PLAYERS_COLUMN3
-            << TABLE_PLAYERS_COLUMN4
-            << TABLE_PLAYERS_COLUMN5
-            << TABLE_PLAYERS_COLUMN6
-            << TABLE_PLAYERS_COLUMN7
-            << TABLE_PLAYERS_COLUMN8
-            << TABLE_PLAYERS_COLUMN9
-            << TABLE_PLAYERS_COLUMN10;
-    initTable(titles, 70, hash.size());
-    widget.table->setColumnWidth(0, 120);
-    widget.table->setColumnWidth(1, 120);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, QString(record->getString(0)));
-        setCellValue(i, 1, QString(record->getString(1)));
-        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-        setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
-        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-        setCellValue(i, 6, QString("%1").arg(record->get(4) + record->get(5), 4));
-        setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
-        setCellValue(i, 8, QString("%1").arg(record->get(6), 4));
-        setCellValue(i, 9, QString("%1").arg(record->get(7), 4));
-        setCellValue(i, 10, QString("pl02_%1").arg(record->getString(0)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfPlayers, "");
 }
 
 void MainWindow::calculatePlayers2(const QString& player) {
-    StatHash hash;
-    Filter filter(player, widget.checkBoxID->isChecked());
-    analyzeXml(&listOfPlayers2, filter, &hash);
-    QStringList titles;
-    titles << TABLE_PLAYERS2_COLUMN1
-            << TABLE_PLAYERS2_COLUMN2
-            << TABLE_PLAYERS2_COLUMN3
-            << TABLE_PLAYERS2_COLUMN4
-            << TABLE_PLAYERS2_COLUMN5;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, record->getString(2));
-        setCellValue(i, 3, record->getString(3));
-        setCellValue(i, 4, record->getString(4));
-        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfPlayers2, player);
 }
 
 void MainWindow::calculatePlayers3(const QString& expr) {
-    StatHash hash;
-    Filter filter(expr, widget.checkBoxID->isChecked());
-    analyzeXml(&listOfPlayers, filter, &hash);
-    QStringList titles;
-    titles << TABLE_PLAYERS_COLUMN1
-            << TABLE_PLAYERS_COLUMN2
-            << TABLE_PLAYERS_COLUMN3
-            << TABLE_PLAYERS_COLUMN4
-            << TABLE_PLAYERS_COLUMN5
-            << TABLE_PLAYERS_COLUMN6
-            << TABLE_PLAYERS_COLUMN7
-            << TABLE_PLAYERS_COLUMN8
-            << TABLE_PLAYERS_COLUMN9
-            << TABLE_PLAYERS_COLUMN10;
-    initTable(titles, 70, hash.size());
-    widget.table->setColumnWidth(0, 120);
-    widget.table->setColumnWidth(1, 120);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, QString(record->getString(0)));
-        setCellValue(i, 1, QString(record->getString(1)));
-        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-        setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
-        setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-        setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-        setCellValue(i, 6, QString("%1").arg(record->get(4) + record->get(5), 4));
-        setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
-        setCellValue(i, 8, QString("%1").arg(record->get(6), 4));
-        setCellValue(i, 9, QString("%1").arg(record->get(7), 4));
-        setCellValue(i, 10, QString("pl02_%1").arg(record->getString(0)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfPlayers3, expr);
 }
 
 void MainWindow::calculateTable() {
-    StatHash hash;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&listOfTable, filter, &hash);
-    QStringList titles;
-    titles << TABLE_TABLE_COLUMN1
-            << TABLE_TABLE_COLUMN2
-            << TABLE_TABLE_COLUMN3
-            << TABLE_TABLE_COLUMN4
-            << TABLE_TABLE_COLUMN5
-            << TABLE_TABLE_COLUMN6
-            << TABLE_TABLE_COLUMN7
-            << TABLE_TABLE_COLUMN8;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 180);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        int points = 3 * record->get(0) + record->get(1);
-        int games = record->get(0) + record->get(1) + record->get(2);
-        setCellValue(i, 0, record->getString());
-        setCellValue(i, 1, QString::number(games));
-        for (int k = 0; k < 5; k++) {
-            setCellValue(i, 2 + k, QString::number(record->get(k)));
-        }
-        setCellValue(i, 7, QString("%1").arg(points, 4));
-        setCellValue(i, 8, QString("ta02_%1").arg(record->getString()));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(7, Qt::DescendingOrder);
+    calculate(&listOfTable, "");
 }
 
 void MainWindow::calculateTable2(const QString& team) {
-    StatHash hash;
-    Filter filter(team, widget.checkBoxID->isChecked());
-    analyzeXml(&listOfTable2, filter, &hash);
-    QStringList titles;
-    titles << TABLE_TABLE2_COLUMN1
-            << TABLE_TABLE2_COLUMN2
-            << TABLE_TABLE2_COLUMN3
-            << TABLE_TABLE2_COLUMN4
-            << TABLE_TABLE2_COLUMN5;
-    initTable(titles, 60, hash.size());
-    widget.table->setColumnWidth(0, 90);
-    widget.table->setColumnWidth(1, 120);
-    widget.table->setColumnWidth(2, 120);
-    widget.table->setColumnWidth(3, 120);
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, record->getString(2));
-        setCellValue(i, 3, record->getString(3));
-        setCellValue(i, 4, record->getString(4));
-        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfTable2, team);
 }
 
 void MainWindow::calculateTeams() {
-    StatHash hash;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&listOfTeams, filter, &hash);
-    QStringList titles;
-    titles << TABLE_TEAMS_COLUMN1
-            << TABLE_TEAMS_COLUMN2
-            << TABLE_TEAMS_COLUMN3
-            << TABLE_TEAMS_COLUMN4
-            << TABLE_TEAMS_COLUMN5
-            << TABLE_TEAMS_COLUMN6
-            << TABLE_TEAMS_COLUMN7
-            << TABLE_TEAMS_COLUMN8
-            << TABLE_TEAMS_COLUMN9
-            << TABLE_TEAMS_COLUMN10;
-    initTable(titles, 70, hash.size());
-    widget.table->setColumnWidth(0, 120);
-    int i = 0;
-
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, QString(record->getString(0)));
-        setCellValue(i, 1, QString("%1").arg(record->getMap()->size(), 4));
-        setCellValue(i, 2, QString("%1").arg(record->get(1), 4));
-        setCellValue(i, 3, QString("%1").arg(record->get(2), 4));
-        setCellValue(i, 4, QString("%1").arg(record->get(3), 4));
-        setCellValue(i, 5, QString("%1").arg(record->get(4) + record->get(5), 4));
-        setCellValue(i, 6, QString("%1").arg(record->get(5), 4));
-        setCellValue(i, 7, QString("%1").arg(record->get(6), 4));
-        setCellValue(i, 8, QString("%1").arg(record->get(7), 4));
-        setCellValue(i, 9, QString("%1").arg(record->get(8), 4));
-        setCellValue(i, 10, QString("te02_%1").arg(record->getString(0)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfTeams, "");
 }
 
 void MainWindow::calculateTeams2(const QString& team) {
-    StatHash hash;
-    StatHash hash_stat;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&listOfPlayers, filter, &hash);
-    int i = 0;
-
-    foreach(StatHashValue* record, hash) {
-        if (record->getString(1) == team) {
-            QString key = QString("%1").arg(record->getString(0));
-            Record* record_stat = Record::getInstance(hash_stat, key);
-            record_stat->setString(record->getString(0), 0);
-            record_stat->setString(record->getString(1), 1);
-            record_stat->set(record->get(0), 0);
-            delete record;
-            i++;
-        }
-    }
-    hash.clear();
-    QStringList titles;
-    titles << TABLE_TEAMS2_COLUMN1
-            << TABLE_TEAMS2_COLUMN2
-            << TABLE_TEAMS2_COLUMN3;
-    initTable(titles, 60, hash_stat.size());
-    widget.table->setColumnWidth(0, 120);
-    widget.table->setColumnWidth(1, 120);
-
-    i = 0;
-    foreach(StatHashValue* record, hash_stat) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-        setCellValue(i, 3, QString("pl02_%1").arg(record->getString(0)));
-        delete record;
-        i++;
-    }
-    hash_stat.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&listOfTeams2, team);
 }
 
 void MainWindow::verifyPlayers(void) {
-    StatHash hash;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&checkListOfPlayers, filter, &hash);
-    QStringList titles;
-    titles << TABLE_MATCHINFO_COLUMN1
-            << TABLE_MATCHINFO_COLUMN2
-            << TABLE_MATCHINFO_COLUMN3
-            << TABLE_MATCHINFO_COLUMN4
-            << TABLE_MATCHINFO_COLUMN5;
-    initTable(titles, 120, hash.size());
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, record->getString(2));
-        setCellValue(i, 3, record->getString(3));
-        setCellValue(i, 4, record->getString(4));
-        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&checkListOfPlayers, "");
 }
 
 void MainWindow::verifyPlayers2(void) {
-    StatHash hash;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&checkListOfPlayers2, filter, &hash);
-    QStringList titles;
-    titles << TABLE_CHECKPLAYERS2_COLUMN1
-            << TABLE_CHECKPLAYERS2_COLUMN2
-            << TABLE_CHECKPLAYERS2_COLUMN3
-            << TABLE_CHECKPLAYERS2_COLUMN4;
-    initTable(titles, 120, hash.size());
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        if (record->get() > 1) {
-            i++;
-        }
-    }
-    widget.table->setRowCount(i);
-    i = 0;
-
-    foreach(StatHashValue* record, hash) {
-        if (record->get() > 1) {
-            setCellValue(i, 0, record->getString(1));
-            setCellValue(i, 1, record->getString(2));
-            setCellValue(i, 2, record->getString(3));
-            setCellValue(i, 3, record->getString(4));
-            setCellValue(i, 4, QString(""));
-            delete record;
-            i++;
-        }
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&checkListOfPlayers2, "");
 }
 
 void MainWindow::verifyAttendance(void) {
-    StatHash hash;
-    Filter filter("", widget.checkBoxID->isChecked());
-    analyzeXml(&checkListOfAttendance, filter, &hash);
-    QStringList titles;
-    titles << TABLE_MATCHINFO_COLUMN1
-            << TABLE_MATCHINFO_COLUMN2
-            << TABLE_MATCHINFO_COLUMN3
-            << TABLE_MATCHINFO_COLUMN4
-            << TABLE_MATCHINFO_COLUMN5;
-    initTable(titles, 120, hash.size());
-
-    int i = 0;
-    foreach(StatHashValue* record, hash) {
-        setCellValue(i, 0, record->getString(0));
-        setCellValue(i, 1, record->getString(1));
-        setCellValue(i, 2, record->getString(2));
-        setCellValue(i, 3, record->getString(3));
-        setCellValue(i, 4, record->getString(4));
-        setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
-        delete record;
-        i++;
-    }
-    hash.clear();
-    widget.table->setSortingEnabled(true);
-    widget.table->sortByColumn(0, Qt::AscendingOrder);
+    calculate(&checkListOfAttendance, "");
 }
 
 void MainWindow::findPlayer(void) {
@@ -980,7 +392,7 @@ void MainWindow::analyzeXml(pointer func, const Filter& filter, StatHash* hash) 
         QString currentTournament = report.getMatchTournament();
         if ((tourn == ALL_TOURNAMENTS) || (currentTournament == tourn)) {
             if ((date >= fromDate) && (date <= tillDate)) {
-                (*func)(report, report.getFileName(), filter, hash);
+                (*func)(NULL, report, report.getFileName(), filter, hash);
             }
         }
         if ((counter % 1000) == 0) {
