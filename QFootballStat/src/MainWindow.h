@@ -58,27 +58,6 @@ private:
     void cache();
 
     void calculate(pointer func, const QString& qfilter);
-    void calculatePlayers3(const QString& expr);
-    void calculateCoaches3(const QString& expr);
-    void calculateStadiums2(const QString& stadium);
-    void calculateReferies2(const QString& referee);
-    void calculateCoaches2(const QString& coach);
-    void calculatePlayers2(const QString& player);
-    void calculateGoals2(const QString& player);
-    void calculateTable2(const QString& team);
-    void calculateTeams2(const QString& team);
-    void calculateGoals(void);
-    void calculateMatches(void);
-    void calculateReferies(void);
-    void calculateTable(void);
-    void calculateCoaches(void);
-    void calculateStadiums(void);
-    void calculatePlayers(void);
-    void calculateTeams(void);
-
-    void verifyPlayers(void);
-    void verifyPlayers2(void);
-    void verifyAttendance(void);
 
     void findPlayer();
     void findCoach();
