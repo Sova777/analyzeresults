@@ -224,103 +224,22 @@ void MainWindow::calculate(pointer func, const QString& qfilter) {
     (*func)(this, report, report.getFileName(), filter, &hash);
 }
 
-void MainWindow::calculateGoals() {
-    calculate(&listOfGoals, "");
-}
-
-void MainWindow::calculateGoals2(const QString& player) {
-    calculate(&listOfGoals2, player);
-}
-
-void MainWindow::calculateReferies() {
-    calculate(&listOfReferies, "");
-}
-
-void MainWindow::calculateReferies2(const QString& referee) {
-    calculate(&listOfReferies2, referee);
-}
-
-void MainWindow::calculateCoaches(void) {
-    calculate(&listOfCoaches, "");
-}
-
-void MainWindow::calculateCoaches2(const QString& coach) {
-    calculate(&listOfCoaches2, coach);
-}
-
-void MainWindow::calculateCoaches3(const QString& expr) {
-    calculate(&listOfCoaches3, expr);
-}
-
-void MainWindow::calculateStadiums(void) {
-    calculate(&listOfStadiums, "");
-}
-
-void MainWindow::calculateStadiums2(const QString& stadium) {
-    calculate(&listOfStadiums2, stadium);
-}
-
-void MainWindow::calculateMatches() {
-    calculate(&listOfMatches, "");
-}
-
-void MainWindow::calculatePlayers() {
-    calculate(&listOfPlayers, "");
-}
-
-void MainWindow::calculatePlayers2(const QString& player) {
-    calculate(&listOfPlayers2, player);
-}
-
-void MainWindow::calculatePlayers3(const QString& expr) {
-    calculate(&listOfPlayers3, expr);
-}
-
-void MainWindow::calculateTable() {
-    calculate(&listOfTable, "");
-}
-
-void MainWindow::calculateTable2(const QString& team) {
-    calculate(&listOfTable2, team);
-}
-
-void MainWindow::calculateTeams() {
-    calculate(&listOfTeams, "");
-}
-
-void MainWindow::calculateTeams2(const QString& team) {
-    calculate(&listOfTeams2, team);
-}
-
-void MainWindow::verifyPlayers(void) {
-    calculate(&checkListOfPlayers, "");
-}
-
-void MainWindow::verifyPlayers2(void) {
-    calculate(&checkListOfPlayers2, "");
-}
-
-void MainWindow::verifyAttendance(void) {
-    calculate(&checkListOfAttendance, "");
-}
-
 void MainWindow::findPlayer(void) {
     expr = "";
     Find find(this);
     find.setWindowTitle(FIND_PLAYER);
     find.exec();
     if (expr != "") {
-        calculatePlayers3(expr);
+        calculate(&listOfPlayers3, expr);
     }
 }
-
 void MainWindow::findCoach(void) {
     expr = "";
     Find find(this);
     find.setWindowTitle(FIND_COACH);
     find.exec();
     if (expr != "") {
-        calculateCoaches3(expr);
+        calculate(&listOfCoaches3, expr);
     }
 }
 
@@ -570,75 +489,75 @@ void MainWindow::jump(const QString link) {
         return;
     }
     if (code == "ma01_") {
-        calculateMatches();
+        calculate(&listOfMatches, "");
         return;
     }
     if (code == "st01_") {
-        calculateStadiums();
+        calculate(&listOfStadiums, "");
         return;
     }
     if (code == "st02_") {
-        calculateStadiums2(id);
+        calculate(&listOfStadiums2, id);
         return;
     }
     if (code == "re01_") {
-        calculateReferies();
+        calculate(&listOfReferies, "");
         return;
     }
     if (code == "re02_") {
-        calculateReferies2(id);
+        calculate(&listOfReferies2, id);
         return;
     }
     if (code == "co01_") {
-        calculateCoaches();
+        calculate(&listOfCoaches, "");
         return;
     }
     if (code == "co02_") {
-        calculateCoaches2(id);
+        calculate(&listOfCoaches2, id);
         return;
     }
     if (code == "pl01_") {
-        calculatePlayers();
+        calculate(&listOfPlayers, "");
         return;
     }
     if (code == "pl02_") {
-        calculatePlayers2(id);
+        calculate(&listOfPlayers2, id);
         return;
     }
     if (code == "go01_") {
-        calculateGoals();
+        calculate(&listOfGoals, "");
         return;
     }
     if (code == "go02_") {
-        calculateGoals2(id);
+        calculate(&listOfGoals2, id);
         return;
     }
     if (code == "te01_") {
-        calculateTeams();
+        calculate(&listOfTeams, "");
         return;
     }
     if (code == "te02_") {
-        calculateTeams2(id);
+        calculate(&listOfTeams2, id);
         return;
     }
     if (code == "ta01_") {
-        calculateTable();
+        calculate(&listOfTable, "");
         return;
     }
     if (code == "ta02_") {
-        calculateTable2(id);
+        calculate(&listOfTable2, id);
         return;
     }
     if (code == "vpl1_") {
-        verifyPlayers();
+        calculate(&checkListOfPlayers, "");
         return;
     }
     if (code == "vpl2_") {
-        verifyPlayers2();
+        calculate(&checkListOfPlayers2, "");
         return;
     }
     if (code == "vat1_") {
-        verifyAttendance();
+        calculate(&checkListOfAttendance, "");
         return;
     }
     if (code == "fpl1_") {
