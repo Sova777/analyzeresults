@@ -27,7 +27,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "Filter.h"
 
-Filter::Filter(QString filter, bool useID) {
-    this->filter = filter;
-    this->useID = useID;
+Filter::Filter(QString filter1, bool useID1) {
+    this->filter = filter1;
+    this->useID = useID1;
 }
