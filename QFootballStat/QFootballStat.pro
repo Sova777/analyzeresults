@@ -2,6 +2,7 @@ TEMPLATE = app
 TARGET = QFootballStat
 VERSION = 1.0.0
 QT += core gui xml
+QMAKE_CXXFLAGS = -Wno-unused-parameter
 #CONFIG += console
 DEPENDPATH += . src
 INCLUDEPATH += . src
