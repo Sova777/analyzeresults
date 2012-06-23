@@ -954,7 +954,7 @@ void listOfTeams(const XmlFilter& xmlFilter, StatHash* hash) {
                 << TABLE_TEAMS_COLUMN8
                 << TABLE_TEAMS_COLUMN9
                 << TABLE_TEAMS_COLUMN10;
-        xmlFilter.window->initTable(titles, 70, hash->size());
+        xmlFilter.window->initTable(titles, 80, hash->size());
         xmlFilter.window->widget.table->setColumnWidth(0, 120);
         int i = 0;
 
