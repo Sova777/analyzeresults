@@ -221,7 +221,8 @@ void MainWindow::calculate(pointer func, const QString& qfilter) {
     Filter filter(qfilter, widget.checkBoxID->isChecked());
     analyzeXml(func, filter, &hash);
     Report report = reports[0];
-    (*func)(this, report, report.getFileName(), filter, &hash);
+    XmlFilter xmlFilter(this, &report, report.getFileName(), &filter);
+    (*func)(xmlFilter, &hash);
 }
 
 void MainWindow::findPlayer(void) {
@@ -311,7 +312,8 @@ void MainWindow::analyzeXml(pointer func, const Filter& filter, StatHash* hash) 
         QString currentTournament = report.getMatchTournament();
         if ((tourn == ALL_TOURNAMENTS) || (currentTournament == tourn)) {
             if ((date >= fromDate) && (date <= tillDate)) {
-                (*func)(NULL, report, report.getFileName(), filter, hash);
+                XmlFilter xmlFilter(NULL, &report, report.getFileName(), &filter);
+                (*func)(xmlFilter, hash);
             }
         }
         if ((counter % 1000) == 0) {
@@ -468,10 +470,12 @@ void MainWindow::initTable(QStringList& titles, int columnWidth, int rows) {
 }
 
 void MainWindow::cellSelected(int row, int column) {
-    QTableWidgetItem* item = widget.table->item(row, widget.table->columnCount() - 1);
-    if (item != NULL) {
-        QString link = item->text();
-        jump(link);
+    if (column >= 0) {
+        QTableWidgetItem* item = widget.table->item(row, widget.table->columnCount() - 1);
+        if (item != NULL) {
+            QString link = item->text();
+            jump(link);
+        }
     }
 }
 

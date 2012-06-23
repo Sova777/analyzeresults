@@ -34,36 +34,37 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Filter.h"
 #include "Report.h"
 #include "constants.h"
+#include "XmlFilter.h"
 
 class MainWindow;
-typedef void (*pointer)(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
+typedef void (*pointer)(const XmlFilter& xmlFilter, StatHash* hash);
 
-void listOfGoals(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfGoals2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfMatches(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfReferies(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfReferies2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfTable(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfTable2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfCoaches(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfCoaches2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfCoaches3(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfStadiums(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfStadiums2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfPlayers(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfPlayers2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfPlayers3(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfTeams(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void listOfTeams2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
+void listOfGoals(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfGoals2(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfMatches(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfReferies(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfReferies2(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfTable(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfTable2(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfCoaches(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfCoaches2(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfCoaches3(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfStadiums(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfStadiums2(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfPlayers(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfPlayers2(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfPlayers3(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfTeams(const XmlFilter& xmlFilter, StatHash* hash);
+void listOfTeams2(const XmlFilter& xmlFilter, StatHash* hash);
 
-void checkListOfPlayers(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void checkListOfPlayers2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
-void checkListOfAttendance(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash);
+void checkListOfPlayers(const XmlFilter& xmlFilter, StatHash* hash);
+void checkListOfPlayers2(const XmlFilter& xmlFilter, StatHash* hash);
+void checkListOfAttendance(const XmlFilter& xmlFilter, StatHash* hash);
 
 void addMatch(const Report& report, const QString& fileName, StatHash* hash);
 
 bool isPlayed(const Report& report, const QString& player);
-int getPlayerGoals(const Report& report, const QString& player);
+int getPlayerGoals(const Report* report, const QString* player);
 QString getKeyPlayer(const bool useID, const QString& playerid, const QString& player, const QString& team);
 QString getKeyCoach(const bool useID, const QString& coachid, const QString& coach, const QString& team);
 QString getKeyTeam(const bool useID, const QString& teamid, const QString& team);
