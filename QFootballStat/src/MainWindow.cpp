@@ -116,6 +116,7 @@ MainWindow::MainWindow() {
         }
     }
     widget.text->setText(FIRST_MESSAGE);
+    widget.actionSave->setDisabled(true);
     widget.text->setVisible(true);
     widget.table->setVisible(false);
     //selectMode1();
@@ -431,6 +432,18 @@ void MainWindow::about() {
     QMessageBox::about(this, QString::fromUtf8("О программе QFootballStat"), QString::fromUtf8("<h2>QFootballStat</h2><p>Создана Солдатовым Валерием Фёдоровичем для сайта <a href='http://football.mojgorod.ru'>http://football.mojgorod.ru</a></p>"));
 }
 
+void MainWindow::writeLine(QTextStream& out) {
+    int columns = widget.table->columnCount();
+    out << "-";
+    for (int k = 0; k < columns; k++) {
+        if (!widget.table->isColumnHidden(k)) {
+            int len = widget.table->columnWidth(k);
+            out << QString("").rightJustified(len / 7, '-', false) << "---";
+        }
+    }
+    out << "\n";
+}
+
 void MainWindow::save() {
     QString qstr = QFileDialog::getSaveFileName(this, QString::fromUtf8("Выберите имя файла"), NULL);
     if (qstr == "") return;
@@ -439,14 +452,28 @@ void MainWindow::save() {
     QTextStream out(&file);
     int rows = widget.table->rowCount();
     int columns = widget.table->columnCount();
+    writeLine(out);
+    out << "| ";
+    for (int k = 0; k < columns; k++) {
+        if (!widget.table->isColumnHidden(k)) {
+            QString label = widget.table->horizontalHeaderItem(k)->text();
+            int len = widget.table->columnWidth(k);
+            out << label.replace("\n", "").rightJustified(len / 7, ' ', true) << " | ";
+        }
+    }
+    out << "\n";
+    writeLine(out);
     for (int i = 0; i < rows; i++) {
+        out << "| ";
         for (int j = 0; j < columns; j++) {
             if (!widget.table->isColumnHidden(j)) {
-                out << widget.table->item(i, j)->text() << " | ";
+                int len = widget.table->columnWidth(j);
+                out << widget.table->item(i, j)->text().rightJustified(len / 7, ' ', false) << " | ";
             }
         }
         out << "\n";
     }
+    writeLine(out);
     file.close();
 }
 
@@ -455,6 +482,7 @@ void MainWindow::initTable(QStringList& titles, int columnWidth, int rows) {
     if (columns < 0) {
         return;
     }
+    widget.actionSave->setDisabled(false);
     widget.table->setVisible(true);
     widget.text->setVisible(false);
     widget.table->clear();
@@ -575,6 +603,7 @@ void MainWindow::jump(const QString link) {
 }
 
 void MainWindow::report(const QString& fileName) {
+    widget.actionSave->setDisabled(true);
     widget.table->setVisible(false);
     widget.text->setVisible(true);
     QFile file(fileName);
