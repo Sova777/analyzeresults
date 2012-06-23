@@ -32,9 +32,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "XmlFileReader.h"
 #include "constants.h"
 
-void listOfGoals(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QVector<Report::Event> events = report.getEvents();
+void listOfGoals(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QVector<Report::Event> events = xmlFilter.report->getEvents();
         uint length = events.size();
         for (uint i = 0; i < length; i++) {
             QString eventType = events.at(i).type;
@@ -42,7 +42,7 @@ void listOfGoals(MainWindow* window, const Report& report, const QString& fileNa
             QString playerid = events.at(i).playerid;
             QString team = events.at(i).team;
             if ((eventType == EVENT_GOAL) || (eventType == EVENT_GOAL_PENALTY)) {
-                QString key = getKeyPlayer(filter.useID, playerid, player, team);
+                QString key = getKeyPlayer(xmlFilter.filter->useID, playerid, player, team);
                 Record* record = Record::getInstance(hash, key);
                 record->setString(player, 0);
                 record->setString(team, 1);
@@ -54,33 +54,34 @@ void listOfGoals(MainWindow* window, const Report& report, const QString& fileNa
         titles << TABLE_GOALS_COLUMN1
                 << TABLE_GOALS_COLUMN2
                 << TABLE_GOALS_COLUMN3;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 180);
-        window->widget.table->setColumnWidth(1, 180);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 180);
+        xmlFilter.window->widget.table->setColumnWidth(1, 180);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, QString("%1").arg(record->get(), 4));
-            window->setCellValue(i, 3, QString("go02_%1").arg(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, QString("%1").arg(record->get(), 4));
+            xmlFilter.window->setCellValue(i, 3, QString("go02_%1").arg(record->getString(0)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(2, Qt::DescendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(2, Qt::DescendingOrder);
     }
 }
 
-void listOfGoals2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QDate date = report.getDate();
-        QString score = report.getScore();
-        QString city = report.getStadiumCity();
-        int goals = getPlayerGoals(report, filter.filter);
+void listOfGoals2(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QDate date = xmlFilter.report->getDate();
+        QString score = xmlFilter.report->getScore();
+        QString city = xmlFilter.report->getStadiumCity();
+        const QString* player = &(xmlFilter.filter->filter);
+        int goals = getPlayerGoals(xmlFilter.report, player);
         if (goals > 0) {
             QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
             Record* record = Record::getInstance(hash, key);
@@ -91,7 +92,7 @@ void listOfGoals2(MainWindow* window, const Report& report, const QString& fileN
             record->setString(team2, 3);
             record->setString(score, 4);
             record->set(goals, 0);
-            record->setString(fileName, 5);
+            record->setString(*(xmlFilter.fileName), 5);
         }
     } else {
         QStringList titles;
@@ -101,36 +102,36 @@ void listOfGoals2(MainWindow* window, const Report& report, const QString& fileN
                 << TABLE_GOALS2_COLUMN4
                 << TABLE_GOALS2_COLUMN5
                 << TABLE_GOALS2_COLUMN6;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 90);
-        window->widget.table->setColumnWidth(1, 120);
-        window->widget.table->setColumnWidth(2, 120);
-        window->widget.table->setColumnWidth(3, 90);
-        window->widget.table->setColumnWidth(4, 90);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 90);
+        xmlFilter.window->widget.table->setColumnWidth(1, 120);
+        xmlFilter.window->widget.table->setColumnWidth(2, 120);
+        xmlFilter.window->widget.table->setColumnWidth(3, 90);
+        xmlFilter.window->widget.table->setColumnWidth(4, 90);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, record->getString(2));
-            window->setCellValue(i, 3, record->getString(3));
-            window->setCellValue(i, 4, record->getString(4));
-            window->setCellValue(i, 5, QString("%1").arg(record->get(0)));
-            window->setCellValue(i, 6, QString("xm01_%1").arg(record->getString(5)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, record->getString(2));
+            xmlFilter.window->setCellValue(i, 3, record->getString(3));
+            xmlFilter.window->setCellValue(i, 4, record->getString(4));
+            xmlFilter.window->setCellValue(i, 5, QString("%1").arg(record->get(0)));
+            xmlFilter.window->setCellValue(i, 6, QString("xm01_%1").arg(record->getString(5)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfReferies(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString name = report.getReferee();
-        QString city = report.getRefereeCity();
-        QVector<Report::Event> events = report.getEvents();
+void listOfReferies(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString name = xmlFilter.report->getReferee();
+        QString city = xmlFilter.report->getRefereeCity();
+        QVector<Report::Event> events = xmlFilter.report->getEvents();
         QString key = QString("%1 (%2)").arg(name).arg(city);
         Record* record = Record::getInstance(hash, key);
         record->setString(name, 0);
@@ -159,38 +160,38 @@ void listOfReferies(MainWindow* window, const Report& report, const QString& fil
                 << TABLE_REFERIES_COLUMN5
                 << TABLE_REFERIES_COLUMN6
                 << TABLE_REFERIES_COLUMN7;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 180);
-        window->widget.table->setColumnWidth(1, 180);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 180);
+        xmlFilter.window->widget.table->setColumnWidth(1, 180);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, QString("%1").arg(record->get(), 4));
-            window->setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
-            window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-            window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-            window->setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
-            window->setCellValue(i, 7, QString("re02_%1").arg(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, QString("%1").arg(record->get(), 4));
+            xmlFilter.window->setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
+            xmlFilter.window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+            xmlFilter.window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+            xmlFilter.window->setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
+            xmlFilter.window->setCellValue(i, 7, QString("re02_%1").arg(record->getString(0)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(2, Qt::DescendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(2, Qt::DescendingOrder);
     }
 }
 
-void listOfReferies2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QDate date = report.getDate();
-        QString score = report.getScore();
-        QString city = report.getStadiumCity();
-        QString referee = report.getReferee();
-        if (referee == filter.filter) {
+void listOfReferies2(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QDate date = xmlFilter.report->getDate();
+        QString score = xmlFilter.report->getScore();
+        QString city = xmlFilter.report->getStadiumCity();
+        QString referee = xmlFilter.report->getReferee();
+        if (referee == xmlFilter.filter->filter) {
             QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
             Record* record = Record::getInstance(hash, key);
             QString qdate = date.toString("yyyy/MM/dd");
@@ -199,7 +200,7 @@ void listOfReferies2(MainWindow* window, const Report& report, const QString& fi
             record->setString(team1, 2);
             record->setString(team2, 3);
             record->setString(score, 4);
-            record->setString(fileName, 5);
+            record->setString(*(xmlFilter.fileName), 5);
         }
     } else {
         QStringList titles;
@@ -208,41 +209,41 @@ void listOfReferies2(MainWindow* window, const Report& report, const QString& fi
                 << TABLE_REFERIES2_COLUMN3
                 << TABLE_REFERIES2_COLUMN4
                 << TABLE_REFERIES2_COLUMN5;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 90);
-        window->widget.table->setColumnWidth(1, 120);
-        window->widget.table->setColumnWidth(2, 120);
-        window->widget.table->setColumnWidth(3, 120);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 90);
+        xmlFilter.window->widget.table->setColumnWidth(1, 120);
+        xmlFilter.window->widget.table->setColumnWidth(2, 120);
+        xmlFilter.window->widget.table->setColumnWidth(3, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, record->getString(2));
-            window->setCellValue(i, 3, record->getString(3));
-            window->setCellValue(i, 4, record->getString(4));
-            window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, record->getString(2));
+            xmlFilter.window->setCellValue(i, 3, record->getString(3));
+            xmlFilter.window->setCellValue(i, 4, record->getString(4));
+            xmlFilter.window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfCoaches(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QString coach1 = report.getCoach1();
-        QString coach1id = report.getCoach1id();    
-        QString coach2 = report.getCoach2();
-        QString coach2id = report.getCoach2id();
-        QString score = report.getScore();
-        QString expr = filter.filter;
-        QString key1 = getKeyCoach(filter.useID, coach1id, coach1, team1);
-        QString key2 = getKeyCoach(filter.useID, coach2id, coach2, team2);
+void listOfCoaches(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QString coach1 = xmlFilter.report->getCoach1();
+        QString coach1id = xmlFilter.report->getCoach1id();    
+        QString coach2 = xmlFilter.report->getCoach2();
+        QString coach2id = xmlFilter.report->getCoach2id();
+        QString score = xmlFilter.report->getScore();
+        QString expr = xmlFilter.filter->filter;
+        QString key1 = getKeyCoach(xmlFilter.filter->useID, coach1id, coach1, team1);
+        QString key2 = getKeyCoach(xmlFilter.filter->useID, coach2id, coach2, team2);
         Record* record1 = NULL;
         if ((expr == "") || coach1.contains(expr)) {
             record1 = Record::getInstance(hash, key1);
@@ -294,43 +295,43 @@ void listOfCoaches(MainWindow* window, const Report& report, const QString& file
                 << TABLE_COACHES_COLUMN7
                 << TABLE_COACHES_COLUMN8
                 << TABLE_COACHES_COLUMN9;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 180);
-        window->widget.table->setColumnWidth(1, 180);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 180);
+        xmlFilter.window->widget.table->setColumnWidth(1, 180);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-            window->setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
-            window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-            window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-            window->setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
-            window->setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
-            window->setCellValue(i, 8, QString("%1").arg(3 * record->get(1) + record->get(2), 4));
-            window->setCellValue(i, 9, QString("co02_%1").arg(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
+            xmlFilter.window->setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
+            xmlFilter.window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+            xmlFilter.window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+            xmlFilter.window->setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
+            xmlFilter.window->setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
+            xmlFilter.window->setCellValue(i, 8, QString("%1").arg(3 * record->get(1) + record->get(2), 4));
+            xmlFilter.window->setCellValue(i, 9, QString("co02_%1").arg(record->getString(0)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfCoaches3(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QString coach1 = report.getCoach1();
-        QString coach1id = report.getCoach1id();    
-        QString coach2 = report.getCoach2();
-        QString coach2id = report.getCoach2id();
-        QString score = report.getScore();
-        QString expr = filter.filter;
-        QString key1 = getKeyCoach(filter.useID, coach1id, coach1, team1);
-        QString key2 = getKeyCoach(filter.useID, coach2id, coach2, team2);
+void listOfCoaches3(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QString coach1 = xmlFilter.report->getCoach1();
+        QString coach1id = xmlFilter.report->getCoach1id();    
+        QString coach2 = xmlFilter.report->getCoach2();
+        QString coach2id = xmlFilter.report->getCoach2id();
+        QString score = xmlFilter.report->getScore();
+        QString expr = xmlFilter.filter->filter;
+        QString key1 = getKeyCoach(xmlFilter.filter->useID, coach1id, coach1, team1);
+        QString key2 = getKeyCoach(xmlFilter.filter->useID, coach2id, coach2, team2);
         Record* record1 = NULL;
         if ((expr == "") || coach1.contains(expr)) {
             record1 = Record::getInstance(hash, key1);
@@ -382,41 +383,41 @@ void listOfCoaches3(MainWindow* window, const Report& report, const QString& fil
                 << TABLE_COACHES_COLUMN7
                 << TABLE_COACHES_COLUMN8
                 << TABLE_COACHES_COLUMN9;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 180);
-        window->widget.table->setColumnWidth(1, 180);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 180);
+        xmlFilter.window->widget.table->setColumnWidth(1, 180);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-            window->setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
-            window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-            window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-            window->setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
-            window->setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
-            window->setCellValue(i, 8, QString("%1").arg(3 * record->get(1) + record->get(2), 4));
-            window->setCellValue(i, 9, QString("co02_%1").arg(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
+            xmlFilter.window->setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
+            xmlFilter.window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+            xmlFilter.window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+            xmlFilter.window->setCellValue(i, 6, QString("%1").arg(record->get(4), 4));
+            xmlFilter.window->setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
+            xmlFilter.window->setCellValue(i, 8, QString("%1").arg(3 * record->get(1) + record->get(2), 4));
+            xmlFilter.window->setCellValue(i, 9, QString("co02_%1").arg(record->getString(0)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfCoaches2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QDate date = report.getDate();
-        QString score = report.getScore();
-        QString city = report.getStadiumCity();
-        QString coach1 = report.getCoach1();
-        QString coach2 = report.getCoach2();
-        if ((coach1 == filter.filter) || (coach2 == filter.filter)) {
+void listOfCoaches2(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QDate date = xmlFilter.report->getDate();
+        QString score = xmlFilter.report->getScore();
+        QString city = xmlFilter.report->getStadiumCity();
+        QString coach1 = xmlFilter.report->getCoach1();
+        QString coach2 = xmlFilter.report->getCoach2();
+        if ((coach1 == xmlFilter.filter->filter) || (coach2 == xmlFilter.filter->filter)) {
             QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
             Record* record = Record::getInstance(hash, key);
             QString qdate = date.toString("yyyy/MM/dd");
@@ -425,7 +426,7 @@ void listOfCoaches2(MainWindow* window, const Report& report, const QString& fil
             record->setString(team1, 2);
             record->setString(team2, 3);
             record->setString(score, 4);
-            record->setString(fileName, 5);
+            record->setString(*(xmlFilter.fileName), 5);
         }
     } else {
         QStringList titles;
@@ -434,34 +435,34 @@ void listOfCoaches2(MainWindow* window, const Report& report, const QString& fil
                 << TABLE_COACHES2_COLUMN3
                 << TABLE_COACHES2_COLUMN4
                 << TABLE_COACHES2_COLUMN5;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 90);
-        window->widget.table->setColumnWidth(1, 120);
-        window->widget.table->setColumnWidth(2, 120);
-        window->widget.table->setColumnWidth(3, 120);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 90);
+        xmlFilter.window->widget.table->setColumnWidth(1, 120);
+        xmlFilter.window->widget.table->setColumnWidth(2, 120);
+        xmlFilter.window->widget.table->setColumnWidth(3, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, record->getString(2));
-            window->setCellValue(i, 3, record->getString(3));
-            window->setCellValue(i, 4, record->getString(4));
-            window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, record->getString(2));
+            xmlFilter.window->setCellValue(i, 3, record->getString(3));
+            xmlFilter.window->setCellValue(i, 4, record->getString(4));
+            xmlFilter.window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
        }
 }
 
-void listOfStadiums(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString stadium = report.getStadium();
-        QString city = report.getStadiumCity();
-        QString attendance = report.getStadiumAttendance();
+void listOfStadiums(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString stadium = xmlFilter.report->getStadium();
+        QString city = xmlFilter.report->getStadiumCity();
+        QString attendance = xmlFilter.report->getStadiumAttendance();
         QString key = QString("%1 (%2)").arg(stadium).arg(city);
         Record* record = Record::getInstance(hash, key);
         record->setString(stadium, 0);
@@ -487,37 +488,37 @@ void listOfStadiums(MainWindow* window, const Report& report, const QString& fil
                 << TABLE_STADIUMS_COLUMN4
                 << TABLE_STADIUMS_COLUMN5
                 << TABLE_STADIUMS_COLUMN6;
-        window->initTable(titles, 90, hash->size());
-        window->widget.table->setColumnWidth(0, 180);
-        window->widget.table->setColumnWidth(1, 180);
+        xmlFilter.window->initTable(titles, 90, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 180);
+        xmlFilter.window->widget.table->setColumnWidth(1, 180);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-            window->setCellValue(i, 3, QString("%1").arg(record->get(1) / record->get(0), 4));
-            window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-            window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-            window->setCellValue(i, 6, QString("st02_%1").arg(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
+            xmlFilter.window->setCellValue(i, 3, QString("%1").arg(record->get(1) / record->get(0), 4));
+            xmlFilter.window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+            xmlFilter.window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+            xmlFilter.window->setCellValue(i, 6, QString("st02_%1").arg(record->getString(0)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfStadiums2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QDate date = report.getDate();
-        QString score = report.getScore();
-        QString city = report.getStadiumCity();
-        QString stadium = report.getStadium();
-        if (stadium == filter.filter) {
+void listOfStadiums2(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QDate date = xmlFilter.report->getDate();
+        QString score = xmlFilter.report->getScore();
+        QString city = xmlFilter.report->getStadiumCity();
+        QString stadium = xmlFilter.report->getStadium();
+        if (stadium == xmlFilter.filter->filter) {
             QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
             Record* record = Record::getInstance(hash, key);
             QString qdate = date.toString("yyyy/MM/dd");
@@ -526,7 +527,7 @@ void listOfStadiums2(MainWindow* window, const Report& report, const QString& fi
             record->setString(team1, 2);
             record->setString(team2, 3);
             record->setString(score, 4);
-            record->setString(fileName, 5);
+            record->setString(*(xmlFilter.fileName), 5);
         }
     } else {
         QStringList titles;
@@ -535,81 +536,81 @@ void listOfStadiums2(MainWindow* window, const Report& report, const QString& fi
                 << TABLE_STADIUMS2_COLUMN3
                 << TABLE_STADIUMS2_COLUMN4
                 << TABLE_STADIUMS2_COLUMN5;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 90);
-        window->widget.table->setColumnWidth(1, 120);
-        window->widget.table->setColumnWidth(2, 120);
-        window->widget.table->setColumnWidth(3, 120);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 90);
+        xmlFilter.window->widget.table->setColumnWidth(1, 120);
+        xmlFilter.window->widget.table->setColumnWidth(2, 120);
+        xmlFilter.window->widget.table->setColumnWidth(3, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, record->getString(2));
-            window->setCellValue(i, 3, record->getString(3));
-            window->setCellValue(i, 4, record->getString(4));
-            window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, record->getString(2));
+            xmlFilter.window->setCellValue(i, 3, record->getString(3));
+            xmlFilter.window->setCellValue(i, 4, record->getString(4));
+            xmlFilter.window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfMatches(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QString score = report.getScore();
-        QString qdate = report.getDate().toString("yyyy/MM/dd");
+void listOfMatches(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QString score = xmlFilter.report->getScore();
+        QString qdate = xmlFilter.report->getDate().toString("yyyy/MM/dd");
         Record* record = Record::newInstance(hash);
         record->setString(qdate, 0);
         record->setString(team1, 1);
         record->setString(team2, 2);
         record->setString(score, 3);
-        record->setString(fileName, 4);
+        record->setString(*(xmlFilter.fileName), 4);
     } else {
         QStringList titles;
         titles << TABLE_MATCHES_COLUMN1
                 << TABLE_MATCHES_COLUMN2
                 << TABLE_MATCHES_COLUMN3
                 << TABLE_MATCHES_COLUMN4;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 120);
-        window->widget.table->setColumnWidth(1, 120);
-        window->widget.table->setColumnWidth(2, 120);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 120);
+        xmlFilter.window->widget.table->setColumnWidth(1, 120);
+        xmlFilter.window->widget.table->setColumnWidth(2, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, QString(record->getString(0)));
-            window->setCellValue(i, 1, QString(record->getString(1)));
-            window->setCellValue(i, 2, QString(record->getString(2)));
-            window->setCellValue(i, 3, QString(record->getString(3)));
-            window->setCellValue(i, 4, QString("xm01_%1").arg(record->getString(4)));
+            xmlFilter.window->setCellValue(i, 0, QString(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 1, QString(record->getString(1)));
+            xmlFilter.window->setCellValue(i, 2, QString(record->getString(2)));
+            xmlFilter.window->setCellValue(i, 3, QString(record->getString(3)));
+            xmlFilter.window->setCellValue(i, 4, QString("xm01_%1").arg(record->getString(4)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfPlayers(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QVector<Report::Player> players1 = report.getPlayers1();
-        QVector<Report::Player> players2 = report.getPlayers2();
-        QString expr = filter.filter;
+void listOfPlayers(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QVector<Report::Player> players1 = xmlFilter.report->getPlayers1();
+        QVector<Report::Player> players2 = xmlFilter.report->getPlayers2();
+        QString expr = xmlFilter.filter->filter;
         uint len1 = players1.size();
         for (uint i = 0; i < len1; i++) {
             QString player2 = players1.at(i).player;
             QString player2id = players1.at(i).id;
             if ((expr == "") || (player2.contains(expr))) {
-                QString key = getKeyPlayer(filter.useID, player2id, player2, team1);
+                QString key = getKeyPlayer(xmlFilter.filter->useID, player2id, player2, team1);
                 Record* record = Record::getInstance(hash, key);
                 record->setString(player2, 0);
                 record->setString(team1, 1);
@@ -621,7 +622,7 @@ void listOfPlayers(MainWindow* window, const Report& report, const QString& file
             QString player2 = players2.at(i).player;
             QString player2id = players2.at(i).id;
             if ((expr == "") || (player2.contains(expr))) {
-                QString key = getKeyPlayer(filter.useID, player2id, player2, team2);
+                QString key = getKeyPlayer(xmlFilter.filter->useID, player2id, player2, team2);
                 Record* record = Record::getInstance(hash, key);
                 record->setString(player2, 0);
                 record->setString(team2, 1);
@@ -629,7 +630,7 @@ void listOfPlayers(MainWindow* window, const Report& report, const QString& file
             }
         }
 
-        QVector<Report::Event> events = report.getEvents();
+        QVector<Report::Event> events = xmlFilter.report->getEvents();
         uint length = events.size();
         for (uint i = 0; i < length; i++) {
             QString eventType = events.at(i).type;
@@ -640,7 +641,7 @@ void listOfPlayers(MainWindow* window, const Report& report, const QString& file
             QString team = events.at(i).team;
             if (eventType == EVENT_SUBSTITUTION) {
                 if ((expr == "") || (player2.contains(expr))) {
-                    QString key = getKeyPlayer(filter.useID, player2id, player2, team);
+                    QString key = getKeyPlayer(xmlFilter.filter->useID, player2id, player2, team);
                     Record* record = Record::getInstance(hash, key);
                     record->setString(player2, 0);
                     record->setString(team, 1);
@@ -648,7 +649,7 @@ void listOfPlayers(MainWindow* window, const Report& report, const QString& file
                 }
             } else {
                 if ((expr == "") || (player1.contains(expr))) {
-                    QString key = getKeyPlayer(filter.useID, player1id, player1, team);
+                    QString key = getKeyPlayer(xmlFilter.filter->useID, player1id, player1, team);
                     Record* record = Record::getInstance(hash, key);
                     record->setString(player1, 0);
                     record->setString(team, 1);
@@ -682,40 +683,40 @@ void listOfPlayers(MainWindow* window, const Report& report, const QString& file
                 << TABLE_PLAYERS_COLUMN8
                 << TABLE_PLAYERS_COLUMN9
                 << TABLE_PLAYERS_COLUMN10;
-        window->initTable(titles, 70, hash->size());
-        window->widget.table->setColumnWidth(0, 120);
-        window->widget.table->setColumnWidth(1, 120);
+        xmlFilter.window->initTable(titles, 70, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 120);
+        xmlFilter.window->widget.table->setColumnWidth(1, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, QString(record->getString(0)));
-            window->setCellValue(i, 1, QString(record->getString(1)));
-            window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-            window->setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
-            window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-            window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-            window->setCellValue(i, 6, QString("%1").arg(record->get(4) + record->get(5), 4));
-            window->setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
-            window->setCellValue(i, 8, QString("%1").arg(record->get(6), 4));
-            window->setCellValue(i, 9, QString("%1").arg(record->get(7), 4));
-            window->setCellValue(i, 10, QString("pl02_%1").arg(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 0, QString(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 1, QString(record->getString(1)));
+            xmlFilter.window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
+            xmlFilter.window->setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
+            xmlFilter.window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+            xmlFilter.window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+            xmlFilter.window->setCellValue(i, 6, QString("%1").arg(record->get(4) + record->get(5), 4));
+            xmlFilter.window->setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
+            xmlFilter.window->setCellValue(i, 8, QString("%1").arg(record->get(6), 4));
+            xmlFilter.window->setCellValue(i, 9, QString("%1").arg(record->get(7), 4));
+            xmlFilter.window->setCellValue(i, 10, QString("pl02_%1").arg(record->getString(0)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfPlayers2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QDate date = report.getDate();
-        QString score = report.getScore();
-        QString city = report.getStadiumCity();
-        if (isPlayed(report, filter.filter)) {
+void listOfPlayers2(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QDate date = xmlFilter.report->getDate();
+        QString score = xmlFilter.report->getScore();
+        QString city = xmlFilter.report->getStadiumCity();
+        if (isPlayed(*(xmlFilter.report), xmlFilter.filter->filter)) {
             QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
             Record* record = Record::getInstance(hash, key);
             QString qdate = date.toString("yyyy/MM/dd");
@@ -724,7 +725,7 @@ void listOfPlayers2(MainWindow* window, const Report& report, const QString& fil
             record->setString(team1, 2);
             record->setString(team2, 3);
             record->setString(score, 4);
-            record->setString(fileName, 5);
+            record->setString(*(xmlFilter.fileName), 5);
         }
     } else {
         QStringList titles;
@@ -733,42 +734,42 @@ void listOfPlayers2(MainWindow* window, const Report& report, const QString& fil
                 << TABLE_PLAYERS2_COLUMN3
                 << TABLE_PLAYERS2_COLUMN4
                 << TABLE_PLAYERS2_COLUMN5;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 90);
-        window->widget.table->setColumnWidth(1, 120);
-        window->widget.table->setColumnWidth(2, 120);
-        window->widget.table->setColumnWidth(3, 120);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 90);
+        xmlFilter.window->widget.table->setColumnWidth(1, 120);
+        xmlFilter.window->widget.table->setColumnWidth(2, 120);
+        xmlFilter.window->widget.table->setColumnWidth(3, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, record->getString(2));
-            window->setCellValue(i, 3, record->getString(3));
-            window->setCellValue(i, 4, record->getString(4));
-            window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, record->getString(2));
+            xmlFilter.window->setCellValue(i, 3, record->getString(3));
+            xmlFilter.window->setCellValue(i, 4, record->getString(4));
+            xmlFilter.window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfPlayers3(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QVector<Report::Player> players1 = report.getPlayers1();
-        QVector<Report::Player> players2 = report.getPlayers2();
-        QString expr = filter.filter;
+void listOfPlayers3(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QVector<Report::Player> players1 = xmlFilter.report->getPlayers1();
+        QVector<Report::Player> players2 = xmlFilter.report->getPlayers2();
+        QString expr = xmlFilter.filter->filter;
         uint len1 = players1.size();
         for (uint i = 0; i < len1; i++) {
             QString player2 = players1.at(i).player;
             QString player2id = players1.at(i).id;
             if ((expr == "") || (player2.contains(expr))) {
-                QString key = getKeyPlayer(filter.useID, player2id, player2, team1);
+                QString key = getKeyPlayer(xmlFilter.filter->useID, player2id, player2, team1);
                 Record* record = Record::getInstance(hash, key);
                 record->setString(player2, 0);
                 record->setString(team1, 1);
@@ -780,7 +781,7 @@ void listOfPlayers3(MainWindow* window, const Report& report, const QString& fil
             QString player2 = players2.at(i).player;
             QString player2id = players2.at(i).id;
             if ((expr == "") || (player2.contains(expr))) {
-                QString key = getKeyPlayer(filter.useID, player2id, player2, team2);
+                QString key = getKeyPlayer(xmlFilter.filter->useID, player2id, player2, team2);
                 Record* record = Record::getInstance(hash, key);
                 record->setString(player2, 0);
                 record->setString(team2, 1);
@@ -788,7 +789,7 @@ void listOfPlayers3(MainWindow* window, const Report& report, const QString& fil
             }
         }
 
-        QVector<Report::Event> events = report.getEvents();
+        QVector<Report::Event> events = xmlFilter.report->getEvents();
         uint length = events.size();
         for (uint i = 0; i < length; i++) {
             QString eventType = events.at(i).type;
@@ -799,7 +800,7 @@ void listOfPlayers3(MainWindow* window, const Report& report, const QString& fil
             QString team = events.at(i).team;
             if (eventType == EVENT_SUBSTITUTION) {
                 if ((expr == "") || (player2.contains(expr))) {
-                    QString key = getKeyPlayer(filter.useID, player2id, player2, team);
+                    QString key = getKeyPlayer(xmlFilter.filter->useID, player2id, player2, team);
                     Record* record = Record::getInstance(hash, key);
                     record->setString(player2, 0);
                     record->setString(team, 1);
@@ -807,7 +808,7 @@ void listOfPlayers3(MainWindow* window, const Report& report, const QString& fil
                 }
             } else {
                 if ((expr == "") || (player1.contains(expr))) {
-                    QString key = getKeyPlayer(filter.useID, player1id, player1, team);
+                    QString key = getKeyPlayer(xmlFilter.filter->useID, player1id, player1, team);
                     Record* record = Record::getInstance(hash, key);
                     record->setString(player1, 0);
                     record->setString(team, 1);
@@ -841,40 +842,40 @@ void listOfPlayers3(MainWindow* window, const Report& report, const QString& fil
                 << TABLE_PLAYERS_COLUMN8
                 << TABLE_PLAYERS_COLUMN9
                 << TABLE_PLAYERS_COLUMN10;
-        window->initTable(titles, 70, hash->size());
-        window->widget.table->setColumnWidth(0, 120);
-        window->widget.table->setColumnWidth(1, 120);
+        xmlFilter.window->initTable(titles, 70, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 120);
+        xmlFilter.window->widget.table->setColumnWidth(1, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, QString(record->getString(0)));
-            window->setCellValue(i, 1, QString(record->getString(1)));
-            window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-            window->setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
-            window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
-            window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
-            window->setCellValue(i, 6, QString("%1").arg(record->get(4) + record->get(5), 4));
-            window->setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
-            window->setCellValue(i, 8, QString("%1").arg(record->get(6), 4));
-            window->setCellValue(i, 9, QString("%1").arg(record->get(7), 4));
-            window->setCellValue(i, 10, QString("pl02_%1").arg(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 0, QString(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 1, QString(record->getString(1)));
+            xmlFilter.window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
+            xmlFilter.window->setCellValue(i, 3, QString("%1").arg(record->get(1), 4));
+            xmlFilter.window->setCellValue(i, 4, QString("%1").arg(record->get(2), 4));
+            xmlFilter.window->setCellValue(i, 5, QString("%1").arg(record->get(3), 4));
+            xmlFilter.window->setCellValue(i, 6, QString("%1").arg(record->get(4) + record->get(5), 4));
+            xmlFilter.window->setCellValue(i, 7, QString("%1").arg(record->get(5), 4));
+            xmlFilter.window->setCellValue(i, 8, QString("%1").arg(record->get(6), 4));
+            xmlFilter.window->setCellValue(i, 9, QString("%1").arg(record->get(7), 4));
+            xmlFilter.window->setCellValue(i, 10, QString("pl02_%1").arg(record->getString(0)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfTeams(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team1id = report.getTeam1id();
-        QString team2 = report.getTeam2();
-        QString team2id = report.getTeam2id();
-        QVector<Report::Player> players1 = report.getPlayers1();
-        QVector<Report::Player> players2 = report.getPlayers2();
+void listOfTeams(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team1id = xmlFilter.report->getTeam1id();
+        QString team2 = xmlFilter.report->getTeam2();
+        QString team2id = xmlFilter.report->getTeam2id();
+        QVector<Report::Player> players1 = xmlFilter.report->getPlayers1();
+        QVector<Report::Player> players2 = xmlFilter.report->getPlayers2();
         uint len1 = players1.size();
         for (uint i = 0; i < len1; i++) {
             QString player2 = players1.at(i).player;
@@ -899,7 +900,7 @@ void listOfTeams(MainWindow* window, const Report& report, const QString& fileNa
             record->setString(team2, 0);
         }
 
-        QVector<Report::Event> events = report.getEvents();
+        QVector<Report::Event> events = xmlFilter.report->getEvents();
         uint length = events.size();
         for (uint i = 0; i < length; i++) {
             QString eventType = events.at(i).type;
@@ -953,42 +954,42 @@ void listOfTeams(MainWindow* window, const Report& report, const QString& fileNa
                 << TABLE_TEAMS_COLUMN8
                 << TABLE_TEAMS_COLUMN9
                 << TABLE_TEAMS_COLUMN10;
-        window->initTable(titles, 70, hash->size());
-        window->widget.table->setColumnWidth(0, 120);
+        xmlFilter.window->initTable(titles, 70, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 120);
         int i = 0;
 
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, QString(record->getString(0)));
-            window->setCellValue(i, 1, QString("%1").arg(record->getMap()->size(), 4));
-            window->setCellValue(i, 2, QString("%1").arg(record->get(1), 4));
-            window->setCellValue(i, 3, QString("%1").arg(record->get(2), 4));
-            window->setCellValue(i, 4, QString("%1").arg(record->get(3), 4));
-            window->setCellValue(i, 5, QString("%1").arg(record->get(4) + record->get(5), 4));
-            window->setCellValue(i, 6, QString("%1").arg(record->get(5), 4));
-            window->setCellValue(i, 7, QString("%1").arg(record->get(6), 4));
-            window->setCellValue(i, 8, QString("%1").arg(record->get(7), 4));
-            window->setCellValue(i, 9, QString("%1").arg(record->get(8), 4));
-            window->setCellValue(i, 10, QString("te02_%1").arg(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 0, QString(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 1, QString("%1").arg(record->getMap()->size(), 4));
+            xmlFilter.window->setCellValue(i, 2, QString("%1").arg(record->get(1), 4));
+            xmlFilter.window->setCellValue(i, 3, QString("%1").arg(record->get(2), 4));
+            xmlFilter.window->setCellValue(i, 4, QString("%1").arg(record->get(3), 4));
+            xmlFilter.window->setCellValue(i, 5, QString("%1").arg(record->get(4) + record->get(5), 4));
+            xmlFilter.window->setCellValue(i, 6, QString("%1").arg(record->get(5), 4));
+            xmlFilter.window->setCellValue(i, 7, QString("%1").arg(record->get(6), 4));
+            xmlFilter.window->setCellValue(i, 8, QString("%1").arg(record->get(7), 4));
+            xmlFilter.window->setCellValue(i, 9, QString("%1").arg(record->get(8), 4));
+            xmlFilter.window->setCellValue(i, 10, QString("te02_%1").arg(record->getString(0)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfTeams2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QVector<Report::Player> players1 = report.getPlayers1();
-        QVector<Report::Player> players2 = report.getPlayers2();
+void listOfTeams2(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QVector<Report::Player> players1 = xmlFilter.report->getPlayers1();
+        QVector<Report::Player> players2 = xmlFilter.report->getPlayers2();
         uint len1 = players1.size();
         for (uint i = 0; i < len1; i++) {
             QString player2 = players1.at(i).player;
             QString player2id = players1.at(i).id;
-            QString key = getKeyPlayer(filter.useID, player2id, player2, team1);
+            QString key = getKeyPlayer(xmlFilter.filter->useID, player2id, player2, team1);
             Record* record = Record::getInstance(hash, key);
             record->setString(player2, 0);
             record->setString(team1, 1);
@@ -998,14 +999,14 @@ void listOfTeams2(MainWindow* window, const Report& report, const QString& fileN
         for (uint i = 0; i < len2; i++) {
             QString player2 = players2.at(i).player;
             QString player2id = players2.at(i).id;
-            QString key = getKeyPlayer(filter.useID, player2id, player2, team2);
+            QString key = getKeyPlayer(xmlFilter.filter->useID, player2id, player2, team2);
             Record* record = Record::getInstance(hash, key);
             record->setString(player2, 0);
             record->setString(team2, 1);
             record->add(1);
         }
 
-        QVector<Report::Event> events = report.getEvents();
+        QVector<Report::Event> events = xmlFilter.report->getEvents();
         uint length = events.size();
         for (uint i = 0; i < length; i++) {
             QString eventType = events.at(i).type;
@@ -1015,13 +1016,13 @@ void listOfTeams2(MainWindow* window, const Report& report, const QString& fileN
             QString player2id = events.at(i).playerid2;
             QString team = events.at(i).team;
             if (eventType == EVENT_SUBSTITUTION) {
-                QString key = getKeyPlayer(filter.useID, player2id, player2, team);
+                QString key = getKeyPlayer(xmlFilter.filter->useID, player2id, player2, team);
                 Record* record = Record::getInstance(hash, key);
                 record->setString(player2, 0);
                 record->setString(team, 1);
                 record->add(1, 0);
             } else {
-                QString key = getKeyPlayer(filter.useID, player1id, player1, team);
+                QString key = getKeyPlayer(xmlFilter.filter->useID, player1id, player1, team);
                 Record* record = Record::getInstance(hash, key);
                 record->setString(player1, 0);
                 record->setString(team, 1);
@@ -1047,7 +1048,7 @@ void listOfTeams2(MainWindow* window, const Report& report, const QString& fileN
         int i = 0;
 
         foreach(StatHashValue* record, *hash) {
-            if (record->getString(1) == filter.filter) {
+            if (record->getString(1) == xmlFilter.filter->filter) {
                 QString key = QString("%1").arg(record->getString(0));
                 Record* record_stat = Record::getInstance(hash_stat, key);
                 record_stat->setString(record->getString(0), 0);
@@ -1062,30 +1063,30 @@ void listOfTeams2(MainWindow* window, const Report& report, const QString& fileN
         titles << TABLE_TEAMS2_COLUMN1
                 << TABLE_TEAMS2_COLUMN2
                 << TABLE_TEAMS2_COLUMN3;
-        window->initTable(titles, 60, hash_stat.size());
-        window->widget.table->setColumnWidth(0, 120);
-        window->widget.table->setColumnWidth(1, 120);
+        xmlFilter.window->initTable(titles, 60, hash_stat.size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 120);
+        xmlFilter.window->widget.table->setColumnWidth(1, 120);
 
         i = 0;
         foreach(StatHashValue* record, hash_stat) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
-            window->setCellValue(i, 3, QString("pl02_%1").arg(record->getString(0)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, QString("%1").arg(record->get(0), 4));
+            xmlFilter.window->setCellValue(i, 3, QString("pl02_%1").arg(record->getString(0)));
             delete record;
             i++;
         }
         hash_stat.clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void listOfTable(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QString score = report.getScore();
+void listOfTable(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QString score = xmlFilter.report->getScore();
         if (score != "") {
             bool ok;
             int goal1 = 99999;
@@ -1125,38 +1126,38 @@ void listOfTable(MainWindow* window, const Report& report, const QString& fileNa
                 << TABLE_TABLE_COLUMN6
                 << TABLE_TABLE_COLUMN7
                 << TABLE_TABLE_COLUMN8;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 180);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 180);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
             int points = 3 * record->get(0) + record->get(1);
             int games = record->get(0) + record->get(1) + record->get(2);
-            window->setCellValue(i, 0, record->getString());
-            window->setCellValue(i, 1, QString::number(games));
+            xmlFilter.window->setCellValue(i, 0, record->getString());
+            xmlFilter.window->setCellValue(i, 1, QString::number(games));
             for (int k = 0; k < 5; k++) {
-                window->setCellValue(i, 2 + k, QString::number(record->get(k)));
+                xmlFilter.window->setCellValue(i, 2 + k, QString::number(record->get(k)));
             }
-            window->setCellValue(i, 7, QString("%1").arg(points, 4));
-            window->setCellValue(i, 8, QString("ta02_%1").arg(record->getString()));
+            xmlFilter.window->setCellValue(i, 7, QString("%1").arg(points, 4));
+            xmlFilter.window->setCellValue(i, 8, QString("ta02_%1").arg(record->getString()));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(7, Qt::DescendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(7, Qt::DescendingOrder);
     }
 
 }
 
-void listOfTable2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QDate date = report.getDate();
-        QString score = report.getScore();
-        QString city = report.getStadiumCity();
-        if ((team1 == filter.filter) || (team2 == filter.filter)) {
+void listOfTable2(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QDate date = xmlFilter.report->getDate();
+        QString score = xmlFilter.report->getScore();
+        QString city = xmlFilter.report->getStadiumCity();
+        if ((team1 == xmlFilter.filter->filter) || (team2 == xmlFilter.filter->filter)) {
             QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
             Record* record = Record::getInstance(hash, key);
             QString qdate = date.toString("yyyy/MM/dd");
@@ -1165,7 +1166,7 @@ void listOfTable2(MainWindow* window, const Report& report, const QString& fileN
             record->setString(team1, 2);
             record->setString(team2, 3);
             record->setString(score, 4);
-            record->setString(fileName, 5);
+            record->setString(*(xmlFilter.fileName), 5);
         }
     } else {
         QStringList titles;
@@ -1174,37 +1175,37 @@ void listOfTable2(MainWindow* window, const Report& report, const QString& fileN
                 << TABLE_TABLE2_COLUMN3
                 << TABLE_TABLE2_COLUMN4
                 << TABLE_TABLE2_COLUMN5;
-        window->initTable(titles, 60, hash->size());
-        window->widget.table->setColumnWidth(0, 90);
-        window->widget.table->setColumnWidth(1, 120);
-        window->widget.table->setColumnWidth(2, 120);
-        window->widget.table->setColumnWidth(3, 120);
+        xmlFilter.window->initTable(titles, 60, hash->size());
+        xmlFilter.window->widget.table->setColumnWidth(0, 90);
+        xmlFilter.window->widget.table->setColumnWidth(1, 120);
+        xmlFilter.window->widget.table->setColumnWidth(2, 120);
+        xmlFilter.window->widget.table->setColumnWidth(3, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, record->getString(2));
-            window->setCellValue(i, 3, record->getString(3));
-            window->setCellValue(i, 4, record->getString(4));
-            window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, record->getString(2));
+            xmlFilter.window->setCellValue(i, 3, record->getString(3));
+            xmlFilter.window->setCellValue(i, 4, record->getString(4));
+            xmlFilter.window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void checkListOfPlayers(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QVector<Report::Player> players1 = report.getPlayers1();
-        QVector<Report::Player> players2 = report.getPlayers2();
+void checkListOfPlayers(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QVector<Report::Player> players1 = xmlFilter.report->getPlayers1();
+        QVector<Report::Player> players2 = xmlFilter.report->getPlayers2();
         uint len1 = players1.size();
         uint len2 = players2.size();
         if ((len1 != 11) || (len2 != 11)) {
-            addMatch(report, fileName, hash);
+            addMatch(*(xmlFilter.report), *(xmlFilter.fileName), hash);
         }
     } else {
         QStringList titles;
@@ -1213,31 +1214,31 @@ void checkListOfPlayers(MainWindow* window, const Report& report, const QString&
                 << TABLE_MATCHINFO_COLUMN3
                 << TABLE_MATCHINFO_COLUMN4
                 << TABLE_MATCHINFO_COLUMN5;
-        window->initTable(titles, 120, hash->size());
+        xmlFilter.window->initTable(titles, 120, hash->size());
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, record->getString(2));
-            window->setCellValue(i, 3, record->getString(3));
-            window->setCellValue(i, 4, record->getString(4));
-            window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, record->getString(2));
+            xmlFilter.window->setCellValue(i, 3, record->getString(3));
+            xmlFilter.window->setCellValue(i, 4, record->getString(4));
+            xmlFilter.window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void checkListOfPlayers2(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString team1 = report.getTeam1();
-        QString team2 = report.getTeam2();
-        QVector<Report::Player> players1 = report.getPlayers1();
-        QVector<Report::Player> players2 = report.getPlayers2();
+void checkListOfPlayers2(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString team1 = xmlFilter.report->getTeam1();
+        QString team2 = xmlFilter.report->getTeam2();
+        QVector<Report::Player> players1 = xmlFilter.report->getPlayers1();
+        QVector<Report::Player> players2 = xmlFilter.report->getPlayers2();
         uint len1 = players1.size();
         for (uint i = 0; i < len1; i++) {
             QString player = players1.at(i).player;
@@ -1280,7 +1281,7 @@ void checkListOfPlayers2(MainWindow* window, const Report& report, const QString
                 }
             }
         }
-        QVector<Report::Event> events = report.getEvents();
+        QVector<Report::Event> events = xmlFilter.report->getEvents();
         uint length = events.size();
         for (uint i = 0; i < length; i++) {
             QString team = events.at(i).team;
@@ -1330,7 +1331,7 @@ void checkListOfPlayers2(MainWindow* window, const Report& report, const QString
                 << TABLE_CHECKPLAYERS2_COLUMN2
                 << TABLE_CHECKPLAYERS2_COLUMN3
                 << TABLE_CHECKPLAYERS2_COLUMN4;
-        window->initTable(titles, 120, hash->size());
+        xmlFilter.window->initTable(titles, 120, hash->size());
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
@@ -1338,32 +1339,32 @@ void checkListOfPlayers2(MainWindow* window, const Report& report, const QString
                 i++;
             }
         }
-        window->widget.table->setRowCount(i);
+        xmlFilter.window->widget.table->setRowCount(i);
         i = 0;
 
         foreach(StatHashValue* record, *hash) {
             if (record->get() > 1) {
-                window->setCellValue(i, 0, record->getString(1));
-                window->setCellValue(i, 1, record->getString(2));
-                window->setCellValue(i, 2, record->getString(3));
-                window->setCellValue(i, 3, record->getString(4));
-                window->setCellValue(i, 4, QString(""));
+                xmlFilter.window->setCellValue(i, 0, record->getString(1));
+                xmlFilter.window->setCellValue(i, 1, record->getString(2));
+                xmlFilter.window->setCellValue(i, 2, record->getString(3));
+                xmlFilter.window->setCellValue(i, 3, record->getString(4));
+                xmlFilter.window->setCellValue(i, 4, QString(""));
                 delete record;
                 i++;
             }
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
-void checkListOfAttendance(MainWindow* window, const Report& report, const QString& fileName, const Filter& filter, StatHash* hash) {
-    if (window == NULL) {
-        QString city = report.getStadiumCity();
-        QString attendance = report.getStadiumAttendance();
+void checkListOfAttendance(const XmlFilter& xmlFilter, StatHash* hash) {
+    if (xmlFilter.window == NULL) {
+        QString city = xmlFilter.report->getStadiumCity();
+        QString attendance = xmlFilter.report->getStadiumAttendance();
         if (attendance == "") {
-            addMatch(report, fileName, hash);
+            addMatch(*(xmlFilter.report), *(xmlFilter.fileName), hash);
         }
     } else {
         QStringList titles;
@@ -1372,22 +1373,22 @@ void checkListOfAttendance(MainWindow* window, const Report& report, const QStri
                 << TABLE_MATCHINFO_COLUMN3
                 << TABLE_MATCHINFO_COLUMN4
                 << TABLE_MATCHINFO_COLUMN5;
-        window->initTable(titles, 120, hash->size());
+        xmlFilter.window->initTable(titles, 120, hash->size());
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
-            window->setCellValue(i, 0, record->getString(0));
-            window->setCellValue(i, 1, record->getString(1));
-            window->setCellValue(i, 2, record->getString(2));
-            window->setCellValue(i, 3, record->getString(3));
-            window->setCellValue(i, 4, record->getString(4));
-            window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
+            xmlFilter.window->setCellValue(i, 0, record->getString(0));
+            xmlFilter.window->setCellValue(i, 1, record->getString(1));
+            xmlFilter.window->setCellValue(i, 2, record->getString(2));
+            xmlFilter.window->setCellValue(i, 3, record->getString(3));
+            xmlFilter.window->setCellValue(i, 4, record->getString(4));
+            xmlFilter.window->setCellValue(i, 5, QString("xm01_%1").arg(record->getString(5)));
             delete record;
             i++;
         }
         hash->clear();
-        window->widget.table->setSortingEnabled(true);
-        window->widget.table->sortByColumn(0, Qt::AscendingOrder);
+        xmlFilter.window->widget.table->setSortingEnabled(true);
+        xmlFilter.window->widget.table->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
@@ -1423,9 +1424,9 @@ bool isPlayed(const Report& report, const QString& player) {
     return value;
 }
 
-int getPlayerGoals(const Report& report, const QString& player) {
+int getPlayerGoals(const Report* report, const QString* player) {
     int value = 0;
-    QVector<Report::Event> events = report.getEvents();
+    QVector<Report::Event> events = report->getEvents();
     uint length = events.size();
     for (uint i = 0; i < length; i++) {
         QString eventType = events.at(i).type;

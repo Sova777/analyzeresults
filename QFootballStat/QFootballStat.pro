@@ -13,7 +13,8 @@ HEADERS += src/constants.h \
            src/MainWindow.h \
            src/Record.h \
            src/Report.h \
-           src/XmlFileReader.h
+           src/XmlFileReader.h \
+           src/XmlFilter.h
 FORMS += src/MainWindow.ui \
          src/Find.ui
 SOURCES += src/main.cpp \
@@ -22,6 +23,7 @@ SOURCES += src/main.cpp \
            src/MainWindow.cpp \
            src/Record.cpp \
            src/Report.cpp \
-           src/XmlFileReader.cpp
+           src/XmlFileReader.cpp \
+           src/XmlFilter.cpp
 RESOURCES += src/resources.qrc
 RC_FILE += src/QFootballStat.rc
