@@ -45,8 +45,12 @@ MainWindow::MainWindow() {
             this, SLOT(close()));
     connect(widget.actionSave, SIGNAL(triggered()),
             this, SLOT(save()));
+    connect(widget.actionSaveAsQfb, SIGNAL(triggered()),
+            this, SLOT(saveAsQfb()));
     connect(widget.actionOpen, SIGNAL(triggered()),
             this, SLOT(open()));
+    connect(widget.actionOpenQfb, SIGNAL(triggered()),
+            this, SLOT(openQfb()));
     connect(widget.actionAbout, SIGNAL(triggered()),
             this, SLOT(about()));
 
@@ -475,6 +479,219 @@ void MainWindow::save() {
     }
     writeLine(out);
     file.close();
+}
+
+void MainWindow::openQfb() {
+    QString qstr = QFileDialog::getOpenFileName(this, QString::fromUtf8("Выберите имя файла"), NULL, "*.qfb");
+    if (qstr == "") return;
+    tournaments.clear();
+    QFile file(qstr);
+    file.open(QIODevice::ReadOnly);
+    QDataStream in(&file);
+    in.setVersion(QDataStream::Qt_4_0);
+    quint32 magicKey;
+    in >> magicKey;
+    if (magicKey == (quint32)0xF07BA110) {
+        quint32 version;
+        in >> version;
+        if (version == (quint32)1) {
+            QDate fromDate = widget.dateEditFrom->date();
+            QDate tillDate = widget.dateEditTill->date();
+            tournaments.clear();
+            reports.clear();
+            quint32 records;
+            in >> records;
+            for (quint32 j = 0; j < records; j++) {
+                Report report;
+                QString FileName;
+                QString MatchId;
+                QString MatchRound;
+                QString MatchTournament;
+                QString Score;
+                QString Time;
+                QDate Date;
+                QString Coach1id;
+                QString Coach1;
+                QString Coach2id;
+                QString Coach2;
+                QString Team1id;
+                QString Team1;
+                QString Team2id;
+                QString Team2;
+                QString StadiumId;
+                QString Stadium;
+                QString StadiumCity;
+                QString StadiumAttendance;
+                QString RefereeId;
+                QString Referee;
+                QString RefereeCity;
+                quint32 lenPlayers1;
+                quint32 lenPlayers2;
+                quint32 lenEvents;
+
+                in >> FileName;
+                report.setFileName(FileName);
+                in >> MatchId;
+                report.setMatchId(MatchId);
+                in >> MatchRound;
+                report.setMatchRound(MatchRound);
+                in >> MatchTournament;
+                report.setMatchTournament(MatchTournament);
+                in >> Score;
+                report.setScore(Score);
+                in >> Time;
+                report.setTime(Time);
+                in >> Date;
+                report.setDate(Date);
+                in >> Coach1id;
+                report.setCoach1id(Coach1id);
+                in >> Coach1;
+                report.setCoach1(Coach1);
+                in >> Coach2id;
+                report.setCoach2id(Coach2id);
+                in >> Coach2;
+                report.setCoach2(Coach2);
+                in >> Team1id;
+                report.setTeam1id(Team1id);
+                in >> Team1;
+                report.setTeam1(Team1);
+                in >> Team2id;
+                report.setTeam2id(Team2id);
+                in >> Team2;
+                report.setTeam2(Team2);
+                in >> StadiumId;
+                report.setStadiumId(StadiumId);
+                in >> Stadium;
+                report.setStadium(Stadium);
+                in >> StadiumCity;
+                report.setStadiumCity(StadiumCity);
+                in >> StadiumAttendance;
+                report.setStadiumAttendance(StadiumAttendance);
+                in >> RefereeId;
+                report.setRefereeId(RefereeId);
+                in >> Referee;
+                report.setReferee(Referee);
+                in >> RefereeCity;
+                report.setRefereeCity(RefereeCity);
+                tournaments.insert(MatchTournament, 0);
+                if (Date < fromDate) {
+                    fromDate = Date;
+                }
+                if (Date > tillDate) {
+                    tillDate = Date;
+                }
+
+                in >> lenPlayers1;
+                for (quint32 i = 0; i < lenPlayers1; i++) {
+                    QString id;
+                    QString player;
+                    in >> id;
+                    in >> player;
+                    report.addPlayer1(id, player);
+                }
+                in >> lenPlayers2;
+                for (quint32 i = 0; i < lenPlayers2; i++) {
+                    QString id;
+                    QString player;
+                    in >> id;
+                    in >> player;
+                    report.addPlayer2(id, player);
+                }
+                in >> lenEvents;
+                for (quint32 i = 0; i < lenEvents; i++) {
+                    QString type;
+                    QString time;
+                    QString team;
+                    QString comment;
+                    QString playerid;
+                    QString player;
+                    QString playerid2;
+                    QString player2;
+                    in >> type;
+                    in >> time;
+                    in >> team;
+                    in >> comment;
+                    in >> playerid;
+                    in >> player;
+                    in >> playerid2;
+                    in >> player2;
+                    report.addEvent(type, time, team, comment, playerid, player, playerid2, player2);
+                }
+                reports.append(report);
+            }
+            widget.dateEditFrom->setDate(fromDate);
+            widget.dateEditTill->setDate(tillDate);
+            QComboBox* combo = widget.comboTournaments;
+            combo->clear();
+            combo->addItem(ALL_TOURNAMENTS);
+            foreach(QString t, tournaments.keys()) {
+                combo->addItem(t);
+            }
+        }
+    }
+}
+
+void MainWindow::saveAsQfb() {
+    QString qstr = QFileDialog::getSaveFileName(this, QString::fromUtf8("Выберите имя файла"), NULL, "*.qfb");
+    if (qstr == "") return;
+    QFile file(qstr);
+    file.open(QIODevice::WriteOnly);
+    QDataStream out(&file);
+    out.setVersion(QDataStream::Qt_4_0);
+    out << (quint32)0xF07BA110;
+    out << (quint32)1;
+    out << (quint32)reports.size();
+    foreach(Report report, reports) {
+        out << report.getFileName();
+        out << report.getMatchId();
+        out << report.getMatchRound();
+        out << report.getMatchTournament();
+        out << report.getScore();
+        out << report.getTime();
+        out << report.getDate();
+        out << report.getCoach1id();
+        out << report.getCoach1();
+        out << report.getCoach2id();
+        out << report.getCoach2();
+        out << report.getTeam1id();
+        out << report.getTeam1();
+        out << report.getTeam2id();
+        out << report.getTeam2();
+        out << report.getStadiumId();
+        out << report.getStadium();
+        out << report.getStadiumCity();
+        out << report.getStadiumAttendance();
+        out << report.getRefereeId();
+        out << report.getReferee();
+        out << report.getRefereeCity();
+        QVector<Report::Player> players1 = report.getPlayers1();
+        quint32 count = players1.size();
+        out << count;
+        foreach(Report::Player player1, players1) {
+            out << player1.id;
+            out << player1.player;
+        }
+        QVector<Report::Player> players2 = report.getPlayers2();
+        count = players2.size();
+        out << count;
+        foreach(Report::Player player2, players2) {
+            out << player2.id;
+            out << player2.player;
+        }
+        QVector<Report::Event> events = report.getEvents();
+        count = events.size();
+        out << count;
+        foreach(Report::Event event, events) {
+            out << event.type;
+            out << event.time;
+            out << event.team;
+            out << event.comment;
+            out << event.playerid;
+            out << event.player;
+            out << event.playerid2;
+            out << event.player2;
+        }
+    }
 }
 
 void MainWindow::initTable(QStringList& titles, int columnWidth, int rows) {

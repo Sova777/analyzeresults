@@ -1477,13 +1477,3 @@ QString getKeyTeam(const bool useID, const QString& teamid, const QString& team)
         QString("%1").arg(team);
     return qstr;
 }
-
-// QDataStream &operator<<(QDataStream& stream, const Report& report);
-// QDataStream &operator>>(QDataStream& stream, Report& report);
-// QFile file("file.xxx");
-// file.open(QIODevice::WriteOnly);
-// QDataStream out(&file);
-// out << (quint32)0xA0B0C0D0;
-// out << (qint32)123;
-// out.setVersion(QDataStream::Qt_4_0);
-// out << lots_of_interesting_data;

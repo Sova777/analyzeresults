@@ -65,7 +65,9 @@ private:
 
 private slots:
     void open();
+    void openQfb();
     void save();
+    void saveAsQfb();
     void about();
     void callCalculateGoals();
     void callCalculateMatches();

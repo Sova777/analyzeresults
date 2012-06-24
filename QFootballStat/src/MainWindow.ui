@@ -689,6 +689,8 @@
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="actionOpenQfb"/>
+    <addaction name="actionSaveAsQfb"/>
     <addaction name="separator"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
@@ -797,7 +799,7 @@
   </action>
   <action name="actionSave">
    <property name="text">
-    <string>Сохранить таблицу</string>
+    <string>Сохранить таблицу как текст</string>
    </property>
   </action>
   <action name="actionOpen">
@@ -853,6 +855,16 @@
   <action name="actionFindCoach">
    <property name="text">
     <string>Найти тренера</string>
+   </property>
+  </action>
+  <action name="actionSaveAsQfb">
+   <property name="text">
+    <string>Сохранить в qfb файл</string>
+   </property>
+  </action>
+  <action name="actionOpenQfb">
+   <property name="text">
+    <string>Открыть qfb файл</string>
    </property>
   </action>
  </widget>
