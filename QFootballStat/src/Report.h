@@ -95,6 +95,33 @@ public:
     const QString& getMatchTournament() const;
     void setFileName(QFile& file);
     const QString& getFileName() const;
+
+    void setFileName(const QString&);
+    void setMatchId(const QString&);
+    void setMatchRound(const QString&);
+    void setMatchTournament(const QString&);
+    void setScore(const QString&);
+    void setTime(const QString&);
+    void setDate(const QDate&);
+    void setCoach1id(const QString&);
+    void setCoach1(const QString&);
+    void setCoach2id(const QString&);
+    void setCoach2(const QString&);
+    void setTeam1id(const QString&);
+    void setTeam1(const QString&);
+    void setTeam2id(const QString&);
+    void setTeam2(const QString&);
+    void setStadiumId(const QString&);
+    void setStadium(const QString&);
+    void setStadiumCity(const QString&);
+    void setStadiumAttendance(const QString&);
+    void setRefereeId(const QString&);
+    void setReferee(const QString&);
+    void setRefereeCity(const QString&);
+    void addPlayer1(const QString& id, const QString& player);
+    void addPlayer2(const QString& id, const QString& player);
+    void addEvent(const QString& type, const QString& time, const QString& team, const QString& comment, const QString& playerid, const QString& player, const QString& playerid2, const QString& player2);
+
 private:
     QString fileName;
     QString team1;
