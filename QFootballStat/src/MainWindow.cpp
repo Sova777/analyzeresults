@@ -835,112 +835,112 @@ void MainWindow::report(const QString& fileName) {
     widget.actionSave->setDisabled(true);
     widget.table->setVisible(false);
     widget.text->setVisible(true);
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly)) {
-        widget.text->setText("");
-        return;
-    }
-    Report report = saxParser(file);
-    file.close();
-    QString team1 = report.getTeam1();
-    QString team2 = report.getTeam2();
-    QString coach1 = report.getCoach1();
-    QString coach2 = report.getCoach2();
-    QString score = report.getScore();
-    QString time = report.getTime();
-    QDate date = report.getDate();
-    QString rcity = report.getRefereeCity();
-    QString referee = report.getReferee();
-    QString round = report.getMatchRound();
-    QString tournament = report.getMatchTournament();
-    QString city = report.getStadiumCity();
-    QString attendance = report.getStadiumAttendance();
-    QString stadium = report.getStadium();
-    QString text = QString::fromUtf8("<h1 align='center'>%1</h1>")
-            .arg(tournament);
-    if ((round == "") || (round.length() > 3)) {
-        text.append(QString::fromUtf8("<h2 align='center'>%1</h2>")
-                .arg(round));
-    } else {
-        text.append(QString::fromUtf8("<h2 align='center'>Тур: %1</h2>")
-                .arg(round));
-    }
-    text.append(QString::fromUtf8("<h2 align='center'>%1 - %2 - %3</h2>")
-            .arg(team1)
-            .arg(team2)
-            .arg(score));
-    text.append(QString::fromUtf8("<p>"));
-    if (city != "") {
-        text.append(QString::fromUtf8("%1. ").arg(city));
-    }
-    text.append(QString::fromUtf8("%1. %2 зрителей<br><b>Судья:</b> %3 (%4)<br>%6 %5</p>")
-            .arg(stadium)
-            .arg(attendance)
-            .arg(referee)
-            .arg(rcity)
-            .arg(time)
-            .arg(date.toString(Qt::DefaultLocaleLongDate)));
+    widget.text->setText("");
 
-    // игроки
-    QVector<Report::Player> players1 = report.getPlayers1();
-    text.append(QString::fromLatin1("<table border='0' width='100%'>"));
-    text.append(QString::fromLatin1("<tr><td>"));
-    uint length1 = players1.size();
-    for (uint i = 0; i < length1; i++) {
-        QString value = players1.at(i).player;
-        if (i != 0) {
-            text.append(QString("<br>"));
-        }
-        text.append(QString("%1").arg(value));
-    }
-    text.append(QString::fromLatin1("</td><td>"));
-    QVector<Report::Player> players2 = report.getPlayers2();
-    uint length2 = players2.size();
-    for (uint i = 0; i < length2; i++) {
-        QString value = players2.at(i).player;
-        if (i != 0) {
-            text.append(QString("<br>"));
-        }
-        text.append(QString("%1").arg(value));
-    }
-    text.append(QString::fromLatin1("</td></tr>"));
-    text.append(QString::fromUtf8("<tr><td><b>Тренер:</b> %1</td><td><b>Тренер:</b> %2</td></tr>").arg(coach1).arg(coach2));
-    text.append(QString::fromLatin1("</table>"));
+    foreach(Report report, reports) {
+        if (report.getFileName() == fileName) {
+            QString team1 = report.getTeam1();
+            QString team2 = report.getTeam2();
+            QString coach1 = report.getCoach1();
+            QString coach2 = report.getCoach2();
+            QString score = report.getScore();
+            QString time = report.getTime();
+            QDate date = report.getDate();
+            QString rcity = report.getRefereeCity();
+            QString referee = report.getReferee();
+            QString round = report.getMatchRound();
+            QString tournament = report.getMatchTournament();
+            QString city = report.getStadiumCity();
+            QString attendance = report.getStadiumAttendance();
+            QString stadium = report.getStadium();
+            QString text = QString::fromUtf8("<h1 align='center'>%1</h1>")
+                    .arg(tournament);
+            if ((round == "") || (round.length() > 3)) {
+                text.append(QString::fromUtf8("<h2 align='center'>%1</h2>")
+                        .arg(round));
+            } else {
+                text.append(QString::fromUtf8("<h2 align='center'>Тур: %1</h2>")
+                        .arg(round));
+            }
+            text.append(QString::fromUtf8("<h2 align='center'>%1 - %2 - %3</h2>")
+                    .arg(team1)
+                    .arg(team2)
+                    .arg(score));
+            text.append(QString::fromUtf8("<p>"));
+            if (city != "") {
+                text.append(QString::fromUtf8("%1. ").arg(city));
+            }
+            text.append(QString::fromUtf8("%1. %2 зрителей<br><b>Судья:</b> %3 (%4)<br>%6 %5</p>")
+                    .arg(stadium)
+                    .arg(attendance)
+                    .arg(referee)
+                    .arg(rcity)
+                    .arg(time)
+                    .arg(date.toString(Qt::DefaultLocaleLongDate)));
 
-    // события в матче
-    text.append(QString::fromLatin1("<table border='0' width='100%'>"));
-    QVector<Report::Event> events = report.getEvents();
-    uint length = events.size();
-    for (uint i = 0; i < length; i++) {
-        QString eventType = events.at(i).type;
-        QString player = events.at(i).player;
-        QString player2 = events.at(i).player2;
-        QString team = events.at(i).team;
-        QString time = events.at(i).time;
-        if (eventType == EVENT_GOAL) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/goal.png'>").arg(eventType).arg(team).arg(player));
-        } else if (eventType == EVENT_GOAL_PENALTY) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/pen.png'>").arg(eventType).arg(team).arg(player));
-        } else if (eventType == EVENT_MISSED_PENALTY) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/missed.png'>").arg(eventType).arg(team).arg(player));
-        } else if (eventType == EVENT_AUTOGOAL) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/autogoal.png'>").arg(eventType).arg(team).arg(player));
-        } else if (eventType == EVENT_RED_CARD) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/red.png'>").arg(eventType).arg(team).arg(player));
-        } else if (eventType == EVENT_RED_YELLOW_CARD) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/yellow2.png'>").arg(eventType).arg(team).arg(player));
-        } else if (eventType == EVENT_YELLOW_CARD) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/yellow.png'>").arg(eventType).arg(team).arg(player));
-        } else if (eventType == EVENT_SUBSTITUTION) {
-            text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5 - %6</td></tr>").arg(time).arg("<img src=':/icon/images/subs.png'>").arg(eventType).arg(team).arg(player).arg(player2));
-        } else if (player2 == "") {
-            text.append(QString("<tr><td>%1'</td><td>%2</td><td>%3</td><td>%4</td></tr>").arg(time).arg(eventType).arg(team).arg(player));
-        } else {
-            text.append(QString("<tr><td>%1'</td><td>%2</td><td>%3</td><td>%4 - %5</td></tr>").arg(time).arg(eventType).arg(team).arg(player).arg(player2));
+            // игроки
+            QVector<Report::Player> players1 = report.getPlayers1();
+            text.append(QString::fromLatin1("<table border='0' width='100%'>"));
+            text.append(QString::fromLatin1("<tr><td>"));
+            uint length1 = players1.size();
+            for (uint i = 0; i < length1; i++) {
+                QString value = players1.at(i).player;
+                if (i != 0) {
+                    text.append(QString("<br>"));
+                }
+                text.append(QString("%1").arg(value));
+            }
+            text.append(QString::fromLatin1("</td><td>"));
+            QVector<Report::Player> players2 = report.getPlayers2();
+            uint length2 = players2.size();
+            for (uint i = 0; i < length2; i++) {
+                QString value = players2.at(i).player;
+                if (i != 0) {
+                    text.append(QString("<br>"));
+                }
+                text.append(QString("%1").arg(value));
+            }
+            text.append(QString::fromLatin1("</td></tr>"));
+            text.append(QString::fromUtf8("<tr><td><b>Тренер:</b> %1</td><td><b>Тренер:</b> %2</td></tr>").arg(coach1).arg(coach2));
+            text.append(QString::fromLatin1("</table>"));
+
+            // события в матче
+            text.append(QString::fromLatin1("<table border='0' width='100%'>"));
+            QVector<Report::Event> events = report.getEvents();
+            uint length = events.size();
+            for (uint i = 0; i < length; i++) {
+                QString eventType = events.at(i).type;
+                QString player = events.at(i).player;
+                QString player2 = events.at(i).player2;
+                QString team = events.at(i).team;
+                QString time = events.at(i).time;
+                if (eventType == EVENT_GOAL) {
+                    text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/goal.png'>").arg(eventType).arg(team).arg(player));
+                } else if (eventType == EVENT_GOAL_PENALTY) {
+                    text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/pen.png'>").arg(eventType).arg(team).arg(player));
+                } else if (eventType == EVENT_MISSED_PENALTY) {
+                    text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/missed.png'>").arg(eventType).arg(team).arg(player));
+                } else if (eventType == EVENT_AUTOGOAL) {
+                    text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/autogoal.png'>").arg(eventType).arg(team).arg(player));
+                } else if (eventType == EVENT_RED_CARD) {
+                    text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/red.png'>").arg(eventType).arg(team).arg(player));
+                } else if (eventType == EVENT_RED_YELLOW_CARD) {
+                    text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/yellow2.png'>").arg(eventType).arg(team).arg(player));
+                } else if (eventType == EVENT_YELLOW_CARD) {
+                    text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/yellow.png'>").arg(eventType).arg(team).arg(player));
+                } else if (eventType == EVENT_SUBSTITUTION) {
+                    text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5 - %6</td></tr>").arg(time).arg("<img src=':/icon/images/subs.png'>").arg(eventType).arg(team).arg(player).arg(player2));
+                } else if (player2 == "") {
+                    text.append(QString("<tr><td>%1'</td><td>%2</td><td>%3</td><td>%4</td></tr>").arg(time).arg(eventType).arg(team).arg(player));
+                } else {
+                    text.append(QString("<tr><td>%1'</td><td>%2</td><td>%3</td><td>%4 - %5</td></tr>").arg(time).arg(eventType).arg(team).arg(player).arg(player2));
+                }
+            }
+            text.append(QString::fromLatin1("</table>"));
+            widget.text->setText(text);
+            break;
         }
     }
-    text.append(QString::fromLatin1("</table>"));
-    widget.text->setText(text);
 }
 
 void MainWindow::refresh() {
