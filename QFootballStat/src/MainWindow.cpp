@@ -107,16 +107,16 @@ MainWindow::MainWindow() {
 
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
             "football.mojgorod.ru", "QFootballStat");
-    directory = settings.value("currentDir").toString();
-    if (directory == "") {
+    data = settings.value("data").toString();
+    if (data == "") {
         QString applicationDir = QCoreApplication::applicationDirPath();
         if (applicationDir != "") {
             if (QFile::exists(applicationDir + "/xml")) {
-                directory = applicationDir + "/xml";
+                data = applicationDir + "/xml";
             }
         }
-        if (directory == "") {
-            directory = QString::fromLatin1("xml");
+        if (data == "") {
+            data = QString::fromLatin1("xml");
         }
     }
     widget.text->setText(FIRST_MESSAGE);
@@ -132,7 +132,7 @@ MainWindow::~MainWindow() {
 void MainWindow::closeEvent(QCloseEvent *event) {
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
             "football.mojgorod.ru", "QFootballStat");
-    settings.setValue("currentDir", directory);
+    settings.setValue("data", data);
     settings.sync();
     event->accept();
 }
@@ -225,9 +225,11 @@ void MainWindow::calculate(pointer func, const QString& qfilter) {
     StatHash hash;
     Filter filter(qfilter, widget.checkBoxID->isChecked());
     analyzeXml(func, filter, &hash);
-    Report report = reports[0];
-    XmlFilter xmlFilter(this, &report, report.getFileName(), &filter);
-    (*func)(xmlFilter, &hash);
+    if (reports.size() > 0) {
+        Report report = reports[0];
+        XmlFilter xmlFilter(this, &report, report.getFileName(), &filter);
+        (*func)(xmlFilter, &hash);
+    }
 }
 
 void MainWindow::findPlayer(void) {
@@ -251,47 +253,56 @@ void MainWindow::findCoach(void) {
 
 void MainWindow::cache() {
     int counter = 0;
+    tournaments.clear();
     QDate fromDate = widget.dateEditFrom->date();
     QDate tillDate = widget.dateEditTill->date();
-    tournaments.clear();
-    QDir qDir = QDir(directory);
-    QDirIterator it(qDir.absolutePath(), QDirIterator::Subdirectories);
-    while (it.hasNext()) {
-        it.next();
-        if (!it.fileInfo().isDir()) {
-            counter++;
-            QString fileName = it.fileName();
-            if (!fileName.endsWith(QLatin1String(".xml"))) continue;
-            QString fullFileName = it.fileInfo().absoluteFilePath();
-            QFile file(fullFileName);
-            if (!file.open(QIODevice::ReadOnly)) continue;
-            Report report = saxParser(file);
-            reports.append(report);
-            QDate currentDate = report.getDate();
-            tournaments.insert(report.getMatchTournament(), 0);
-            if (currentDate < fromDate) {
-                fromDate = currentDate;
+    QFileInfo qFileInfo = QFileInfo(data);
+    if (qFileInfo.exists()) {
+        if (qFileInfo.isFile()) {
+            openQfb(data, &fromDate, &tillDate);
+        } else {
+            QDir qDir = QDir(data);
+            QDirIterator it(qDir.absolutePath(), QDirIterator::Subdirectories);
+            while (it.hasNext()) {
+                it.next();
+                if (!it.fileInfo().isDir()) {
+                    counter++;
+                    QString fileName = it.fileName();
+                    if (!fileName.endsWith(QLatin1String(".xml"))) continue;
+                    QString fullFileName = it.fileInfo().absoluteFilePath();
+                    QFile file(fullFileName);
+                    if (!file.open(QIODevice::ReadOnly)) continue;
+                    Report report = saxParser(file);
+                    reports.append(report);
+                    QDate currentDate = report.getDate();
+                    tournaments.insert(report.getMatchTournament(), 0);
+                    if (currentDate < fromDate) {
+                        fromDate = currentDate;
+                    }
+                    if (currentDate > tillDate) {
+                        tillDate = currentDate;
+                    }
+                    file.close();
+                }
+                if ((counter % 100) == 0) {
+                    statusBar()->showMessage(QString("%1 (%2 %3)")
+                            .arg(STATUS_CALCULATING)
+                            .arg(counter)
+                            .arg(STATUS_CALCULATING2));
+                    QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+                }
             }
-            if (currentDate > tillDate) {
-                tillDate = currentDate;
-            }
-            file.close();
         }
-        if ((counter % 100) == 0) {
-            statusBar()->showMessage(QString("%1 (%2 %3)")
-                    .arg(STATUS_CALCULATING)
-                    .arg(counter)
-                    .arg(STATUS_CALCULATING2));
-            QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+        widget.dateEditFrom->setDate(fromDate);
+        widget.dateEditTill->setDate(tillDate);
+        QComboBox* combo = widget.comboTournaments;
+        combo->clear();
+        combo->addItem(ALL_TOURNAMENTS);
+        foreach(QString t, tournaments.keys()) {
+            combo->addItem(t);
         }
-    }
-    widget.dateEditFrom->setDate(fromDate);
-    widget.dateEditTill->setDate(tillDate);
-    QComboBox* combo = widget.comboTournaments;
-    combo->clear();
-    combo->addItem(ALL_TOURNAMENTS);
-    foreach(QString t, tournaments.keys()) {
-        combo->addItem(t);
+    } else {
+        QMessageBox::information(NULL, QString::fromUtf8("Нет данных"), QString::fromUtf8("Нет данных. Выберите файл с результатами."));
     }
 }
 
@@ -307,26 +318,28 @@ void MainWindow::analyzeXml(pointer func, const Filter& filter, StatHash* hash) 
     if (emptyCache) {
         cache();
     }
-    int counter = 0;
-    QDate fromDate = widget.dateEditFrom->date();
-    QDate tillDate = widget.dateEditTill->date();
-    QString tourn = widget.comboTournaments->currentText();
-    foreach(Report report, reports) {
-        counter++;
-        QDate date = report.getDate();
-        QString currentTournament = report.getMatchTournament();
-        if ((tourn == ALL_TOURNAMENTS) || (currentTournament == tourn)) {
-            if ((date >= fromDate) && (date <= tillDate)) {
-                XmlFilter xmlFilter(NULL, &report, report.getFileName(), &filter);
-                (*func)(xmlFilter, hash);
+    if (reports.size() > 0) {
+        int counter = 0;
+        QDate fromDate = widget.dateEditFrom->date();
+        QDate tillDate = widget.dateEditTill->date();
+        QString tourn = widget.comboTournaments->currentText();
+        foreach(Report report, reports) {
+            counter++;
+            QDate date = report.getDate();
+            QString currentTournament = report.getMatchTournament();
+            if ((tourn == ALL_TOURNAMENTS) || (currentTournament == tourn)) {
+                if ((date >= fromDate) && (date <= tillDate)) {
+                    XmlFilter xmlFilter(NULL, &report, report.getFileName(), &filter);
+                    (*func)(xmlFilter, hash);
+                }
             }
-        }
-        if ((counter % 1000) == 0) {
-            statusBar()->showMessage(QString("%1 (%2 %3)")
-                    .arg(STATUS_CALCULATING_MEMORY)
-                    .arg(counter)
-                    .arg(STATUS_CALCULATING_MEMORY2));
-            QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+            if ((counter % 1000) == 0) {
+                statusBar()->showMessage(QString("%1 (%2 %3)")
+                        .arg(STATUS_CALCULATING_MEMORY)
+                        .arg(counter)
+                        .arg(STATUS_CALCULATING_MEMORY2));
+                QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+            }
         }
     }
     this->setCursor(cursor);
@@ -422,9 +435,9 @@ void MainWindow::setCellValue(int row, int column, QString value) {
 }
 
 void MainWindow::open() {
-    QString dir = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Выберите директорий"), directory);
+    QString dir = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Выберите директорий"), data);
     if (dir != "") {
-        directory = dir;
+        data = dir;
         reports.clear();
     }
     widget.text->setText(FIRST_MESSAGE);
@@ -484,8 +497,17 @@ void MainWindow::save() {
 void MainWindow::openQfb() {
     QString qstr = QFileDialog::getOpenFileName(this, QString::fromUtf8("Выберите имя файла"), NULL, "*.qfb");
     if (qstr == "") return;
-    tournaments.clear();
-    QFile file(qstr);
+    if (qstr != "") {
+        data = qstr;
+        reports.clear();
+    }
+    widget.text->setText(FIRST_MESSAGE);
+    widget.text->setVisible(true);
+    widget.table->setVisible(false);
+}
+
+void MainWindow::openQfb(const QString& fileName, QDate* fromDate, QDate* tillDate) {
+    QFile file(fileName);
     file.open(QIODevice::ReadOnly);
     QDataStream in(&file);
     in.setVersion(QDataStream::Qt_4_0);
@@ -495,8 +517,6 @@ void MainWindow::openQfb() {
         quint32 version;
         in >> version;
         if (version == (quint32)1) {
-            QDate fromDate = widget.dateEditFrom->date();
-            QDate tillDate = widget.dateEditTill->date();
             tournaments.clear();
             reports.clear();
             quint32 records;
@@ -574,11 +594,11 @@ void MainWindow::openQfb() {
                 in >> RefereeCity;
                 report.setRefereeCity(RefereeCity);
                 tournaments.insert(MatchTournament, 0);
-                if (Date < fromDate) {
-                    fromDate = Date;
+                if (Date < *fromDate) {
+                    *fromDate = Date;
                 }
-                if (Date > tillDate) {
-                    tillDate = Date;
+                if (Date > *tillDate) {
+                    *tillDate = Date;
                 }
 
                 in >> lenPlayers1;
@@ -618,14 +638,6 @@ void MainWindow::openQfb() {
                     report.addEvent(type, time, team, comment, playerid, player, playerid2, player2);
                 }
                 reports.append(report);
-            }
-            widget.dateEditFrom->setDate(fromDate);
-            widget.dateEditTill->setDate(tillDate);
-            QComboBox* combo = widget.comboTournaments;
-            combo->clear();
-            combo->addItem(ALL_TOURNAMENTS);
-            foreach(QString t, tournaments.keys()) {
-                combo->addItem(t);
             }
         }
     }
