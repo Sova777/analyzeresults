@@ -46,7 +46,7 @@ public:
     void initTable(QStringList& titles, int columnWidth, int rows);
     void setCellValue(int row, int column, QString value);
 private:
-    QString directory;
+    QString data;
     QVector<Report> reports;
     QMap<QString, int> tournaments;
     QString previous;
@@ -59,6 +59,7 @@ private:
     void writeLine(QTextStream& out);
 
     void calculate(pointer func, const QString& qfilter);
+    void openQfb(const QString& fileName, QDate* fromDate, QDate* tillDate);
 
     void findPlayer();
     void findCoach();
