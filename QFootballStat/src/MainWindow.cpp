@@ -111,12 +111,14 @@ MainWindow::MainWindow() {
     if (data == "") {
         QString applicationDir = QCoreApplication::applicationDirPath();
         if (applicationDir != "") {
-            if (QFile::exists(applicationDir + "/xml")) {
+            if (QFile::exists(applicationDir + "/demo.qfb")) {
+                data = applicationDir + "/demo.qfb";
+            } else if (QFile::exists(applicationDir + "/xml")) {
                 data = applicationDir + "/xml";
             }
         }
         if (data == "") {
-            data = QString::fromLatin1("xml");
+            data = QString::fromLatin1("xml");                
         }
     }
     widget.text->setText(FIRST_MESSAGE);
