@@ -687,10 +687,10 @@
     <property name="title">
      <string>Файл</string>
     </property>
-    <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
     <addaction name="actionOpenQfb"/>
     <addaction name="actionSaveAsQfb"/>
+    <addaction name="actionImport"/>
+    <addaction name="actionSaveAsText"/>
     <addaction name="separator"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
@@ -765,10 +765,18 @@
     <addaction name="actionFindPlayer"/>
     <addaction name="actionFindCoach"/>
    </widget>
+   <widget class="QMenu" name="menu_11">
+    <property name="title">
+     <string>Редактировать</string>
+    </property>
+    <addaction name="actionAddReport"/>
+    <addaction name="actionEditReport"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menu"/>
    <addaction name="menu_9"/>
    <addaction name="menu_10"/>
+   <addaction name="menu_11"/>
    <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -797,14 +805,14 @@
     <string>Список матчей</string>
    </property>
   </action>
-  <action name="actionSave">
+  <action name="actionSaveAsText">
    <property name="text">
     <string>Сохранить таблицу как текст</string>
    </property>
   </action>
-  <action name="actionOpen">
+  <action name="actionImport">
    <property name="text">
-    <string>Выбрать директорий</string>
+    <string>Импортировать XML файлы</string>
    </property>
   </action>
   <action name="actionAbout">
@@ -865,6 +873,16 @@
   <action name="actionOpenQfb">
    <property name="text">
     <string>Открыть qfb файл</string>
+   </property>
+  </action>
+  <action name="actionAddReport">
+   <property name="text">
+    <string>Добавить матч</string>
+   </property>
+  </action>
+  <action name="actionEditReport">
+   <property name="text">
+    <string>Редактировать матч</string>
    </property>
   </action>
  </widget>
