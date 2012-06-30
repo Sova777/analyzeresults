@@ -65,10 +65,12 @@ private:
     void findCoach();
 
 private slots:
-    void open();
+    void import();
     void openQfb();
-    void save();
+    void saveAsText();
     void saveAsQfb();
+    void addReport();
+    void editReport();
     void about();
     void callCalculateGoals();
     void callCalculateMatches();

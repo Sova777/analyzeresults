@@ -8,6 +8,7 @@ DEPENDPATH += . src
 INCLUDEPATH += . src
 
 HEADERS += src/constants.h \
+           src/EditReport.h \
            src/Filter.h \
            src/Find.h \
            src/MainWindow.h \
@@ -16,8 +17,10 @@ HEADERS += src/constants.h \
            src/XmlFileReader.h \
            src/XmlFilter.h
 FORMS += src/MainWindow.ui \
+         src/EditReport.ui \
          src/Find.ui
 SOURCES += src/main.cpp \
+           src/EditReport.cpp \
            src/Filter.cpp \
            src/Find.cpp \
            src/MainWindow.cpp \

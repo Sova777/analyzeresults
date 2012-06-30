@@ -41,6 +41,8 @@ const QString ALL_TOURNAMENTS = QString::fromUtf8("<Все турниры>");
 
 const QString FIND_PLAYER = QString::fromUtf8("Найти игрока");
 const QString FIND_COACH = QString::fromUtf8("Найти тренера");
+const QString EDIT_REPORT = QString::fromUtf8("Редактировать отчёт");
+const QString NEW_REPORT = QString::fromUtf8("Новый отчёт");
 
 const QString EVENT_GOAL = QString::fromUtf8("Гол");
 const QString EVENT_GOAL_PENALTY = QString::fromUtf8("Гол с пенальти");

@@ -28,12 +28,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <QtGui>
 #include <QtXml>
 
+#include "EditReport.h"
 #include "Filter.h"
 #include "Find.h"
 #include "MainWindow.h"
 #include "Report.h"
 #include "constants.h"
 #include "ui_MainWindow.h"
+#include "EditReport.h"
 
 using namespace std;
 
@@ -43,14 +45,18 @@ MainWindow::MainWindow() {
 
     connect(widget.actionExit, SIGNAL(triggered()),
             this, SLOT(close()));
-    connect(widget.actionSave, SIGNAL(triggered()),
-            this, SLOT(save()));
+    connect(widget.actionSaveAsText, SIGNAL(triggered()),
+            this, SLOT(saveAsText()));
     connect(widget.actionSaveAsQfb, SIGNAL(triggered()),
             this, SLOT(saveAsQfb()));
-    connect(widget.actionOpen, SIGNAL(triggered()),
-            this, SLOT(open()));
+    connect(widget.actionImport, SIGNAL(triggered()),
+            this, SLOT(import()));
     connect(widget.actionOpenQfb, SIGNAL(triggered()),
             this, SLOT(openQfb()));
+    connect(widget.actionAddReport, SIGNAL(triggered()),
+            this, SLOT(addReport()));
+    connect(widget.actionEditReport, SIGNAL(triggered()),
+            this, SLOT(editReport()));
     connect(widget.actionAbout, SIGNAL(triggered()),
             this, SLOT(about()));
 
@@ -118,11 +124,11 @@ MainWindow::MainWindow() {
             }
         }
         if (data == "") {
-            data = QString::fromLatin1("xml");                
+            data = QString::fromLatin1("xml");
         }
     }
     widget.text->setText(FIRST_MESSAGE);
-    widget.actionSave->setDisabled(true);
+    widget.actionSaveAsText->setDisabled(true);
     widget.text->setVisible(true);
     widget.table->setVisible(false);
     //selectMode1();
@@ -436,7 +442,7 @@ void MainWindow::setCellValue(int row, int column, QString value) {
     widget.table->setItem(row, column, stlb);
 }
 
-void MainWindow::open() {
+void MainWindow::import() {
     QString dir = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Выберите директорий"), data);
     if (dir != "") {
         data = dir;
@@ -463,7 +469,7 @@ void MainWindow::writeLine(QTextStream& out) {
     out << "\n";
 }
 
-void MainWindow::save() {
+void MainWindow::saveAsText() {
     QString qstr = QFileDialog::getSaveFileName(this, QString::fromUtf8("Выберите имя файла"), NULL);
     if (qstr == "") return;
     QFile file(qstr);
@@ -708,12 +714,24 @@ void MainWindow::saveAsQfb() {
     }
 }
 
+void MainWindow::addReport() {
+    EditReport editReport(this);
+    editReport.setWindowTitle(NEW_REPORT);
+    editReport.exec();
+}
+
+void MainWindow::editReport() {
+    EditReport editReport(this);
+    editReport.setWindowTitle(EDIT_REPORT);
+    editReport.exec();
+}
+
 void MainWindow::initTable(QStringList& titles, int columnWidth, int rows) {
     int columns = titles.size();
     if (columns < 0) {
         return;
     }
-    widget.actionSave->setDisabled(false);
+    widget.actionSaveAsText->setDisabled(false);
     widget.table->setVisible(true);
     widget.text->setVisible(false);
     widget.table->clear();
@@ -834,7 +852,7 @@ void MainWindow::jump(const QString link) {
 }
 
 void MainWindow::report(const QString& fileName) {
-    widget.actionSave->setDisabled(true);
+    widget.actionSaveAsText->setDisabled(true);
     widget.table->setVisible(false);
     widget.text->setVisible(true);
     widget.text->setText("");
