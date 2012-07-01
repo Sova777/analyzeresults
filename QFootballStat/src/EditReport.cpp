@@ -34,3 +34,7 @@ EditReport::EditReport(MainWindow *parent) {
 
 EditReport::~EditReport() {
 }
+
+void EditReport::accept() {
+    QDialog::accept();
+}
