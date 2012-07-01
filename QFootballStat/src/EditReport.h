@@ -39,6 +39,8 @@ public:
 private:
     Ui::EditReport widget;
     MainWindow* mainWindow;
+public slots:
+    void accept();
 };
 
 #endif	/* _EDITREPORT_H */
