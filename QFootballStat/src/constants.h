@@ -183,7 +183,7 @@ const QString TABLE_EVENT_COLUMN2 = QString::fromUtf8("Тип события");
 const QString TABLE_EVENT_COLUMN3 = QString::fromUtf8("Комментарий");
 const QString TABLE_EVENT_COLUMN4 = QString::fromUtf8("Команда");
 const QString TABLE_EVENT_COLUMN5 = QString::fromUtf8("Игрок");
-const QString TABLE_EVENT_COLUMN6 = QString::fromUtf8("Вышедший игрок");
+const QString TABLE_EVENT_COLUMN6 = QString::fromUtf8("Вышедш.игрок");
 
 #endif	/* CONSTANTS_H */
 

@@ -47,7 +47,7 @@ EditReport::EditReport(MainWindow *parent) {
                     this->widget.fAttendance->setText(report.getStadiumAttendance());
                     this->widget.fReferee->setText(report.getReferee());
                     this->widget.fDate->setDate(report.getDate());
-                    QTime time = QTime::fromString(report.getTime());
+                    QTime time = QTime::fromString(report.getTime(), "hh:mm");
                     this->widget.fDate->setTime(time);
                     this->widget.fCoach1->setText(report.getCoach1());
                     this->widget.fCoach2->setText(report.getCoach2());
