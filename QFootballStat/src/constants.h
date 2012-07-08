@@ -176,5 +176,14 @@ const QString TABLE_CHECKPLAYERS2_COLUMN2 = QString::fromUtf8("Команда");
 const QString TABLE_CHECKPLAYERS2_COLUMN3 = QString::fromUtf8("ID1");
 const QString TABLE_CHECKPLAYERS2_COLUMN4 = QString::fromUtf8("ID2");
 
+const QString TABLE_SQUAD_COLUMN1 = QString::fromUtf8("Игрок");
+
+const QString TABLE_EVENT_COLUMN1 = QString::fromUtf8("Время");
+const QString TABLE_EVENT_COLUMN2 = QString::fromUtf8("Тип события");
+const QString TABLE_EVENT_COLUMN3 = QString::fromUtf8("Комментарий");
+const QString TABLE_EVENT_COLUMN4 = QString::fromUtf8("Команда");
+const QString TABLE_EVENT_COLUMN5 = QString::fromUtf8("Игрок");
+const QString TABLE_EVENT_COLUMN6 = QString::fromUtf8("Вышедший игрок");
+
 #endif	/* CONSTANTS_H */
 

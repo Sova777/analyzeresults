@@ -45,12 +45,12 @@ public:
     Ui::MainWindow widget;
     void initTable(QStringList& titles, int columnWidth, int rows);
     void setCellValue(int row, int column, QString value);
+    QVector<Report> reports;
+    QString current;
 private:
     QString data;
-    QVector<Report> reports;
     QMap<QString, int> tournaments;
     QString previous;
-    QString current;
     void closeEvent(QCloseEvent *event);
     void report(const QString& fileName);
     void analyzeXml(pointer func, const Filter& filter, StatHash* hash);

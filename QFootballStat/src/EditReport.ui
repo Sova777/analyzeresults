@@ -31,7 +31,7 @@
      <item row="0" column="0">
       <widget class="QTabWidget" name="tabReport">
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tabGeneral">
         <attribute name="title">
@@ -89,7 +89,7 @@
           <string>Счёт</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_7">
+        <widget class="QLineEdit" name="fExtra2">
          <property name="geometry">
           <rect>
            <x>340</x>
@@ -112,7 +112,7 @@
           <string>)</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_5">
+        <widget class="QLineEdit" name="fGoals2">
          <property name="geometry">
           <rect>
            <x>180</x>
@@ -148,7 +148,7 @@
           <string>:</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_12">
+        <widget class="QLineEdit" name="fRound">
          <property name="geometry">
           <rect>
            <x>120</x>
@@ -158,7 +158,7 @@
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_8">
+        <widget class="QLineEdit" name="fPeanlty1">
          <property name="geometry">
           <rect>
            <x>420</x>
@@ -168,7 +168,7 @@
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="fChampionship">
          <property name="geometry">
           <rect>
            <x>120</x>
@@ -178,7 +178,7 @@
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_2">
+        <widget class="QLineEdit" name="fTeam1">
          <property name="geometry">
           <rect>
            <x>120</x>
@@ -214,7 +214,7 @@
           <string>, пен.</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_6">
+        <widget class="QLineEdit" name="fExtra1">
          <property name="geometry">
           <rect>
            <x>270</x>
@@ -250,7 +250,7 @@
           <string>:</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_3">
+        <widget class="QLineEdit" name="fTeam2">
          <property name="geometry">
           <rect>
            <x>120</x>
@@ -260,7 +260,7 @@
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_4">
+        <widget class="QLineEdit" name="fGoals1">
          <property name="geometry">
           <rect>
            <x>120</x>
@@ -270,7 +270,7 @@
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_9">
+        <widget class="QLineEdit" name="fPenalty2">
          <property name="geometry">
           <rect>
            <x>490</x>
@@ -293,7 +293,7 @@
           <string>Город</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_13">
+        <widget class="QLineEdit" name="fCity">
          <property name="geometry">
           <rect>
            <x>120</x>
@@ -316,7 +316,7 @@
           <string>Стадион</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_14">
+        <widget class="QLineEdit" name="fStadium">
          <property name="geometry">
           <rect>
            <x>120</x>
@@ -339,7 +339,7 @@
           <string>Зрителей</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_15">
+        <widget class="QLineEdit" name="fAttendance">
          <property name="geometry">
           <rect>
            <x>480</x>
@@ -362,7 +362,7 @@
           <string>Дата</string>
          </property>
         </widget>
-        <widget class="QDateTimeEdit" name="dateTimeEdit">
+        <widget class="QDateTimeEdit" name="fDate">
          <property name="geometry">
           <rect>
            <x>120</x>
@@ -385,7 +385,7 @@
           <string>Судья</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_16">
+        <widget class="QLineEdit" name="fReferee">
          <property name="geometry">
           <rect>
            <x>120</x>
@@ -400,7 +400,7 @@
         <attribute name="title">
          <string>Состав</string>
         </attribute>
-        <widget class="QTableWidget" name="tableWidget_2">
+        <widget class="QTableWidget" name="fSquad2">
          <property name="geometry">
           <rect>
            <x>390</x>
@@ -445,7 +445,7 @@
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
-        <widget class="QTableWidget" name="tableWidget">
+        <widget class="QTableWidget" name="fSquad1">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -474,7 +474,7 @@
          <row/>
          <row/>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_10">
+        <widget class="QLineEdit" name="fCoach1">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -484,7 +484,7 @@
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_11">
+        <widget class="QLineEdit" name="fCoach2">
          <property name="geometry">
           <rect>
            <x>390</x>
@@ -520,7 +520,7 @@
         <attribute name="title">
          <string>События</string>
         </attribute>
-        <widget class="QTableWidget" name="tableWidget_3">
+        <widget class="QTableWidget" name="fEvents">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -554,6 +554,42 @@
          </property>
          <property name="text">
           <string>События в матче:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tabComments">
+        <attribute name="title">
+         <string>Комментарии</string>
+        </attribute>
+        <widget class="QTextEdit" name="fComments">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>40</y>
+           <width>741</width>
+           <height>421</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_20">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>10</y>
+           <width>751</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Комментарии:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
