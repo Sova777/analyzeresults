@@ -56,8 +56,14 @@ public:
     const QVector<Player>& getPlayers1() const;
     const QVector<Player>& getPlayers2() const;
 
-    void setScore(QXmlStreamReader& xml);
-    const QString& getScore() const;
+    void setScoreAttributes(QXmlStreamReader& xml);
+    const QString* getScore() const;
+    const QString& getGoals1() const;
+    const QString& getGoals2() const;
+    const QString& getExtra1() const;
+    const QString& getExtra2() const;
+    const QString& getPenalties1() const;
+    const QString& getPenalties2() const;
     void setDateAttributes(QXmlStreamReader& xml);
     const QString& getTime() const;
     void setDate(QXmlStreamReader& xml);
@@ -100,7 +106,12 @@ public:
     void setMatchId(const QString&);
     void setMatchRound(const QString&);
     void setMatchTournament(const QString&);
-    void setScore(const QString&);
+    void setGoals1(const QString&);
+    void setGoals2(const QString&);
+    void setExtra1(const QString&);
+    void setExtra2(const QString&);
+    void setPenalties1(const QString&);
+    void setPenalties2(const QString&);
     void setTime(const QString&);
     void setDate(const QDate&);
     void setCoach1id(const QString&);
@@ -134,7 +145,12 @@ private:
     QString coach2id;
     QDate date;
     QString time;
-    QString score;
+    QString goals1;
+    QString goals2;
+    QString extra1;
+    QString extra2;
+    QString penalties1;
+    QString penalties2;
     QString stadium;
     QString stadiumId;
     QString stadiumCity;
