@@ -42,6 +42,12 @@ EditReport::EditReport(MainWindow *parent) {
                     this->widget.fRound->setText(report.getMatchRound());
                     this->widget.fTeam1->setText(report.getTeam1());
                     this->widget.fTeam2->setText(report.getTeam2());
+                    this->widget.fGoals1->setText(report.getGoals1());
+                    this->widget.fGoals2->setText(report.getGoals2());
+                    this->widget.fExtra1->setText(report.getExtra1());
+                    this->widget.fExtra2->setText(report.getExtra2());
+                    this->widget.fPenalty1->setText(report.getPenalties1());
+                    this->widget.fPenalty2->setText(report.getPenalties2());
                     this->widget.fCity->setText(report.getStadiumCity());
                     this->widget.fStadium->setText(report.getStadium());
                     this->widget.fAttendance->setText(report.getStadiumAttendance());
