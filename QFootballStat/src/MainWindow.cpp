@@ -383,6 +383,8 @@ Report MainWindow::saxParser(QFile& file) {
                 report.setRefereeAttributes(xml);
             } else if (currentTag == "match") {
                 report.setMatchAttributes(xml);
+            } else if (currentTag == "score") {
+                report.setScoreAttributes(xml);
             } else if (currentTag == "event") {
                 report.addEvent(xml);
             } else if (currentTag == "player1") {
@@ -397,8 +399,6 @@ Report MainWindow::saxParser(QFile& file) {
                 report.setTeam2(xml);
             } else if (currentTag == "date") {
                 report.setDate(xml);
-            } else if (currentTag == "score") {
-                report.setScore(xml);
             } else if (currentTag == "coach1") {
                 report.setCoach1(xml);
             } else if (currentTag == "coach2") {
@@ -535,7 +535,12 @@ void MainWindow::openQfb(const QString& fileName, QDate* fromDate, QDate* tillDa
                 QString MatchId;
                 QString MatchRound;
                 QString MatchTournament;
-                QString Score;
+                QString Goals1;
+                QString Goals2;
+                QString Extra1;
+                QString Extra2;
+                QString Penalties1;
+                QString Penalties2;
                 QString Time;
                 QDate Date;
                 QString Coach1id;
@@ -565,8 +570,18 @@ void MainWindow::openQfb(const QString& fileName, QDate* fromDate, QDate* tillDa
                 report.setMatchRound(MatchRound);
                 in >> MatchTournament;
                 report.setMatchTournament(MatchTournament);
-                in >> Score;
-                report.setScore(Score);
+                in >> Goals1;
+                report.setGoals1(Goals1);
+                in >> Goals2;
+                report.setGoals2(Goals2);
+                in >> Extra1;
+                report.setExtra1(Extra1);
+                in >> Extra2;
+                report.setExtra2(Extra2);
+                in >> Penalties1;
+                report.setPenalties1(Penalties1);
+                in >> Penalties2;
+                report.setPenalties2(Penalties2);
                 in >> Time;
                 report.setTime(Time);
                 in >> Date;
@@ -666,7 +681,12 @@ void MainWindow::saveAsQfb() {
         out << report.getMatchId();
         out << report.getMatchRound();
         out << report.getMatchTournament();
-        out << report.getScore();
+        out << report.getGoals1();
+        out << report.getGoals2();
+        out << report.getExtra1();
+        out << report.getExtra2();
+        out << report.getPenalties1();
+        out << report.getPenalties2();
         out << report.getTime();
         out << report.getDate();
         out << report.getCoach1id();
@@ -863,7 +883,7 @@ void MainWindow::report(const QString& fileName) {
             QString team2 = report.getTeam2();
             QString coach1 = report.getCoach1();
             QString coach2 = report.getCoach2();
-            QString score = report.getScore();
+            const QString* score = report.getScore();
             QString time = report.getTime();
             QDate date = report.getDate();
             QString rcity = report.getRefereeCity();
@@ -885,7 +905,7 @@ void MainWindow::report(const QString& fileName) {
             text.append(QString::fromUtf8("<h2 align='center'>%1 - %2 - %3</h2>")
                     .arg(team1)
                     .arg(team2)
-                    .arg(score));
+                    .arg(*score));
             text.append(QString::fromUtf8("<p>"));
             if (city != "") {
                 text.append(QString::fromUtf8("%1. ").arg(city));

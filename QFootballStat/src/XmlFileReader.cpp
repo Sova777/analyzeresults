@@ -78,7 +78,7 @@ void listOfGoals2(const XmlFilter& xmlFilter, StatHash* hash) {
         QString team1 = xmlFilter.report->getTeam1();
         QString team2 = xmlFilter.report->getTeam2();
         QDate date = xmlFilter.report->getDate();
-        QString score = xmlFilter.report->getScore();
+        const QString* score = xmlFilter.report->getScore();
         QString city = xmlFilter.report->getStadiumCity();
         const QString* player = &(xmlFilter.filter->filter);
         int goals = getPlayerGoals(xmlFilter.report, player);
@@ -90,7 +90,7 @@ void listOfGoals2(const XmlFilter& xmlFilter, StatHash* hash) {
             record->setString(city, 1);
             record->setString(team1, 2);
             record->setString(team2, 3);
-            record->setString(score, 4);
+            record->setString(*score, 4);
             record->set(goals, 0);
             record->setString(*(xmlFilter.fileName), 5);
         }
@@ -188,7 +188,7 @@ void listOfReferies2(const XmlFilter& xmlFilter, StatHash* hash) {
         QString team1 = xmlFilter.report->getTeam1();
         QString team2 = xmlFilter.report->getTeam2();
         QDate date = xmlFilter.report->getDate();
-        QString score = xmlFilter.report->getScore();
+        const QString* score = xmlFilter.report->getScore();
         QString city = xmlFilter.report->getStadiumCity();
         QString referee = xmlFilter.report->getReferee();
         if (referee == xmlFilter.filter->filter) {
@@ -199,7 +199,7 @@ void listOfReferies2(const XmlFilter& xmlFilter, StatHash* hash) {
             record->setString(city, 1);
             record->setString(team1, 2);
             record->setString(team2, 3);
-            record->setString(score, 4);
+            record->setString(*score, 4);
             record->setString(*(xmlFilter.fileName), 5);
         }
     } else {
@@ -240,7 +240,7 @@ void listOfCoaches(const XmlFilter& xmlFilter, StatHash* hash) {
         QString coach1id = xmlFilter.report->getCoach1id();    
         QString coach2 = xmlFilter.report->getCoach2();
         QString coach2id = xmlFilter.report->getCoach2id();
-        QString score = xmlFilter.report->getScore();
+        const QString* score = xmlFilter.report->getScore();
         QString expr = xmlFilter.filter->filter;
         QString key1 = getKeyCoach(xmlFilter.filter->useID, coach1id, coach1, team1);
         QString key2 = getKeyCoach(xmlFilter.filter->useID, coach2id, coach2, team2);
@@ -259,12 +259,12 @@ void listOfCoaches(const XmlFilter& xmlFilter, StatHash* hash) {
             record2->add(1);
         }
 
-        if (score != "") {
+        if (*score != "") {
             bool ok;
             int goal1 = 99999;
             int goal2 = 99999;
-            goal1 = score.section(':', 0, 0).toInt(&ok);
-            goal2 = score.section(':', 1, 1).toInt(&ok);
+            goal1 = score->section(':', 0, 0).toInt(&ok);
+            goal2 = score->section(':', 1, 1).toInt(&ok);
             if (record1 != NULL) {
                 record1->add(goal1, 4);
                 record1->add(goal2, 5);
@@ -328,7 +328,7 @@ void listOfCoaches3(const XmlFilter& xmlFilter, StatHash* hash) {
         QString coach1id = xmlFilter.report->getCoach1id();    
         QString coach2 = xmlFilter.report->getCoach2();
         QString coach2id = xmlFilter.report->getCoach2id();
-        QString score = xmlFilter.report->getScore();
+        const QString* score = xmlFilter.report->getScore();
         QString expr = xmlFilter.filter->filter;
         QString key1 = getKeyCoach(xmlFilter.filter->useID, coach1id, coach1, team1);
         QString key2 = getKeyCoach(xmlFilter.filter->useID, coach2id, coach2, team2);
@@ -347,12 +347,12 @@ void listOfCoaches3(const XmlFilter& xmlFilter, StatHash* hash) {
             record2->add(1);
         }
 
-        if (score != "") {
+        if (*score != "") {
             bool ok;
             int goal1 = 99999;
             int goal2 = 99999;
-            goal1 = score.section(':', 0, 0).toInt(&ok);
-            goal2 = score.section(':', 1, 1).toInt(&ok);
+            goal1 = score->section(':', 0, 0).toInt(&ok);
+            goal2 = score->section(':', 1, 1).toInt(&ok);
             if (record1 != NULL) {
                 record1->add(goal1, 4);
                 record1->add(goal2, 5);
@@ -413,7 +413,7 @@ void listOfCoaches2(const XmlFilter& xmlFilter, StatHash* hash) {
         QString team1 = xmlFilter.report->getTeam1();
         QString team2 = xmlFilter.report->getTeam2();
         QDate date = xmlFilter.report->getDate();
-        QString score = xmlFilter.report->getScore();
+        const QString* score = xmlFilter.report->getScore();
         QString city = xmlFilter.report->getStadiumCity();
         QString coach1 = xmlFilter.report->getCoach1();
         QString coach2 = xmlFilter.report->getCoach2();
@@ -425,7 +425,7 @@ void listOfCoaches2(const XmlFilter& xmlFilter, StatHash* hash) {
             record->setString(city, 1);
             record->setString(team1, 2);
             record->setString(team2, 3);
-            record->setString(score, 4);
+            record->setString(*score, 4);
             record->setString(*(xmlFilter.fileName), 5);
         }
     } else {
@@ -515,7 +515,7 @@ void listOfStadiums2(const XmlFilter& xmlFilter, StatHash* hash) {
         QString team1 = xmlFilter.report->getTeam1();
         QString team2 = xmlFilter.report->getTeam2();
         QDate date = xmlFilter.report->getDate();
-        QString score = xmlFilter.report->getScore();
+        const QString* score = xmlFilter.report->getScore();
         QString city = xmlFilter.report->getStadiumCity();
         QString stadium = xmlFilter.report->getStadium();
         if (stadium == xmlFilter.filter->filter) {
@@ -526,7 +526,7 @@ void listOfStadiums2(const XmlFilter& xmlFilter, StatHash* hash) {
             record->setString(city, 1);
             record->setString(team1, 2);
             record->setString(team2, 3);
-            record->setString(score, 4);
+            record->setString(*score, 4);
             record->setString(*(xmlFilter.fileName), 5);
         }
     } else {
@@ -563,13 +563,13 @@ void listOfMatches(const XmlFilter& xmlFilter, StatHash* hash) {
     if (xmlFilter.window == NULL) {
         QString team1 = xmlFilter.report->getTeam1();
         QString team2 = xmlFilter.report->getTeam2();
-        QString score = xmlFilter.report->getScore();
+        const QString* score = xmlFilter.report->getScore();
         QString qdate = xmlFilter.report->getDate().toString("yyyy/MM/dd");
         Record* record = Record::newInstance(hash);
         record->setString(qdate, 0);
         record->setString(team1, 1);
         record->setString(team2, 2);
-        record->setString(score, 3);
+        record->setString(*score, 3);
         record->setString(*(xmlFilter.fileName), 4);
     } else {
         QStringList titles;
@@ -714,7 +714,7 @@ void listOfPlayers2(const XmlFilter& xmlFilter, StatHash* hash) {
         QString team1 = xmlFilter.report->getTeam1();
         QString team2 = xmlFilter.report->getTeam2();
         QDate date = xmlFilter.report->getDate();
-        QString score = xmlFilter.report->getScore();
+        const QString* score = xmlFilter.report->getScore();
         QString city = xmlFilter.report->getStadiumCity();
         if (isPlayed(*(xmlFilter.report), xmlFilter.filter->filter)) {
             QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
@@ -724,7 +724,7 @@ void listOfPlayers2(const XmlFilter& xmlFilter, StatHash* hash) {
             record->setString(city, 1);
             record->setString(team1, 2);
             record->setString(team2, 3);
-            record->setString(score, 4);
+            record->setString(*score, 4);
             record->setString(*(xmlFilter.fileName), 5);
         }
     } else {
@@ -1086,13 +1086,13 @@ void listOfTable(const XmlFilter& xmlFilter, StatHash* hash) {
     if (xmlFilter.window == NULL) {
         QString team1 = xmlFilter.report->getTeam1();
         QString team2 = xmlFilter.report->getTeam2();
-        QString score = xmlFilter.report->getScore();
-        if (score != "") {
+        const QString* score = xmlFilter.report->getScore();
+        if (*score != "") {
             bool ok;
             int goal1 = 99999;
             int goal2 = 99999;
-            goal1 = score.section(':', 0, 0).toInt(&ok);
-            goal2 = score.section(':', 1, 1).toInt(&ok);
+            goal1 = score->section(':', 0, 0).toInt(&ok);
+            goal2 = score->section(':', 1, 1).toInt(&ok);
             Record* recordTeam1 = Record::getInstance(hash, team1);
             Record* recordTeam2 = Record::getInstance(hash, team2);
             if (recordTeam1->getString() == "") {
@@ -1155,7 +1155,7 @@ void listOfTable2(const XmlFilter& xmlFilter, StatHash* hash) {
         QString team1 = xmlFilter.report->getTeam1();
         QString team2 = xmlFilter.report->getTeam2();
         QDate date = xmlFilter.report->getDate();
-        QString score = xmlFilter.report->getScore();
+        const QString* score = xmlFilter.report->getScore();
         QString city = xmlFilter.report->getStadiumCity();
         if ((team1 == xmlFilter.filter->filter) || (team2 == xmlFilter.filter->filter)) {
             QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
@@ -1165,7 +1165,7 @@ void listOfTable2(const XmlFilter& xmlFilter, StatHash* hash) {
             record->setString(city, 1);
             record->setString(team1, 2);
             record->setString(team2, 3);
-            record->setString(score, 4);
+            record->setString(*score, 4);
             record->setString(*(xmlFilter.fileName), 5);
         }
     } else {
@@ -1444,7 +1444,7 @@ void addMatch(const Report& report, const QString& fileName, StatHash* hash) {
     QString team1 = report.getTeam1();
     QString team2 = report.getTeam2();
     QDate date = report.getDate();
-    QString score = report.getScore();
+    const QString* score = report.getScore();
     QString city = report.getStadiumCity();
     QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
     Record* record = Record::getInstance(hash, key);
@@ -1453,7 +1453,7 @@ void addMatch(const Report& report, const QString& fileName, StatHash* hash) {
     record->setString(city, 1);
     record->setString(team1, 2);
     record->setString(team2, 3);
-    record->setString(score, 4);
+    record->setString(*score, 4);
     record->setString(fileName, 5);
 }
 

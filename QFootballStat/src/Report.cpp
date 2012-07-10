@@ -75,12 +75,67 @@ const QVector<Report::Player>& Report::getPlayers2() const {
     return players2;
 }
 
-void Report::setScore(QXmlStreamReader& xml) {
-    this->score = xml.text().toString();
+void Report::setScoreAttributes(QXmlStreamReader& xml) {
+    this->goals1 = xml.attributes().value("goals1").toString();
+    this->goals2 = xml.attributes().value("goals2").toString();
+    this->extra1 = xml.attributes().value("extra1").toString();
+    this->extra2 = xml.attributes().value("extra2").toString();
+    this->penalties1 = xml.attributes().value("penalties1").toString();
+    this->penalties2 = xml.attributes().value("penalties2").toString();
 }
 
-const QString& Report::getScore() const {
+void Report::setGoals1(const QString& goals11) {
+    goals1 = goals11;
+}
+
+void Report::setGoals2(const QString& goals21) {
+    goals2 = goals21;
+}
+
+void Report::setExtra1(const QString& extra11) {
+    extra1 = extra11;
+}
+
+void Report::setExtra2(const QString& extra21) {
+    extra2 = extra21;
+}
+
+void Report::setPenalties1(const QString& penalties11) {
+    penalties1 = penalties11;
+}
+
+void Report::setPenalties2(const QString& penalties21) {
+    penalties2 = penalties21;
+}
+
+const QString* Report::getScore() const {
+    QString* score = new QString(goals1);
+    score->append(":").append(goals2);
     return score;
+}
+
+const QString& Report::getGoals1() const {
+    return goals1;
+}
+
+const QString& Report::getGoals2() const {
+    return goals2;
+}
+
+const QString& Report::getExtra1() const {
+    return extra1;
+}
+
+const QString& Report::getExtra2() const {
+    return extra2;
+}
+
+const QString& Report::getPenalties1() const {
+    return penalties1;
+}
+
+const QString& Report::getPenalties2() const {
+    return penalties2;
 }
 
 void Report::setDateAttributes(QXmlStreamReader& xml) {
@@ -245,10 +300,6 @@ void Report::setMatchRound(const QString& matchRound1) {
 
 void Report::setMatchTournament(const QString& matchTournament1) {
     matchTournament = matchTournament1;
-}
-
-void Report::setScore(const QString& score1) {
-    score = score1;
 }
 
 void Report::setTime(const QString& time1) {
