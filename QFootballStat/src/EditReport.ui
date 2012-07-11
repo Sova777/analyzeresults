@@ -362,16 +362,6 @@
           <string>Дата</string>
          </property>
         </widget>
-        <widget class="QDateTimeEdit" name="fDate">
-         <property name="geometry">
-          <rect>
-           <x>120</x>
-           <y>220</y>
-           <width>194</width>
-           <height>22</height>
-          </rect>
-         </property>
-        </widget>
         <widget class="QLabel" name="label_19">
          <property name="geometry">
           <rect>
@@ -393,6 +383,39 @@
            <width>281</width>
            <height>20</height>
           </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="fDate">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>220</y>
+           <width>121</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="fTime">
+         <property name="geometry">
+          <rect>
+           <x>370</x>
+           <y>220</y>
+           <width>121</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_21">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>220</y>
+           <width>90</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Время</string>
          </property>
         </widget>
        </widget>

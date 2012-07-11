@@ -99,10 +99,10 @@ public:
     const QString& getMatchId() const;
     const QString& getMatchRound() const;
     const QString& getMatchTournament() const;
-    void setFileName(QFile& file);
-    const QString& getFileName() const;
+    void setReportId(QFile& file);
+    const QString& getReportId() const;
 
-    void setFileName(const QString&);
+    void setReportId(const QString&);
     void setMatchId(const QString&);
     void setMatchRound(const QString&);
     void setMatchTournament(const QString&);
@@ -134,7 +134,7 @@ public:
     void addEvent(const QString& type, const QString& time, const QString& team, const QString& comment, const QString& playerid, const QString& player, const QString& playerid2, const QString& player2);
 
 private:
-    QString fileName;
+    QString reportId;
     QString team1;
     QString team2;
     QString team1id;

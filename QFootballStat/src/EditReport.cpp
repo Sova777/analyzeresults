@@ -37,7 +37,7 @@ EditReport::EditReport(MainWindow *parent) {
         QString id = mainWindow->current.right(size - 5);
         if (code == "xm01_") {
             foreach(Report report, mainWindow->reports) {
-                if (report.getFileName() == id) {
+                if (report.getReportId() == id) {
                     this->widget.fChampionship->setText(report.getMatchTournament());
                     this->widget.fRound->setText(report.getMatchRound());
                     this->widget.fTeam1->setText(report.getTeam1());
@@ -52,9 +52,8 @@ EditReport::EditReport(MainWindow *parent) {
                     this->widget.fStadium->setText(report.getStadium());
                     this->widget.fAttendance->setText(report.getStadiumAttendance());
                     this->widget.fReferee->setText(report.getReferee());
-                    this->widget.fDate->setDate(report.getDate());
-                    QTime time = QTime::fromString(report.getTime(), "hh:mm");
-                    this->widget.fDate->setTime(time);
+                    this->widget.fDate->setText(report.getDate().toString("dd.MM.yyyy"));
+                    this->widget.fTime->setText(report.getTime());
                     this->widget.fCoach1->setText(report.getCoach1());
                     this->widget.fCoach2->setText(report.getCoach2());
                     QVector<Report::Player> players1 = report.getPlayers1();

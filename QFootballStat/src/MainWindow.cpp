@@ -235,7 +235,7 @@ void MainWindow::calculate(pointer func, const QString& qfilter) {
     analyzeXml(func, filter, &hash);
     if (reports.size() > 0) {
         Report report = reports[0];
-        XmlFilter xmlFilter(this, &report, report.getFileName(), &filter);
+        XmlFilter xmlFilter(this, &report, report.getReportId(), &filter);
         (*func)(xmlFilter, &hash);
     }
 }
@@ -337,7 +337,7 @@ void MainWindow::analyzeXml(pointer func, const Filter& filter, StatHash* hash) 
             QString currentTournament = report.getMatchTournament();
             if ((tourn == ALL_TOURNAMENTS) || (currentTournament == tourn)) {
                 if ((date >= fromDate) && (date <= tillDate)) {
-                    XmlFilter xmlFilter(NULL, &report, report.getFileName(), &filter);
+                    XmlFilter xmlFilter(NULL, &report, report.getReportId(), &filter);
                     (*func)(xmlFilter, hash);
                 }
             }
@@ -358,7 +358,7 @@ void MainWindow::analyzeXml(pointer func, const Filter& filter, StatHash* hash) 
 
 Report MainWindow::saxParser(QFile& file) {
     Report report;
-    report.setFileName(file);
+    report.setReportId(file);
     QXmlStreamReader xml(&file);
     QString currentTag;
     QString currentId;
@@ -563,7 +563,7 @@ void MainWindow::openQfb(const QString& fileName, QDate* fromDate, QDate* tillDa
                 quint32 lenEvents;
 
                 in >> FileName;
-                report.setFileName(FileName);
+                report.setReportId(FileName);
                 in >> MatchId;
                 report.setMatchId(MatchId);
                 in >> MatchRound;
@@ -677,7 +677,7 @@ void MainWindow::saveAsQfb() {
     out << (quint32)1;
     out << (quint32)reports.size();
     foreach(Report report, reports) {
-        out << report.getFileName();
+        out << report.getReportId();
         out << report.getMatchId();
         out << report.getMatchRound();
         out << report.getMatchTournament();
@@ -735,6 +735,9 @@ void MainWindow::saveAsQfb() {
 }
 
 void MainWindow::addReport() {
+    Report report;
+    reports.append(report);
+    jump("xm01_");
     EditReport editReport(this);
     editReport.setWindowTitle(NEW_REPORT);
     editReport.exec();
@@ -878,7 +881,7 @@ void MainWindow::report(const QString& fileName) {
     widget.text->setText("");
 
     foreach(Report report, reports) {
-        if (report.getFileName() == fileName) {
+        if (report.getReportId() == fileName) {
             QString team1 = report.getTeam1();
             QString team2 = report.getTeam2();
             QString coach1 = report.getCoach1();
