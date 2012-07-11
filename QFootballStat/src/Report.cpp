@@ -26,13 +26,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "Report.h"
+#include <QFileInfo>
 
-void Report::setFileName(QFile& file) {
-    this->fileName = file.fileName();
+void Report::setReportId(QFile& file) {
+    this->reportId = QFileInfo(file.fileName()).fileName();
 }
 
-const QString& Report::getFileName() const {
-    return fileName;
+const QString& Report::getReportId() const {
+    return reportId;
 }
 
 void Report::addPlayer1(QXmlStreamReader& xml, QString& id) {
@@ -286,8 +287,8 @@ const QString& Report::getMatchTournament() const {
     return matchTournament;
 }
 
-void Report::setFileName(const QString& fileName1) {
-    fileName = fileName1;
+void Report::setReportId(const QString& fileName1) {
+    reportId = fileName1;
 }
 
 void Report::setMatchId(const QString& matchId1) {
