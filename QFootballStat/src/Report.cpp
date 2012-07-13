@@ -385,15 +385,15 @@ void Report::addPlayer2(const QString& id, const QString& player) {
     players2.append(pl);
 }
 
-void Report::addEvent(const QString& type, const QString& time, const QString& team, const QString& comment, const QString& playerid, const QString& player, const QString& playerid2, const QString& player2) {
+void Report::addEvent(const QString& type_, const QString& time_, const QString& team_, const QString& comment_, const QString& playerid_, const QString& player_, const QString& playerid2_, const QString& player2_) {
     Event ev;
-    ev.type = type;
-    ev.time = time;
-    ev.team = team;
-    ev.comment = comment;
-    ev.playerid = playerid;
-    ev.player = player;
-    ev.playerid2 = playerid2;
-    ev.player2 = player2;
+    ev.type = type_;
+    ev.time = time_;
+    ev.team = team_;
+    ev.comment = comment_;
+    ev.playerid = playerid_;
+    ev.player = player_;
+    ev.playerid2 = playerid2_;
+    ev.player2 = player2_;
     events.append(ev);
 }
