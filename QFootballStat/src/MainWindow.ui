@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1011</width>
-    <height>656</height>
+    <height>709</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -48,6 +48,60 @@
       <property name="verticalSpacing">
        <number>0</number>
       </property>
+      <item row="4" column="3">
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>6</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="3">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>6</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="6" column="2" colspan="6">
+       <widget class="QTextBrowser" name="text">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAsNeeded</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAsNeeded</enum>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="5">
        <widget class="QPushButton" name="pushRefresh">
         <property name="maximumSize">
@@ -144,14 +198,14 @@
            <x>0</x>
            <y>0</y>
            <width>86</width>
-           <height>588</height>
+           <height>641</height>
           </rect>
          </property>
          <widget class="QPushButton" name="pushButton_1">
           <property name="geometry">
            <rect>
-            <x>9</x>
-            <y>9</y>
+            <x>7</x>
+            <y>72</y>
             <width>72</width>
             <height>72</height>
            </rect>
@@ -200,8 +254,8 @@
          <widget class="QPushButton" name="pushButton_2">
           <property name="geometry">
            <rect>
-            <x>9</x>
-            <y>79</y>
+            <x>7</x>
+            <y>142</y>
             <width>72</width>
             <height>72</height>
            </rect>
@@ -244,8 +298,8 @@
          <widget class="QPushButton" name="pushButton_3">
           <property name="geometry">
            <rect>
-            <x>9</x>
-            <y>149</y>
+            <x>7</x>
+            <y>212</y>
             <width>72</width>
             <height>72</height>
            </rect>
@@ -288,8 +342,8 @@
          <widget class="QPushButton" name="pushButton_4">
           <property name="geometry">
            <rect>
-            <x>9</x>
-            <y>219</y>
+            <x>7</x>
+            <y>282</y>
             <width>72</width>
             <height>72</height>
            </rect>
@@ -332,8 +386,8 @@
          <widget class="QPushButton" name="pushButton_5">
           <property name="geometry">
            <rect>
-            <x>9</x>
-            <y>289</y>
+            <x>7</x>
+            <y>352</y>
             <width>72</width>
             <height>72</height>
            </rect>
@@ -376,8 +430,8 @@
          <widget class="QPushButton" name="pushButton_6">
           <property name="geometry">
            <rect>
-            <x>9</x>
-            <y>359</y>
+            <x>7</x>
+            <y>422</y>
             <width>72</width>
             <height>72</height>
            </rect>
@@ -420,8 +474,8 @@
          <widget class="QPushButton" name="pushButton_7">
           <property name="geometry">
            <rect>
-            <x>9</x>
-            <y>429</y>
+            <x>7</x>
+            <y>492</y>
             <width>72</width>
             <height>72</height>
            </rect>
@@ -464,8 +518,8 @@
          <widget class="QPushButton" name="pushButton_8">
           <property name="geometry">
            <rect>
-            <x>9</x>
-            <y>499</y>
+            <x>7</x>
+            <y>562</y>
             <width>72</width>
             <height>72</height>
            </rect>
@@ -503,6 +557,56 @@
             <width>64</width>
             <height>64</height>
            </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_0">
+          <property name="geometry">
+           <rect>
+            <x>7</x>
+            <y>2</y>
+            <width>72</width>
+            <height>72</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Начальная страница</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icon/images/mode0.png</normaloff>:/icon/images/mode0.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
           </property>
          </widget>
         </widget>
@@ -593,60 +697,6 @@
       <item row="5" column="2" colspan="6">
        <widget class="QTableWidget" name="table"/>
       </item>
-      <item row="6" column="2" colspan="6">
-       <widget class="QTextBrowser" name="text">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarAsNeeded</enum>
-        </property>
-        <property name="horizontalScrollBarPolicy">
-         <enum>Qt::ScrollBarAsNeeded</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="3">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>6</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="4" column="3">
-       <spacer name="verticalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>6</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item row="1" column="6">
        <widget class="QPushButton" name="pushBack">
         <property name="maximumSize">
@@ -687,6 +737,7 @@
     <property name="title">
      <string>Файл</string>
     </property>
+    <addaction name="actionNewQfb"/>
     <addaction name="actionOpenQfb"/>
     <addaction name="actionSaveAsQfb"/>
     <addaction name="actionImport"/>
@@ -883,6 +934,11 @@
   <action name="actionEditReport">
    <property name="text">
     <string>Редактировать матч</string>
+   </property>
+  </action>
+  <action name="actionNewQfb">
+   <property name="text">
+    <string>Создать новый qfb файл</string>
    </property>
   </action>
  </widget>

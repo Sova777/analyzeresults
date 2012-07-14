@@ -53,6 +53,8 @@ MainWindow::MainWindow() {
             this, SLOT(import()));
     connect(widget.actionOpenQfb, SIGNAL(triggered()),
             this, SLOT(openQfb()));
+    connect(widget.actionNewQfb, SIGNAL(triggered()),
+            this, SLOT(newQfb()));
     connect(widget.actionAddReport, SIGNAL(triggered()),
             this, SLOT(addReport()));
     connect(widget.actionEditReport, SIGNAL(triggered()),
@@ -86,6 +88,8 @@ MainWindow::MainWindow() {
             this, SLOT(callFindPlayer()));
     connect(widget.actionFindCoach, SIGNAL(triggered()),
             this, SLOT(callFindCoach()));
+    connect(widget.pushButton_0, SIGNAL(clicked()),
+            this, SLOT(selectMode0()));
     connect(widget.pushButton_1, SIGNAL(clicked()),
             this, SLOT(selectMode1()));
     connect(widget.pushButton_2, SIGNAL(clicked()),
@@ -119,19 +123,10 @@ MainWindow::MainWindow() {
         if (applicationDir != "") {
             if (QFile::exists(applicationDir + "/demo.qfb")) {
                 data = applicationDir + "/demo.qfb";
-            } else if (QFile::exists(applicationDir + "/xml")) {
-                data = applicationDir + "/xml";
             }
         }
-        if (data == "") {
-            data = QString::fromLatin1("xml");
-        }
     }
-    widget.text->setText(FIRST_MESSAGE);
-    widget.actionSaveAsText->setDisabled(true);
-    widget.text->setVisible(true);
-    widget.table->setVisible(false);
-    //selectMode1();
+    startPage();
 }
 
 MainWindow::~MainWindow() {
@@ -143,6 +138,17 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     settings.setValue("data", data);
     settings.sync();
     event->accept();
+}
+
+void MainWindow::startPage() {
+    widget.text->setText(FIRST_MESSAGE);
+    widget.actionSaveAsText->setDisabled(true);
+    widget.text->setVisible(true);
+    widget.table->setVisible(false);
+}
+
+void MainWindow::selectMode0() {
+    startPage();
 }
 
 void MainWindow::selectMode1() {
@@ -260,54 +266,21 @@ void MainWindow::findCoach(void) {
 }
 
 void MainWindow::cache() {
-    int counter = 0;
-    tournaments.clear();
-    QDate fromDate = widget.dateEditFrom->date();
-    QDate tillDate = widget.dateEditTill->date();
     QFileInfo qFileInfo = QFileInfo(data);
     if (qFileInfo.exists()) {
         if (qFileInfo.isFile()) {
+            tournaments.clear();
+            QDate fromDate = widget.dateEditFrom->date();
+            QDate tillDate = widget.dateEditTill->date();
             openQfb(data, &fromDate, &tillDate);
-        } else {
-            QDir qDir = QDir(data);
-            QDirIterator it(qDir.absolutePath(), QDirIterator::Subdirectories);
-            while (it.hasNext()) {
-                it.next();
-                if (!it.fileInfo().isDir()) {
-                    counter++;
-                    QString fileName = it.fileName();
-                    if (!fileName.endsWith(QLatin1String(".xml"))) continue;
-                    QString fullFileName = it.fileInfo().absoluteFilePath();
-                    QFile file(fullFileName);
-                    if (!file.open(QIODevice::ReadOnly)) continue;
-                    Report report = saxParser(file);
-                    reports.append(report);
-                    QDate currentDate = report.getDate();
-                    tournaments.insert(report.getMatchTournament(), 0);
-                    if (currentDate < fromDate) {
-                        fromDate = currentDate;
-                    }
-                    if (currentDate > tillDate) {
-                        tillDate = currentDate;
-                    }
-                    file.close();
-                }
-                if ((counter % 100) == 0) {
-                    statusBar()->showMessage(QString("%1 (%2 %3)")
-                            .arg(STATUS_CALCULATING)
-                            .arg(counter)
-                            .arg(STATUS_CALCULATING2));
-                    QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
-                }
+            widget.dateEditFrom->setDate(fromDate);
+            widget.dateEditTill->setDate(tillDate);
+            QComboBox* combo = widget.comboTournaments;
+            combo->clear();
+            combo->addItem(ALL_TOURNAMENTS);
+            foreach(QString t, tournaments.keys()) {
+                combo->addItem(t);
             }
-        }
-        widget.dateEditFrom->setDate(fromDate);
-        widget.dateEditTill->setDate(tillDate);
-        QComboBox* combo = widget.comboTournaments;
-        combo->clear();
-        combo->addItem(ALL_TOURNAMENTS);
-        foreach(QString t, tournaments.keys()) {
-            combo->addItem(t);
         }
     } else {
         QMessageBox::information(NULL, QString::fromUtf8("Нет данных"), QString::fromUtf8("Нет данных. Выберите файл с результатами."));
@@ -445,12 +418,42 @@ void MainWindow::setCellValue(int row, int column, QString value) {
 void MainWindow::import() {
     QString dir = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Выберите директорий"), data);
     if (dir != "") {
-        data = dir;
-        reports.clear();
+        QDate fromDate = widget.dateEditFrom->date();
+        QDate tillDate = widget.dateEditTill->date();
+        int counter = 0;
+        QDir qDir = QDir(dir);
+        QDirIterator it(qDir.absolutePath(), QDirIterator::Subdirectories);
+        while (it.hasNext()) {
+            it.next();
+            if (!it.fileInfo().isDir()) {
+                counter++;
+                QString fileName = it.fileName();
+                if (!fileName.endsWith(QLatin1String(".xml"))) continue;
+                QString fullFileName = it.fileInfo().absoluteFilePath();
+                QFile file(fullFileName);
+                if (!file.open(QIODevice::ReadOnly)) continue;
+                Report report = saxParser(file);
+                reports.append(report);
+                QDate currentDate = report.getDate();
+                tournaments.insert(report.getMatchTournament(), 0);
+                if (currentDate < fromDate) {
+                    fromDate = currentDate;
+                }
+                if (currentDate > tillDate) {
+                    tillDate = currentDate;
+                }
+                file.close();
+            }
+            if ((counter % 100) == 0) {
+                statusBar()->showMessage(QString("%1 (%2 %3)")
+                        .arg(STATUS_CALCULATING)
+                        .arg(counter)
+                        .arg(STATUS_CALCULATING2));
+                QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+            }
+        }
     }
-    widget.text->setText(FIRST_MESSAGE);
-    widget.text->setVisible(true);
-    widget.table->setVisible(false);
+    startPage();
 }
 
 void MainWindow::about() {
@@ -502,6 +505,14 @@ void MainWindow::saveAsText() {
     file.close();
 }
 
+void MainWindow::newQfb() {
+    if (QMessageBox::question(this, QString::fromUtf8("Новый файл"), QString::fromUtf8("Создать новый qfb файл?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
+        data = "";
+        reports.clear();
+        startPage();
+    }
+}
+
 void MainWindow::openQfb() {
     QString qstr = QFileDialog::getOpenFileName(this, QString::fromUtf8("Выберите имя файла"), NULL, "*.qfb");
     if (qstr == "") return;
@@ -509,9 +520,7 @@ void MainWindow::openQfb() {
         data = qstr;
         reports.clear();
     }
-    widget.text->setText(FIRST_MESSAGE);
-    widget.text->setVisible(true);
-    widget.table->setVisible(false);
+    startPage();
 }
 
 void MainWindow::openQfb(const QString& fileName, QDate* fromDate, QDate* tillDate) {

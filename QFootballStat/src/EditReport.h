@@ -39,6 +39,7 @@ public:
 private:
     Ui::EditReport widget;
     MainWindow* mainWindow;
+    void initForm(Report& report);
 public slots:
     void accept();
 };

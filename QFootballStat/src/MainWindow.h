@@ -47,15 +47,16 @@ public:
     void setCellValue(int row, int column, QString value);
     QVector<Report> reports;
     QString current;
+    QMap<QString, int> tournaments;
 private:
     QString data;
-    QMap<QString, int> tournaments;
     QString previous;
     void closeEvent(QCloseEvent *event);
     void report(const QString& fileName);
     void analyzeXml(pointer func, const Filter& filter, StatHash* hash);
     Report saxParser(QFile& file);
     void cache();
+    void startPage();
     void writeLine(QTextStream& out);
 
     void calculate(pointer func, const QString& qfilter);
@@ -67,6 +68,7 @@ private:
 private slots:
     void import();
     void openQfb();
+    void newQfb();
     void saveAsText();
     void saveAsQfb();
     void addReport();
@@ -86,6 +88,7 @@ private slots:
     void callFindPlayer();
     void callFindCoach();
 
+    void selectMode0();
     void selectMode1();
     void selectMode2();
     void selectMode3();

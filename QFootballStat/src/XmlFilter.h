@@ -36,7 +36,7 @@ class Filter;
 
 class XmlFilter {
 public:
-    XmlFilter(MainWindow* window1, Report* report1, const QString& fileName1, const Filter* filter1);
+    XmlFilter(MainWindow* window_, Report* report_, const QString& fileName_, const Filter* filter_);
     MainWindow* window;
     Report* report;
     const QString* fileName;

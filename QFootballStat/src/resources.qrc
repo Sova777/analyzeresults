@@ -1,14 +1,15 @@
 <RCC>
   <qresource prefix="icon">
-    <file>../images/mode7.png</file>
-    <file>../images/mode8.png</file>
     <file>../images/window.png</file>
+    <file>../images/mode0.png</file>
     <file>../images/mode1.png</file>
     <file>../images/mode2.png</file>
     <file>../images/mode3.png</file>
     <file>../images/mode4.png</file>
     <file>../images/mode5.png</file>
     <file>../images/mode6.png</file>
+    <file>../images/mode7.png</file>
+    <file>../images/mode8.png</file>
     <file>../images/autogoal.png</file>
     <file>../images/goal.png</file>
     <file>../images/missed.png</file>
