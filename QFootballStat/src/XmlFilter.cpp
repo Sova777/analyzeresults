@@ -27,9 +27,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "XmlFilter.h"
 
-XmlFilter::XmlFilter(MainWindow* window1, Report* report1, const QString& fileName1, const Filter* filter1) {
-    window = window1;
-    report = report1;
-    fileName = &fileName1;
-    filter = filter1;
+XmlFilter::XmlFilter(MainWindow* window_, Report* report_, const QString& fileName_, const Filter* filter_) {
+    window = window_;
+    report = report_;
+    fileName = &fileName_;
+    filter = filter_;
 }

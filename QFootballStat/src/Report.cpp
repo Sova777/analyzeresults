@@ -85,28 +85,28 @@ void Report::setScoreAttributes(QXmlStreamReader& xml) {
     this->penalties2 = xml.attributes().value("penalties2").toString();
 }
 
-void Report::setGoals1(const QString& goals11) {
-    goals1 = goals11;
+void Report::setGoals1(const QString& goals1_) {
+    goals1 = goals1_;
 }
 
-void Report::setGoals2(const QString& goals21) {
-    goals2 = goals21;
+void Report::setGoals2(const QString& goals2_) {
+    goals2 = goals2_;
 }
 
-void Report::setExtra1(const QString& extra11) {
-    extra1 = extra11;
+void Report::setExtra1(const QString& extra1_) {
+    extra1 = extra1_;
 }
 
-void Report::setExtra2(const QString& extra21) {
-    extra2 = extra21;
+void Report::setExtra2(const QString& extra2_) {
+    extra2 = extra2_;
 }
 
-void Report::setPenalties1(const QString& penalties11) {
-    penalties1 = penalties11;
+void Report::setPenalties1(const QString& penalties1_) {
+    penalties1 = penalties1_;
 }
 
-void Report::setPenalties2(const QString& penalties21) {
-    penalties2 = penalties21;
+void Report::setPenalties2(const QString& penalties2_) {
+    penalties2 = penalties2_;
 }
 
 const QString* Report::getScore() const {
@@ -287,88 +287,88 @@ const QString& Report::getMatchTournament() const {
     return matchTournament;
 }
 
-void Report::setReportId(const QString& fileName1) {
-    reportId = fileName1;
+void Report::setReportId(const QString& fileName_) {
+    reportId = fileName_;
 }
 
-void Report::setMatchId(const QString& matchId1) {
-    matchId = matchId1;
+void Report::setMatchId(const QString& matchId_) {
+    matchId = matchId_;
 }
 
-void Report::setMatchRound(const QString& matchRound1) {
-    matchRound = matchRound1;
+void Report::setMatchRound(const QString& matchRound_) {
+    matchRound = matchRound_;
 }
 
-void Report::setMatchTournament(const QString& matchTournament1) {
-    matchTournament = matchTournament1;
+void Report::setMatchTournament(const QString& matchTournament_) {
+    matchTournament = matchTournament_;
 }
 
-void Report::setTime(const QString& time1) {
-    time = time1;
+void Report::setTime(const QString& time_) {
+    time = time_;
 }
 
-void Report::setDate(const QDate& date1) {
-    date = date1;
+void Report::setDate(const QDate& date_) {
+    date = date_;
 }
 
-void Report::setCoach1id(const QString& coach1id1) {
-    coach1id = coach1id1;
+void Report::setCoach1id(const QString& coach1id_) {
+    coach1id = coach1id_;
 }
 
-void Report::setCoach1(const QString& coach11) {
-    coach1 = coach11;
+void Report::setCoach1(const QString& coach1_) {
+    coach1 = coach1_;
 }
 
-void Report::setCoach2id(const QString& coach2id1) {
-    coach2id = coach2id1;
+void Report::setCoach2id(const QString& coach2id_) {
+    coach2id = coach2id_;
 }
 
-void Report::setCoach2(const QString& coach21) {
-    coach2 = coach21;
+void Report::setCoach2(const QString& coach2_) {
+    coach2 = coach2_;
 }
 
-void Report::setTeam1id(const QString& team1id1) {
-    team1id = team1id1;
+void Report::setTeam1id(const QString& team1id_) {
+    team1id = team1id_;
 }
 
-void Report::setTeam1(const QString& team11) {
-    team1 = team11;
+void Report::setTeam1(const QString& team1_) {
+    team1 = team1_;
 }
 
-void Report::setTeam2id(const QString& team2id1) {
-    team2id = team2id1;
+void Report::setTeam2id(const QString& team2id_) {
+    team2id = team2id_;
 }
 
-void Report::setTeam2(const QString& team21) {
-    team2 = team21;
+void Report::setTeam2(const QString& team2_) {
+    team2 = team2_;
 }
 
-void Report::setStadiumId(const QString& stadiumId1) {
-    stadiumId = stadiumId1;
+void Report::setStadiumId(const QString& stadiumId_) {
+    stadiumId = stadiumId_;
 }
 
-void Report::setStadium(const QString& stadium1) {
-    stadium = stadium1;
+void Report::setStadium(const QString& stadium_) {
+    stadium = stadium_;
 }
 
-void Report::setStadiumCity(const QString& stadiumCity1) {
-    stadiumCity = stadiumCity1;
+void Report::setStadiumCity(const QString& stadiumCity_) {
+    stadiumCity = stadiumCity_;
 }
 
-void Report::setStadiumAttendance(const QString& stadiumAttendance1) {
-    stadiumAttendance = stadiumAttendance1;
+void Report::setStadiumAttendance(const QString& stadiumAttendance_) {
+    stadiumAttendance = stadiumAttendance_;
 }
 
-void Report::setRefereeId(const QString& refereeId1) {
-    refereeId = refereeId1;
+void Report::setRefereeId(const QString& refereeId_) {
+    refereeId = refereeId_;
 }
 
-void Report::setReferee(const QString& referee1) {
-    referee = referee1;
+void Report::setReferee(const QString& referee_) {
+    referee = referee_;
 }
 
-void Report::setRefereeCity(const QString& refereeCity1) {
-    refereeCity = refereeCity1;
+void Report::setRefereeCity(const QString& refereeCity_) {
+    refereeCity = refereeCity_;
 }
 
 void Report::addPlayer1(const QString& id, const QString& player) {

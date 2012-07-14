@@ -34,7 +34,7 @@ class Filter {
 public:
     QString filter;
     bool useID;
-    Filter(QString filter1, bool useID1);
+    Filter(QString filter_, bool useID_);
 };
 
 #endif	/* FILTER_H */
