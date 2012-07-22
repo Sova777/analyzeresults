@@ -42,7 +42,7 @@
           <rect>
            <x>10</x>
            <y>10</y>
-           <width>90</width>
+           <width>111</width>
            <height>20</height>
           </rect>
          </property>
@@ -55,7 +55,7 @@
           <rect>
            <x>10</x>
            <y>100</y>
-           <width>90</width>
+           <width>101</width>
            <height>20</height>
           </rect>
          </property>
@@ -66,7 +66,7 @@
         <widget class="QLabel" name="label_6">
          <property name="geometry">
           <rect>
-           <x>230</x>
+           <x>240</x>
            <y>130</y>
            <width>31</width>
            <height>20</height>
@@ -81,7 +81,7 @@
           <rect>
            <x>10</x>
            <y>130</y>
-           <width>90</width>
+           <width>101</width>
            <height>20</height>
           </rect>
          </property>
@@ -92,7 +92,7 @@
         <widget class="QLineEdit" name="fExtra2">
          <property name="geometry">
           <rect>
-           <x>340</x>
+           <x>350</x>
            <y>130</y>
            <width>41</width>
            <height>20</height>
@@ -102,7 +102,7 @@
         <widget class="QLabel" name="label_10">
          <property name="geometry">
           <rect>
-           <x>540</x>
+           <x>550</x>
            <y>130</y>
            <width>16</width>
            <height>20</height>
@@ -115,7 +115,7 @@
         <widget class="QLineEdit" name="fGoals2">
          <property name="geometry">
           <rect>
-           <x>180</x>
+           <x>190</x>
            <y>130</y>
            <width>41</width>
            <height>20</height>
@@ -125,7 +125,7 @@
         <widget class="QLabel" name="label_9">
          <property name="geometry">
           <rect>
-           <x>470</x>
+           <x>480</x>
            <y>130</y>
            <width>16</width>
            <height>20</height>
@@ -138,7 +138,7 @@
         <widget class="QLabel" name="label_5">
          <property name="geometry">
           <rect>
-           <x>170</x>
+           <x>180</x>
            <y>130</y>
            <width>16</width>
            <height>20</height>
@@ -151,7 +151,7 @@
         <widget class="QLineEdit" name="fRound">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>130</x>
            <y>40</y>
            <width>281</width>
            <height>20</height>
@@ -161,7 +161,7 @@
         <widget class="QLineEdit" name="fPenalty1">
          <property name="geometry">
           <rect>
-           <x>420</x>
+           <x>430</x>
            <y>130</y>
            <width>41</width>
            <height>20</height>
@@ -171,7 +171,7 @@
         <widget class="QLineEdit" name="fChampionship">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>130</x>
            <y>10</y>
            <width>281</width>
            <height>20</height>
@@ -181,7 +181,7 @@
         <widget class="QLineEdit" name="fTeam1">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>130</x>
            <y>70</y>
            <width>281</width>
            <height>20</height>
@@ -193,7 +193,7 @@
           <rect>
            <x>10</x>
            <y>40</y>
-           <width>61</width>
+           <width>111</width>
            <height>20</height>
           </rect>
          </property>
@@ -204,7 +204,7 @@
         <widget class="QLabel" name="label_8">
          <property name="geometry">
           <rect>
-           <x>380</x>
+           <x>390</x>
            <y>130</y>
            <width>31</width>
            <height>20</height>
@@ -217,7 +217,7 @@
         <widget class="QLineEdit" name="fExtra1">
          <property name="geometry">
           <rect>
-           <x>270</x>
+           <x>280</x>
            <y>130</y>
            <width>41</width>
            <height>20</height>
@@ -229,7 +229,7 @@
           <rect>
            <x>10</x>
            <y>70</y>
-           <width>90</width>
+           <width>111</width>
            <height>20</height>
           </rect>
          </property>
@@ -240,7 +240,7 @@
         <widget class="QLabel" name="label_7">
          <property name="geometry">
           <rect>
-           <x>320</x>
+           <x>330</x>
            <y>130</y>
            <width>16</width>
            <height>20</height>
@@ -253,7 +253,7 @@
         <widget class="QLineEdit" name="fTeam2">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>130</x>
            <y>100</y>
            <width>281</width>
            <height>20</height>
@@ -263,7 +263,7 @@
         <widget class="QLineEdit" name="fGoals1">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>130</x>
            <y>130</y>
            <width>41</width>
            <height>20</height>
@@ -273,7 +273,7 @@
         <widget class="QLineEdit" name="fPenalty2">
          <property name="geometry">
           <rect>
-           <x>490</x>
+           <x>500</x>
            <y>130</y>
            <width>41</width>
            <height>20</height>
@@ -285,7 +285,7 @@
           <rect>
            <x>10</x>
            <y>160</y>
-           <width>90</width>
+           <width>101</width>
            <height>20</height>
           </rect>
          </property>
@@ -296,7 +296,7 @@
         <widget class="QLineEdit" name="fCity">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>130</x>
            <y>160</y>
            <width>281</width>
            <height>20</height>
@@ -308,7 +308,7 @@
           <rect>
            <x>10</x>
            <y>190</y>
-           <width>90</width>
+           <width>101</width>
            <height>20</height>
           </rect>
          </property>
@@ -319,7 +319,7 @@
         <widget class="QLineEdit" name="fStadium">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>130</x>
            <y>190</y>
            <width>281</width>
            <height>20</height>
@@ -329,7 +329,7 @@
         <widget class="QLabel" name="label_17">
          <property name="geometry">
           <rect>
-           <x>420</x>
+           <x>430</x>
            <y>190</y>
            <width>90</width>
            <height>20</height>
@@ -342,7 +342,7 @@
         <widget class="QLineEdit" name="fAttendance">
          <property name="geometry">
           <rect>
-           <x>480</x>
+           <x>510</x>
            <y>190</y>
            <width>121</width>
            <height>20</height>
@@ -354,7 +354,7 @@
           <rect>
            <x>10</x>
            <y>220</y>
-           <width>90</width>
+           <width>101</width>
            <height>20</height>
           </rect>
          </property>
@@ -367,7 +367,7 @@
           <rect>
            <x>10</x>
            <y>250</y>
-           <width>90</width>
+           <width>101</width>
            <height>20</height>
           </rect>
          </property>
@@ -378,7 +378,7 @@
         <widget class="QLineEdit" name="fReferee">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>130</x>
            <y>250</y>
            <width>281</width>
            <height>20</height>
@@ -388,7 +388,7 @@
         <widget class="QLineEdit" name="fDate">
          <property name="geometry">
           <rect>
-           <x>120</x>
+           <x>130</x>
            <y>220</y>
            <width>121</width>
            <height>20</height>
@@ -398,7 +398,7 @@
         <widget class="QLineEdit" name="fTime">
          <property name="geometry">
           <rect>
-           <x>370</x>
+           <x>380</x>
            <y>220</y>
            <width>121</width>
            <height>20</height>
@@ -408,7 +408,7 @@
         <widget class="QLabel" name="label_21">
          <property name="geometry">
           <rect>
-           <x>260</x>
+           <x>270</x>
            <y>220</y>
            <width>90</width>
            <height>20</height>
