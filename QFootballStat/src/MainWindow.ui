@@ -198,7 +198,7 @@
            <x>0</x>
            <y>0</y>
            <width>86</width>
-           <height>641</height>
+           <height>635</height>
           </rect>
          </property>
          <widget class="QPushButton" name="pushButton_1">
@@ -730,7 +730,7 @@
      <x>0</x>
      <y>0</y>
      <width>1011</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -944,6 +944,7 @@
  </widget>
  <tabstops>
   <tabstop>scrollArea</tabstop>
+  <tabstop>pushButton_0</tabstop>
   <tabstop>pushButton_1</tabstop>
   <tabstop>pushButton_2</tabstop>
   <tabstop>pushButton_3</tabstop>
@@ -953,11 +954,11 @@
   <tabstop>pushButton_7</tabstop>
   <tabstop>pushButton_8</tabstop>
   <tabstop>dateEditFrom</tabstop>
-  <tabstop>dateEditTill</tabstop>
   <tabstop>comboTournaments</tabstop>
-  <tabstop>checkBoxID</tabstop>
   <tabstop>pushRefresh</tabstop>
   <tabstop>pushBack</tabstop>
+  <tabstop>dateEditTill</tabstop>
+  <tabstop>checkBoxID</tabstop>
   <tabstop>table</tabstop>
   <tabstop>text</tabstop>
  </tabstops>

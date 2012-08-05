@@ -635,6 +635,32 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabReport</tabstop>
+  <tabstop>fChampionship</tabstop>
+  <tabstop>fRound</tabstop>
+  <tabstop>fTeam1</tabstop>
+  <tabstop>fTeam2</tabstop>
+  <tabstop>fGoals1</tabstop>
+  <tabstop>fGoals2</tabstop>
+  <tabstop>fExtra1</tabstop>
+  <tabstop>fExtra2</tabstop>
+  <tabstop>fPenalty1</tabstop>
+  <tabstop>fPenalty2</tabstop>
+  <tabstop>fCity</tabstop>
+  <tabstop>fStadium</tabstop>
+  <tabstop>fAttendance</tabstop>
+  <tabstop>fDate</tabstop>
+  <tabstop>fTime</tabstop>
+  <tabstop>fReferee</tabstop>
+  <tabstop>buttonBox</tabstop>
+  <tabstop>fSquad1</tabstop>
+  <tabstop>fCoach1</tabstop>
+  <tabstop>fSquad2</tabstop>
+  <tabstop>fCoach2</tabstop>
+  <tabstop>fEvents</tabstop>
+  <tabstop>fComments</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
