@@ -141,7 +141,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 void MainWindow::startPage() {
-    widget.text->setText(FIRST_MESSAGE);
+    widget.text->setText(FIRST_MESSAGE.arg(data).arg(reports.size()));
     widget.actionSaveAsText->setDisabled(true);
     widget.text->setVisible(true);
     widget.table->setVisible(false);
