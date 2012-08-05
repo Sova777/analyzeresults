@@ -36,7 +36,11 @@ typedef QString StatHashKey;
 typedef Record StatHashValue;
 typedef QHash<StatHashKey, StatHashValue*> StatHash;
 
-const QString FIRST_MESSAGE = QString::fromUtf8("<h1 align=\"center\">QFootballStat</h1><p>Программа для футбольных статистиков.</p>");
+const QString FIRST_MESSAGE = QString::fromUtf8(
+"<h1 align=\"center\">QFootballStat</h1>"
+"<p>Путь к файлу со статистикой: <b>%1</b>.</p>"
+"<p>Матчей в базе: <b>%2</b>.</p>"
+);
 const QString ALL_TOURNAMENTS = QString::fromUtf8("<Все турниры>");
 
 const QString FIND_PLAYER = QString::fromUtf8("Найти игрока");
