@@ -126,6 +126,7 @@ MainWindow::MainWindow() {
             }
         }
     }
+    load(false);
     startPage();
 }
 
@@ -265,7 +266,7 @@ void MainWindow::findCoach(void) {
     }
 }
 
-void MainWindow::cache() {
+void MainWindow::load(bool withWarning) {
     QFileInfo qFileInfo = QFileInfo(data);
     if (qFileInfo.exists()) {
         if (qFileInfo.isFile()) {
@@ -283,22 +284,24 @@ void MainWindow::cache() {
             }
         }
     } else {
-        QMessageBox::information(NULL, QString::fromUtf8("Нет данных"), QString::fromUtf8("Нет данных. Выберите файл с результатами."));
+        if (withWarning) {
+            QMessageBox::information(NULL, QString::fromUtf8("Нет данных"), QString::fromUtf8("Нет данных. Выберите файл с результатами."));
+        }
     }
 }
 
 // SAX парсер
 void MainWindow::analyzeXml(pointer func, const Filter& filter, StatHash* hash) {
-    bool emptyCache = (reports.size() == 0) ? true : false;
+    if (reports.size() == 0) {
+        QMessageBox::information(NULL, QString::fromUtf8("Нет данных"), QString::fromUtf8("Нет данных. Выберите файл с результатами."));
+        return;
+    }
     statusBar()->showMessage(STATUS_CALCULATING);
     const QCursor cursor = this->cursor();
     this->setCursor(Qt::WaitCursor);
     QApplication::processEvents();
     QTime t;
     t.start();
-    if (emptyCache) {
-        cache();
-    }
     if (reports.size() > 0) {
         int counter = 0;
         QDate fromDate = widget.dateEditFrom->date();
@@ -452,6 +455,18 @@ void MainWindow::import() {
                 QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
             }
         }
+        widget.dateEditFrom->setDate(fromDate);
+        widget.dateEditTill->setDate(tillDate);
+        QComboBox* combo = widget.comboTournaments;
+        combo->clear();
+        combo->addItem(ALL_TOURNAMENTS);
+        foreach(QString t, tournaments.keys()) {
+            combo->addItem(t);
+        }
+        statusBar()->showMessage(QString("%1 (%2 %3)")
+                .arg(STATUS_CALCULATING)
+                .arg(counter)
+                .arg(STATUS_CALCULATING2), 2000);
     }
     startPage();
 }
@@ -509,6 +524,9 @@ void MainWindow::newQfb() {
     if (QMessageBox::question(this, QString::fromUtf8("Новый файл"), QString::fromUtf8("Создать новый qfb файл?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
         data = "";
         reports.clear();
+        QComboBox* combo = widget.comboTournaments;
+        combo->clear();
+        combo->addItem(ALL_TOURNAMENTS);
         startPage();
     }
 }
@@ -520,6 +538,7 @@ void MainWindow::openQfb() {
         data = qstr;
         reports.clear();
     }
+    load(true);
     startPage();
 }
 
