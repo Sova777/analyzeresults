@@ -55,7 +55,7 @@ private:
     void report(const QString& fileName);
     void analyzeXml(pointer func, const Filter& filter, StatHash* hash);
     Report saxParser(QFile& file);
-    void cache();
+    void load(bool withWarning = true);
     void startPage();
     void writeLine(QTextStream& out);
 
