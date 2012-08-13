@@ -198,7 +198,7 @@
            <x>0</x>
            <y>0</y>
            <width>86</width>
-           <height>635</height>
+           <height>641</height>
           </rect>
          </property>
          <widget class="QPushButton" name="pushButton_1">
@@ -730,7 +730,7 @@
      <x>0</x>
      <y>0</y>
      <width>1011</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -739,6 +739,7 @@
     </property>
     <addaction name="actionNewQfb"/>
     <addaction name="actionOpenQfb"/>
+    <addaction name="actionSave"/>
     <addaction name="actionSaveAsQfb"/>
     <addaction name="actionImport"/>
     <addaction name="actionSaveAsText"/>
@@ -939,6 +940,11 @@
   <action name="actionNewQfb">
    <property name="text">
     <string>Создать новый qfb файл</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Сохранить</string>
    </property>
   </action>
  </widget>

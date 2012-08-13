@@ -49,6 +49,8 @@ MainWindow::MainWindow() {
             this, SLOT(saveAsText()));
     connect(widget.actionSaveAsQfb, SIGNAL(triggered()),
             this, SLOT(saveAsQfb()));
+    connect(widget.actionSave, SIGNAL(triggered()),
+            this, SLOT(save()));
     connect(widget.actionImport, SIGNAL(triggered()),
             this, SLOT(import()));
     connect(widget.actionOpenQfb, SIGNAL(triggered()),
@@ -114,6 +116,8 @@ MainWindow::MainWindow() {
             this, SLOT(refresh()));
     connect(widget.pushBack, SIGNAL(clicked()),
             this, SLOT(back()));
+    connect(widget.comboTournaments, SIGNAL(currentIndexChanged (const QString &)),
+            this, SLOT(changeTournaments(const QString &)));
 
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
             "football.mojgorod.ru", "QFootballStat");
@@ -126,6 +130,8 @@ MainWindow::MainWindow() {
             }
         }
     }
+    widget.dateEditFrom->setDate(LAST_DAY);
+    widget.dateEditTill->setDate(FIRST_DAY);
     load(false);
     startPage();
 }
@@ -521,12 +527,15 @@ void MainWindow::saveAsText() {
 }
 
 void MainWindow::newQfb() {
-    if (QMessageBox::question(this, QString::fromUtf8("Новый файл"), QString::fromUtf8("Создать новый qfb файл?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
-        data = "";
+    QString qstr = QFileDialog::getSaveFileName(this, QString::fromUtf8("Выберите имя файла"), NULL, "*.qfb");
+    if (qstr != "") {
+        data = qstr;
         reports.clear();
         QComboBox* combo = widget.comboTournaments;
         combo->clear();
         combo->addItem(ALL_TOURNAMENTS);
+        widget.dateEditFrom->setDate(LAST_DAY);
+        widget.dateEditTill->setDate(FIRST_DAY);
         startPage();
     }
 }
@@ -537,6 +546,8 @@ void MainWindow::openQfb() {
     if (qstr != "") {
         data = qstr;
         reports.clear();
+        widget.dateEditFrom->setDate(LAST_DAY);
+        widget.dateEditTill->setDate(FIRST_DAY);
     }
     load(true);
     startPage();
@@ -694,10 +705,8 @@ void MainWindow::openQfb(const QString& fileName, QDate* fromDate, QDate* tillDa
     }
 }
 
-void MainWindow::saveAsQfb() {
-    QString qstr = QFileDialog::getSaveFileName(this, QString::fromUtf8("Выберите имя файла"), NULL, "*.qfb");
-    if (qstr == "") return;
-    QFile file(qstr);
+void MainWindow::saveChanges() {
+    QFile file(data);
     file.open(QIODevice::WriteOnly);
     QDataStream out(&file);
     out.setVersion(QDataStream::Qt_4_0);
@@ -759,7 +768,23 @@ void MainWindow::saveAsQfb() {
             out << event.playerid2;
             out << event.player2;
         }
+    }    
+}
+
+void MainWindow::save() {
+    if (!QFile::exists(data)) {
+        return;
     }
+    if (QMessageBox::question(this, QString::fromUtf8("Сохранить изменения"), QString::fromUtf8("Сохранить изменения?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
+        saveChanges();
+    }
+}
+
+void MainWindow::saveAsQfb() {
+    QString qstr = QFileDialog::getSaveFileName(this, QString::fromUtf8("Выберите имя файла"), NULL, "*.qfb");
+    if (qstr == "") return;
+    data = qstr;
+    saveChanges();
 }
 
 void MainWindow::addReport() {
@@ -1020,4 +1045,10 @@ void MainWindow::refresh() {
 
 void MainWindow::back() {
     jump(previous);
+}
+
+void MainWindow::changeTournaments(const QString& tournaments) {
+    if (reports.size() != 0) {
+        jump(current);
+    }
 }

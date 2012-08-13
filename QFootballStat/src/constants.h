@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	CONSTANTS_H
 
 #include <QHash>
+#include <QDate>
 #include <QString>
 
 class Record;
@@ -188,6 +189,9 @@ const QString TABLE_EVENT_COLUMN3 = QString::fromUtf8("Комментарий");
 const QString TABLE_EVENT_COLUMN4 = QString::fromUtf8("Команда");
 const QString TABLE_EVENT_COLUMN5 = QString::fromUtf8("Игрок");
 const QString TABLE_EVENT_COLUMN6 = QString::fromUtf8("Вышедш.игрок");
+
+const QDate FIRST_DAY(1800, 1, 1);
+const QDate LAST_DAY(2999, 12, 31);
 
 #endif	/* CONSTANTS_H */
 
