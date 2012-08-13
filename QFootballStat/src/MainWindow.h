@@ -64,11 +64,13 @@ private:
 
     void findPlayer();
     void findCoach();
+    void saveChanges();
 
 private slots:
     void import();
     void openQfb();
     void newQfb();
+    void save();
     void saveAsText();
     void saveAsQfb();
     void addReport();
@@ -102,6 +104,7 @@ private slots:
     void jump(const QString link);
     void refresh();
     void back();
+    void changeTournaments(const QString& tournaments);
 };
 
 #endif	/* _MAINWINDOW_H */
