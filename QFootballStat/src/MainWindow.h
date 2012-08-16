@@ -45,6 +45,7 @@ public:
     Ui::MainWindow widget;
     void initTable(QStringList& titles, int columnWidth, int rows);
     void setCellValue(int row, int column, QString value);
+    void jump(const QString link);
     QVector<Report> reports;
     QString current;
     QMap<QString, int> tournaments;
@@ -101,7 +102,6 @@ private slots:
     void selectMode8();
     void linkActivated(const QUrl & link);
     void cellSelected(int row, int column);
-    void jump(const QString link);
     void refresh();
     void back();
     void changeTournaments(const QString& tournaments);
