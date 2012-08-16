@@ -104,7 +104,7 @@ private slots:
     void cellSelected(int row, int column);
     void refresh();
     void back();
-    void changeTournaments(const QString& tournaments);
+    void changeTournaments(int index);
 };
 
 #endif	/* _MAINWINDOW_H */

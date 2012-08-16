@@ -116,8 +116,8 @@ MainWindow::MainWindow() {
             this, SLOT(refresh()));
     connect(widget.pushBack, SIGNAL(clicked()),
             this, SLOT(back()));
-    connect(widget.comboTournaments, SIGNAL(currentIndexChanged (const QString &)),
-            this, SLOT(changeTournaments(const QString &)));
+    connect(widget.comboTournaments, SIGNAL(currentIndexChanged (int)),
+            this, SLOT(changeTournaments(int)));
 
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
             "football.mojgorod.ru", "QFootballStat");
@@ -1047,7 +1047,10 @@ void MainWindow::back() {
     jump(previous);
 }
 
-void MainWindow::changeTournaments(const QString& tournaments) {
+void MainWindow::changeTournaments(int index) {
+    if (index < 0) {
+        return;
+    }
     if (reports.size() != 0) {
         jump(current);
     }
