@@ -39,6 +39,7 @@ EditReport::EditReport(MainWindow *parent) {
             foreach(Report report, mainWindow->reports) {
                 if (report.getReportId() == id) {
                     initForm(report);
+                    break;
                 }
             }
             QStringList wordListTournaments;
@@ -70,6 +71,7 @@ void EditReport::initForm(Report& report) {
     this->widget.fTime->setText(report.getTime());
     this->widget.fCoach1->setText(report.getCoach1());
     this->widget.fCoach2->setText(report.getCoach2());
+
     QVector<Report::Player> players1 = report.getPlayers1();
     this->widget.fSquad1->setColumnCount(1);
     QStringList titles1;
@@ -135,5 +137,38 @@ EditReport::~EditReport() {
 }
 
 void EditReport::accept() {
+    int size = mainWindow->current.length();
+    if (size > 0) {
+        QString code = mainWindow->current.left(5);
+        QString id = mainWindow->current.right(size - 5);
+        if (code == "xm01_") {
+            int len = mainWindow->reports.size();
+            for (int i = 0; i < len; i++) {
+                Report* report = &(mainWindow->reports[i]);
+                if (report->getReportId() == id) {
+                    report->setMatchTournament(this->widget.fChampionship->text());
+                    report->setMatchRound(this->widget.fRound->text());
+                    report->setTeam1(this->widget.fTeam1->text());
+                    report->setTeam2(this->widget.fTeam2->text());
+                    report->setGoals1(this->widget.fGoals1->text());
+                    report->setGoals2(this->widget.fGoals2->text());
+                    report->setExtra1(this->widget.fExtra1->text());
+                    report->setExtra2(this->widget.fExtra2->text());
+                    report->setPenalties1(this->widget.fPenalty1->text());
+                    report->setPenalties2(this->widget.fPenalty2->text());
+                    report->setStadiumCity(this->widget.fCity->text());
+                    report->setStadium(this->widget.fStadium->text());
+                    report->setStadiumAttendance(this->widget.fAttendance->text());
+                    report->setReferee(this->widget.fReferee->text());
+                    report->setDate(QDate::fromString(this->widget.fDate->text(), "dd.MM.yyyy"));
+                    report->setTime(this->widget.fTime->text());
+                    report->setCoach1(this->widget.fCoach1->text());
+                    report->setCoach2(this->widget.fCoach2->text());
+                    break;
+                }
+            }
+            mainWindow->jump(mainWindow->current);
+        }
+    }
     QDialog::accept();
 }
