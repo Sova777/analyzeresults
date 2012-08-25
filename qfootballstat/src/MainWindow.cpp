@@ -118,6 +118,9 @@ MainWindow::MainWindow() {
             this, SLOT(back()));
     connect(widget.comboTournaments, SIGNAL(currentIndexChanged (int)),
             this, SLOT(changeTournaments(int)));
+    connect (widget.table, SIGNAL(customContextMenuRequested(const QPoint&)),
+            this, SLOT(contextMenu(const QPoint&)));
+    widget.table->setContextMenuPolicy(Qt::CustomContextMenu);
 
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
             "football.mojgorod.ru", "QFootballStat");
@@ -768,7 +771,7 @@ void MainWindow::saveChanges() {
             out << event.playerid2;
             out << event.player2;
         }
-    }    
+    }
 }
 
 void MainWindow::save() {
@@ -1053,5 +1056,23 @@ void MainWindow::changeTournaments(int index) {
     }
     if (reports.size() != 0) {
         jump(current);
+    }
+}
+
+void MainWindow::contextMenu(const QPoint& pos) {
+    QMenu menu(this);
+    menu.addAction("item1");
+    menu.addAction("item2");
+    QAction* selectedItem = menu.exec(widget.table->viewport()->mapToGlobal(pos));
+    if (selectedItem != NULL) {
+        QTableWidgetItem* selectedItemInTable = widget.table->itemAt(pos);
+        if (selectedItemInTable != NULL) {
+            int row = selectedItemInTable->row();
+            QTableWidgetItem* item = widget.table->item(row, widget.table->columnCount() - 1);
+            if (item != NULL) {
+                QString value = item->text();
+                QMessageBox::information(this, "action", value);
+            }
+        }
     }
 }

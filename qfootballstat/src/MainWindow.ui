@@ -695,7 +695,11 @@
        </widget>
       </item>
       <item row="5" column="2" colspan="6">
-       <widget class="QTableWidget" name="table"/>
+       <widget class="QTableWidget" name="table">
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+       </widget>
       </item>
       <item row="1" column="6">
        <widget class="QPushButton" name="pushBack">
