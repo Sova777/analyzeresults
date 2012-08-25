@@ -105,6 +105,7 @@ private slots:
     void refresh();
     void back();
     void changeTournaments(int index);
+    void contextMenu(const QPoint& pos);
 };
 
 #endif	/* _MAINWINDOW_H */
