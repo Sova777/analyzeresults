@@ -136,6 +136,9 @@ MainWindow::MainWindow() {
     widget.dateEditFrom->setDate(LAST_DAY);
     widget.dateEditTill->setDate(FIRST_DAY);
     load(false);
+    QRect rectangle = frameGeometry();
+    rectangle.moveCenter(QDesktopWidget().availableGeometry().center());
+    move(rectangle.topLeft());
     startPage();
 }
 
