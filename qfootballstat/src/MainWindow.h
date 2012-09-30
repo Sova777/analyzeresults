@@ -32,6 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <QtXml>
 #include "ui_MainWindow.h"
 #include "XmlFileReader.h"
+#include "ContextMenu.h"
 #include "Filter.h"
 #include "Record.h"
 #include "Report.h"
@@ -46,6 +47,8 @@ public:
     void initTable(QStringList& titles, int columnWidth, int rows);
     void setCellValue(int row, int column, QString value);
     void jump(const QString link);
+    ContextMenu popupMenu;
+    void getCodeAndId(const QString& link, QString& code, QString& id);
     QVector<Report> reports;
     QString current;
     QMap<QString, int> tournaments;

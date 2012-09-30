@@ -33,8 +33,9 @@ EditReport::EditReport(MainWindow *parent) {
     widget.setupUi(this);
     int size = mainWindow->current.length();
     if (size > 0) {
-        QString code = mainWindow->current.left(5);
-        QString id = mainWindow->current.right(size - 5);
+        QString code;
+        QString id;
+        mainWindow->getCodeAndId(mainWindow->current, code, id);
         if (code == "xm01_") {
             foreach(Report report, mainWindow->reports) {
                 if (report.getReportId() == id) {
@@ -139,8 +140,9 @@ EditReport::~EditReport() {
 void EditReport::accept() {
     int size = mainWindow->current.length();
     if (size > 0) {
-        QString code = mainWindow->current.left(5);
-        QString id = mainWindow->current.right(size - 5);
+        QString code;
+        QString id;
+        mainWindow->getCodeAndId(mainWindow->current, code, id);
         if (code == "xm01_") {
             int len = mainWindow->reports.size();
             for (int i = 0; i < len; i++) {

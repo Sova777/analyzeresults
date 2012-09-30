@@ -845,8 +845,9 @@ void MainWindow::jump(const QString link) {
     }
     previous = current;
     current = link;
-    QString code = link.left(5);
-    QString id = link.right(size - 5);
+    QString code;
+    QString id;
+    getCodeAndId(link, code, id);
     if (code == "xm01_") {
         report(id);
         return;
@@ -1064,8 +1065,7 @@ void MainWindow::changeTournaments(int index) {
 
 void MainWindow::contextMenu(const QPoint& pos) {
     QMenu menu(this);
-    menu.addAction("item1");
-    menu.addAction("item2");
+    popupMenu.fillQMenu(menu);
     QAction* selectedItem = menu.exec(widget.table->viewport()->mapToGlobal(pos));
     if (selectedItem != NULL) {
         QTableWidgetItem* selectedItemInTable = widget.table->itemAt(pos);
@@ -1077,5 +1077,16 @@ void MainWindow::contextMenu(const QPoint& pos) {
                 QMessageBox::information(this, "action", value);
             }
         }
+    }
+}
+
+void MainWindow::getCodeAndId(const QString& link, QString& code, QString& id) {
+    int size = link.length();
+    if (size > 0) {
+        code = link.left(5);
+        id = link.right(size - 5);
+    } else {
+        code = "";
+        id = "";
     }
 }

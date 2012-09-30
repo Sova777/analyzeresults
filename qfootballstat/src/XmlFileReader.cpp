@@ -152,6 +152,9 @@ void listOfReferies(const XmlFilter& xmlFilter, StatHash* hash) {
             }
         }
     } else {
+        xmlFilter.window->popupMenu.clearMenuItems();
+        xmlFilter.window->popupMenu.addMenuItem("qqqqq", "");
+        xmlFilter.window->popupMenu.addMenuItem("wwwww", "");
         QStringList titles;
         titles << TABLE_REFERIES_COLUMN1
                 << TABLE_REFERIES_COLUMN2
