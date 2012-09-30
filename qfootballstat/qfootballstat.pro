@@ -8,6 +8,7 @@ DEPENDPATH += . src
 INCLUDEPATH += . src
 
 HEADERS += src/constants.h \
+           src/ContextMenu.h \
            src/EditReport.h \
            src/Filter.h \
            src/Find.h \
@@ -20,6 +21,7 @@ FORMS += src/MainWindow.ui \
          src/EditReport.ui \
          src/Find.ui
 SOURCES += src/main.cpp \
+           src/ContextMenu.cpp \
            src/EditReport.cpp \
            src/Filter.cpp \
            src/Find.cpp \
