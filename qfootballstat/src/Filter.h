@@ -32,9 +32,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class Filter {
 public:
+    QString param;
     QString filter;
     bool useID;
-    Filter(QString filter_, bool useID_);
+    Filter(QString filter_, bool useID_, QString param_ = "");
 };
 
 #endif	/* FILTER_H */

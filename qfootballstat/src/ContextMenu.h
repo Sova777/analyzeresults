@@ -38,6 +38,7 @@ public:
     void addMenuItem(const QString name, const QString action);
     void clearMenuItems();
     void fillQMenu(QMenu& menu);
+    void defaultValues();
 private:
     QVector<QString> contextMenuItems;
     QVector<QString> contextMenuActions;

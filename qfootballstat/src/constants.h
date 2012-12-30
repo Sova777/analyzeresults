@@ -87,6 +87,11 @@ const QString TABLE_REFERIES_COLUMN5 = QString::fromUtf8("Ж+Кр");
 const QString TABLE_REFERIES_COLUMN6 = QString::fromUtf8("Жёлтая");
 const QString TABLE_REFERIES_COLUMN7 = QString::fromUtf8("Пенальти");
 
+const QString CONTEXT_MENU_REFERIES_NAME1 = QString::fromUtf8("Все матчи");
+const QString CONTEXT_MENU_REFERIES_NAME2 = QString::fromUtf8("Матчи с пенальти");
+const QString CONTEXT_MENU_REFERIES_ACTION1 = QString::fromUtf8("");
+const QString CONTEXT_MENU_REFERIES_ACTION2 = QString::fromUtf8("pen");
+
 const QString TABLE_REFERIES2_COLUMN1 = QString::fromUtf8("Дата");
 const QString TABLE_REFERIES2_COLUMN2 = QString::fromUtf8("Город");
 const QString TABLE_REFERIES2_COLUMN3 = QString::fromUtf8("Хозяева");
@@ -189,6 +194,9 @@ const QString TABLE_EVENT_COLUMN3 = QString::fromUtf8("Комментарий");
 const QString TABLE_EVENT_COLUMN4 = QString::fromUtf8("Команда");
 const QString TABLE_EVENT_COLUMN5 = QString::fromUtf8("Игрок");
 const QString TABLE_EVENT_COLUMN6 = QString::fromUtf8("Вышедш.игрок");
+
+const QString CONTEXT_MENU_DEFAULT_NAME = QString::fromUtf8("Подробности");
+const QString CONTEXT_MENU_DEFAULT_ACTION = QString::fromUtf8("");
 
 const QDate FIRST_DAY(1800, 1, 1);
 const QDate LAST_DAY(2999, 12, 31);

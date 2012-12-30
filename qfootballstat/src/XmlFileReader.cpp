@@ -153,8 +153,8 @@ void listOfReferies(const XmlFilter& xmlFilter, StatHash* hash) {
         }
     } else {
         xmlFilter.window->popupMenu.clearMenuItems();
-        xmlFilter.window->popupMenu.addMenuItem("qqqqq", "");
-        xmlFilter.window->popupMenu.addMenuItem("wwwww", "");
+        xmlFilter.window->popupMenu.addMenuItem(CONTEXT_MENU_REFERIES_NAME1, CONTEXT_MENU_REFERIES_ACTION1);
+        xmlFilter.window->popupMenu.addMenuItem(CONTEXT_MENU_REFERIES_NAME2, CONTEXT_MENU_REFERIES_ACTION2);
         QStringList titles;
         titles << TABLE_REFERIES_COLUMN1
                 << TABLE_REFERIES_COLUMN2
@@ -195,6 +195,7 @@ void listOfReferies2(const XmlFilter& xmlFilter, StatHash* hash) {
         QString city = xmlFilter.report->getStadiumCity();
         QString referee = xmlFilter.report->getReferee();
         if (referee == xmlFilter.filter->filter) {
+//            xmlFilter.filter->param;
             QString key = QString("%1,%2,%3").arg(date.toString("yyyyMMdd")).arg(team1).arg(team2);
             Record* record = Record::getInstance(hash, key);
             QString qdate = date.toString("yyyy/MM/dd");

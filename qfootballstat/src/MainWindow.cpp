@@ -250,7 +250,7 @@ void MainWindow::callFindCoach() {
 
 void MainWindow::calculate(pointer func, const QString& qfilter) {
     StatHash hash;
-    Filter filter(qfilter, widget.checkBoxID->isChecked());
+    Filter filter(qfilter, widget.checkBoxID->isChecked(), param_current);
     analyzeXml(func, filter, &hash);
     if (reports.size() > 0) {
         Report report = reports[0];
@@ -838,13 +838,16 @@ void MainWindow::cellSelected(int row, int column) {
     }
 }
 
-void MainWindow::jump(const QString link) {
+void MainWindow::jump(const QString link, const QString param) {
     int size = link.length();
     if (size < 5) {
         return;
     }
+    param_previous = param_current;
+    param_current = param;
     previous = current;
     current = link;
+    popupMenu.defaultValues();
     QString code;
     QString id;
     getCodeAndId(link, code, id);
@@ -1047,11 +1050,11 @@ void MainWindow::report(const QString& fileName) {
 }
 
 void MainWindow::refresh() {
-    jump(current);
+    jump(current, param_current);
 }
 
 void MainWindow::back() {
-    jump(previous);
+    jump(previous, param_previous);
 }
 
 void MainWindow::changeTournaments(int index) {
@@ -1059,7 +1062,7 @@ void MainWindow::changeTournaments(int index) {
         return;
     }
     if (reports.size() != 0) {
-        jump(current);
+        jump(current, param_current);
     }
 }
 
@@ -1073,8 +1076,9 @@ void MainWindow::contextMenu(const QPoint& pos) {
             int row = selectedItemInTable->row();
             QTableWidgetItem* item = widget.table->item(row, widget.table->columnCount() - 1);
             if (item != NULL) {
-                QString value = item->text();
-                QMessageBox::information(this, "action", value);
+                QString link = item->text();
+//                QMessageBox::information(this, "action", value);
+                jump(link, selectedItem->text());
             }
         }
     }
