@@ -26,10 +26,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "ContextMenu.h"
+#include "constants.h"
 
 ContextMenu::ContextMenu() {
-    contextMenuItems.append("Item1");
-    contextMenuActions.append("i1");
+}
+
+void ContextMenu::defaultValues() {
+    clearMenuItems();
+    contextMenuItems.append(CONTEXT_MENU_DEFAULT_NAME);
+    contextMenuActions.append(CONTEXT_MENU_DEFAULT_ACTION);
 }
 
 void ContextMenu::addMenuItem(const QString name, const QString action) {

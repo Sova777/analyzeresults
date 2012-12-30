@@ -46,7 +46,7 @@ public:
     Ui::MainWindow widget;
     void initTable(QStringList& titles, int columnWidth, int rows);
     void setCellValue(int row, int column, QString value);
-    void jump(const QString link);
+    void jump(const QString link, const QString param = "");
     ContextMenu popupMenu;
     void getCodeAndId(const QString& link, QString& code, QString& id);
     QVector<Report> reports;
@@ -55,6 +55,8 @@ public:
 private:
     QString data;
     QString previous;
+    QString param_current;
+    QString param_previous;
     void closeEvent(QCloseEvent *event);
     void report(const QString& fileName);
     void analyzeXml(pointer func, const Filter& filter, StatHash* hash);
