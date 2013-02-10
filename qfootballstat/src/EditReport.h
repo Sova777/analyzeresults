@@ -28,6 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _EDITREPORT_H
 #define	_EDITREPORT_H
 
+#include <QCompleter>
 #include "MainWindow.h"
 #include "ui_EditReport.h"
 
