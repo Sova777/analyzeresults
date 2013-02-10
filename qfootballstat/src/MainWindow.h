@@ -28,7 +28,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _MAINWINDOW_H
 #define	_MAINWINDOW_H
 
+#include <QDesktopWidget>
+#include <QFileDialog>
 #include <QMap>
+#include <QMessageBox>
 #include <QtXml>
 #include "ui_MainWindow.h"
 #include "XmlFileReader.h"

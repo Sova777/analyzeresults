@@ -2,6 +2,9 @@ TEMPLATE = app
 TARGET = qfootballstat
 VERSION = 1.0.0
 QT += core gui xml
+greaterThan(QT_GCC_MAJOR_VERSION, 4) {
+           QT += widgets
+}
 #QMAKE_CXXFLAGS = -Wno-unused-parameter
 #CONFIG += console
 DEPENDPATH += . src
