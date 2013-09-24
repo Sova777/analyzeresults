@@ -191,7 +191,7 @@ void Form::mouseMoveEvent(QMouseEvent*/* e*/) {
 }
 
 void Form::solve() {
-//    statusBar()->showMessage(QString("ellipses: %1, lines: %2").arg(ellipses.size()).arg(lines.size()), 10);
+//    statusBar()->showMessage(QString("ellipses: %1, lines: %2").arg(ellipses.size()).arg(lines.size()), 10000);
     const int SIZE = ellipses.size();
     State Matrix[SIZE][SIZE];
     for (int i = 0; i < SIZE; i++) {
@@ -199,18 +199,27 @@ void Form::solve() {
             Matrix[i][j] = NONE;
         }
     }
-//    int ex, ey, lx1, lx2, ly1, ly2;
-//    for (int i = 0; i < lines.size(); i++) {
-//        lx1 = lines[i]->line().x1();
-//        lx2 = lines[i]->line().x2();
-//        ly1 = lines[i]->line().y1();
-//        ly2 = lines[i]->line().y2();
-//        for (int j = 0; j < ellipses.size(); j++) {
-//            ex = ellipses[j]->rect().x();
-//            ey = ellipses[j]->rect().y();
-//            if ((ex == lx1) && (ey == ly1)) {
-//                Matrix[]
-//            }
-//        }
-//    }
+    int ex, ey, e1, e2, lx1, lx2, ly1, ly2;
+    for (int i = 0; i < lines.size(); i++) {
+        lx1 = lines[i]->line().x1();
+        lx2 = lines[i]->line().x2();
+        ly1 = lines[i]->line().y1();
+        ly2 = lines[i]->line().y2();
+        e1 = -1, e2 = -1;
+        for (int j = 0; j < ellipses.size(); j++) {
+            ex = ellipses[j]->rect().x();
+            ey = ellipses[j]->rect().y();
+            if ((ex == lx1) && (ey == ly1)) {
+                e1 = j;
+            }
+            if ((ex == lx2) && (ey == ly2)) {
+                e2 = j;
+            }
+            if ((e1 != -1) && (e2 != -1)) {
+                Matrix[e1][e2] = EXIST;
+                Matrix[e2][e1] = EXIST;
+                break;
+            }
+        }
+    }
 }
