@@ -193,10 +193,10 @@ void Form::mouseMoveEvent(QMouseEvent*/* e*/) {
 void Form::solve() {
 //    statusBar()->showMessage(QString("ellipses: %1, lines: %2").arg(ellipses.size()).arg(lines.size()), 10000);
     const int SIZE = ellipses.size();
-    State Matrix[SIZE][SIZE];
+    Matrix = new int [SIZE * SIZE];
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            Matrix[i][j] = NONE;
+            Matrix[SIZE * i + j] = -1;
         }
     }
     int ex, ey, e1, e2, lx1, lx2, ly1, ly2;
@@ -207,8 +207,8 @@ void Form::solve() {
         ly2 = lines[i]->line().y2();
         e1 = -1, e2 = -1;
         for (int j = 0; j < ellipses.size(); j++) {
-            ex = ellipses[j]->rect().x();
-            ey = ellipses[j]->rect().y();
+            ex = ellipses[j]->rect().x() + 5;
+            ey = ellipses[j]->rect().y() + 5;
             if ((ex == lx1) && (ey == ly1)) {
                 e1 = j;
             }
@@ -216,10 +216,43 @@ void Form::solve() {
                 e2 = j;
             }
             if ((e1 != -1) && (e2 != -1)) {
-                Matrix[e1][e2] = EXIST;
-                Matrix[e2][e1] = EXIST;
+                Matrix[SIZE * e1 + e2] = i;
+                Matrix[SIZE * e2 + e1] = i;
                 break;
             }
         }
+    }
+    QVector<int> possible;
+    QVector<int> path;
+    for (int i = 0; i < lines.size(); i++) {
+        possible.push_back(i);
+    }
+    for (int i = 0; i < lines.size(); i++) {
+        nextStep(i, path, possible);
+    }
+//    for (int i = 0; i < SIZE; i++) {
+//        QString qstr = "";
+//        for (int j = 0; j < SIZE; j++) {
+//            qstr.append(QString("%1 ").arg(Matrix[SIZE * i + j]));
+//        }
+//        qDebug() << qstr;
+//    }
+    delete[] Matrix;
+}
+
+void Form::nextStep(int step, QVector<int> path, QVector<int> possible) {
+    if (possible.size() == 0) {
+        if (path.size() == lines.size()) {
+            qDebug() << path << " OK";
+        }
+        return;
+    }
+    const int SIZE = possible.size();
+    for (int i = 0; i < SIZE; i++) {
+        QVector<int> possible1(possible);
+        QVector<int> path1(path);
+        path1.push_back(possible[i]);
+        possible1.remove(i);
+        nextStep(possible[i], path1, possible1);
     }
 }
