@@ -20,12 +20,13 @@ public:
 private:
     Ui::Form widget;
     void init();
-    QGraphicsScene* scene = NULL;
+    QGraphicsScene* scene;
     QVector<QGraphicsEllipseItem*> ellipses;
     QVector<QGraphicsLineItem*> lines;
     void mousePressEvent(QMouseEvent* e);
     void mouseMoveEvent(QMouseEvent* e);
     QGraphicsEllipseItem* ellipse1;
+    int* Matrix;
     void drawEllipse(int x, int y);
     void drawLine(int x, int y, int x2, int y2);
     void deleteEllipse(QGraphicsEllipseItem* item);
@@ -36,7 +37,7 @@ private:
     QGraphicsLineItem* findQGraphicsLineItem(int x1, int y1, int x2, int y2);
     int getX(int x);
     int getY(int y);
-    enum State {NONE, EXIST};
+    void nextStep(int step, QVector<int> path, QVector<int> possible);
 private slots:
     void solve();
 };
