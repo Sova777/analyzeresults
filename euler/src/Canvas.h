@@ -1,7 +1,6 @@
 /* 
  * File:   Canvas.h
  * Author: sova
- *
  */
 
 #ifndef CANVAS_H
