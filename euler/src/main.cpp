@@ -1,7 +1,6 @@
 /*
  * File:   main.cpp
  * Author: sova
- *
  */
 
 #include <QApplication>

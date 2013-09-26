@@ -1,7 +1,6 @@
 /* 
  * File:   Form.h
  * Author: sova
- *
  */
 
 #ifndef _FORM_H
@@ -37,7 +36,7 @@ private:
     QGraphicsLineItem* findQGraphicsLineItem(int x1, int y1, int x2, int y2);
     int getX(int x);
     int getY(int y);
-    void nextStep(int step, QVector<int> path, QVector<int> possible);
+    void nextStep(int step, QVector<int> path);
 private slots:
     void solve();
 };

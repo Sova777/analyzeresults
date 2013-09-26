@@ -7,7 +7,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 }
 
 #QMAKE_CXXFLAGS = -Wno-unused-parameter
-CONFIG += console
+CONFIG += console debug
 DEPENDPATH += . src
 INCLUDEPATH += . src
 
