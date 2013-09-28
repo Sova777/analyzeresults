@@ -39,6 +39,7 @@ private:
     void nextStep(int step, QVector<int> path);
 private slots:
     void solve();
+    void clear();
 };
 
 #endif	/* _FORM_H */

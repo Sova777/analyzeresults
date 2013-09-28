@@ -6,12 +6,15 @@
 #include "Form.h"
 #include <QPainter>
 #include <QDebug>
+#include <QMessageBox>
 #include <cstdlib>
 
 Form::Form() {
     widget.setupUi(this);
     connect(widget.pushSolve, SIGNAL(clicked()),
             this, SLOT(solve()));
+    connect(widget.pushClear, SIGNAL(clicked()),
+            this, SLOT(clear()));
 
     scene = widget.graphicsView->scene();
     if (scene == NULL) {
@@ -190,43 +193,52 @@ void Form::mouseMoveEvent(QMouseEvent*/* e*/) {
 }
 
 void Form::solve() {
-    const int SIZE = ellipses.size();
-    Matrix = new int [SIZE * SIZE];
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            Matrix[SIZE * i + j] = -1;
-        }
-    }
-    int ex, ey, e1, e2, lx1, lx2, ly1, ly2;
-    for (int i = 0; i < lines.size(); i++) {
-        lx1 = lines[i]->line().x1();
-        lx2 = lines[i]->line().x2();
-        ly1 = lines[i]->line().y1();
-        ly2 = lines[i]->line().y2();
-        e1 = -1, e2 = -1;
-        for (int j = 0; j < ellipses.size(); j++) {
-            ex = ellipses[j]->rect().x() + 5;
-            ey = ellipses[j]->rect().y() + 5;
-            if ((ex == lx1) && (ey == ly1)) {
-                e1 = j;
-            }
-            if ((ex == lx2) && (ey == ly2)) {
-                e2 = j;
-            }
-            if ((e1 != -1) && (e2 != -1)) {
-                Matrix[SIZE * e1 + e2] = i;
-                Matrix[SIZE * e2 + e1] = i;
-                break;
+    QString title = QString::fromUtf8("Solve");
+    QString question = QString::fromUtf8("Solve task?");
+    int answer =
+            QMessageBox::question(this, title, question, QMessageBox::Yes, QMessageBox::No);
+    if (answer == QMessageBox::Yes) {
+        statusBar()->showMessage(QString("started"), 5000);
+        qDebug() << "___ started ____";
+        const int SIZE = ellipses.size();
+        Matrix = new int [SIZE * SIZE];
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                Matrix[SIZE * i + j] = -1;
             }
         }
+        int ex, ey, e1, e2, lx1, lx2, ly1, ly2;
+        for (int i = 0; i < lines.size(); i++) {
+            lx1 = lines[i]->line().x1();
+            lx2 = lines[i]->line().x2();
+            ly1 = lines[i]->line().y1();
+            ly2 = lines[i]->line().y2();
+            e1 = -1, e2 = -1;
+            for (int j = 0; j < ellipses.size(); j++) {
+                ex = ellipses[j]->rect().x() + 5;
+                ey = ellipses[j]->rect().y() + 5;
+                if ((ex == lx1) && (ey == ly1)) {
+                    e1 = j;
+                }
+                if ((ex == lx2) && (ey == ly2)) {
+                    e2 = j;
+                }
+                if ((e1 != -1) && (e2 != -1)) {
+                    Matrix[SIZE * e1 + e2] = i;
+                    Matrix[SIZE * e2 + e1] = i;
+                    break;
+                }
+            }
+        }
+        QVector<int> path;
+        for (int i = 0; i < ellipses.size(); i++) {
+            nextStep(i, path);
+        }
+        delete[] Matrix;
+        Matrix = NULL;
+        qDebug() << "___ finished ____";
+        statusBar()->showMessage(QString("finished"), 5000);
     }
-    QVector<int> path;
-    for (int i = 0; i < ellipses.size(); i++) {
-        nextStep(i, path);
-    }
-    delete[] Matrix;
-    qDebug() << "________________";
-    statusBar()->showMessage(QString("completed", 5000));
 }
 
 void Form::nextStep(int step, QVector<int> path) {
@@ -243,20 +255,32 @@ void Form::nextStep(int step, QVector<int> path) {
                 }
             }
             if (isPossible) {
-                possible.push_back(line);
+                possible.push_back(i);
             }
         }
     }
     if (possible.size() == 0) {
         if (path.size() == lines.size()) {
-            qDebug() << path << " OK";
+            qDebug() << path;
         }
         return;
     }
     const int SIZE2 = possible.size();
     for (int i = 0; i < SIZE2; i++) {
         QVector<int> path1(path);
-        path1.push_back(step);
+        path1.push_back(Matrix[SIZE * possible[i] + step]);
         nextStep(possible[i], path1);
+    }
+}
+
+void Form::clear() {
+    QString title = QString::fromUtf8("Clear");
+    QString question = QString::fromUtf8("Clear form?");
+    int answer =
+            QMessageBox::question(this, title, question, QMessageBox::Yes, QMessageBox::No);
+    if (answer == QMessageBox::Yes) {
+        foreach (QGraphicsEllipseItem* ellipse, ellipses) {
+            deleteEllipse(ellipse);
+        }
     }
 }
