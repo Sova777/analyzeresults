@@ -4,9 +4,11 @@
  */
 
 #include "Form.h"
-#include <QPainter>
 #include <QDebug>
+#include <QHash>
 #include <QMessageBox>
+#include <QPainter>
+#include <QTimer>
 #include <cstdlib>
 
 Form::Form() {
@@ -15,6 +17,8 @@ Form::Form() {
             this, SLOT(solve()));
     connect(widget.pushClear, SIGNAL(clicked()),
             this, SLOT(clear()));
+    connect(widget.pushStop, SIGNAL(clicked()),
+            this, SLOT(stop()));
 
     scene = widget.graphicsView->scene();
     if (scene == NULL) {
@@ -22,6 +26,7 @@ Form::Form() {
         widget.graphicsView->setScene(scene);
     }
     ellipse1 = NULL;
+    stopMethod = false;
     init();
 }
 
@@ -111,23 +116,27 @@ QGraphicsLineItem* Form::findQGraphicsLineItem(int x1, int y1, int x2, int y2) {
 }
 
 void Form::drawEllipse(int x, int y) {
-    QBrush brush;
-    brush.setColor(Qt::red);
-    brush.setStyle(Qt::SolidPattern);
-    QGraphicsEllipseItem* item = scene->addEllipse(x - 5, y - 5, 10, 10, Qt::SolidLine, brush);
-    ellipses.push_back(item);
+    if (widget.pushSolve->isEnabled()) {
+        QBrush brush;
+        brush.setColor(Qt::red);
+        brush.setStyle(Qt::SolidPattern);
+        QGraphicsEllipseItem* item = scene->addEllipse(x - 5, y - 5, 10, 10, Qt::SolidLine, brush);
+        ellipses.push_back(item);
+    }
 }
 
 void Form::drawLine(int x, int y, int x2, int y2) {
-    QBrush brushLine;
-    brushLine.setColor(Qt::blue);
-    brushLine.setStyle(Qt::SolidPattern);
-    QPen pen;
-    pen.setBrush(brushLine);
-    pen.setStyle(Qt::SolidLine);
-    pen.setWidth(3);
-    QGraphicsLineItem* item = scene->addLine(x, y, x2, y2, pen);
-    lines.push_back(item);
+    if (widget.pushSolve->isEnabled()) {
+        QBrush brushLine;
+        brushLine.setColor(Qt::blue);
+        brushLine.setStyle(Qt::SolidPattern);
+        QPen pen;
+        pen.setBrush(brushLine);
+        pen.setStyle(Qt::SolidLine);
+        pen.setWidth(3);
+        QGraphicsLineItem* item = scene->addLine(x, y, x2, y2, pen);
+        lines.push_back(item);
+    }
 }
 
 void Form::deleteEllipse(QGraphicsEllipseItem* item) {
@@ -193,13 +202,26 @@ void Form::mouseMoveEvent(QMouseEvent*/* e*/) {
 }
 
 void Form::solve() {
+//    QTimer* timer = new QTimer(this);
+//    connect(timer, SIGNAL(timeout()), this, SLOT(calculate()));
+//    timer->setSingleShot(true);
+//    timer->start(10);
+    calculate();
+}
+
+void Form::calculate() {
     QString title = QString::fromUtf8("Solve");
-    QString question = QString::fromUtf8("Solve task?");
+    QString question = QString::fromUtf8("Solve?");
     int answer =
             QMessageBox::question(this, title, question, QMessageBox::Yes, QMessageBox::No);
     if (answer == QMessageBox::Yes) {
-        statusBar()->showMessage(QString("started"), 5000);
-        qDebug() << "___ started ____";
+        widget.pushClear->setDisabled(true);
+        widget.pushSolve->setDisabled(true);
+        widget.radioEdges->setDisabled(true);
+        widget.radioVertices->setDisabled(true);
+        widget.pushStop->setEnabled(true);
+        statusBar()->showMessage(QString("calculating..."));
+        success.clear();
         const int SIZE = ellipses.size();
         Matrix = new int [SIZE * SIZE];
         for (int i = 0; i < SIZE; i++) {
@@ -236,32 +258,47 @@ void Form::solve() {
         }
         delete[] Matrix;
         Matrix = NULL;
-        qDebug() << "___ finished ____";
         statusBar()->showMessage(QString("finished"), 5000);
+        widget.pushClear->setDisabled(false);
+        widget.pushSolve->setDisabled(false);
+        widget.radioEdges->setDisabled(false);
+        widget.radioVertices->setDisabled(false);
+        widget.pushStop->setEnabled(false);
+        stopMethod = false;
+        QString title = QString::fromUtf8("Result");
+        QString textValid = QString::fromUtf8("Success paths: %1").arg(success.size());
+        QString textInvalid = QString::fromUtf8("No any paths");
+        if (success.size() > 0) {
+            QMessageBox::information(NULL, title, textValid);
+        } else {
+            QMessageBox::warning(NULL, title, textInvalid);
+        }
     }
 }
 
 void Form::nextStep(int step, QVector<int> path) {
+    if (stopMethod) {
+        return;
+    }
     QVector<int> possible;
+    QHash<int, int> paths;
+    foreach (int item, path) {
+        paths.insert(item, 0);
+    }
     const int SIZE = ellipses.size();
     int line;
     for (int i = 0; i < SIZE; i++) {
         line = Matrix[SIZE * i + step];
         if (line > -1) {
-            bool isPossible = true;
-            for (int j = 0; j < path.size(); j++) {
-                if (line == path[j]) {
-                    isPossible = false;
-                }
-            }
-            if (isPossible) {
+            if (!paths.contains(line)) {
                 possible.push_back(i);
             }
         }
     }
     if (possible.size() == 0) {
         if (path.size() == lines.size()) {
-            qDebug() << path;
+//            qDebug() << path;
+            success.push_back(path);
         }
         return;
     }
@@ -271,6 +308,7 @@ void Form::nextStep(int step, QVector<int> path) {
         path1.push_back(Matrix[SIZE * possible[i] + step]);
         nextStep(possible[i], path1);
     }
+    QCoreApplication::processEvents();
 }
 
 void Form::clear() {
@@ -283,4 +321,13 @@ void Form::clear() {
             deleteEllipse(ellipse);
         }
     }
+}
+
+void Form::stop() {
+    stopMethod = true;
+}
+
+void Form::closeEvent(QCloseEvent *event) {
+    stopMethod = true;
+    event->accept();
 }
