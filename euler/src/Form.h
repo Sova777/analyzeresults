@@ -28,10 +28,14 @@ private:
     void closeEvent(QCloseEvent *event);
     QGraphicsEllipseItem* ellipse1;
     int* Matrix;
+    int activeLine;
     void drawEllipse(int x, int y);
     void drawLine(int x, int y, int x2, int y2);
     void deleteEllipse(QGraphicsEllipseItem* item);
     void deleteLine(QGraphicsLineItem* item);
+    void selectLine();
+    void unselectLine();
+    void unselectLine(QGraphicsLineItem* item);
     void setEllipseAsActive(QGraphicsEllipseItem* item);
     void setEllipseAsNonActive(QGraphicsEllipseItem* item);
     QGraphicsEllipseItem* findQGraphicsEllipseItem(int x, int y);
@@ -41,10 +45,13 @@ private:
     int getY(int y);
     void nextStep(int step, QVector<int> path);
     void calculate();
+    void clearPaths();
 private slots:
     void clear();
     void solve();
     void stop();
+    void next();
+    void previous();
 };
 
 #endif	/* _FORM_H */
