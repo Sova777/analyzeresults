@@ -19,6 +19,10 @@ Form::Form() {
             this, SLOT(clear()));
     connect(widget.pushStop, SIGNAL(clicked()),
             this, SLOT(stop()));
+    connect(widget.pushNext, SIGNAL(clicked()),
+            this, SLOT(next()));
+    connect(widget.pushPrevious, SIGNAL(clicked()),
+            this, SLOT(previous()));
 
     scene = widget.graphicsView->scene();
     if (scene == NULL) {
@@ -50,34 +54,39 @@ inline int Form::getY(int y) {
 }
 
 void Form::mousePressEvent(QMouseEvent* e) {
-    int x = e->x() - widget.graphicsView->x();
-    int y = e->y() - widget.graphicsView->y();
-    x = getX(x);
-    y = getY(y);
-    if ((x > 15) && (y > 15) && (x < 684) && (y < 684)) {
-        QGraphicsEllipseItem* ellipse = findQGraphicsEllipseItem(x, y);
-        if (widget.radioVertices->isChecked()) {
-            if (ellipse != NULL) {
-                deleteEllipse(ellipse);
-            } else {
-                drawEllipse(x, y);
+    if (!widget.pushStop->isEnabled()) {
+        int x = e->x() - widget.graphicsView->x();
+        int y = e->y() - widget.graphicsView->y();
+        x = getX(x);
+        y = getY(y);
+        if ((x > 15) && (y > 15) && (x < 684) && (y < 684)) {
+            if (widget.pushNext->isEnabled() || widget.pushPrevious->isEnabled()) {
+                clearPaths();
             }
-        } else {
-            if (ellipse != NULL) {
-                if (ellipse1 == NULL) {
-                    setEllipseAsActive(ellipse);
+            QGraphicsEllipseItem* ellipse = findQGraphicsEllipseItem(x, y);
+            if (widget.radioVertices->isChecked()) {
+                if (ellipse != NULL) {
+                    deleteEllipse(ellipse);
                 } else {
-                    if (ellipse1 == ellipse) {
-                        setEllipseAsNonActive(ellipse);
+                    drawEllipse(x, y);
+                }
+            } else {
+                if (ellipse != NULL) {
+                    if (ellipse1 == NULL) {
+                        setEllipseAsActive(ellipse);
                     } else {
-                        int x2 = ellipse1->rect().x() + 5;
-                        int y2 = ellipse1->rect().y() + 5;
-                        QGraphicsLineItem* line = findQGraphicsLineItem(x, y, x2, y2);
-                        if (line == NULL) {
-                            setEllipseAsNonActive(ellipse1);
-                            drawLine(x, y, x2, y2);
+                        if (ellipse1 == ellipse) {
+                            setEllipseAsNonActive(ellipse);
                         } else {
-                            deleteLine(line);
+                            int x2 = ellipse1->rect().x() + 5;
+                            int y2 = ellipse1->rect().y() + 5;
+                            QGraphicsLineItem* line = findQGraphicsLineItem(x, y, x2, y2);
+                            if (line == NULL) {
+                                setEllipseAsNonActive(ellipse1);
+                                drawLine(x, y, x2, y2);
+                            } else {
+                                deleteLine(line);
+                            }
                         }
                     }
                 }
@@ -177,6 +186,30 @@ void Form::deleteLine(QGraphicsLineItem* item) {
     }
 }
 
+void Form::selectLine() {
+    QGraphicsLineItem* item = lines[success[0][activeLine]];
+    if (item != NULL) {
+        QPen pen1;
+        pen1.setColor(Qt::green);
+        pen1.setStyle(Qt::SolidLine);
+        pen1.setWidth(3);
+        item->setPen(pen1);
+    }
+}
+
+void Form::unselectLine() {
+    QGraphicsLineItem* item = lines[success[0][activeLine]];
+    unselectLine(item);
+}
+
+void Form::unselectLine(QGraphicsLineItem* item) {
+    QPen pen1;
+    pen1.setColor(Qt::blue);
+    pen1.setStyle(Qt::SolidLine);
+    pen1.setWidth(3);
+    item->setPen(pen1);
+}
+
 void Form::setEllipseAsActive(QGraphicsEllipseItem* item) {
     QBrush brush;
     brush.setColor(Qt::green);
@@ -215,8 +248,11 @@ void Form::calculate() {
     int answer =
             QMessageBox::question(this, title, question, QMessageBox::Yes, QMessageBox::No);
     if (answer == QMessageBox::Yes) {
+        clearPaths();
         widget.pushClear->setDisabled(true);
         widget.pushSolve->setDisabled(true);
+        widget.pushNext->setDisabled(true);
+        widget.pushPrevious->setDisabled(true);
         widget.radioEdges->setDisabled(true);
         widget.radioVertices->setDisabled(true);
         widget.pushStop->setEnabled(true);
@@ -261,6 +297,8 @@ void Form::calculate() {
         statusBar()->showMessage(QString("finished"), 5000);
         widget.pushClear->setDisabled(false);
         widget.pushSolve->setDisabled(false);
+        widget.pushNext->setEnabled(false);
+        widget.pushPrevious->setEnabled(false);
         widget.radioEdges->setDisabled(false);
         widget.radioVertices->setDisabled(false);
         widget.pushStop->setEnabled(false);
@@ -270,6 +308,11 @@ void Form::calculate() {
         QString textInvalid = QString::fromUtf8("No any paths");
         if (success.size() > 0) {
             QMessageBox::information(NULL, title, textValid);
+            if (lines.size() > 0) {
+                widget.pushNext->setEnabled(true);
+                activeLine = 0;
+                selectLine();
+            }
         } else {
             QMessageBox::warning(NULL, title, textInvalid);
         }
@@ -320,6 +363,7 @@ void Form::clear() {
         foreach (QGraphicsEllipseItem* ellipse, ellipses) {
             deleteEllipse(ellipse);
         }
+        clearPaths();
     }
 }
 
@@ -330,4 +374,41 @@ void Form::stop() {
 void Form::closeEvent(QCloseEvent *event) {
     stopMethod = true;
     event->accept();
+}
+
+void Form::next() {
+    widget.pushPrevious->setEnabled(true);
+    if ((activeLine + 1) < lines.size()) {
+        unselectLine();
+        activeLine++;
+        selectLine();
+    }
+    if ((activeLine + 1) == lines.size()) {
+        widget.pushNext->setDisabled(true);
+    }
+}
+
+void Form::previous() {
+    widget.pushNext->setEnabled(true);
+    if (activeLine > 0) {
+        unselectLine();
+        activeLine--;
+        selectLine();
+    }
+    if (activeLine == 0) {
+        widget.pushPrevious->setDisabled(true);
+    }
+}
+
+void Form::clearPaths() {
+    widget.pushNext->setDisabled(true);
+    widget.pushPrevious->setDisabled(true);
+    success.clear();
+    activeLine = 0;
+    foreach (QGraphicsLineItem* item, lines) {
+        unselectLine(item);
+    }
+    foreach (QGraphicsEllipseItem* item, ellipses) {
+        setEllipseAsNonActive(item);
+    }
 }
