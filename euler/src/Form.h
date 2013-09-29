@@ -22,8 +22,10 @@ private:
     QGraphicsScene* scene;
     QVector<QGraphicsEllipseItem*> ellipses;
     QVector<QGraphicsLineItem*> lines;
+    QVector<QVector<int> > success;
     void mousePressEvent(QMouseEvent* e);
     void mouseMoveEvent(QMouseEvent* e);
+    void closeEvent(QCloseEvent *event);
     QGraphicsEllipseItem* ellipse1;
     int* Matrix;
     void drawEllipse(int x, int y);
@@ -34,12 +36,15 @@ private:
     void setEllipseAsNonActive(QGraphicsEllipseItem* item);
     QGraphicsEllipseItem* findQGraphicsEllipseItem(int x, int y);
     QGraphicsLineItem* findQGraphicsLineItem(int x1, int y1, int x2, int y2);
+    bool stopMethod;
     int getX(int x);
     int getY(int y);
     void nextStep(int step, QVector<int> path);
+    void calculate();
 private slots:
-    void solve();
     void clear();
+    void solve();
+    void stop();
 };
 
 #endif	/* _FORM_H */
