@@ -35,7 +35,7 @@ Form::Form() {
 }
 
 void Form::init() {
-    for (int i = 0; i < 28; i++) {
+    for (int i = 0; i <= 28; i++) {
         scene->addLine(0, 25 * i, 699, 25 * i);
         scene->addLine(25 * i, 0, 25 * i, 699);
     }
@@ -388,6 +388,18 @@ void Form::next() {
     }
 }
 
+//void Form::current() {
+//    widget.pushPrevious->setEnabled(true);
+//    if ((activeLine + 1) < lines.size()) {
+//        unselectLine();
+//        activeLine++;
+//        selectLine();
+//    }
+//    if ((activeLine + 1) == lines.size()) {
+//        widget.pushNext->setDisabled(true);
+//    }
+//}
+
 void Form::previous() {
     widget.pushNext->setEnabled(true);
     if (activeLine > 0) {
@@ -412,3 +424,19 @@ void Form::clearPaths() {
         setEllipseAsNonActive(item);
     }
 }
+
+//void Form::animate() {
+//    if (!widget.pushPrevious->isEnabled() && !widget.pushNext->isEnabled()) {
+//        return;
+//    }
+//    if (!widget.pushPrevious->isEnabled()) {
+//        activeLine = 0;
+//        selectLine();
+//        QTimer::singleShot(1000, this, SLOT(animate()));
+//    } else {
+//        if (widget.pushNext->isEnabled()) {
+//            next();
+//            QTimer::singleShot(1000, this, SLOT(animate()));
+//        }
+//    }
+//}
