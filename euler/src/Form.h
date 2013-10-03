@@ -52,6 +52,7 @@ private slots:
     void stop();
     void next();
     void previous();
+//    void animate();
 };
 
 #endif	/* _FORM_H */
