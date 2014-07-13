@@ -114,6 +114,8 @@ MainWindow::MainWindow() {
             this, SLOT(cellSelected(int, int)));
     connect(widget.pushRefresh, SIGNAL(clicked()),
             this, SLOT(refresh()));
+    connect(widget.pushSelect, SIGNAL(clicked()),
+            this, SLOT(select()));
     connect(widget.pushBack, SIGNAL(clicked()),
             this, SLOT(back()));
     connect(widget.comboTournaments, SIGNAL(currentIndexChanged (int)),
@@ -831,10 +833,14 @@ void MainWindow::initTable(QStringList& titles, int columnWidth, int rows) {
 void MainWindow::cellSelected(int row, int column) {
     if (column >= 0) {
         QTableWidgetItem* item = widget.table->item(row, widget.table->columnCount() - 1);
-        if (item != NULL) {
-            QString link = item->text();
-            jump(link);
-        }
+        itemSelected(item);
+    }
+}
+
+void MainWindow::itemSelected(QTableWidgetItem* item) {
+    if (item != NULL) {
+        QString link = item->text();
+        jump(link);
     }
 }
 
@@ -1055,6 +1061,16 @@ void MainWindow::refresh() {
 
 void MainWindow::back() {
     jump(previous, param_previous);
+}
+
+void MainWindow::select() {
+    if (widget.table->isVisible()) {
+        QList<QTableWidgetItem*> list = widget.table->selectedItems();
+        if (list.size() > 0) {
+            QTableWidgetItem* item = widget.table->item(list[0]->row(), widget.table->columnCount() - 1);
+            itemSelected(item);
+        }
+    }
 }
 
 void MainWindow::changeTournaments(int index) {

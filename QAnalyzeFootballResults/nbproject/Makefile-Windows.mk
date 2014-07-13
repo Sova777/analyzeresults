@@ -19,10 +19,11 @@ CCC=g++
 CXX=g++
 FC=gfortran
 AS=as
-QMAKE=qmake.exe
+QMAKE=qmake
 
 # Macros
 CND_PLATFORM=MinGW-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Windows
 CND_DISTDIR=dist
 CND_BUILDDIR=build

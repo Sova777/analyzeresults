@@ -11,6 +11,13 @@
 #include <QTimer>
 #include <cstdlib>
 
+const int CIRCLE_WIDTH = 30;
+const int CIRCLE_OFFSET = CIRCLE_WIDTH / 2;
+const int CELL_SIZE = 70;
+const int CELL_SIZE_OFFSET = CELL_SIZE / 2;
+const int CELLS_X = 9;
+const int CELLS_Y = 6;
+
 Form::Form() {
     widget.setupUi(this);
     connect(widget.pushSolve, SIGNAL(clicked()),
@@ -35,21 +42,23 @@ Form::Form() {
 }
 
 void Form::init() {
-    for (int i = 0; i <= 28; i++) {
-        scene->addLine(0, 25 * i, 699, 25 * i);
-        scene->addLine(25 * i, 0, 25 * i, 699);
+    for (int i = 0; i <= CELLS_Y; i++) {
+        scene->addLine(0, CELL_SIZE * i, CELL_SIZE * CELLS_X - 1, CELL_SIZE * i);
+    }
+    for (int i = 0; i <= CELLS_X; i++) {
+        scene->addLine(CELL_SIZE * i, 0, CELL_SIZE * i, CELL_SIZE * CELLS_Y - 1);
     }
 }
 
 inline int Form::getX(int x) {
-    int modx = x % 25;
-    x -= modx + ((modx < 14) ? 0 : -25);
+    int modx = x % CELL_SIZE;
+    x -= modx + ((modx <= CELL_SIZE_OFFSET) ? 0 : -CELL_SIZE);
     return x;
 }
 
 inline int Form::getY(int y) {
-    int mody = y % 25;
-    y -= mody + ((mody < 14) ? 0 : -25);
+    int mody = y % CELL_SIZE;
+    y -= mody + ((mody <= CELL_SIZE_OFFSET) ? 0 : -CELL_SIZE);
     return y;
 }
 
@@ -59,7 +68,7 @@ void Form::mousePressEvent(QMouseEvent* e) {
         int y = e->y() - widget.graphicsView->y();
         x = getX(x);
         y = getY(y);
-        if ((x > 15) && (y > 15) && (x < 684) && (y < 684)) {
+        if ((x > CELL_SIZE_OFFSET) && (y > CELL_SIZE_OFFSET) && (x < (CELL_SIZE * CELLS_X - CELL_SIZE_OFFSET)) && (y < (CELL_SIZE * CELLS_Y - CELL_SIZE_OFFSET))) {
             if (widget.pushNext->isEnabled() || widget.pushPrevious->isEnabled()) {
                 clearPaths();
             }
@@ -78,8 +87,8 @@ void Form::mousePressEvent(QMouseEvent* e) {
                         if (ellipse1 == ellipse) {
                             setEllipseAsNonActive(ellipse);
                         } else {
-                            int x2 = ellipse1->rect().x() + 5;
-                            int y2 = ellipse1->rect().y() + 5;
+                            int x2 = ellipse1->rect().x() + CIRCLE_OFFSET;
+                            int y2 = ellipse1->rect().y() + CIRCLE_OFFSET;
                             QGraphicsLineItem* line = findQGraphicsLineItem(x, y, x2, y2);
                             if (line == NULL) {
                                 setEllipseAsNonActive(ellipse1);
@@ -100,7 +109,7 @@ QGraphicsEllipseItem* Form::findQGraphicsEllipseItem(int x, int y) {
         QGraphicsEllipseItem* ellipse = ellipses[i];
         int x0 = ellipse->rect().x();
         int y0 = ellipse->rect().y();
-        if (((x0 + 5) == x) && ((y0 + 5) == y)) {
+        if (((x0 + CIRCLE_OFFSET) == x) && ((y0 + CIRCLE_OFFSET) == y)) {
             return ellipse;
         }
     }
@@ -129,7 +138,7 @@ void Form::drawEllipse(int x, int y) {
         QBrush brush;
         brush.setColor(Qt::red);
         brush.setStyle(Qt::SolidPattern);
-        QGraphicsEllipseItem* item = scene->addEllipse(x - 5, y - 5, 10, 10, Qt::SolidLine, brush);
+        QGraphicsEllipseItem* item = scene->addEllipse(x - CIRCLE_OFFSET, y - CIRCLE_OFFSET, CIRCLE_WIDTH, CIRCLE_WIDTH, Qt::SolidLine, brush);
         ellipses.push_back(item);
     }
 }
@@ -142,7 +151,7 @@ void Form::drawLine(int x, int y, int x2, int y2) {
         QPen pen;
         pen.setBrush(brushLine);
         pen.setStyle(Qt::SolidLine);
-        pen.setWidth(3);
+        pen.setWidth(9);
         QGraphicsLineItem* item = scene->addLine(x, y, x2, y2, pen);
         lines.push_back(item);
     }
@@ -151,8 +160,8 @@ void Form::drawLine(int x, int y, int x2, int y2) {
 void Form::deleteEllipse(QGraphicsEllipseItem* item) {
     for (int j = 0; j < ellipses.size(); j++) {
         if (item == ellipses[j]) {
-            int ix = item->rect().x() + 5;
-            int iy = item->rect().y() + 5;
+            int ix = item->rect().x() + CIRCLE_OFFSET;
+            int iy = item->rect().y() + CIRCLE_OFFSET;
             ellipses.remove(j);
             scene->removeItem(item);
             ellipse1 = NULL;
@@ -192,7 +201,7 @@ void Form::selectLine() {
         QPen pen1;
         pen1.setColor(Qt::green);
         pen1.setStyle(Qt::SolidLine);
-        pen1.setWidth(3);
+        pen1.setWidth(9);
         item->setPen(pen1);
     }
 }
@@ -206,7 +215,7 @@ void Form::unselectLine(QGraphicsLineItem* item) {
     QPen pen1;
     pen1.setColor(Qt::blue);
     pen1.setStyle(Qt::SolidLine);
-    pen1.setWidth(3);
+    pen1.setWidth(9);
     item->setPen(pen1);
 }
 
@@ -273,8 +282,8 @@ void Form::calculate() {
             ly2 = lines[i]->line().y2();
             e1 = -1, e2 = -1;
             for (int j = 0; j < ellipses.size(); j++) {
-                ex = ellipses[j]->rect().x() + 5;
-                ey = ellipses[j]->rect().y() + 5;
+                ex = ellipses[j]->rect().x() + CIRCLE_OFFSET;
+                ey = ellipses[j]->rect().y() + CIRCLE_OFFSET;
                 if ((ex == lx1) && (ey == ly1)) {
                     e1 = j;
                 }
@@ -364,6 +373,7 @@ void Form::clear() {
             deleteEllipse(ellipse);
         }
         clearPaths();
+        widget.radioVertices->setChecked(true);
     }
 }
 
