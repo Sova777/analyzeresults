@@ -80,7 +80,7 @@ const QString TABLE_TABLE2_COLUMN4 = QString::fromUtf8("Гости");
 const QString TABLE_TABLE2_COLUMN5 = QString::fromUtf8("Счёт");
 
 const QString TABLE_REFERIES_COLUMN1 = QString::fromUtf8("Судья");
-const QString TABLE_REFERIES_COLUMN2 = QString::fromUtf8("Город");
+const QString TABLE_REFERIES_COLUMN2 = QString::fromUtf8("Город/Страна");
 const QString TABLE_REFERIES_COLUMN3 = QString::fromUtf8("Игр");
 const QString TABLE_REFERIES_COLUMN4 = QString::fromUtf8("Красная");
 const QString TABLE_REFERIES_COLUMN5 = QString::fromUtf8("Ж+Кр");

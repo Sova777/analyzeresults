@@ -107,7 +107,7 @@ void listOfGoals2(const XmlFilter& xmlFilter, StatHash* hash) {
         xmlFilter.window->widget.table->setColumnWidth(1, 120);
         xmlFilter.window->widget.table->setColumnWidth(2, 120);
         xmlFilter.window->widget.table->setColumnWidth(3, 90);
-        xmlFilter.window->widget.table->setColumnWidth(4, 90);
+        xmlFilter.window->widget.table->setColumnWidth(4, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
@@ -130,12 +130,12 @@ void listOfGoals2(const XmlFilter& xmlFilter, StatHash* hash) {
 void listOfReferies(const XmlFilter& xmlFilter, StatHash* hash) {
     if (xmlFilter.window == NULL) {
         QString name = xmlFilter.report->getReferee();
-        QString city = xmlFilter.report->getRefereeCity();
+        QString location = xmlFilter.report->getRefereeLocation();
         QVector<Report::Event> events = xmlFilter.report->getEvents();
-        QString key = QString("%1 (%2)").arg(name).arg(city);
+        QString key = QString("%1 (%2)").arg(name).arg(location);
         Record* record = Record::getInstance(hash, key);
         record->setString(name, 0);
-        record->setString(city, 1);
+        record->setString(location, 1);
         record->add(1);
 
         uint length = events.size();
@@ -218,6 +218,7 @@ void listOfReferies2(const XmlFilter& xmlFilter, StatHash* hash) {
         xmlFilter.window->widget.table->setColumnWidth(1, 120);
         xmlFilter.window->widget.table->setColumnWidth(2, 120);
         xmlFilter.window->widget.table->setColumnWidth(3, 120);
+        xmlFilter.window->widget.table->setColumnWidth(4, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
@@ -444,6 +445,7 @@ void listOfCoaches2(const XmlFilter& xmlFilter, StatHash* hash) {
         xmlFilter.window->widget.table->setColumnWidth(1, 120);
         xmlFilter.window->widget.table->setColumnWidth(2, 120);
         xmlFilter.window->widget.table->setColumnWidth(3, 120);
+        xmlFilter.window->widget.table->setColumnWidth(4, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
@@ -545,6 +547,7 @@ void listOfStadiums2(const XmlFilter& xmlFilter, StatHash* hash) {
         xmlFilter.window->widget.table->setColumnWidth(1, 120);
         xmlFilter.window->widget.table->setColumnWidth(2, 120);
         xmlFilter.window->widget.table->setColumnWidth(3, 120);
+        xmlFilter.window->widget.table->setColumnWidth(4, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
@@ -585,6 +588,7 @@ void listOfMatches(const XmlFilter& xmlFilter, StatHash* hash) {
         xmlFilter.window->widget.table->setColumnWidth(0, 120);
         xmlFilter.window->widget.table->setColumnWidth(1, 120);
         xmlFilter.window->widget.table->setColumnWidth(2, 120);
+        xmlFilter.window->widget.table->setColumnWidth(3, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
@@ -743,6 +747,7 @@ void listOfPlayers2(const XmlFilter& xmlFilter, StatHash* hash) {
         xmlFilter.window->widget.table->setColumnWidth(1, 120);
         xmlFilter.window->widget.table->setColumnWidth(2, 120);
         xmlFilter.window->widget.table->setColumnWidth(3, 120);
+        xmlFilter.window->widget.table->setColumnWidth(4, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {
@@ -1184,6 +1189,7 @@ void listOfTable2(const XmlFilter& xmlFilter, StatHash* hash) {
         xmlFilter.window->widget.table->setColumnWidth(1, 120);
         xmlFilter.window->widget.table->setColumnWidth(2, 120);
         xmlFilter.window->widget.table->setColumnWidth(3, 120);
+        xmlFilter.window->widget.table->setColumnWidth(4, 120);
 
         int i = 0;
         foreach(StatHashValue* record, *hash) {

@@ -112,6 +112,11 @@ void Report::setPenalties2(const QString& penalties2_) {
 const QString* Report::getScore() const {
     QString* score = new QString(goals1);
     score->append(":").append(goals2);
+    if (penalties1 != "") {
+        score->append(QString(", д.в %1:%2, пен. %3:%4").arg(extra1).arg(extra2).arg(penalties1).arg(penalties2));
+    } else if (extra1 != "") {
+        score->append(QString(", д.в %1:%2").arg(extra1).arg(extra2));
+    }
     return score;
 }
 
@@ -250,6 +255,7 @@ void Report::setRefereeAttributes(QXmlStreamReader& xml) {
     QXmlStreamAttributes attributes = xml.attributes();
     this->refereeId = attributes.value("id").toString();
     this->refereeCity = attributes.value("city").toString();
+    this->refereeCountry = attributes.value("country").toString();
 }
 
 void Report::setReferee(QXmlStreamReader& xml) {
@@ -266,6 +272,20 @@ const QString& Report::getRefereeId() const {
 
 const QString& Report::getRefereeCity() const {
     return refereeCity;
+}
+
+const QString& Report::getRefereeCountry() const {
+    return refereeCountry;
+}
+
+const QString Report::getRefereeLocation() const {
+    if (refereeCity == "") {
+        return refereeCountry;
+    }
+    if (refereeCountry == "") {
+        return refereeCity;
+    }
+    return refereeCity + "(" + refereeCountry + ")";
 }
 
 void Report::setMatchAttributes(QXmlStreamReader& xml) {
@@ -369,6 +389,10 @@ void Report::setReferee(const QString& referee_) {
 
 void Report::setRefereeCity(const QString& refereeCity_) {
     refereeCity = refereeCity_;
+}
+
+void Report::setRefereeCountry(const QString& refereeCountry_) {
+    refereeCity = refereeCountry_;
 }
 
 void Report::addPlayer1(const QString& id, const QString& player) {
