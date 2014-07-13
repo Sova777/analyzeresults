@@ -605,6 +605,7 @@ void MainWindow::openQfb(const QString& fileName, QDate* fromDate, QDate* tillDa
                 QString RefereeId;
                 QString Referee;
                 QString RefereeCity;
+                QString RefereeCountry;
                 quint32 lenPlayers1;
                 quint32 lenPlayers2;
                 quint32 lenEvents;
@@ -663,6 +664,8 @@ void MainWindow::openQfb(const QString& fileName, QDate* fromDate, QDate* tillDa
                 report.setReferee(Referee);
                 in >> RefereeCity;
                 report.setRefereeCity(RefereeCity);
+                in >> RefereeCountry;
+                report.setRefereeCountry(RefereeCountry);
                 tournaments.insert(MatchTournament, 0);
                 if (Date < *fromDate) {
                     *fromDate = Date;
@@ -749,6 +752,7 @@ void MainWindow::saveChanges() {
         out << report.getRefereeId();
         out << report.getReferee();
         out << report.getRefereeCity();
+        out << report.getRefereeCountry();
         QVector<Report::Player> players1 = report.getPlayers1();
         quint32 count = players1.size();
         out << count;
@@ -958,7 +962,7 @@ void MainWindow::report(const QString& fileName) {
             const QString* score = report.getScore();
             QString time = report.getTime();
             QDate date = report.getDate();
-            QString rcity = report.getRefereeCity();
+            QString rlocation = report.getRefereeLocation();
             QString referee = report.getReferee();
             QString round = report.getMatchRound();
             QString tournament = report.getMatchTournament();
@@ -986,7 +990,7 @@ void MainWindow::report(const QString& fileName) {
                     .arg(stadium)
                     .arg(attendance)
                     .arg(referee)
-                    .arg(rcity)
+                    .arg(rlocation)
                     .arg(time)
                     .arg(date.toString(Qt::DefaultLocaleLongDate)));
 

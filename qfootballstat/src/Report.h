@@ -93,6 +93,8 @@ public:
     void setRefereeAttributes(QXmlStreamReader& xml);
     const QString& getRefereeId() const;
     const QString& getRefereeCity() const;
+    const QString& getRefereeCountry() const;
+    const QString getRefereeLocation() const;
     void setReferee(QXmlStreamReader& xml);
     const QString& getReferee() const;
     void setMatchAttributes(QXmlStreamReader& xml);
@@ -129,6 +131,7 @@ public:
     void setRefereeId(const QString&);
     void setReferee(const QString&);
     void setRefereeCity(const QString&);
+    void setRefereeCountry(const QString& refereeCountry_);
     void addPlayer1(const QString& id, const QString& player);
     void addPlayer2(const QString& id, const QString& player);
     void addEvent(const QString& type, const QString& time, const QString& team, const QString& comment, const QString& playerid, const QString& player, const QString& playerid2, const QString& player2);
@@ -158,6 +161,7 @@ private:
     QString referee;
     QString refereeId;
     QString refereeCity;
+    QString refereeCountry;
     QString matchId;
     QString matchRound;
     QString matchTournament;
