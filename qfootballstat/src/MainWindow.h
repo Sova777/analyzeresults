@@ -32,6 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <QFileDialog>
 #include <QMap>
 #include <QMessageBox>
+#include <QString>
 #include <QtXml>
 #include "ui_MainWindow.h"
 #include "XmlFileReader.h"
@@ -70,6 +71,7 @@ private:
 
     void calculate(pointer func, const QString& qfilter);
     void openQfb(const QString& fileName, QDate* fromDate, QDate* tillDate);
+    void itemSelected(QTableWidgetItem* item);
 
     void findPlayer();
     void findCoach();
@@ -112,6 +114,7 @@ private slots:
     void cellSelected(int row, int column);
     void refresh();
     void back();
+    void select();
     void changeTournaments(int index);
     void contextMenu(const QPoint& pos);
 };

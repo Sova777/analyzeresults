@@ -630,15 +630,15 @@
           <day>1</day>
          </datetime>
         </property>
+        <property name="displayFormat">
+         <string>dd.MM.yyyy</string>
+        </property>
         <property name="date">
          <date>
           <year>2800</year>
           <month>1</month>
           <day>1</day>
          </date>
-        </property>
-        <property name="displayFormat">
-         <string>dd.MM.yyyy</string>
         </property>
        </widget>
       </item>
@@ -650,15 +650,15 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="displayFormat">
+         <string>dd.MM.yyyy</string>
+        </property>
         <property name="date">
          <date>
           <year>1800</year>
           <month>1</month>
           <day>1</day>
          </date>
-        </property>
-        <property name="displayFormat">
-         <string>dd.MM.yyyy</string>
         </property>
        </widget>
       </item>
@@ -721,6 +721,13 @@
        <widget class="QCheckBox" name="checkBoxID">
         <property name="text">
          <string>&amp;Учитывать ID</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="6">
+       <widget class="QPushButton" name="pushSelect">
+        <property name="text">
+         <string>&amp;Выбрать</string>
         </property>
        </widget>
       </item>
