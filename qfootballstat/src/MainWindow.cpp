@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009 - 2013, Valeriy Soldatov
+Copyright (c) 2009 - 2014, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -36,6 +36,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "constants.h"
 #include "ui_MainWindow.h"
 #include "EditReport.h"
+#include "DumpToHtml.h"
 
 using namespace std;
 
@@ -47,6 +48,8 @@ MainWindow::MainWindow() {
             this, SLOT(close()));
     connect(widget.actionSaveAsText, SIGNAL(triggered()),
             this, SLOT(saveAsText()));
+    connect(widget.actionSaveAsHtml, SIGNAL(triggered()),
+            this, SLOT(saveAsHtml()));
     connect(widget.actionSaveAsQfb, SIGNAL(triggered()),
             this, SLOT(saveAsQfb()));
     connect(widget.actionSave, SIGNAL(triggered()),
@@ -532,6 +535,12 @@ void MainWindow::saveAsText() {
     }
     writeLine(out);
     file.close();
+}
+
+void MainWindow::saveAsHtml() {
+    QString qstr = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Выберите имя директория"), NULL);
+    if (qstr == "") return;
+    DumpToHtml::save(qstr);
 }
 
 void MainWindow::newQfb() {

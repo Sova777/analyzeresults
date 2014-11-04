@@ -12,6 +12,7 @@ INCLUDEPATH += . src
 
 HEADERS += src/constants.h \
            src/ContextMenu.h \
+           src/DumpToHtml.h \
            src/EditReport.h \
            src/Filter.h \
            src/Find.h \
@@ -25,6 +26,7 @@ FORMS += src/MainWindow.ui \
          src/Find.ui
 SOURCES += src/main.cpp \
            src/ContextMenu.cpp \
+           src/DumpToHtml.cpp \
            src/EditReport.cpp \
            src/Filter.cpp \
            src/Find.cpp \

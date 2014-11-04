@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009 - 2013, Valeriy Soldatov
+Copyright (c) 2009 - 2014, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -83,6 +83,7 @@ private slots:
     void newQfb();
     void save();
     void saveAsText();
+    void saveAsHtml();
     void saveAsQfb();
     void addReport();
     void editReport();
