@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009 - 2013, Valeriy Soldatov
+Copyright (c) 2009 - 2014, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

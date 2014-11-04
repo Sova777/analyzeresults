@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009 - 2013, Valeriy Soldatov
+Copyright (c) 2009 - 2014, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -113,9 +113,9 @@ const QString* Report::getScore() const {
     QString* score = new QString(goals1);
     score->append(":").append(goals2);
     if (penalties1 != "") {
-        score->append(QString(", д.в %1:%2, пен. %3:%4").arg(extra1).arg(extra2).arg(penalties1).arg(penalties2));
+        score->append(QString::fromUtf8(", д.в %1:%2, пен. %3:%4").arg(extra1).arg(extra2).arg(penalties1).arg(penalties2));
     } else if (extra1 != "") {
-        score->append(QString(", д.в %1:%2").arg(extra1).arg(extra2));
+        score->append(QString::fromUtf8(", д.в %1:%2").arg(extra1).arg(extra2));
     }
     return score;
 }
@@ -392,7 +392,7 @@ void Report::setRefereeCity(const QString& refereeCity_) {
 }
 
 void Report::setRefereeCountry(const QString& refereeCountry_) {
-    refereeCity = refereeCountry_;
+    refereeCountry = refereeCountry_;
 }
 
 void Report::addPlayer1(const QString& id, const QString& player) {
