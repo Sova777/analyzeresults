@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="80">
+<configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -59,8 +59,9 @@
   <confs>
     <conf name="Solaris" type="1">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>OracleSolarisStudio|OracleSolarisStudio</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -99,11 +100,68 @@
           </makeArtifact>
         </requiredProjects>
       </compileType>
+      <item path="LICENSE" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/1.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/22.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/3.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/31.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/4.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/5.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/59.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/68.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/80.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/83.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/89.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/90.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/91.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/92.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/93.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/94.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/95.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/96.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/club.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/gv2008.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/gv2009.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/v2008.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/v2009.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/year.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/yv2008.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/yv2009.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
     <conf name="Linux" type="1">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -140,11 +198,68 @@
           </makeArtifact>
         </requiredProjects>
       </compileType>
+      <item path="LICENSE" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/1.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/22.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/3.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/31.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/4.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/5.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/59.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/68.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/80.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/83.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/89.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/90.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/91.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/92.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/93.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/94.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/95.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/96.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/club.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/gv2008.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/gv2009.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/v2008.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/v2009.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/year.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/yv2008.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/yv2009.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
     <conf name="Windows" type="1">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>MinGW|MinGW</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -192,6 +307,62 @@
           </makeArtifact>
         </requiredProjects>
       </compileType>
+      <item path="LICENSE" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/1.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/22.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/3.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/31.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/4.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/5.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/59.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/68.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/80.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/83.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/89.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/90.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/91.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/92.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/93.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/94.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/95.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/96.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/club.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/gv2008.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/gv2009.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/v2008.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/v2009.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/year.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/yv2008.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/yv2009.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>
