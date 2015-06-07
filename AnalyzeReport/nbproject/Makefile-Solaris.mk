@@ -22,6 +22,7 @@ AS=as
 
 # Macros
 CND_PLATFORM=OracleSolarisStudio-Solaris-x86
+CND_DLIB_EXT=so
 CND_CONF=Solaris
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -34,9 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/ReadFile.o \
-	${OBJECTDIR}/ReportTree.o
+	${OBJECTDIR}/ReportTree.o \
+	${OBJECTDIR}/main.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -69,11 +70,7 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzereport: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzereport ${OBJECTFILES} ${LDLIBSOPTIONS} 
-
-${OBJECTDIR}/main.o: main.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -o ${OBJECTDIR}/main.o main.cpp
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzereport ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/ReadFile.o: ReadFile.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -82,6 +79,10 @@ ${OBJECTDIR}/ReadFile.o: ReadFile.cpp
 ${OBJECTDIR}/ReportTree.o: ReportTree.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -o ${OBJECTDIR}/ReportTree.o ReportTree.cpp
+
+${OBJECTDIR}/main.o: main.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
@@ -116,18 +117,6 @@ ${TESTDIR}/tests/report3.o: tests/report3.cpp
 	$(COMPILE.cc) -g -I. -o ${TESTDIR}/tests/report3.o tests/report3.cpp
 
 
-${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/main.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    $(COMPILE.cc) -g -Dmain=__nomain -o ${OBJECTDIR}/main_nomain.o main.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
-	fi
-
 ${OBJECTDIR}/ReadFile_nomain.o: ${OBJECTDIR}/ReadFile.o ReadFile.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/ReadFile.o`; \
@@ -150,6 +139,18 @@ ${OBJECTDIR}/ReportTree_nomain.o: ${OBJECTDIR}/ReportTree.o ReportTree.cpp
 	    $(COMPILE.cc) -g -Dmain=__nomain -o ${OBJECTDIR}/ReportTree_nomain.o ReportTree.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/ReportTree.o ${OBJECTDIR}/ReportTree_nomain.o;\
+	fi
+
+${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/main.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    $(COMPILE.cc) -g -Dmain=__nomain -o ${OBJECTDIR}/main_nomain.o main.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
 	fi
 
 # Run Test Targets

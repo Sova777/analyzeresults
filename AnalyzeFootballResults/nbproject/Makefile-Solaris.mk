@@ -22,6 +22,7 @@ AS=as
 
 # Macros
 CND_PLATFORM=OracleSolarisStudio-Solaris-x86
+CND_DLIB_EXT=so
 CND_CONF=Solaris
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -34,14 +35,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Stat.o \
+	${OBJECTDIR}/ClubInfo.o \
 	${OBJECTDIR}/ClubName.o \
-	${OBJECTDIR}/Utils.o \
-	${OBJECTDIR}/Results.o \
-	${OBJECTDIR}/Years.o \
 	${OBJECTDIR}/Clubs.o \
+	${OBJECTDIR}/Results.o \
 	${OBJECTDIR}/ResultsDB.o \
-	${OBJECTDIR}/ClubInfo.o
+	${OBJECTDIR}/Stat.o \
+	${OBJECTDIR}/Utils.o \
+	${OBJECTDIR}/Years.o
 
 
 # C Compiler Flags
@@ -62,43 +63,43 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -library=stlport4 -G -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so -KPIC -norunpath -h libAnalyzeFootballResults.so ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -library=stlport4 -G -KPIC -norunpath -h libAnalyzeFootballResults.${CND_DLIB_EXT}
 
-${OBJECTDIR}/Stat.o: Stat.cpp 
+${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Stat.o Stat.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
 
 ${OBJECTDIR}/ClubName.o: ClubName.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ClubName.o ClubName.cpp
 
-${OBJECTDIR}/Utils.o: Utils.cpp 
+${OBJECTDIR}/Clubs.o: Clubs.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Utils.o Utils.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Clubs.o Clubs.cpp
 
 ${OBJECTDIR}/Results.o: Results.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Results.o Results.cpp
 
-${OBJECTDIR}/Years.o: Years.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Years.o Years.cpp
-
-${OBJECTDIR}/Clubs.o: Clubs.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Clubs.o Clubs.cpp
-
 ${OBJECTDIR}/ResultsDB.o: ResultsDB.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ResultsDB.o ResultsDB.cpp
 
-${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
+${OBJECTDIR}/Stat.o: Stat.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Stat.o Stat.cpp
+
+${OBJECTDIR}/Utils.o: Utils.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Utils.o Utils.cpp
+
+${OBJECTDIR}/Years.o: Years.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	$(COMPILE.cc) -g -KPIC  -o ${OBJECTDIR}/Years.o Years.cpp
 
 # Subprojects
 .build-subprojects:
@@ -106,7 +107,7 @@ ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.so
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.${CND_DLIB_EXT}
 	${CCADMIN} -clean
 
 # Subprojects
