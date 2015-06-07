@@ -22,6 +22,7 @@ AS=as
 
 # Macros
 CND_PLATFORM=MinGW-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Windows
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -34,14 +35,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Stat.o \
+	${OBJECTDIR}/ClubInfo.o \
 	${OBJECTDIR}/ClubName.o \
-	${OBJECTDIR}/Utils.o \
-	${OBJECTDIR}/Results.o \
-	${OBJECTDIR}/Years.o \
 	${OBJECTDIR}/Clubs.o \
+	${OBJECTDIR}/Results.o \
 	${OBJECTDIR}/ResultsDB.o \
-	${OBJECTDIR}/ClubInfo.o
+	${OBJECTDIR}/Stat.o \
+	${OBJECTDIR}/Utils.o \
+	${OBJECTDIR}/Years.o
 
 
 # C Compiler Flags
@@ -62,51 +63,51 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.dll
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.dll: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -shared -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.dll ${OBJECTFILES} ${LDLIBSOPTIONS} 
-
-${OBJECTDIR}/Stat.o: Stat.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Stat.o Stat.cpp
-
-${OBJECTDIR}/ClubName.o: ClubName.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubName.o ClubName.cpp
-
-${OBJECTDIR}/Utils.o: Utils.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Utils.o Utils.cpp
-
-${OBJECTDIR}/Results.o: Results.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Results.o Results.cpp
-
-${OBJECTDIR}/Years.o: Years.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Years.o Years.cpp
-
-${OBJECTDIR}/Clubs.o: Clubs.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Clubs.o Clubs.cpp
-
-${OBJECTDIR}/ResultsDB.o: ResultsDB.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResultsDB.o ResultsDB.cpp
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
 ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2  -MMD -MP -MF $@.d -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ClubInfo.o ClubInfo.cpp
+
+${OBJECTDIR}/ClubName.o: ClubName.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ClubName.o ClubName.cpp
+
+${OBJECTDIR}/Clubs.o: Clubs.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Clubs.o Clubs.cpp
+
+${OBJECTDIR}/Results.o: Results.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Results.o Results.cpp
+
+${OBJECTDIR}/ResultsDB.o: ResultsDB.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ResultsDB.o ResultsDB.cpp
+
+${OBJECTDIR}/Stat.o: Stat.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Stat.o Stat.cpp
+
+${OBJECTDIR}/Utils.o: Utils.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils.o Utils.cpp
+
+${OBJECTDIR}/Years.o: Years.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Years.o Years.cpp
 
 # Subprojects
 .build-subprojects:
@@ -114,7 +115,7 @@ ${OBJECTDIR}/ClubInfo.o: ClubInfo.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.dll
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libAnalyzeFootballResults.${CND_DLIB_EXT}
 
 # Subprojects
 .clean-subprojects:

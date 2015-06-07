@@ -22,6 +22,7 @@ AS=as
 
 # Macros
 CND_PLATFORM=MinGW-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Windows
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -61,12 +62,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe: ../Analyze
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analyzeresultsprogram ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I../AnalyzeFootballResults -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I../AnalyzeFootballResults -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
