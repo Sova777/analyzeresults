@@ -23,6 +23,7 @@ QMAKE=qmake
 
 # Macros
 CND_PLATFORM=OracleSolarisStudio-Solaris-x86
+CND_DLIB_EXT=so
 CND_CONF=Solaris
 CND_DISTDIR=dist
 CND_BUILDDIR=build
