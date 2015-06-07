@@ -29,10 +29,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define	DUMPTOHTML_H
 
 #include <QString>
+#include <QVector>
+#include "Report.h"
 
 class DumpToHtml {
 public:
-    static void save(QString directory);
+    static void save(QVector<Report>& reports, QString directory);
 private:
 };
 

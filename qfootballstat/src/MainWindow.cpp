@@ -540,7 +540,7 @@ void MainWindow::saveAsText() {
 void MainWindow::saveAsHtml() {
     QString qstr = QFileDialog::getExistingDirectory(this, QString::fromUtf8("Выберите имя директория"), NULL);
     if (qstr == "") return;
-    DumpToHtml::save(qstr);
+    DumpToHtml::save(reports, qstr);
 }
 
 void MainWindow::newQfb() {
