@@ -99,7 +99,7 @@
     <conf name="Solaris" type="1" platformSpecific="true">
       <toolsSet>
         <compilerSet>OracleSolarisStudio|OracleSolarisStudio</compilerSet>
-        <platform>3</platform>
+        <platform>1</platform>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
