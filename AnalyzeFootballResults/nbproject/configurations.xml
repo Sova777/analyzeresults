@@ -42,9 +42,10 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Solaris" type="2">
+    <conf name="Solaris" type="2" platformSpecific="true">
       <toolsSet>
         <compilerSet>OracleSolarisStudio|OracleSolarisStudio</compilerSet>
+        <platform>1</platform>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>

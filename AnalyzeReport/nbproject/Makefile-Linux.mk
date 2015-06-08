@@ -18,10 +18,10 @@ CC=gcc
 CCC=g++
 CXX=g++
 FC=gfortran
-AS=as
+AS=gas
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Solaris-x86
 CND_DLIB_EXT=so
 CND_CONF=Linux
 CND_DISTDIR=dist

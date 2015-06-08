@@ -47,9 +47,10 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Linux" type="1">
+    <conf name="Linux" type="1" platformSpecific="true">
       <toolsSet>
         <compilerSet>GNU|GNU</compilerSet>
+        <platform>1</platform>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>

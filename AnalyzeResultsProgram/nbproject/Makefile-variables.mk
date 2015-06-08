@@ -15,13 +15,13 @@ CND_PACKAGE_DIR_Solaris=dist/Solaris/OracleSolarisStudio-Solaris-x86/package
 CND_PACKAGE_NAME_Solaris=analyzeresultsprogram.tar
 CND_PACKAGE_PATH_Solaris=dist/Solaris/OracleSolarisStudio-Solaris-x86/package/analyzeresultsprogram.tar
 # Linux configuration
-CND_PLATFORM_Linux=GNU-Linux-x86
-CND_ARTIFACT_DIR_Linux=dist/Linux/GNU-Linux-x86
+CND_PLATFORM_Linux=GNU-Solaris-x86
+CND_ARTIFACT_DIR_Linux=dist/Linux/GNU-Solaris-x86
 CND_ARTIFACT_NAME_Linux=analyzeresultsprogram
-CND_ARTIFACT_PATH_Linux=dist/Linux/GNU-Linux-x86/analyzeresultsprogram
-CND_PACKAGE_DIR_Linux=dist/Linux/GNU-Linux-x86/package
+CND_ARTIFACT_PATH_Linux=dist/Linux/GNU-Solaris-x86/analyzeresultsprogram
+CND_PACKAGE_DIR_Linux=dist/Linux/GNU-Solaris-x86/package
 CND_PACKAGE_NAME_Linux=analyzeresultsprogram.tar
-CND_PACKAGE_PATH_Linux=dist/Linux/GNU-Linux-x86/package/analyzeresultsprogram.tar
+CND_PACKAGE_PATH_Linux=dist/Linux/GNU-Solaris-x86/package/analyzeresultsprogram.tar
 # Windows configuration
 CND_PLATFORM_Windows=MinGW-Windows
 CND_ARTIFACT_DIR_Windows=dist/Windows/MinGW-Windows
