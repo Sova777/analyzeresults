@@ -50,7 +50,7 @@
     <conf name="Linux" type="1" platformSpecific="true">
       <toolsSet>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>1</platform>
+        <platform>2</platform>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
