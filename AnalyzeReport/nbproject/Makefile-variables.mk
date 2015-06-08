@@ -7,13 +7,13 @@ CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
 # Linux configuration
-CND_PLATFORM_Linux=GNU-Linux-x86
-CND_ARTIFACT_DIR_Linux=dist/Linux/GNU-Linux-x86
+CND_PLATFORM_Linux=GNU-Solaris-x86
+CND_ARTIFACT_DIR_Linux=dist/Linux/GNU-Solaris-x86
 CND_ARTIFACT_NAME_Linux=analyzereport
-CND_ARTIFACT_PATH_Linux=dist/Linux/GNU-Linux-x86/analyzereport
-CND_PACKAGE_DIR_Linux=dist/Linux/GNU-Linux-x86/package
+CND_ARTIFACT_PATH_Linux=dist/Linux/GNU-Solaris-x86/analyzereport
+CND_PACKAGE_DIR_Linux=dist/Linux/GNU-Solaris-x86/package
 CND_PACKAGE_NAME_Linux=analyzereport.tar
-CND_PACKAGE_PATH_Linux=dist/Linux/GNU-Linux-x86/package/analyzereport.tar
+CND_PACKAGE_PATH_Linux=dist/Linux/GNU-Solaris-x86/package/analyzereport.tar
 # Solaris configuration
 CND_PLATFORM_Solaris=OracleSolarisStudio-Solaris-x86
 CND_ARTIFACT_DIR_Solaris=dist/Solaris/OracleSolarisStudio-Solaris-x86

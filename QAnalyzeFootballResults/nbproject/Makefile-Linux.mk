@@ -18,11 +18,11 @@ CC=gcc
 CCC=g++
 CXX=g++
 FC=gfortran
-AS=as
+AS=gas
 QMAKE=qmake
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Solaris-x86
 CND_DLIB_EXT=so
 CND_CONF=Linux
 CND_DISTDIR=dist
@@ -52,7 +52,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../AnalyzeFootballResults/dist/Unix/GNU-Linux-x86 -L../AnalyzeFootballResults/dist/Unix/GNU-Linux-x86 -lAnalyzeFootballResults
+LDLIBSOPTIONS=-R../AnalyzeFootballResults/dist/Unix/GNU-Solaris-x86 -L../AnalyzeFootballResults/dist/Unix/GNU-Solaris-x86 -lAnalyzeFootballResults
 
 nbproject/qt-${CND_CONF}.mk: nbproject/qt-${CND_CONF}.pro FORCE
 	${QMAKE} VPATH=. -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro
