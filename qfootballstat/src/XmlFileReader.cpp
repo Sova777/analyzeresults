@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009 - 2014, Valeriy Soldatov
+Copyright (c) 2009 - 2015, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -917,21 +917,22 @@ void listOfTeams(const XmlFilter& xmlFilter, StatHash* hash) {
             QString player1id = events.at(i).playerid;
             QString player2 = events.at(i).player2;
             QString player2id = events.at(i).playerid2;
-            QString team = events.at(i).team;
+            QString eventTeam1 = events.at(i).team;
             if (eventType == EVENT_SUBSTITUTION) {
-                QString key = QString("%1").arg(team);
+                QString key = QString("%1").arg(eventTeam1);
                 Record* record = Record::getInstance(hash, key);
                 QMap<QString, int>* map = record->getMap();
                 if (!map->contains(player2)) {
                     map->insert(player2, 0);
                 }
-                record->setString(team, 0);
+                record->setString(eventTeam1, 0);
             } else {
-                QString key = QString("%1").arg(team);
+                QString eventTeam2 = (eventTeam1 == team1) ? team2 : team1;
+                QString key = QString("%1").arg(eventTeam1);
                 Record* record = Record::getInstance(hash, key);
-                QString key2 = QString("%1").arg(team2);
+                QString key2 = QString("%1").arg(eventTeam2);
                 Record* record2 = Record::getInstance(hash, key2);
-                record->setString(team, 0);
+                record->setString(eventTeam1, 0);
                 if (eventType == EVENT_RED_CARD) {
                     record->add(1, 1);
                 } else if (eventType == EVENT_RED_YELLOW_CARD) {
