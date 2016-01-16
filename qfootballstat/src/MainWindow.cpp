@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009 - 2015, Valeriy Soldatov
+Copyright (c) 2009 - 2016, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -1053,6 +1053,8 @@ void MainWindow::report(const QString& fileName) {
                     text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/yellow2.png'>").arg(eventType).arg(team).arg(player));
                 } else if (eventType == EVENT_YELLOW_CARD) {
                     text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/yellow.png'>").arg(eventType).arg(team).arg(player));
+                } else if (eventType == EVENT_REPLACE_KEEPER) {
+                    text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5</td></tr>").arg(time).arg("<img src=':/icon/images/keeper.png'>").arg(eventType).arg(team).arg(player));
                 } else if (eventType == EVENT_SUBSTITUTION) {
                     text.append(QString("<tr><td>%1'</td><td>%2 %3</td><td>%4</td><td>%5 - %6</td></tr>").arg(time).arg("<img src=':/icon/images/subs.png'>").arg(eventType).arg(team).arg(player).arg(player2));
                 } else if (player2 == "") {

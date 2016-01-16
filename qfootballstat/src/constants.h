@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009 - 2015, Valeriy Soldatov
+Copyright (c) 2009 - 2016, Valeriy Soldatov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -57,6 +57,7 @@ const QString EVENT_SUBSTITUTION = QString::fromUtf8("Замена");
 const QString EVENT_YELLOW_CARD = QString::fromUtf8("Предупреждение");
 const QString EVENT_RED_CARD = QString::fromUtf8("Удаление");
 const QString EVENT_RED_YELLOW_CARD = QString::fromUtf8("Удаление и предупреждение");
+const QString EVENT_REPLACE_KEEPER= QString::fromUtf8("Замена вратаря");
 
 const QString STATUS_TIME = QString::fromUtf8("Время: %1 мс.");
 const QString STATUS_CALCULATING = QString::fromUtf8("Читаем с диска...");
