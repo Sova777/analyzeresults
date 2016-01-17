@@ -37,6 +37,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ui_MainWindow.h"
 #include "EditReport.h"
 #include "DumpToHtml.h"
+#include "actions/Actions.h"
 
 using namespace std;
 
